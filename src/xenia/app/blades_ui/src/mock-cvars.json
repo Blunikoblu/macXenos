@@ -143,6 +143,15 @@
 "description": "Do not modify - internal version of the default values in the config, for seamless updates if default value of any option is changed.",
 "changed": false
 },
+"config_arch": {
+"name": "config_arch",
+"category": "Config",
+"type": "string",
+"value": "",
+"defaultValue": "",
+"description": "Do not modify - the CPU architecture of the build that last saved this config (arm64 or x86_64). A config carried to a Mac of the other architecture (Migration Assistant, or the Intel half of the app under Rosetta) then takes that Mac's architecture-dependent defaults.",
+"changed": false
+},
 "notification_sound_path": {
 "name": "notification_sound_path",
 "category": "General",
