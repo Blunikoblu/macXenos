@@ -1,0 +1,10 @@
+# macXenos built-in per-title config: L.A. Noire (5454086C).
+# Streets and props are textured from data written by vertex shaders that
+# export to memory with a render target bound (MetalMemexportUnrouted
+# class=rasterizing-vertex). With that export class off (the Metal default)
+# billboards, pavements, road markings and balustrades render as coloured
+# speckle and block noise. Routed, the first drive renders clean; same
+# 30 fps and draws on the M4 mini (footprint 2594 -> 2523 MB).
+# (xenia-mac-evidence route-defects-1112/memexport-census/lanoire)
+[GPU]
+metal_memexport_raster = true
