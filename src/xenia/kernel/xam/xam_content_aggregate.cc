@@ -7,6 +7,7 @@
  ******************************************************************************
  */
 
+#include "xenia/base/cvar.h"
 #include "xenia/base/logging.h"
 #include "xenia/base/math.h"
 #include "xenia/base/string_util.h"
@@ -19,12 +20,22 @@
 #include "xenia/vfs/file.h"
 #include "xenia/xbox.h"
 
+DEFINE_bool(aggregate_disc_content, true,
+            "List the content packages on the game disc when a title "
+            "enumerates the optical drive's content across titles (Worms "
+            "Collection's launcher). false lists none, as before.",
+            "Content");
+
 namespace xe {
 namespace kernel {
 namespace xam {
 
-void AddODDContentTest(object_ref<XStaticEnumerator<XCONTENT_AGGREGATE_DATA>> e,
-                       XContentType content_type) {
+// Packages on the game disc, Content\0000000000000000\<title>\<type>\<file>
+// (Worms Collection keeps its three Xbox Live Arcade games there and lists
+// them with a cross-title enumeration of the optical drive).
+static void AddDiscContent(
+    object_ref<XStaticEnumerator<XCONTENT_CROSS_TITLE_DATA>> e,
+    XContentType content_type, uint32_t title_id_filter) {
   auto root_entry = kernel_state()->file_system()->ResolvePath(
       "GAME:\\Content\\0000000000000000");
   if (!root_entry) {
@@ -50,27 +61,35 @@ void AddODDContentTest(object_ref<XStaticEnumerator<XCONTENT_AGGREGATE_DATA>> e,
 
     auto title_id =
         string_util::from_string<uint32_t>(title_entry->name(), true);
+    if (title_id_filter && title_id != title_id_filter) {
+      continue;
+    }
 
     auto content_root_entry = title_entry->ResolvePath(content_type_path);
-    if (content_root_entry) {
-      size_t content_find_index = 0;
-      vfs::Entry* content_entry;
-      for (;;) {
-        content_entry = content_root_entry->IterateChildren(
-            content_find_engine, &content_find_index);
-        if (!content_entry) {
-          break;
-        }
+    if (!content_root_entry) {
+      continue;
+    }
+    size_t content_find_index = 0;
+    vfs::Entry* content_entry;
+    for (;;) {
+      content_entry = content_root_entry->IterateChildren(content_find_engine,
+                                                          &content_find_index);
+      if (!content_entry) {
+        break;
+      }
+      if (content_entry->attributes() & vfs::kFileAttributeDirectory) {
+        continue;
+      }
 
-        auto item = e->AppendItem();
-        assert_not_null(item);
-        if (item) {
-          item->device_id = static_cast<uint32_t>(DummyDeviceId::ODD);
-          item->content_type = content_type;
-          item->set_display_name(to_utf16(content_entry->name()));
-          item->set_file_name(content_entry->name());
-          item->title_id = title_id;
-        }
+      auto item = e->AppendItem();
+      assert_not_null(item);
+      if (item) {
+        item->content_data.device_id =
+            static_cast<uint32_t>(DummyDeviceId::ODD);
+        item->content_data.content_type = content_type;
+        item->content_data.set_display_name(to_utf16(content_entry->name()));
+        item->content_data.set_file_name(content_entry->name());
+        item->title_id = title_id;
       }
     }
   }
@@ -140,9 +159,10 @@ dword_result_t XamContentAggregateCreateEnumerator_entry(qword_t xuid,
     }
   }
 
-  // if (!device_info || device_info->device_type == DeviceType::ODD) {
-  //   AddODDContentTest(e, content_type_enum);
-  // }
+  if (cvars::aggregate_disc_content &&
+      (!device_info || device_info->device_type == DeviceType::ODD)) {
+    AddDiscContent(e, content_type_enum, title_id);
+  }
 
   XELOGD("XamContentAggregateCreateEnumerator: added {} items to enumerator",
          e->item_count());

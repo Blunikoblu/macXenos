@@ -7,6 +7,8 @@
  ******************************************************************************
  */
 
+#include <thread>
+
 #include "xenia/base/logging.h"
 #include "xenia/base/math.h"
 #include "xenia/base/string_util.h"
@@ -20,6 +22,7 @@
 #include "xenia/kernel/xboxkrnl/xboxkrnl_module.h"
 #include "xenia/kernel/xboxkrnl/xboxkrnl_threading.h"
 #include "xenia/kernel/xenumerator.h"
+#include "xenia/kernel/xthread.h"
 #include "xenia/ui/imgui_dialog.h"
 #include "xenia/ui/imgui_drawer.h"
 #include "xenia/vfs/devices/stfs_xbox.h"
@@ -826,6 +829,29 @@ dword_result_t xeXamContentLaunchImage(dword_t user_index,
   loader_data.launch_path = xex_path.value();
 
   xam->SaveLoaderData();
+
+  // Boot the package in a fresh process when the host app can (macOS), the
+  // way XamLoaderLaunchTitle does: Worms Collection's launcher starts each of
+  // its Xbox Live Arcade games this way.
+  const auto& launch_new_title =
+      kernel_state()->emulator()->on_launch_new_title();
+  if (launch_new_title) {
+    std::string launch_module = loader_data.launch_path;
+    XELOGI("XamContentLaunchImage: relaunching package '{}' module '{}'",
+           xe::path_to_utf8(host_path), launch_module);
+    std::thread([launch_new_title, host = xe::path_to_utf8(host_path),
+                 launch_module, flags = uint32_t(flag)]() {
+      launch_new_title(host, launch_module, flags, {});
+    }).detach();
+    // The handler terminates the title, this thread included.
+    auto* current_thread = XThread::GetCurrentThread();
+    while (true) {
+      if (current_thread) {
+        current_thread->SelfSuspend();
+      }
+      xe::threading::NanoSleep(int64_t(1'000'000'000));
+    }
+  }
 
   auto display_window = kernel_state()->emulator()->display_window();
   auto imgui_drawer = kernel_state()->emulator()->imgui_drawer();
