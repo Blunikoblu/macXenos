@@ -665,7 +665,7 @@ dword_result_t XamShowDeviceSelectorUI_entry(
       // with a single storage device. Supreme Commander 2 calls this from a
       // short-lived thread that reads the overlapped result once, right
       // after the call; a deferred completion leaves its picker "pending"
-      // forever (the storage prompt loops and the menu stops taking input).
+      // forever and the "select a storage device" prompt loops.
       X_RESULT result = X_ERROR_CANCELLED;
       if (!devices.empty()) {
         *device_id_ptr = static_cast<uint32_t>(devices.front()->device_id);
