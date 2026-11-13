@@ -42,6 +42,15 @@ DEFINE_bool(storage_selection_dialog, false,
             "Show storage device selection dialog when the game requests it.",
             "UI");
 
+DEFINE_bool(device_selector_complete_immediately, true,
+            "When no storage device dialog is shown (headless, or "
+            "storage_selection_dialog off), complete XamShowDeviceSelectorUI "
+            "before it returns, the way a console with one storage device "
+            "does. Titles that check the request once, right after the call "
+            "(Supreme Commander 2), otherwise see it still pending and never "
+            "get a device. false restores the deferred completion.",
+            "UI");
+
 DEFINE_transient_string(headless_keyboard_text, "",
               "With headless, the text the on-screen keyboard returns when the "
               "game offers none (scripted test routes that must type a name). "
@@ -650,6 +659,34 @@ dword_result_t XamShowDeviceSelectorUI_entry(
 
   if (cvars::headless || !cvars::storage_selection_dialog) {
     // Default to the first storage device (HDD) if headless.
+    if (cvars::device_selector_complete_immediately) {
+      // No UI is shown, so nothing is left to wait for: XAM picks the device
+      // and completes the request before returning, as it does on a console
+      // with a single storage device. Supreme Commander 2 calls this from a
+      // short-lived thread that reads the overlapped result once, right
+      // after the call; a deferred completion leaves its picker "pending"
+      // forever (the storage prompt loops and the menu stops taking input).
+      X_RESULT result = X_ERROR_CANCELLED;
+      if (!devices.empty()) {
+        *device_id_ptr = static_cast<uint32_t>(devices.front()->device_id);
+        result = X_ERROR_SUCCESS;
+      }
+      XELOGI(
+          "XamShowDeviceSelectorUI: no dialog; content_type={:08X} "
+          "flags={:08X} -> device {:08X}, completed before return",
+          uint32_t(content_type), uint32_t(content_flags),
+          uint32_t(*device_id_ptr));
+      // The system UI notifications still bracket the request, as they do
+      // for every other headless dialog.
+      kernel_state()->BroadcastNotification(kXNotificationSystemUI, true);
+      kernel_state()->CompleteOverlappedImmediateEx(overlapped.guest_address(),
+                                                    result, result, 0);
+      std::thread([]() {
+        xe::threading::Sleep(kUIDelayMillis);
+        kernel_state()->BroadcastNotification(kXNotificationSystemUI, false);
+      }).detach();
+      return X_ERROR_IO_PENDING;
+    }
     return xeXamDispatchHeadless(
         [device_id_ptr, devices]() -> X_RESULT {
           if (devices.empty()) {
