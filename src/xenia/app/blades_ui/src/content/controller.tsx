@@ -220,6 +220,38 @@ function ConnectedValue() {
   return <>{count === 0 ? "None" : count === 1 ? "1 connected" : `${count} connected`}</>;
 }
 
+/** The Vibration pane: the switch, a test pulse, and a note for a connected
+    controller that reports no motors (the switch does nothing for it). */
+function Vibration() {
+  const state = useNative();
+  const enabled = state.cvars.vibration?.value !== false;
+  const present = state.controllers.filter((c) => c.present);
+  const silent = present.filter((c) => !c.rumble);
+  const canTest = enabled && present.some((c) => c.rumble);
+  return (
+    <>
+      <p>{t("controller.vibration.body")}</p>
+      <Toggle name="vibration" title="Vibration" />
+      <PaneAction
+        disabled={!canTest}
+        onSelect={() => send({ op: "action", id: "testVibration" })}
+      >
+        {t("controller.vibration.test")}
+      </PaneAction>
+      {present.length === 0 ? (
+        <Aside>{t("controller.vibration.connect")}</Aside>
+      ) : !enabled ? (
+        <Aside>{t("controller.vibration.turnOn")}</Aside>
+      ) : null}
+      {silent.map((c) => (
+        <Aside key={c.slot}>
+          {t("controller.vibration.noMotors", { name: c.name || PLAYERS[c.slot] })}
+        </Aside>
+      ))}
+    </>
+  );
+}
+
 export function controller(_state: NativeState): BladeDef {
   return {
     id: "controller",
@@ -260,12 +292,7 @@ export function controller(_state: NativeState): BladeDef {
         glyph: "bolt",
         value: <Value name="vibration" />,
         heading: "Vibration",
-        detail: (
-          <>
-            <p>Rumble when the game asks for it.</p>
-            <Toggle name="vibration" title="Vibration" />
-          </>
-        )
+        detail: <Vibration />
       },
       {
         id: "deadzones",

@@ -10,6 +10,7 @@
 #ifndef XENIA_HID_INPUT_SYSTEM_H_
 #define XENIA_HID_INPUT_SYSTEM_H_
 
+#include <array>
 #include <bitset>
 #include <memory>
 #include <vector>
@@ -48,12 +49,35 @@ class InputSystem {
   // GetState above.
   X_RESULT GetStateSnapshot(uint32_t user_index, uint32_t flags,
                             X_INPUT_STATE* out_state);
+  // The guest's vibration request (XamInputSetState). Remembered per slot,
+  // so it can be silenced and restored without the guest's help.
   X_RESULT SetState(uint32_t user_index, X_INPUT_VIBRATION* vibration);
   X_RESULT GetKeystroke(uint32_t user_index, uint32_t flags,
                         X_INPUT_KEYSTROKE* out_keystroke);
 
   bool GetVibrationCvar();
+  // Flips the vibration setting and applies it at once (RefreshVibration).
   void ToggleVibration();
+
+  // Vibration the host controls. Callers hold lock().
+  //
+  // The guest only stops a rumble by asking, and a guest that is frozen (the
+  // dashboard is open) or gone (the title was closed) cannot ask: the motors
+  // would run on. SuspendVibration silences them while keeping what the
+  // guest asked for, ResumeVibration restores it, ResetVibration forgets it
+  // (title closed).
+  void SuspendVibration();
+  void ResumeVibration();
+  void ResetVibration();
+  // Re-sends every slot's vibration under the current setting and suspension:
+  // after the vibration setting changes, so "off" stops the motors now and
+  // "on" brings back a rumble the guest still wants.
+  void RefreshVibration();
+  // A host test pulse (the dashboard's Test vibration): full strength on both
+  // motors while `on`, whatever the guest asked for and even while
+  // suspended; `on` false goes back to the slot's proper state. False when
+  // no driver took it (no controller, or the vibration setting is off).
+  bool TestVibration(uint32_t user_index, bool on);
 
   // Returns the identity (kind/name) of the controller in the given slot for UI
   // display, querying the controller drivers. Identity.present is false for an
@@ -97,6 +121,8 @@ class InputSystem {
   void UpdateUsedSlot(InputDriver* driver, uint8_t slot, bool connected);
   void AdjustDeadzoneLevels(const uint8_t slot, X_INPUT_GAMEPAD* gamepad);
   X_INPUT_VIBRATION ModifyVibrationLevel(X_INPUT_VIBRATION* vibration);
+  // Sends one slot's vibration to the drivers (through the setting).
+  X_RESULT ApplyVibration(uint32_t user_index, X_INPUT_VIBRATION vibration);
   X_RESULT GetStateInternal(uint32_t user_index, uint32_t flags,
                             X_INPUT_STATE* out_state, bool snapshot_only);
 
@@ -112,6 +138,11 @@ class InputSystem {
   std::array<std::pair<joystick_value, joystick_value>, XUserMaxUserCount>
       controllers_max_joystick_value = {};
   uint32_t last_used_slot = 0;
+
+  // What the guest last asked each slot's motors to do, and whether the host
+  // is holding them silent (SuspendVibration).
+  std::array<X_INPUT_VIBRATION, XUserMaxUserCount> guest_vibration_ = {};
+  bool vibration_suspended_ = false;
 
   xe_unlikely_mutex lock_;
 };

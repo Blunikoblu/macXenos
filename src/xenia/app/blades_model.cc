@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <array>
 #include <cctype>
+#include <chrono>
 #include <cstdint>
 #include <cmath>
 #include <cstdlib>
@@ -20,6 +21,7 @@
 #include <fstream>
 #include <filesystem>
 #include <map>
+#include <thread>
 
 #include "rapidjson/document.h"
 #include "rapidjson/stringbuffer.h"
@@ -529,6 +531,8 @@ void BladesModel::WriteControllers(StateWriter& w) {
       w.String(ControllerKindName(identity.kind));
       w.Key("name");
       w.String(identity.name.c_str());
+      w.Key("rumble");
+      w.Bool(identity.rumble);
       w.EndObject();
       if (identity.present && rebind_slot < 0) {
         rebind_slot = int(slot);
@@ -1242,6 +1246,12 @@ BladesModel::Result BladesModel::HandleMessage(const std::string& json) {
     if (name == "show_fps") {
       window_.UpdateFpsOverlay();
     }
+    if (name == "vibration" && input) {
+      // As the hotkey does: off stops the motors now, on restores a rumble
+      // the game still wants.
+      auto lock = input->lock();
+      input->RefreshVibration();
+    }
 #if XE_PLATFORM_MAC
     if (name == "preferences_button") {
       SetControllerHomeButtonClaimed(cvars::preferences_button == "guide");
@@ -1646,6 +1656,34 @@ BladesModel::Result BladesModel::HandleMessage(const std::string& json) {
     if (id == "relaunch") {
       config::SaveConfig();
       return Result::kRelaunch;
+    }
+    if (id == "testVibration") {
+      // The Controller blade's Test vibration: a short full-strength pulse
+      // on every connected controller, so rumble can be felt without a
+      // game. A host pulse (InputSystem::TestVibration): it works while the
+      // dashboard has a game frozen and leaves the game's own request alone.
+      if (input) {
+        bool any = false;
+        {
+          auto lock = input->lock();
+          for (uint32_t slot = 0; slot < XUserMaxUserCount; ++slot) {
+            any |= input->TestVibration(slot, true);
+          }
+        }
+        if (any) {
+          std::thread([input] {
+            std::this_thread::sleep_for(std::chrono::milliseconds(350));
+            auto lock = input->lock();
+            for (uint32_t slot = 0; slot < XUserMaxUserCount; ++slot) {
+              input->TestVibration(slot, false);
+            }
+          }).detach();
+        } else {
+          XELOGI("Blades: test vibration reached no controller (none "
+                 "connected, or vibration is off)");
+        }
+      }
+      return Result::kNone;
     }
 #if XE_PLATFORM_MAC
     if (id == "checkForUpdates") {

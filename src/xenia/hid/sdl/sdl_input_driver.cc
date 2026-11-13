@@ -479,6 +479,10 @@ bool SDLInputDriver::GetControllerIdentity(uint32_t user_index,
     out_identity->present = true;
     out_identity->kind = state.kind;
     out_identity->name = state.name;
+#if SDL_VERSION_ATLEAST(2, 0, 18)
+    out_identity->rumble =
+        SDL_GameControllerHasRumble(state.sdl) == SDL_TRUE;
+#endif
   }
   return true;
 }

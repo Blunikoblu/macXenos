@@ -293,6 +293,39 @@ const tests = {
     expect(row === "Volume95%", `row reads ${row}`);
   },
 
+  async "Vibration offers a test, and says when a controller cannot rumble"(page, base) {
+    await page.open(base, "#controller/vibration");
+    const pane = "document.querySelector('.blade[data-state=open] .menu-detail:not([hidden])')";
+    const test = `[...${pane}.querySelectorAll('button')].find((b) => b.textContent === 'Test vibration')`;
+    expect(await page.eval(`!!${test}`), "no Test vibration button");
+    expect((await page.eval(`${test}.getAttribute('aria-disabled')`)) === null,
+      "the test is disabled with a controller that rumbles");
+    const push = (edit) => page.eval(`import("/src/mock.ts").then(({ mockState }) => {
+      const state = mockState();
+      (${edit})(state);
+      window.__xeniaReceive(JSON.stringify(state));
+    })`);
+    // A controller that reports no motors: named in a note, and nothing to test.
+    await push("(s) => { s.controllers[0].rumble = false; s.controllers[0].name = 'Plain Pad'; }");
+    await page.eval("new Promise((r) => setTimeout(r, 100))");
+    expect((await page.eval(`${pane}.textContent`)).includes("Plain Pad does not report vibration motors"),
+      "no note for a controller without motors");
+    expect((await page.eval(`${test}.getAttribute('aria-disabled')`)) === "true",
+      "the test is offered for a controller without motors");
+    // Vibration off: the test is unavailable and says why.
+    await push("(s) => { s.cvars.vibration.value = false; }");
+    await page.eval("new Promise((r) => setTimeout(r, 100))");
+    expect((await page.eval(`${pane}.textContent`)).includes("Turn vibration on to test it."),
+      "no hint with vibration off");
+    expect((await page.eval(`${test}.getAttribute('aria-disabled')`)) === "true",
+      "the test is offered with vibration off");
+    // No controller at all.
+    await push("(s) => { s.controllers[0].present = false; }");
+    await page.eval("new Promise((r) => setTimeout(r, 100))");
+    expect((await page.eval(`${pane}.textContent`)).includes("Connect a controller to test its vibration."),
+      "no hint without a controller");
+  },
+
   async "Game installs chooses a folder and goes back to the default"(page, base) {
     await page.open(base, "#system/installs");
     const pane = "document.querySelector('.blade[data-state=open] .menu-detail:not([hidden])')";
