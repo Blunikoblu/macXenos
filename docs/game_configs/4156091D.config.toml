@@ -1,0 +1,9 @@
+# macXenos built-in per-title config: Call of Duty: Black Ops III (4156091D).
+# The title screen's background is drawn from data written by vertex shaders
+# that export to memory with a render target bound (MetalMemexportUnrouted
+# class=rasterizing-vertex). With that export class off (the Metal default)
+# the "Press A to Start" screen is black behind the text; routed, the
+# artwork renders, 60 fps both ways (M1 Max, 2.0 -> 2.5 commits/frame).
+# (xenia-mac-evidence route-defects-1112/memexport-census/bo3)
+[GPU]
+metal_memexport_raster = true
