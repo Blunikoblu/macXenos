@@ -1,0 +1,11 @@
+# macXenos built-in per-title config: Star Trek (2013) (4E4D085B).
+# Unreal Engine 3 writes texture data through vertex shaders that export to
+# memory while a render target is bound (MetalMemexportUnrouted
+# class=rasterizing-vertex, 16 distinct ranges by the bridge title). With
+# that export class off (the Metal default, for its cost elsewhere) the
+# textures keep stale bytes: the title text, menus, faces, uniforms and wall
+# consoles render as multicoloured block noise that differs run to run.
+# Routed, the bridge title, character select and the opening cutscene render
+# clean. (xenia-mac-evidence route-defects-1112/startrek)
+[GPU]
+metal_memexport_raster = true
