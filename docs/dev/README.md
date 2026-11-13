@@ -15,6 +15,12 @@ dashboard) is the Blades page in
 in a WKWebView over the game. The ImGui settings dialogs it replaced are
 gone; add new user-facing settings there, not as dialogs.
 
+## Performance checkpoints
+
+[frame_costs.md](frame_costs.md) and its `frame_costs.tsv`: where each
+frame's time goes (command processor, GPU, guest threads) per title, machine
+and commit, recorded at checkpoints so gains and regressions show up.
+
 ## Moonshots
 
 Ambitious features recorded for one day, with what is already known:
