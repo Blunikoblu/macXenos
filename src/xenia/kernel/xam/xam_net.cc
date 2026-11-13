@@ -7,6 +7,7 @@
  ******************************************************************************
  */
 
+#include "xenia/base/cvar.h"
 #include "xenia/base/logging.h"
 #include "xenia/kernel/kernel_state.h"
 #include "xenia/kernel/util/shim_utils.h"
@@ -31,6 +32,14 @@
 #include <sys/select.h>
 #include <sys/socket.h>
 #endif
+
+DEFINE_bool(xnet_resolve_own_address, true,
+            "XNetXnAddrToInAddr resolves the console's own XNADDR (what "
+            "XNetGetTitleXnAddr and a hosted session report) to its address, "
+            "and XNetQosListen succeeds. A title that hosts a local or "
+            "system-link session looks itself up this way (Shadowrun). false "
+            "restores the old stubs, which fail both.",
+            "Network");
 
 namespace xe {
 namespace kernel {
@@ -516,8 +525,7 @@ struct XnAddrStatus {
   static constexpr uint32_t XNET_GET_XNADDR_TROUBLESHOOT = 0x00008000;
 };
 
-dword_result_t NetDll_XNetGetTitleXnAddr_entry(dword_t caller,
-                                               pointer_t<XNADDR> addr_ptr) {
+static void FillTitleXnAddrInternal(XNADDR* addr_ptr) {
   // Just return a loopback address atm.
   addr_ptr->ina.s_addr = htonl(INADDR_LOOPBACK);
   addr_ptr->inaOnline.s_addr = 0;
@@ -537,7 +545,15 @@ dword_result_t NetDll_XNetGetTitleXnAddr_entry(dword_t caller,
   std::memset(addr_ptr->abEnet, 0xCC, 6);
 
   std::memset(addr_ptr->abOnline, 0, 20);
+}
 
+void FillTitleXnAddr(void* xnaddr) {
+  FillTitleXnAddrInternal(reinterpret_cast<XNADDR*>(xnaddr));
+}
+
+dword_result_t NetDll_XNetGetTitleXnAddr_entry(dword_t caller,
+                                               pointer_t<XNADDR> addr_ptr) {
+  FillTitleXnAddrInternal(addr_ptr);
   return XnAddrStatus::XNET_GET_XNADDR_STATIC;
 }
 DECLARE_XAM_EXPORT1(NetDll_XNetGetTitleXnAddr, kNetworking, kStub);
@@ -579,6 +595,18 @@ DECLARE_XAM_EXPORT1(NetDll_XNetInAddrToString, kNetworking, kImplemented);
 dword_result_t NetDll_XNetXnAddrToInAddr_entry(dword_t caller,
                                                pointer_t<XNADDR> xn_addr,
                                                lpvoid_t xid, lpvoid_t in_addr) {
+  if (cvars::xnet_resolve_own_address && xn_addr && in_addr) {
+    // The console's own address (the host of a session it created) resolves
+    // to the address it reports for itself; there is no other peer to reach.
+    XNADDR own = {};
+    FillTitleXnAddrInternal(&own);
+    if (!std::memcmp(xn_addr->abEnet, own.abEnet, sizeof(own.abEnet))) {
+      std::memcpy(in_addr, &own.ina, sizeof(own.ina));
+      XELOGD("XNetXnAddrToInAddr: own address -> {:08X}",
+             uint32_t(ntohl(own.ina.s_addr)));
+      return 0;
+    }
+  }
   return 1;
 }
 DECLARE_XAM_EXPORT1(NetDll_XNetXnAddrToInAddr, kNetworking, kStub);
@@ -677,7 +705,9 @@ DECLARE_XAM_EXPORT1(NetDll_XNetQosRelease, kNetworking, kStub);
 dword_result_t NetDll_XNetQosListen_entry(dword_t caller, lpvoid_t id,
                                           lpvoid_t data, dword_t data_size,
                                           dword_t r7, dword_t flags) {
-  return X_ERROR_FUNCTION_FAILED;
+  // Nothing probes this console, so listening (or releasing) always works.
+  return cvars::xnet_resolve_own_address ? X_ERROR_SUCCESS
+                                         : X_ERROR_FUNCTION_FAILED;
 }
 DECLARE_XAM_EXPORT1(NetDll_XNetQosListen, kNetworking, kStub);
 

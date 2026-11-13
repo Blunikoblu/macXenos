@@ -19,6 +19,10 @@ namespace xam {
 
 xe::cpu::Export* RegisterExport_xam(xe::cpu::Export* export_entry);
 
+// Writes the console's own XNADDR (0x24 bytes, the layout
+// XNetGetTitleXnAddr returns) to `xnaddr`.
+void FillTitleXnAddr(void* xnaddr);
+
 // Registration functions, one per file.
 #define XE_MODULE_EXPORT_GROUP(m, n)                                  \
   void Register##n##Exports(xe::cpu::ExportResolver* export_resolver, \

@@ -10,7 +10,13 @@
 #include "xenia/kernel/xam/apps/xgi_app.h"
 #include "xenia/kernel/xsession.h"
 
+#include "xenia/base/cvar.h"
 #include "xenia/base/logging.h"
+#include "xenia/kernel/xam/xam_private.h"
+
+#include <random>
+
+DECLARE_bool(xnet_resolve_own_address);
 
 namespace xe {
 namespace kernel {
@@ -224,6 +230,32 @@ X_HRESULT XgiApp::DispatchMessageSync(uint32_t message, uint32_t buffer_ptr,
 
       if (IsXboxLiveSession(static_cast<SessionFlags>(flags))) {
         return 0x80155209;  // X_ONLINE_E_SESSION_NOT_LOGGED_ON
+      }
+
+      // A hosted session reports its id, this console as the host and a key
+      // exchange key in XSESSION_INFO, and a nonce. Shadowrun resolves the
+      // host address with XNetXnAddrToInAddr right after creating its lobby
+      // and leaves it ~10 s later when the zeroed info resolves to nothing.
+      if (cvars::xnet_resolve_own_address &&
+          (flags & SessionFlags::HOST) && session_info_ptr) {
+        std::random_device rd;
+        std::mt19937_64 rng((uint64_t(rd()) << 32) ^ rd());
+        uint8_t* info = memory_->TranslateVirtual<uint8_t*>(session_info_ptr);
+        // XSESSION_INFO: XNKID sessionID (8), XNADDR hostAddress (0x24),
+        // XNKEY keyExchangeKey (0x10).
+        uint64_t session_id = rng();
+        // XNKID flag byte: 0x00 = system link / local (no online bit).
+        session_id &= ~(uint64_t(0xFF) << 56);
+        xe::store_and_swap<uint64_t>(info + 0x0, session_id ? session_id : 1);
+        FillTitleXnAddr(info + 0x8);
+        xe::store_and_swap<uint64_t>(info + 0x2C, rng());
+        xe::store_and_swap<uint64_t>(info + 0x34, rng());
+        if (nonce_ptr) {
+          xe::store_and_swap<uint64_t>(
+              memory_->TranslateVirtual<uint8_t*>(nonce_ptr), rng());
+        }
+        XELOGD("XGISessionCreateImpl: host session id {:016X}",
+               xe::load_and_swap<uint64_t>(info));
       }
 
       return X_E_SUCCESS;
