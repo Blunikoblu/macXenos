@@ -51,9 +51,18 @@ UPDATE_from_uint64(framerate_limit, 2024, 8, 31, 20, 60);
 
 DEFINE_bool(limit_uncapped_games, false,
             "Hold games that present without waiting for vblank (they have no "
-            "frame rate cap of their own, e.g. GTA IV, Mafia II) to one frame "
-            "per vblank, 60 FPS. Games that cap themselves are unaffected.",
+            "frame rate cap of their own, e.g. GTA IV, Mafia II) to "
+            "uncapped_games_fps. Games that cap themselves are unaffected.",
             "GPU");
+
+DEFINE_uint32(uncapped_games_fps, 60,
+              "The cap limit_uncapped_games holds uncapped games to, in frames "
+              "per second. 60 holds them to one frame per guest vblank; any "
+              "other value paces their presents on the Mac's clock, for high "
+              "refresh displays (120, 144, 180, 240...). Games whose own frame "
+              "rate is already at or below it are never held. "
+              "Value range: [30-1000]",
+              "GPU");
 
 DEFINE_bool(scanline_counter_from_time, true,
             "Report the display scanline counter (D1MODE_V_COUNTER) from the "
