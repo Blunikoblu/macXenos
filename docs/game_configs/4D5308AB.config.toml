@@ -1,0 +1,10 @@
+# macXenos built-in per-title config: Gears of War 3 (4D5308AB).
+# Character faces are built by vertex shaders that export to memory with a
+# render target bound (MetalMemexportUnrouted class=rasterizing-vertex), as
+# in Halo: Reach. With that export class off (the Metal default) Anya's face
+# in the opening prison cutscene renders as a blank white mask. Routed, the
+# faces render; same 30 fps, draws and commits on the M4 mini, footprint
+# 2459 -> 2425 MB.
+# (xenia-mac-evidence route-defects-1112/memexport-census/gears3)
+[GPU]
+metal_memexport_raster = true
