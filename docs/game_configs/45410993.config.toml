@@ -1,0 +1,10 @@
+# macXenos built-in per-title config: Medal of Honor: Warfighter (45410993).
+# Frostbite 2 writes character and gear texture data through vertex shaders
+# that export to memory with a render target bound (MetalMemexportUnrouted
+# class=rasterizing-vertex, 16+ distinct ranges). With that export class off
+# (the Metal default) soldiers' hats, camo and rifles render as striped
+# noise and purple/red blotches while the environment is fine. Routed, the
+# Karachi harbour opening renders the characters clean (M1 Max).
+# (xenia-mac-evidence route-defects-1112/mohw)
+[GPU]
+metal_memexport_raster = true

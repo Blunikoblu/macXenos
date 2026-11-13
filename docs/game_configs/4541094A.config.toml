@@ -1,0 +1,11 @@
+# macXenos built-in per-title config: Need for Speed: The Run (4541094A).
+# Frostbite 2 writes data its in-engine scenes sample through vertex shaders
+# that export to memory with a render target bound (MetalMemexportUnrouted
+# class=rasterizing-vertex, 16+ distinct ranges), the same class as Medal of
+# Honor: Warfighter. With that export class off (the Metal default) every
+# in-engine scene rendered as saturated rainbow false colour with black
+# voids. Routed, the opening cutscene and the main menu's street render
+# clean at 30 fps (M1 Max).
+# (xenia-mac-evidence route-defects-1112/nfsrun)
+[GPU]
+metal_memexport_raster = true

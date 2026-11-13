@@ -1,0 +1,10 @@
+# macXenos built-in per-title config: LEGO Indiana Jones 2 (4C4107ED).
+# The in-engine warehouse title scene fills buffers through vertex shaders
+# that export to memory with a render target bound (MetalMemexportUnrouted
+# class=rasterizing-vertex). With that export class off (the Metal default)
+# the scene broke into huge flat polygon shards with a strip of texture
+# noise over the logo a few seconds in, so no menu was readable. Routed, the
+# title and attract scenes render clean through two title cycles (M1 Max).
+# (xenia-mac-evidence route-defects-1112/legoindy2)
+[GPU]
+metal_memexport_raster = true
