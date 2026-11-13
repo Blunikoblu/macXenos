@@ -10,6 +10,7 @@
 #ifndef XENIA_APU_SDL_SDL_AUDIO_DRIVER_H_
 #define XENIA_APU_SDL_SDL_AUDIO_DRIVER_H_
 
+#include <cstdint>
 #include <mutex>
 #include <queue>
 #include <stack>
@@ -56,6 +57,20 @@ class SDLAudioDriver : public AudioDriver {
   std::queue<float*> frames_queued_ = {};
   std::stack<float*> frames_unused_ = {};
   std::mutex frames_mutex_ = {};
+
+  // XE_APU_STATS=1: device-side pacing, logged every 5 s from the SDL
+  // callback (guarded by frames_mutex_). An underrun is a device callback
+  // that found no guest frame queued and played silence.
+  void LogStatsLocked();
+  bool stats_enabled_ = false;
+  uint64_t stats_window_start_ticks_ = 0;
+  uint32_t stats_callbacks_ = 0;
+  uint32_t stats_submitted_ = 0;
+  uint32_t stats_underruns_ = 0;
+  uint32_t stats_underrun_runs_ = 0;
+  bool stats_in_underrun_ = false;
+  size_t stats_depth_min_ = SIZE_MAX;
+  size_t stats_depth_max_ = 0;
 };
 
 }  // namespace sdl

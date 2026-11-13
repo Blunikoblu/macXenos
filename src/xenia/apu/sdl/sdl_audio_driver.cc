@@ -10,6 +10,7 @@
 #include "xenia/apu/sdl/sdl_audio_driver.h"
 
 #include <algorithm>
+#include <cstdlib>
 #include <cstring>
 
 #include "xenia/apu/apu_flags.h"
@@ -101,6 +102,16 @@ bool SDLAudioDriver::Initialize() {
   }
   sdl_device_channels_ = obtained_spec.channels;
 
+  stats_enabled_ = std::getenv("XE_APU_STATS") != nullptr;
+  if (stats_enabled_) {
+    XELOGI(
+        "ApuStats device {}: {} Hz, {} guest channels -> {} device channels, "
+        "{} samples/callback (needs {:.1f} guest frames/s)",
+        sdl_device_id_, obtained_spec.freq, frame_channels_,
+        sdl_device_channels_, obtained_spec.samples,
+        double(obtained_spec.freq) / double(channel_samples_));
+  }
+
   SDL_PauseAudioDevice(sdl_device_id_, 0);
 
   return true;
@@ -123,7 +134,37 @@ void SDLAudioDriver::SubmitFrame(float* frame) {
   {
     std::unique_lock<std::mutex> guard(frames_mutex_);
     frames_queued_.push(output_frame);
+    ++stats_submitted_;
   }
+}
+
+void SDLAudioDriver::LogStatsLocked() {
+  const uint64_t now = SDL_GetTicks64();
+  if (!stats_window_start_ticks_) {
+    stats_window_start_ticks_ = now;
+    return;
+  }
+  const uint64_t elapsed_ms = now - stats_window_start_ticks_;
+  if (elapsed_ms < 5000) {
+    return;
+  }
+  const double seconds = double(elapsed_ms) / 1000.0;
+  XELOGI(
+      "ApuStats device {} {:.1f}s: callbacks {} ({:.1f}/s), guest frames "
+      "submitted {} ({:.1f}/s), underruns {} in {} runs ({:.1f}% silent), "
+      "queue depth {}-{}",
+      sdl_device_id_, seconds, stats_callbacks_, stats_callbacks_ / seconds,
+      stats_submitted_, stats_submitted_ / seconds, stats_underruns_,
+      stats_underrun_runs_,
+      stats_callbacks_ ? 100.0 * stats_underruns_ / stats_callbacks_ : 0.0,
+      stats_depth_min_ == SIZE_MAX ? 0 : stats_depth_min_, stats_depth_max_);
+  stats_window_start_ticks_ = now;
+  stats_callbacks_ = 0;
+  stats_submitted_ = 0;
+  stats_underruns_ = 0;
+  stats_underrun_runs_ = 0;
+  stats_depth_min_ = SIZE_MAX;
+  stats_depth_max_ = 0;
 }
 
 void SDLAudioDriver::Pause() { SDL_PauseAudioDevice(sdl_device_id_, 1); }
@@ -161,6 +202,20 @@ void SDLAudioDriver::SDLCallback(void* userdata, Uint8* stream, int len) {
                          driver->sdl_device_channels_);
 
   std::unique_lock<std::mutex> guard(driver->frames_mutex_);
+  if (driver->stats_enabled_) {
+    const size_t depth = driver->frames_queued_.size();
+    ++driver->stats_callbacks_;
+    driver->stats_depth_min_ = std::min(driver->stats_depth_min_, depth);
+    driver->stats_depth_max_ = std::max(driver->stats_depth_max_, depth);
+    if (!depth) {
+      ++driver->stats_underruns_;
+      if (!driver->stats_in_underrun_) {
+        ++driver->stats_underrun_runs_;
+      }
+    }
+    driver->stats_in_underrun_ = !depth;
+    driver->LogStatsLocked();
+  }
   if (driver->frames_queued_.empty()) {
     std::memset(stream, 0, len);
   } else {

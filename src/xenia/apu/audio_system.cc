@@ -9,6 +9,9 @@
 
 #include "xenia/apu/audio_system.h"
 
+#include <chrono>
+#include <cstdlib>
+
 #include "xenia/apu/apu_flags.h"
 #include "xenia/apu/audio_driver.h"
 #include "xenia/apu/xma_decoder.h"
@@ -101,13 +104,34 @@ void AudioSystem::WorkerThreadMain() {
   // Initialize driver and ringbuffer.
   Initialize();
 
+  // XE_APU_STATS=1: per-client guest callback cost, logged every 5 s. Each
+  // callback must produce one 256-sample frame (5.33 ms at 48 kHz); if the
+  // guest's callbacks take longer than that on average the device drains and
+  // the title's audio clock falls behind real time.
+  using StatsClock = std::chrono::steady_clock;
+  const bool stats_enabled = std::getenv("XE_APU_STATS") != nullptr;
+  struct ClientStats {
+    uint32_t calls = 0;
+    double total_ms = 0.0;
+    double max_ms = 0.0;
+  };
+  ClientStats client_stats[kMaximumClientCount] = {};
+  double stats_wait_ms = 0.0;
+  auto stats_window_start = StatsClock::now();
+
   // Main run loop.
   while (worker_running_) {
+    const auto wait_start = stats_enabled ? StatsClock::now() : StatsClock::time_point();
     // These handles signify the number of submitted samples. Once we reach
     // 64 samples, we wait until our audio backend releases a semaphore
     // (signaling a sample has finished playing)
     auto result =
         xe::threading::WaitAny(wait_handles_, xe::countof(wait_handles_), true);
+    if (stats_enabled) {
+      stats_wait_ms += std::chrono::duration<double, std::milli>(
+                           StatsClock::now() - wait_start)
+                           .count();
+    }
     if (result.first == xe::threading::WaitResult::kFailed) {
       // TODO: Assert?
       continue;
@@ -142,12 +166,55 @@ void AudioSystem::WorkerThreadMain() {
         if (clients_[index].driver) {
           SCOPE_profile_cpu_i("apu", "xe::apu::AudioSystem->client_callback");
           uint64_t args[] = {client_callback_arg};
+          const auto call_start =
+              stats_enabled ? StatsClock::now() : StatsClock::time_point();
           processor_->Execute(worker_thread_->thread_state(), client_callback,
                               args, xe::countof(args));
+          if (stats_enabled) {
+            const double ms = std::chrono::duration<double, std::milli>(
+                                  StatsClock::now() - call_start)
+                                  .count();
+            ClientStats& cs = client_stats[index];
+            ++cs.calls;
+            cs.total_ms += ms;
+            cs.max_ms = std::max(cs.max_ms, ms);
+          }
         }
       }
 
       pumped = true;
+    }
+
+    if (stats_enabled) {
+      const auto now = StatsClock::now();
+      const double window_ms =
+          std::chrono::duration<double, std::milli>(now - stats_window_start)
+              .count();
+      if (window_ms >= 5000.0) {
+        double busy_ms = 0.0;
+        for (size_t i = 0; i < kMaximumClientCount; ++i) {
+          const ClientStats& cs = client_stats[i];
+          busy_ms += cs.total_ms;
+          if (!cs.calls) {
+            continue;
+          }
+          XELOGI(
+              "ApuStats worker {:.1f}s: client {} callbacks {} ({:.1f}/s), "
+              "guest callback avg {:.3f} ms max {:.3f} ms",
+              window_ms / 1000.0, i, cs.calls, cs.calls * 1000.0 / window_ms,
+              cs.total_ms / cs.calls, cs.max_ms);
+        }
+        XELOGI(
+            "ApuStats worker {:.1f}s: {:.1f}% in guest callbacks, {:.1f}% "
+            "waiting for the device",
+            window_ms / 1000.0, 100.0 * busy_ms / window_ms,
+            100.0 * stats_wait_ms / window_ms);
+        for (ClientStats& cs : client_stats) {
+          cs = ClientStats();
+        }
+        stats_wait_ms = 0.0;
+        stats_window_start = now;
+      }
     }
 
     if (!worker_running_) {

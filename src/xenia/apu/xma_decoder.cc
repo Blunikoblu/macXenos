@@ -9,6 +9,11 @@
 
 #include "xenia/apu/xma_decoder.h"
 
+#include <algorithm>
+#include <bit>
+#include <chrono>
+#include <cstdlib>
+
 #include "xenia/apu/xma_context.h"
 #include "xenia/apu/xma_context_fake.h"
 #include "xenia/apu/xma_context_master.h"
@@ -194,15 +199,71 @@ X_STATUS XmaDecoder::Setup(kernel::KernelState* kernel_state) {
 }
 
 void XmaDecoder::WorkerThreadMain() {
+  // XE_APU_STATS=1: decoder passes, contexts decoded per pass and decode
+  // time, plus the guest kick waits gathered in WriteRegister, every 5 s.
+  using StatsClock = std::chrono::steady_clock;
+  stats_enabled_ = std::getenv("XE_APU_STATS") != nullptr;
+  uint32_t stats_passes = 0;
+  uint32_t stats_worked = 0;
+  uint32_t stats_worked_max = 0;
+  double stats_busy_ms = 0.0;
+  double stats_pass_max_ms = 0.0;
+  auto stats_window_start = StatsClock::now();
+
   while (worker_running_) {
     // Okay, let's loop through XMA contexts to find ones we need to decode!
     bool did_work = false;
+    uint32_t worked_this_pass = 0;
+    const auto pass_start =
+        stats_enabled_ ? StatsClock::now() : StatsClock::time_point();
     for (uint32_t n = 0; n < kContextCount; n++) {
       bool worked = contexts_[n]->Work();
       if (worked) {
         contexts_[n]->SignalWorkDone();
+        ++worked_this_pass;
       }
       did_work = did_work || worked;
+    }
+
+    if (stats_enabled_) {
+      const auto now = StatsClock::now();
+      if (worked_this_pass) {
+        const double pass_ms =
+            std::chrono::duration<double, std::milli>(now - pass_start)
+                .count();
+        ++stats_passes;
+        stats_worked += worked_this_pass;
+        stats_worked_max = std::max(stats_worked_max, worked_this_pass);
+        stats_busy_ms += pass_ms;
+        stats_pass_max_ms = std::max(stats_pass_max_ms, pass_ms);
+      }
+      const double window_ms =
+          std::chrono::duration<double, std::milli>(now - stats_window_start)
+              .count();
+      if (window_ms >= 5000.0) {
+        const uint32_t kicks = stats_kicks_.exchange(0);
+        const uint32_t kicked = stats_kicked_contexts_.exchange(0);
+        const uint64_t wait_us = stats_kick_wait_us_.exchange(0);
+        const uint64_t wait_max_us = stats_kick_wait_max_us_.exchange(0);
+        XELOGI(
+            "ApuStats xma {:.1f}s: {} decode passes, contexts/pass avg {:.1f} "
+            "max {}, decoder busy {:.1f}% (pass max {:.3f} ms); {} kicks of "
+            "{} contexts, guest blocked avg {:.3f} ms max {:.3f} ms ({:.1f} "
+            "ms/s total)",
+            window_ms / 1000.0, stats_passes,
+            stats_passes ? double(stats_worked) / stats_passes : 0.0,
+            stats_worked_max, 100.0 * stats_busy_ms / window_ms,
+            stats_pass_max_ms, kicks, kicked,
+            kicks ? double(wait_us) / 1000.0 / kicks : 0.0,
+            double(wait_max_us) / 1000.0,
+            double(wait_us) / window_ms);
+        stats_passes = 0;
+        stats_worked = 0;
+        stats_worked_max = 0;
+        stats_busy_ms = 0.0;
+        stats_pass_max_ms = 0.0;
+        stats_window_start = now;
+      }
     }
 
     if (paused_) {
@@ -351,12 +412,29 @@ void XmaDecoder::WriteRegister(uint32_t addr, uint32_t value) {
     work_event_->SetBoostPriority();
     if (cvars::use_dedicated_xma_thread) {
       // Block until the worker finishes, so the game sees updated context data.
+      const auto wait_start = stats_enabled_
+                                  ? std::chrono::steady_clock::now()
+                                  : std::chrono::steady_clock::time_point();
       uint32_t remaining = kicked_value;
       while (remaining) {
         const uint32_t context_id =
             base_context_id + std::countr_zero(remaining);
         contexts_[context_id]->WaitForWorkDone();
         remaining &= remaining - 1;
+      }
+      if (stats_enabled_) {
+        const uint64_t us = uint64_t(
+            std::chrono::duration_cast<std::chrono::microseconds>(
+                std::chrono::steady_clock::now() - wait_start)
+                .count());
+        stats_kicks_.fetch_add(1, std::memory_order_relaxed);
+        stats_kicked_contexts_.fetch_add(std::popcount(kicked_value),
+                                         std::memory_order_relaxed);
+        stats_kick_wait_us_.fetch_add(us, std::memory_order_relaxed);
+        uint64_t prev_max = stats_kick_wait_max_us_.load();
+        while (us > prev_max &&
+               !stats_kick_wait_max_us_.compare_exchange_weak(prev_max, us)) {
+        }
       }
     }
   } else if (r >= XmaRegister::Context0Lock && r <= XmaRegister::Context9Lock) {
