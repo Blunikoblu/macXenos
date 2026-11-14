@@ -17,6 +17,7 @@
 #include <cstdlib>
 
 #include <algorithm>
+#include <condition_variable>
 #include <ctime>
 #include <tuple>
 
@@ -1094,12 +1095,35 @@ void CommandProcessor::RestoreGammaRamp(
 }
 
 void CommandProcessor::CallInThread(std::function<void()> fn) {
-  if (pending_fns_.empty() &&
+  if (!HasPendingCalls() &&
       kernel::XThread::IsInThread(worker_thread_.get())) {
     fn();
   } else {
+    std::lock_guard<std::mutex> lock(pending_fns_mutex_);
     pending_fns_.push(std::move(fn));
+    pending_fn_count_.fetch_add(1, std::memory_order_release);
   }
+}
+
+void CommandProcessor::RunPendingCalls() {
+  if (running_pending_call_) {
+    return;
+  }
+  running_pending_call_ = true;
+  while (HasPendingCalls()) {
+    std::function<void()> fn;
+    {
+      std::lock_guard<std::mutex> lock(pending_fns_mutex_);
+      if (pending_fns_.empty()) {
+        break;
+      }
+      fn = std::move(pending_fns_.front());
+      pending_fns_.pop();
+      pending_fn_count_.fetch_sub(1, std::memory_order_release);
+    }
+    fn();
+  }
+  running_pending_call_ = false;
 }
 
 void CommandProcessor::LogFpsTick() {
@@ -1145,11 +1169,7 @@ void CommandProcessor::WorkerThreadMain() {
   }
 
   while (worker_running_) {
-    while (!pending_fns_.empty()) {
-      auto fn = std::move(pending_fns_.front());
-      pending_fns_.pop();
-      fn();
-    }
+    RunPendingCalls();
 
     uint32_t write_ptr_index = write_ptr_index_.load();
     if (write_ptr_index == 0xBAADF00D || read_ptr_index_ == write_ptr_index) {
@@ -1173,7 +1193,7 @@ void CommandProcessor::WorkerThreadMain() {
         OnIdlePoll();
         loop_count++;
         write_ptr_index = write_ptr_index_.load();
-      } while (worker_running_ && pending_fns_.empty() &&
+      } while (worker_running_ && !HasPendingCalls() &&
                (write_ptr_index == 0xBAADF00D ||
                 read_ptr_index_ == write_ptr_index));
       if (pacing_idle_start) {
@@ -1182,7 +1202,7 @@ void CommandProcessor::WorkerThreadMain() {
             std::memory_order_relaxed);
       }
       ReturnFromWait();
-      if (!worker_running_ || !pending_fns_.empty()) {
+      if (!worker_running_ || HasPendingCalls()) {
         continue;
       }
     }
@@ -1209,25 +1229,62 @@ void CommandProcessor::WorkerThreadMain() {
 }
 
 void CommandProcessor::Pause() {
+  TryPause(std::chrono::milliseconds::max());
+}
+
+bool CommandProcessor::TryPause(std::chrono::milliseconds timeout) {
   if (paused_) {
-    return;
+    return true;
   }
   paused_ = true;
   pause_guest_memory_ready_ = false;
 
-  threading::Fence fence;
-  CallInThread([this, &fence]() {
+  // Shared with the queued call: after a timeout the caller's stack is gone
+  // by the time the worker gets to it.
+  struct Handshake {
+    std::mutex mutex;
+    std::condition_variable cond;
+    bool reached = false;
+    bool withdrawn = false;
+  };
+  auto handshake = std::make_shared<Handshake>();
+  CallInThread([this, handshake]() {
+    {
+      std::lock_guard<std::mutex> lock(handshake->mutex);
+      if (handshake->withdrawn) {
+        return;
+      }
+    }
     // Transfer guest-RAM authority while the backend still owns its command
     // encoder on the command-processor thread. Save-state runs after this
     // thread is suspended; mutating an open Metal encoder from that caller
     // thread would violate the backend's thread ownership.
-    pause_guest_memory_ready_ = PrepareGuestMemoryForHostRead(
+    const bool guest_memory_ready = PrepareGuestMemoryForHostRead(
         0, static_cast<uint32_t>(SharedMemory::kBufferSize));
-    fence.Signal();
+    {
+      std::lock_guard<std::mutex> lock(handshake->mutex);
+      if (handshake->withdrawn) {
+        return;
+      }
+      pause_guest_memory_ready_ = guest_memory_ready;
+      handshake->reached = true;
+    }
+    handshake->cond.notify_all();
     threading::Thread::GetCurrentThread()->Suspend();
   });
 
-  fence.Wait();
+  std::unique_lock<std::mutex> lock(handshake->mutex);
+  const auto reached = [&handshake]() { return handshake->reached; };
+  if (timeout == std::chrono::milliseconds::max()) {
+    handshake->cond.wait(lock, reached);
+    return true;
+  }
+  if (handshake->cond.wait_for(lock, timeout, reached)) {
+    return true;
+  }
+  handshake->withdrawn = true;
+  paused_ = false;
+  return false;
 }
 
 void CommandProcessor::Resume() {

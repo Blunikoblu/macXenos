@@ -455,6 +455,8 @@ class KernelState {
   // Must be guarded by the global critical region.
   util::ObjectTable object_table_;
   std::unordered_map<uint32_t, XThread*> threads_by_id_;
+  // The guest threads TerminateTitle stopped, kept alive: see there.
+  std::vector<object_ref<XThread>> terminated_title_threads_;
   std::vector<object_ref<XNotifyListener>> notify_listeners_;
   bool has_notified_startup_ = false;
   bool has_notified_live_startup_ = false;

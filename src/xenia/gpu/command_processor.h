@@ -11,6 +11,7 @@
 #define XENIA_GPU_COMMAND_PROCESSOR_H_
 
 #include <atomic>
+#include <chrono>
 #include <cstring>
 #include <functional>
 #include <memory>
@@ -370,6 +371,11 @@ class CommandProcessor {
 
   bool is_paused() const { return paused_; }
   void Pause();
+  // Pause for a caller that must not hang (quitting): gives up after |timeout|
+  // when the worker does not reach the request, because it is blocked in the
+  // backend or on the calling thread. False then, with the request withdrawn
+  // and the worker still running.
+  bool TryPause(std::chrono::milliseconds timeout);
   void Resume();
 
   bool Save(ByteStream* stream);
@@ -773,7 +779,21 @@ class CommandProcessor {
   std::atomic<bool> worker_running_;
   kernel::object_ref<kernel::XHostThread> worker_thread_;
 
+  // Calls queued by CallInThread. Other threads push while the worker pops,
+  // so the queue is locked; the count lets the worker's loops ask whether
+  // there is anything to run without taking the lock.
+  bool HasPendingCalls() const {
+    return pending_fn_count_.load(std::memory_order_acquire) != 0;
+  }
+  // Worker thread only. Does nothing from inside a pending call (one that
+  // executes packets, as trace playback does, would otherwise be re-entered
+  // from its own waits).
+  void RunPendingCalls();
+
+  std::mutex pending_fns_mutex_;
   std::queue<std::function<void()>> pending_fns_;
+  std::atomic<uint32_t> pending_fn_count_{0};
+  bool running_pending_call_ = false;
 
   // MicroEngine binary from PM4_ME_INIT
   std::vector<uint32_t> me_bin_;

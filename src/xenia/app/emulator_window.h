@@ -98,6 +98,11 @@ class EmulatorWindow {
   void OnEmulatorInitialized();
 
   xe::X_STATUS RunTitle(const std::filesystem::path& path_to_file);
+  // Every way of quitting ends in EmulatorApp::OnDestroy, which calls this
+  // first: a game frozen behind the dashboard is resumed (closing the window
+  // did that; Quit did not), so nothing the shutdown waits on is held by a
+  // suspended guest thread and the freeze's mute is not what gets saved.
+  void PrepareForQuit();
   // With no game on the command line: Preferences on the Home blade (or
   // Profiles, when there is no profile yet), as the dashboard was.
   void ShowStartScreen();
@@ -341,6 +346,9 @@ class EmulatorWindow {
   // Suspends the running game's threads and audio while the dashboard is
   // open (dashboard_freezes_game), and resumes them.
   void FreezeGame(bool freeze);
+  // Runs the unattended quit/switch/stop test when XE_LIFECYCLE_TEST asks for
+  // one (tools/live_tests/lifecycle.sh).
+  void StartLifecycleTest();
   void PreferencesButtonListener();
   void ToggleControllerVibration();
   void ShowWebsite();

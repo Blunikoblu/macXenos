@@ -582,6 +582,11 @@ void GraphicsSystem::Pause() {
   command_processor_->Pause();
 }
 
+bool GraphicsSystem::TryPause(std::chrono::milliseconds timeout) {
+  paused_ = command_processor_->TryPause(timeout);
+  return paused_;
+}
+
 void GraphicsSystem::Resume() {
   paused_ = false;
 
