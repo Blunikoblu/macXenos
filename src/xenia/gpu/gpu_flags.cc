@@ -73,6 +73,15 @@ DEFINE_bool(scanline_counter_from_time, true,
             "for vblank crawl (WALL-E's videos at 2.6 FPS).",
             "GPU");
 
+DEFINE_bool(scanline_counter_stay_in_vblank, false,
+            "With scanline_counter_from_time off, never report a visible "
+            "display line: the old counter lands on one about every 23rd "
+            "vblank, and a game whose frame limiter waits on the counter "
+            "then stalls for two vblanks (Mafia II: a 33 ms frame 2.6 times "
+            "a second). For games run uncapped that way; a game that waits "
+            "for a visible line would hang with it.",
+            "GPU");
+
 DEFINE_bool(
     gpu_allow_invalid_fetch_constants, true,
     "Allow texture and vertex fetch constants with invalid type - generally "

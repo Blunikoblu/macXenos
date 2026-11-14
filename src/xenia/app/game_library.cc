@@ -25,6 +25,7 @@
 #include "xenia/base/string.h"
 #include "xenia/kernel/util/xex2_info.h"
 #include "xenia/vfs/devices/disc_image_device.h"
+#include "xenia/vfs/devices/disc_zarchive_device.h"
 #include "xenia/vfs/devices/stfs_xbox.h"
 #include "xenia/vfs/entry.h"
 #include "xenia/vfs/file.h"
@@ -107,8 +108,11 @@ uint32_t XexTitleId(const std::vector<uint8_t>& data) {
   return 0;
 }
 
+// The title id of the default.xex on a disc: an image (.iso) or a compressed
+// archive of one (.zar).
+template <typename DiscDevice>
 uint32_t DiscTitleId(const std::filesystem::path& path) {
-  auto device = std::make_unique<vfs::DiscImageDevice>("\\Device\\Probe", path);
+  auto device = std::make_unique<DiscDevice>("\\Device\\Probe", path);
   if (!device->Initialize()) {
     return 0;
   }
@@ -392,9 +396,13 @@ void GameLibrary::Scan(std::vector<std::filesystem::path> folders) {
     } else {
       ++probed;
       if (kind == 0) {
-        entry.title_id = DiscTitleId(path);
+        entry.title_id = DiscTitleId<vfs::DiscImageDevice>(path);
       } else if (kind == 1) {
         entry.title_id = XexFileTitleId(path);
+      } else if (kind == 3) {
+        // A compressed disc, not a package: ReadPackage rejects it, and a
+        // rejected file is left out of the list.
+        entry.title_id = DiscTitleId<vfs::DiscZarchiveDevice>(path);
       } else if (!ReadPackage(path, icon_folder, &entry.title_id, &entry.name)) {
         return;
       }

@@ -134,7 +134,10 @@ NSString* MimeTypeFor(NSString* extension) {
   // they don't depend on WebKit's autoplay and audio-session rules. They are
   // downloaded on request (dashboard_sounds_mac.h), never shipped.
   NSString* sound_root;
-  NSMutableDictionary<NSString*, NSSound*>* sounds;
+  // Per file: a few voices of the same sound, so a tick can start while the
+  // one before it is still sounding, and when that file last started.
+  NSMutableDictionary<NSString*, NSMutableArray<NSSound*>*>* sounds;
+  NSMutableDictionary<NSString*, NSNumber*>* sound_started;
 }
 - (void)playSound:(NSString*)file gain:(double)gain;
 @end
@@ -151,25 +154,61 @@ NSString* MimeTypeFor(NSString* extension) {
   }
   if (!sounds) {
     sounds = [NSMutableDictionary dictionary];
+    sound_started = [NSMutableDictionary dictionary];
   }
-  NSSound* sound = sounds[file];
-  if (!sound) {
+  // A sound used to be one NSSound, stopped and restarted for every play:
+  // sweeping the pointer down a list faster than the 0.23 s focus tick cut
+  // each tick off part-way (a clipped "boop" and a click). Each file now has
+  // kVoices players, a play goes to one that is idle, and plays of one file
+  // are at least a voice's share of its length apart (and never under
+  // kMinGap), so there always is an idle one and nothing is cut. Ticks that
+  // would come sooner are dropped: the ear cannot count them anyway.
+  static const NSUInteger kVoices = 4;
+  static const NSTimeInterval kMinGap = 0.06;
+  NSMutableArray<NSSound*>* voices = sounds[file];
+  if (!voices) {
     NSString* path = [[sound_root stringByAppendingPathComponent:file]
         stringByAppendingPathExtension:@"wav"];
     if (![NSFileManager.defaultManager fileExistsAtPath:path]) {
       return;  // Not downloaded (yet): the dashboard is silent.
     }
-    sound = [[NSSound alloc] initWithContentsOfFile:path byReference:YES];
-    if (!sound) {
+    voices = [NSMutableArray arrayWithCapacity:kVoices];
+    for (NSUInteger i = 0; i < kVoices; ++i) {
+      NSSound* voice = [[NSSound alloc] initWithContentsOfFile:path
+                                                   byReference:YES];
+      if (voice) {
+        [voices addObject:voice];
+      }
+    }
+    if (voices.count == 0) {
       XELOGW("Blades: dashboard sound {} did not load", file.UTF8String);
       return;
     }
-    sounds[file] = sound;
+    sounds[file] = voices;
   }
-  // A quick run of focus ticks restarts the same sound, as the dashboard did.
-  [sound stop];
-  sound.volume = float(std::clamp(gain, 0.0, 1.0));
-  [sound play];
+  const NSTimeInterval now = NSProcessInfo.processInfo.systemUptime;
+  const NSTimeInterval gap =
+      std::max(kMinGap, voices.firstObject.duration / double(voices.count));
+  NSNumber* started = sound_started[file];
+  if (started && now - started.doubleValue < gap) {
+    return;
+  }
+  NSSound* voice = nil;
+  for (NSSound* candidate in voices) {
+    if (!candidate.isPlaying) {
+      voice = candidate;
+      break;
+    }
+  }
+  if (!voice) {
+    // Every voice busy (a file that could not report its length): take the
+    // first rather than stay silent.
+    voice = voices.firstObject;
+    [voice stop];
+  }
+  sound_started[file] = @(now);
+  voice.volume = float(std::clamp(gain, 0.0, 1.0));
+  [voice play];
 }
 - (void)userContentController:(WKUserContentController*)controller
       didReceiveScriptMessage:(WKScriptMessage*)message {

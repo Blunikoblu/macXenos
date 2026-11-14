@@ -980,9 +980,27 @@ void KernelState::TerminateTitle() {
   */
 
   // Kill all guest threads.
-  for (auto it = threads_by_id_.begin(); it != threads_by_id_.end();) {
-    if (!XThread::IsInThread(it->second) && it->second->is_guest_thread()) {
-      auto thread = it->second;
+  // Not through an iterator into threads_by_id_: terminating a thread
+  // releases its handle, and when that was the last reference the XThread is
+  // destroyed and unregisters itself, so the loop's own erase then removed a
+  // node that was already freed (a crash, or the UI thread spinning forever in
+  // the hash table, when stopping or switching titles). The lock is also
+  // dropped while each thread is stepped to a safe point, and the guest
+  // threads still running come, go and create others meanwhile. Each pass
+  // works from retained references and removes entries by id; passes repeat
+  // for threads created during the previous one.
+  for (int pass = 0; pass < 8; ++pass) {
+    std::vector<object_ref<XThread>> targets;
+    targets.reserve(threads_by_id_.size());
+    for (auto& [thread_id, thread] : threads_by_id_) {
+      if (!XThread::IsInThread(thread) && thread->is_guest_thread()) {
+        targets.push_back(retain_object(thread));
+      }
+    }
+    if (targets.empty()) {
+      break;
+    }
+    for (auto& thread : targets) {
 #if 0  // [thread-diag] Re-enable for external title-termination probes.
 #if XE_PLATFORM_MAC
       auto native_thread = thread->thread();
@@ -996,7 +1014,7 @@ void KernelState::TerminateTitle() {
 #endif
 #endif
 
-      if (thread->is_running()) {
+      if (thread->is_running() && thread->thread()) {
         // Need to step the thread to a safe point (returns it to guest code
         // so it's guaranteed to not be holding any locks / in host kernel
         // code / etc). Can't do that properly if we have the lock.
@@ -1051,11 +1069,19 @@ void KernelState::TerminateTitle() {
       }
 
       // Preserve wait stats before the guest thread leaves the registry.
-      AccumulateWaitProfile(thread);
-      // Erase it from the thread list.
-      it = threads_by_id_.erase(it);
-    } else {
-      ++it;
+      AccumulateWaitProfile(thread.get());
+      // By id: a no-op if it is no longer listed.
+      threads_by_id_.erase(thread->thread_id());
+    }
+    // The references are kept for good. A terminated guest thread does not
+    // exit here: it stays parked on its suspend semaphore (the cancel reaches
+    // it only at a cancellation point, and it is not at one), and that
+    // semaphore dies with the XThread's host thread object. Destroying it
+    // woke the parked thread, which went on running the closed title's code
+    // on freed thread state and faulted - the emulator died a few seconds
+    // after one Stop in three.
+    for (auto& thread : targets) {
+      terminated_title_threads_.push_back(std::move(thread));
     }
   }
 

@@ -11,6 +11,7 @@
 #include "xenia/app/app_version.h"
 
 #include <algorithm>
+#include <chrono>
 #include <condition_variable>
 #include <cstdlib>
 #include <cstring>
@@ -18,6 +19,7 @@
 #include <mutex>
 #include <set>
 #include <span>
+#include <thread>
 
 #include "third_party/imgui/imgui.h"
 #include "third_party/stb/stb_image_write.h"
@@ -388,6 +390,70 @@ void EmulatorWindow::OnEmulatorInitialized() {
         threading::Thread::Create({}, [&] { GamepadHotKeys(); });
     Gamepad_HotKeys_Listener->set_name("Gamepad HotKeys Listener");
   }
+
+  StartLifecycleTest();
+}
+
+void EmulatorWindow::StartLifecycleTest() {
+  // XE_LIFECYCLE_TEST=quit|switch|stop|stopswitch (tools/live_tests/
+  // lifecycle.sh): does, on the UI thread and unattended, what a user does
+  // with the mouse - the routes that hung or crashed. The action runs
+  // XE_LIFECYCLE_TEST_AFTER_S seconds in (default 40). With
+  // XE_LIFECYCLE_TEST_DASHBOARD=1 the dashboard is opened 3 s earlier (the
+  // game is then frozen behind it) and the action goes through the
+  // dashboard's own message, as a click on it does.
+  //   quit        quit the emulator
+  //   switch      launch XE_LIFECYCLE_TEST_TARGET over the running game
+  //   stop        the dashboard's Stop
+  //   stopswitch  Stop, then launch the target from the dashboard 5 s later
+  const char* action_env = std::getenv("XE_LIFECYCLE_TEST");
+  if (!action_env) {
+    return;
+  }
+  const std::string action = action_env;
+  const char* after_env = std::getenv("XE_LIFECYCLE_TEST_AFTER_S");
+  const int after_s = after_env ? std::atoi(after_env) : 40;
+  const bool by_dashboard = std::getenv("XE_LIFECYCLE_TEST_DASHBOARD") ||
+                            action == "stop" || action == "stopswitch";
+  const char* target_env = std::getenv("XE_LIFECYCLE_TEST_TARGET");
+  const std::string target = target_env ? target_env : "";
+  const std::string launch_message =
+      fmt::format("{{\"op\":\"launch\",\"path\":\"{}\"}}", target);
+  // The process this starts by switching must not run the test again.
+  unsetenv("XE_LIFECYCLE_TEST");
+  std::thread([this, action, after_s, by_dashboard, target, launch_message]() {
+    std::this_thread::sleep_for(std::chrono::seconds(after_s));
+    if (by_dashboard) {
+      app_context_.CallInUIThread([this]() {
+        XELOGI("LifecycleTest: opening the dashboard");
+        ShowPreferences("home");
+      });
+      std::this_thread::sleep_for(std::chrono::seconds(3));
+    }
+    app_context_.CallInUIThread([this, action, by_dashboard, target,
+                                 launch_message]() {
+      XELOGI("LifecycleTest: {} (dashboard {})", action,
+             by_dashboard ? "open" : "closed");
+      xe::FlushLog();
+      if (action == "quit") {
+        app_context_.QuitFromUIThread();
+      } else if (action == "stop" || action == "stopswitch") {
+        HandlePreferencesMessage("{\"op\":\"stopGame\"}");
+      } else if (by_dashboard) {
+        HandlePreferencesMessage(launch_message);
+      } else {
+        RunTitle(xe::to_path(target));
+      }
+    });
+    if (action == "stopswitch") {
+      std::this_thread::sleep_for(std::chrono::seconds(5));
+      app_context_.CallInUIThread([this, launch_message]() {
+        XELOGI("LifecycleTest: launching after the stop");
+        xe::FlushLog();
+        HandlePreferencesMessage(launch_message);
+      });
+    }
+  }).detach();
 }
 
 void EmulatorWindow::EmulatorWindowListener::OnClosing(ui::UIEvent& e) {
@@ -1898,6 +1964,22 @@ void EmulatorWindow::HidePreferences() {
 #endif
 }
 
+void EmulatorWindow::PrepareForQuit() {
+  // XE_LIFECYCLE_TEST_KEEP_FROZEN=1 (lifecycle.sh): quit with the game still
+  // frozen, as Quit did before this existed, so the test can show that the
+  // shutdown does not depend on the game running again.
+  if (std::getenv("XE_LIFECYCLE_TEST_KEEP_FROZEN")) {
+    return;
+  }
+  FreezeGame(false);
+  // The process exits without the game getting to stop a rumble it started
+  // (and the game runs on for a moment yet): hold the motors still from here.
+  if (hid::InputSystem* input = emulator_->input_system()) {
+    auto input_lock = input->lock();
+    input->SuspendVibration();
+  }
+}
+
 void EmulatorWindow::FreezeGame(bool freeze) {
   if (freeze == game_frozen_) {
     return;
@@ -2691,7 +2773,18 @@ xe::X_STATUS EmulatorWindow::RunTitle(
     return X_STATUS_NO_SUCH_FILE;
   }
 
-  if (emulator_->is_title_open()) {
+#if XE_PLATFORM_MAC
+  // A process that has booted a title boots no second one, whether the first
+  // is still open or was stopped (last_media_path_ remembers it): after a
+  // Stop the closed title's leftovers are all still here - its guest threads,
+  // host workers calling into its unloaded code, the GPU command thread
+  // possibly inside one of its waits.
+  const bool booted_a_title =
+      emulator_->is_title_open() || !last_media_path_.empty();
+#else
+  const bool booted_a_title = emulator_->is_title_open();
+#endif  // XE_PLATFORM_MAC
+  if (booted_a_title) {
 #if XE_PLATFORM_MAC
     // Switching titles in a process that already booted one corrupts guest
     // memory in-process (kernel_state_ persists across titles; Memory::Reset()

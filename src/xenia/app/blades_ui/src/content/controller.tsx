@@ -233,6 +233,7 @@ function Vibration() {
       <p>{t("controller.vibration.body")}</p>
       <Toggle name="vibration" title="Vibration" />
       <PaneAction
+        quiet
         disabled={!canTest}
         onSelect={() => send({ op: "action", id: "testVibration" })}
       >

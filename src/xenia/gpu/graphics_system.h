@@ -11,6 +11,7 @@
 #define XENIA_GPU_GRAPHICS_SYSTEM_H_
 
 #include <atomic>
+#include <chrono>
 #include <cstdint>
 #include <functional>
 #include <memory>
@@ -94,6 +95,9 @@ class GraphicsSystem {
   // whose own frame rate is at or below the cap is never held.
   void PaceUncappedSwap();
   void Pause();
+  // Pause that gives up after |timeout| instead of waiting on a command
+  // processor that cannot answer (see CommandProcessor::TryPause).
+  bool TryPause(std::chrono::milliseconds timeout);
   void Resume();
 
   bool Save(ByteStream* stream);

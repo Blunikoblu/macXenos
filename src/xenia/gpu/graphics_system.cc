@@ -461,7 +461,18 @@ uint32_t GraphicsSystem::ReadScanlineCounter() {
   }();
   const int64_t last = last_vblank_host_ns_.load(std::memory_order_acquire);
   if (accumulate_env || !cvars::scanline_counter_from_time || !last) {
-    return register_file()->values[XE_GPU_REG_D1MODE_V_COUNTER];
+    uint32_t counter = register_file()->values[XE_GPU_REG_D1MODE_V_COUNTER];
+    // The accumulated value's 14-bit line field wraps every 16384 / 720
+    // vblanks, and for that one vblank it is a visible line (below 720).
+    // Mafia II's limiter, otherwise never waiting on this counter, then
+    // waits two vblanks: one 33 ms frame every ~380 ms, which also left a
+    // 120 fps cap reading 112. scanline_counter_stay_in_vblank reports that
+    // step one frame height further on, in the vblank range like the rest.
+    if (cvars::scanline_counter_stay_in_vblank && !accumulate_env &&
+        !cvars::scanline_counter_from_time && (counter & 0x3FFF) < 720) {
+      counter += 720;
+    }
+    return counter;
   }
   // Matches the 720 lines the D1MODE_VIEWPORT_SIZE read reports.
   constexpr int64_t kActiveLines = 720;
@@ -580,6 +591,11 @@ void GraphicsSystem::Pause() {
   paused_ = true;
 
   command_processor_->Pause();
+}
+
+bool GraphicsSystem::TryPause(std::chrono::milliseconds timeout) {
+  paused_ = command_processor_->TryPause(timeout);
+  return paused_;
 }
 
 void GraphicsSystem::Resume() {

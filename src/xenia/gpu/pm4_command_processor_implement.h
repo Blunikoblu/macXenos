@@ -848,6 +848,8 @@ bool COMMAND_PROCESSOR::ExecutePacketType3_WAIT_REG_MEM(
   uint64_t slept_us = 0;
   bool stuck_logged = false;
   bool wait_stalled_notified = false;
+  // When this wait first missed (set on that pass only).
+  std::chrono::steady_clock::time_point first_miss;
 
   // XE_CP_WAIT_CENSUS=1 (diagnostic, default off): per-window counts of
   // WAIT_REG_MEM packets, the ones that had to sleep, the sleeps, the
@@ -880,7 +882,9 @@ bool COMMAND_PROCESSOR::ExecutePacketType3_WAIT_REG_MEM(
       // Freeze forensics: a wait that has spun for ~5 seconds is almost
       // certainly a lost signal (whoever should write the value never did) —
       // log WHAT is being waited on, once per stuck wait.
-      ++wait_iterations;
+      if (++wait_iterations == 1) {
+        first_miss = std::chrono::steady_clock::now();
+      }
       if (!wait_stalled_notified && slept_us >= WaitRegMemStallUs()) {
         wait_stalled_notified = true;
         OnWaitRegMemStalled();
@@ -940,6 +944,20 @@ bool COMMAND_PROCESSOR::ExecutePacketType3_WAIT_REG_MEM(
           return false;
         }
       } else {
+      }
+      // The worker loop runs the calls other threads queue for this thread
+      // only between primary-buffer passes, and this pass does not end
+      // until the wait is answered. A wait nobody is going to answer soon
+      // (the game is frozen behind the dashboard, its title was closed, or
+      // it lost the signal) therefore held every caller that waits on its
+      // call: quitting with the dashboard open blocked the UI thread in
+      // Pause() for good. Once a wait has stalled, run them from here. A
+      // wait that is answered in the normal course (within a frame) never
+      // gets this far, so calls keep running between passes as before.
+      if (HasPendingCalls() &&
+          std::chrono::steady_clock::now() - first_miss >=
+              std::chrono::milliseconds(100)) {
+        RunPendingCalls();
       }
     }
   } while (!matched);

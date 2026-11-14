@@ -9,6 +9,7 @@
 
 #include <atomic>
 #include <cerrno>
+#include <chrono>
 #include <cstdlib>
 #include <cstring>
 #include <fstream>
@@ -707,6 +708,10 @@ bool EmulatorApp::OnInitialize() {
 }
 
 void EmulatorApp::OnDestroy() {
+  if (emulator_window_) {
+    emulator_window_->PrepareForQuit();
+  }
+
   ShutdownEmulatorThreadFromUIThread();
 
   // CPU-perf analysis (Layer 1 Piece B): dump the guest wait profile (no-op
@@ -734,11 +739,21 @@ void EmulatorApp::OnDestroy() {
   // destructors, so the normal shutdown that writes it never runs, and every run
   // would recompile pipelines from cold. Pause the GPU first so the cache can be
   // serialized without racing the command processor worker.
+  //
+  // Bounded: this is the UI thread, and the worker may be unable to answer
+  // (blocked in the backend, or on this thread). Quitting must not hang on it;
+  // without the pause the save is skipped rather than raced, and the
+  // pipelines made since the last save are rebuilt next session.
   if (emulator_) {
     if (auto* graphics_system = emulator_->graphics_system()) {
-      graphics_system->Pause();
-      if (auto* command_processor = graphics_system->command_processor()) {
-        command_processor->SaveShaderStorageToDisk();
+      if (graphics_system->TryPause(std::chrono::seconds(5))) {
+        if (auto* command_processor = graphics_system->command_processor()) {
+          command_processor->SaveShaderStorageToDisk();
+        }
+      } else {
+        XELOGW(
+            "Quit: the GPU command thread did not pause within 5 s; exiting "
+            "without saving this session's new shader storage");
       }
     }
   }
