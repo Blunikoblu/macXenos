@@ -1114,7 +1114,9 @@ uint32_t KeDelayExecutionThread(uint32_t processor_mode, uint32_t alertable,
                                 cpu::ppc::PPCContext* ctx) {
   XThread* thread = XThread::GetCurrentThread();
 
-  if (alertable) {
+  // Kernel-mode delays leave user APCs queued, even when alertable.
+  const bool user_alertable = alertable && processor_mode == 1;
+  if (user_alertable) {
     X_STATUS stat = xeProcessUserApcs(ctx);
     if (stat == X_STATUS_USER_APC) {
       return stat;
@@ -1123,8 +1125,8 @@ uint32_t KeDelayExecutionThread(uint32_t processor_mode, uint32_t alertable,
   // See xeKeWaitForSingleObject for the loop.
   X_STATUS result;
   do {
-    result = thread->Delay(processor_mode, alertable, *interval_ptr);
-  } while (result == X_STATUS_USER_APC &&
+    result = thread->Delay(processor_mode, user_alertable, *interval_ptr);
+  } while (user_alertable && result == X_STATUS_USER_APC &&
            xeProcessUserApcs(ctx) != X_STATUS_USER_APC);
 
   return result;
@@ -1738,23 +1740,30 @@ uint32_t xeKeWaitForSingleObject(void* object_ptr, uint32_t wait_reason,
     return X_STATUS_ABANDONED_WAIT_0;
   }
 
-  // An alertable wait delivers user APCs already queued on this thread before
-  // blocking and returns STATUS_USER_APC without waiting, as
-  // KeDelayExecutionThread already does. Without this, an APC a thread queues
-  // on itself (NtReadFile's completion routine) is never delivered on macOS,
-  // where the wake signal is dropped unless the thread is already inside an
-  // alertable wait (Spider-Man: Web of Shadows, 2026-09-27).
-  if (alertable && xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
-    return X_STATUS_USER_APC;
+  const bool user_alertable = alertable && processor_mode == 1;
+  X_STATUS result;
+  // Native waits follow the same ready-object precedence and user-mode APC
+  // gating as Nt waits (ke_apc_waits hardware corpus). Poll first so ready
+  // objects win; partial WaitAll readiness is preserved by the wait machinery.
+  if (user_alertable) {
+    uint64_t poll_timeout = 0;
+    result = object->Wait(wait_reason, processor_mode, false, &poll_timeout);
+    if (result != X_STATUS_TIMEOUT) {
+      return result;
+    }
+    // Process prequeued APCs before blocking: a self-queued APC's host wake
+    // may have been dropped before the thread entered an alertable wait.
+    if (xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
+      return X_STATUS_USER_APC;
+    }
   }
   // A wake for an APC queued from another thread ends the host wait; deliver
   // it and return. The wake can also outlive its APC (the delivery above took
   // the APC, the wake arrived after): nothing is delivered then, and the wait
   // starts over rather than report an APC that never ran.
-  X_STATUS result;
   do {
-    result = object->Wait(wait_reason, processor_mode, alertable, timeout_ptr);
-  } while (alertable && result == X_STATUS_USER_APC &&
+    result = object->Wait(wait_reason, processor_mode, user_alertable, timeout_ptr);
+  } while (user_alertable && result == X_STATUS_USER_APC &&
            xeProcessUserApcs(nullptr) != X_STATUS_USER_APC);
   return result;
 }
@@ -1875,18 +1884,29 @@ dword_result_t KeWaitForMultipleObjects_entry(
                       false, harr);
     t0 = Clock::QueryHostUptimeMillis();
   }
-  // See xeKeWaitForSingleObject: pending user APCs are delivered first.
-  if (alertable && xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
-    return X_STATUS_USER_APC;
-  }
+  const bool user_alertable = alertable && processor_mode == 1;
   X_STATUS result;
-  do {
-    result = XObject::WaitMultiple(
+  // Preserve diagnostic enter/exit pairing for immediate and APC completion.
+  auto wait = [&](bool host_alertable, uint64_t* wait_timeout) {
+    return XObject::WaitMultiple(
         uint32_t(count), reinterpret_cast<XObject**>(&objects[0]), wait_type,
-        wait_reason, processor_mode, alertable,
-        timeout_ptr ? &timeout : nullptr);
-  } while (alertable && result == X_STATUS_USER_APC &&
-           xeProcessUserApcs(nullptr) != X_STATUS_USER_APC);
+        wait_reason, processor_mode, host_alertable, wait_timeout);
+  };
+  result = X_STATUS_TIMEOUT;
+  if (user_alertable) {
+    uint64_t poll_timeout = 0;
+    result = wait(false, &poll_timeout);
+    if (result == X_STATUS_TIMEOUT &&
+        xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
+      result = X_STATUS_USER_APC;
+    }
+  }
+  if (result == X_STATUS_TIMEOUT) {
+    do {
+      result = wait(user_alertable, timeout_ptr ? &timeout : nullptr);
+    } while (user_alertable && result == X_STATUS_USER_APC &&
+             xeProcessUserApcs(nullptr) != X_STATUS_USER_APC);
+  }
   if (diag) {
     IoLedgerWaitExit();
     LoaderWaitTap("KeWaitMultiple", count ? uint32_t(objects_ptr[0]) : 0u, false,
