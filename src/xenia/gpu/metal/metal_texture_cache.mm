@@ -1000,7 +1000,19 @@ bool MetalTextureCache::BuildResolvedServiceInputs(
     scaled.scaled_session = true;
     scaled.rt_is_depth = rt.is_depth;
     scaled.ram_backed = rt.ram_backed;
-    scaled.is_signed = is_signed;
+    // A signed fetch of a float format reads the same texels as an unsigned
+    // one (no SNORM view exists for it; the RAM upload makes one RGBA16Float
+    // or R32Float texture for both), so the snapshot stands in for it too.
+    // Project Gotham Racing 3 binds its 1024x600 RGBA16F scene copy signed
+    // for the tone-map chain: served from 1x RAM, the whole picture at a 2x
+    // draw scale was the 1x image with every pixel doubled.
+    // XE_METAL_SCALED_COVER_SIGNED_FLOAT=0 restores the refusal.
+    static const bool s_signed_float_cover = ParseMetalEnvironmentFlag(
+        std::getenv("XE_METAL_SCALED_COVER_SIGNED_FLOAT"), true);
+    const bool fetch_is_float =
+        fetch.format == xenos::TextureFormat::k_16_16_16_16_FLOAT ||
+        fetch.format == xenos::TextureFormat::k_32_FLOAT;
+    scaled.is_signed = is_signed && !(s_signed_float_cover && fetch_is_float);
     scaled.snapshot_format_matches_fetch = format_matches;
     scaled.fetch_tiled = bool(fetch.tiled);
     scaled.fetch_dimension = fetch.dimension;
