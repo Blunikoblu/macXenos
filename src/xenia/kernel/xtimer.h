@@ -30,7 +30,7 @@ class XTimer : public XObject {
 
   void Initialize(uint32_t timer_type);
   void InitializeNative(void* native_ptr, X_DISPATCH_HEADER* header);
-  bool SetNativeTimer(int64_t due_time, uint32_t dpc,
+  bool SetNativeTimer(int64_t due_time, uint32_t period_ms, uint32_t dpc,
                      std::function<void()> callback);
   bool CancelNativeTimer();
 
@@ -40,7 +40,7 @@ class XTimer : public XObject {
   bool IsSignaled();
 
  protected:
-  xe::threading::WaitHandle* GetWaitHandle() override { return timer_.get(); }
+  xe::threading::WaitHandle* GetWaitHandle() override;
   void WaitCallback() override;
 
  private:
@@ -55,7 +55,7 @@ class XTimer : public XObject {
     uint64_t generation = 0;
     uint32_t guest_ptr = 0;
     bool pending = false;
-    bool consumed = false;
+    std::unique_ptr<xe::threading::Event> event;
   };
   std::shared_ptr<NativeState> native_state_;
 

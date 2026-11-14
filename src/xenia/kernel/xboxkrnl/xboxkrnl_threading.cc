@@ -2855,8 +2855,8 @@ void KeInitializeTimerEx_entry(pointer_t<X_KTIMER> timer, dword_t type,
 }
 DECLARE_XBOXKRNL_EXPORT1(KeInitializeTimerEx, kThreading, kImplemented);
 
-dword_result_t KeSetTimer_entry(pointer_t<X_KTIMER> timer, qword_t due_time,
-                               pointer_t<XDPC> dpc) {
+dword_result_t KeSetTimerEx_entry(pointer_t<X_KTIMER> timer, qword_t due_time,
+                                 dword_t period_ms, pointer_t<XDPC> dpc) {
   auto object = XObject::GetNativeObject<XTimer>(kernel_state(), timer);
   std::function<void()> callback;
   if (dpc) {
@@ -2875,7 +2875,14 @@ dword_result_t KeSetTimer_entry(pointer_t<X_KTIMER> timer, qword_t due_time,
     };
   }
   return object->SetNativeTimer(static_cast<int64_t>(due_time),
-                               dpc.guest_address(), std::move(callback));
+                               period_ms, dpc.guest_address(),
+                               std::move(callback));
+}
+DECLARE_XBOXKRNL_EXPORT1(KeSetTimerEx, kThreading, kSketchy);
+
+dword_result_t KeSetTimer_entry(pointer_t<X_KTIMER> timer, qword_t due_time,
+                               pointer_t<XDPC> dpc) {
+  return KeSetTimerEx_entry(timer, due_time, 0, dpc);
 }
 DECLARE_XBOXKRNL_EXPORT1(KeSetTimer, kThreading, kSketchy);
 
