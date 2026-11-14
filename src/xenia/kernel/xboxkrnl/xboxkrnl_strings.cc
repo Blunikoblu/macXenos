@@ -110,9 +110,11 @@ int32_t format_core(PPCContext* ppc_context, FormatData& data, ArgList& args,
       // fall through
     }
 
-    // in any state, if c is \0, it's bad
+    // A format that ends inside a conversion ("%" or "%5" at the end) stops
+    // there: the console returns what was written before it, not an error
+    // (xboxkrnl__gen_rtl_format).
     if (!c) {
-      return -1;
+      return count;
     }
 
   restart:
@@ -530,7 +532,11 @@ int32_t format_core(PPCContext* ppc_context, FormatData& data, ArgList& args,
           }
 
           default: {
-            assert_always();
+            // Not a conversion: the console writes the character itself and
+            // drops the flags and width before it ("%z" gives "z", "%5%"
+            // gives "%"; xboxkrnl__gen_rtl_format).
+            state = FS_Unknown;
+            goto output;
           }
         }
       }
