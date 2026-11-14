@@ -1,0 +1,860 @@
+{
+ "corpus": "xecrypt",
+ "source": "Physical Xbox 360 (Aurora, XBDM), 2026-11-14, bundle 84f534a7ebc0485b; two runs identical; evidence xbox-hardware-2026-11-14/xecrypt",
+ "steps": [
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptSha empty, 20 bytes out",
+   "export": "XeCryptSha",
+   "capture": {
+    "XeCryptSha empty out 20": "da39a3ee5e6b4b0d3255bfef95601890afd80709cdcdcdcd"
+   },
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "XeCryptSha empty out 20",
+     "offset": 0
+    },
+    {
+     "value": 20
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptSha empty, 14 bytes out",
+   "export": "XeCryptSha",
+   "capture": {
+    "XeCryptSha empty out 14": "da39a3ee5e6b4b0d3255bfef9560cdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "XeCryptSha empty out 14",
+     "offset": 24
+    },
+    {
+     "value": 14
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptMd5 empty, 16 bytes out",
+   "export": "XeCryptMd5",
+   "capture": {
+    "XeCryptMd5 empty out 16": "d41d8cd98f00b204e9800998ecf8427ecdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "XeCryptMd5 empty out 16",
+     "offset": 48
+    },
+    {
+     "value": 16
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptMd5 empty, 10 bytes out",
+   "export": "XeCryptMd5",
+   "capture": {
+    "XeCryptMd5 empty out 10": "d41d8cd98f00b204e980cdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "XeCryptMd5 empty out 10",
+     "offset": 72
+    },
+    {
+     "value": 10
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptSha abc, 20 bytes out",
+   "export": "XeCryptSha",
+   "capture": {
+    "XeCryptSha abc out 20": "a9993e364706816aba3e25717850c26c9cd0d89dcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "input 1",
+     "offset": 120
+    },
+    {
+     "value": 3
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "XeCryptSha abc out 20",
+     "offset": 96
+    },
+    {
+     "value": 20
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptSha abc, 14 bytes out",
+   "export": "XeCryptSha",
+   "capture": {
+    "XeCryptSha abc out 14": "a9993e364706816aba3e25717850cdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "input 2",
+     "offset": 152
+    },
+    {
+     "value": 3
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "XeCryptSha abc out 14",
+     "offset": 128
+    },
+    {
+     "value": 14
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptMd5 abc, 16 bytes out",
+   "export": "XeCryptMd5",
+   "capture": {
+    "XeCryptMd5 abc out 16": "900150983cd24fb0d6963f7d28e17f72cdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "input 3",
+     "offset": 184
+    },
+    {
+     "value": 3
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "XeCryptMd5 abc out 16",
+     "offset": 160
+    },
+    {
+     "value": 16
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptMd5 abc, 10 bytes out",
+   "export": "XeCryptMd5",
+   "capture": {
+    "XeCryptMd5 abc out 10": "900150983cd24fb0d696cdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "input 4",
+     "offset": 216
+    },
+    {
+     "value": 3
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "XeCryptMd5 abc out 10",
+     "offset": 192
+    },
+    {
+     "value": 10
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptSha three parts, 20 bytes out",
+   "export": "XeCryptSha",
+   "capture": {
+    "XeCryptSha three parts out 20": "23a831a8fd04ae0e10c846cdfe3763da2167ae98cdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "input 5",
+     "offset": 248
+    },
+    {
+     "value": 10
+    },
+    {
+     "pointer": "input 6",
+     "offset": 264
+    },
+    {
+     "value": 60
+    },
+    {
+     "pointer": "input 7",
+     "offset": 328
+    },
+    {
+     "value": 37
+    },
+    {
+     "pointer": "XeCryptSha three parts out 20",
+     "offset": 224
+    },
+    {
+     "value": 20
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptSha three parts, 14 bytes out",
+   "export": "XeCryptSha",
+   "capture": {
+    "XeCryptSha three parts out 14": "23a831a8fd04ae0e10c846cdfe37cdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "input 8",
+     "offset": 392
+    },
+    {
+     "value": 10
+    },
+    {
+     "pointer": "input 9",
+     "offset": 408
+    },
+    {
+     "value": 60
+    },
+    {
+     "pointer": "input 10",
+     "offset": 472
+    },
+    {
+     "value": 37
+    },
+    {
+     "pointer": "XeCryptSha three parts out 14",
+     "offset": 368
+    },
+    {
+     "value": 14
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptMd5 three parts, 16 bytes out",
+   "export": "XeCryptMd5",
+   "capture": {
+    "XeCryptMd5 three parts out 16": "8099888e17c397640f2a3f5dbf37dafecdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "input 11",
+     "offset": 536
+    },
+    {
+     "value": 10
+    },
+    {
+     "pointer": "input 12",
+     "offset": 552
+    },
+    {
+     "value": 60
+    },
+    {
+     "pointer": "input 13",
+     "offset": 616
+    },
+    {
+     "value": 37
+    },
+    {
+     "pointer": "XeCryptMd5 three parts out 16",
+     "offset": 512
+    },
+    {
+     "value": 16
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptMd5 three parts, 10 bytes out",
+   "export": "XeCryptMd5",
+   "capture": {
+    "XeCryptMd5 three parts out 10": "8099888e17c397640f2acdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "input 14",
+     "offset": 680
+    },
+    {
+     "value": 10
+    },
+    {
+     "pointer": "input 15",
+     "offset": 696
+    },
+    {
+     "value": 60
+    },
+    {
+     "pointer": "input 16",
+     "offset": 760
+    },
+    {
+     "value": 37
+    },
+    {
+     "pointer": "XeCryptMd5 three parts out 10",
+     "offset": 656
+    },
+    {
+     "value": 10
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptSha one part, 20 bytes out",
+   "export": "XeCryptSha",
+   "capture": {
+    "XeCryptSha one part out 20": "23a831a8fd04ae0e10c846cdfe3763da2167ae98cdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "input 17",
+     "offset": 824
+    },
+    {
+     "value": 107
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "XeCryptSha one part out 20",
+     "offset": 800
+    },
+    {
+     "value": 20
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptSha one part, 14 bytes out",
+   "export": "XeCryptSha",
+   "capture": {
+    "XeCryptSha one part out 14": "23a831a8fd04ae0e10c846cdfe37cdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "input 18",
+     "offset": 960
+    },
+    {
+     "value": 107
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "XeCryptSha one part out 14",
+     "offset": 936
+    },
+    {
+     "value": 14
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptMd5 one part, 16 bytes out",
+   "export": "XeCryptMd5",
+   "capture": {
+    "XeCryptMd5 one part out 16": "8099888e17c397640f2a3f5dbf37dafecdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "input 19",
+     "offset": 1096
+    },
+    {
+     "value": 107
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "XeCryptMd5 one part out 16",
+     "offset": 1072
+    },
+    {
+     "value": 16
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptMd5 one part, 10 bytes out",
+   "export": "XeCryptMd5",
+   "capture": {
+    "XeCryptMd5 one part out 10": "8099888e17c397640f2acdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "input 20",
+     "offset": 1232
+    },
+    {
+     "value": 107
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "XeCryptMd5 one part out 10",
+     "offset": 1208
+    },
+    {
+     "value": 10
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptRc4 key 4b6579",
+   "export": "XeCryptRc4",
+   "capture": {
+    "rc4 data 21": "bbf316e8d940af0ad3392c47159610d6397d4c2750147f9b7c851de55ea05c33"
+   },
+   "args": [
+    {
+     "pointer": "rc4 key 22",
+     "offset": 1376
+    },
+    {
+     "value": 3
+    },
+    {
+     "pointer": "rc4 data 21",
+     "offset": 1344
+    },
+    {
+     "value": 32
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptRc4 key 0102030405",
+   "export": "XeCryptRc4",
+   "capture": {
+    "rc4 data 23": "e255026c9e49a55fb8e3342578314aeb5da2944e1aff86d08fc30bad70060514"
+   },
+   "args": [
+    {
+     "pointer": "rc4 key 24",
+     "offset": 1416
+    },
+    {
+     "value": 5
+    },
+    {
+     "pointer": "rc4 data 23",
+     "offset": 1384
+    },
+    {
+     "value": 32
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptRc4 key 000102030405060708090a0b0c0d0e0f",
+   "export": "XeCryptRc4",
+   "capture": {
+    "rc4 data 25": "b9f0219029967cb472fbf1a97cfd780ce751815ef0b446eb8999add0f33cef0f"
+   },
+   "args": [
+    {
+     "pointer": "rc4 key 26",
+     "offset": 1456
+    },
+    {
+     "value": 16
+    },
+    {
+     "pointer": "rc4 data 25",
+     "offset": 1424
+    },
+    {
+     "value": 32
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptAesKey",
+   "export": "XeCryptAesKey",
+   "capture": {
+    "aes state": "000102030405060708090a0b0c0d0e0fd6aa74fdd2af72fadaa678f1d6ab76feb692cf0b643dbdf1be9bc5006830b3feb6ff744ed2c2c9bf6c590cbf0469bf4147f7f7bc95353e03f96c32bcfd058dfd3caaa3e8a99f9deb50f3af57adf622aa5e390f7df7a69296a7553dc10aa31f6b14f9701ae35fe28c440adf4d4ea9c02647438735a41c65b9e016baf4aebf7ad2549932d1f08557681093ed9cbe2c974e13111d7fe3944a17f307a78b4d2b30c5000102030405060708090a0b0c0d0e0f8c56dff0825dd3f9805ad3fc8659d7fda0db02992286d160a2dc029c2485d561c7c6e391e54032f1479c306d6319e50ca8a2f5044de2c7f50a7ef798696712942ec410276326d7d26958204a003f32de72e3098d11c5de5f789dfe1578a2cccb8d82fc749c47222be4dadc3e9c7810f51362a4638f2586486bff5a76f7874a8313aa29be9c8faff6f770f58000f7bf0313111d7fe3944a17f307a78b4d2b30c5"
+   },
+   "args": [
+    {
+     "pointer": "aes state",
+     "offset": 1488
+    },
+    {
+     "pointer": "aes key 27",
+     "offset": 1472
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptAesEcb encrypt",
+   "export": "XeCryptAesEcb",
+   "capture": {
+    "aes ecb encrypted": "69c4e0d86a7b0430d8cdb78070b4c55a"
+   },
+   "args": [
+    {
+     "pointer": "aes state",
+     "offset": 1488
+    },
+    {
+     "pointer": "aes block 28",
+     "offset": 1840
+    },
+    {
+     "pointer": "aes ecb encrypted",
+     "offset": 1856
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptAesEcb decrypt",
+   "export": "XeCryptAesEcb",
+   "capture": {
+    "aes ecb decrypted": "00112233445566778899aabbccddeeff"
+   },
+   "args": [
+    {
+     "pointer": "aes state",
+     "offset": 1488
+    },
+    {
+     "pointer": "aes ecb encrypted",
+     "offset": 1856
+    },
+    {
+     "pointer": "aes ecb decrypted",
+     "offset": 1872
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptAesCbc encrypt",
+   "export": "XeCryptAesCbc",
+   "capture": {
+    "aes cbc encrypted": "fef1a8b625f0c43a7108b623a6fb90ca81be93897d16fa4aa347f381e169776acc46fe5e4e4d1456ce9f53cd2e5116eb",
+    "aes cbc feed 30": "cc46fe5e4e4d1456ce9f53cd2e5116eb"
+   },
+   "args": [
+    {
+     "pointer": "aes state",
+     "offset": 1488
+    },
+    {
+     "pointer": "aes cbc input 29",
+     "offset": 1888
+    },
+    {
+     "value": 48
+    },
+    {
+     "pointer": "aes cbc encrypted",
+     "offset": 1952
+    },
+    {
+     "pointer": "aes cbc feed 30",
+     "offset": 1936
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptAesCbc decrypt",
+   "export": "XeCryptAesCbc",
+   "capture": {
+    "aes cbc decrypted": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f",
+    "aes cbc feed again 31": "cc46fe5e4e4d1456ce9f53cd2e5116eb"
+   },
+   "args": [
+    {
+     "pointer": "aes state",
+     "offset": 1488
+    },
+    {
+     "pointer": "aes cbc encrypted",
+     "offset": 1952
+    },
+    {
+     "value": 48
+    },
+    {
+     "pointer": "aes cbc decrypted",
+     "offset": 2016
+    },
+    {
+     "pointer": "aes cbc feed again 31",
+     "offset": 2000
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptDesKey",
+   "export": "XeCryptDesKey",
+   "capture": {
+    "des state": "6464904042ce40ca1490985846898586c4b4488884050b849094e4388184814ed8a004f005cc0704a8f02810010784cac84048d8074a800668d804a80701c1c80490e40ccd494309ac183024c8ce078424c07c10c18c08858c88c0388a8a4c82c048c824c18083834c0470a80b86c20b584020b4c84a094a00742c4cce0c0c44"
+   },
+   "args": [
+    {
+     "pointer": "des state",
+     "offset": 2072
+    },
+    {
+     "pointer": "des key 32",
+     "offset": 2064
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptDesEcb encrypt",
+   "export": "XeCryptDesEcb",
+   "capture": {
+    "des encrypted": "3fa40e8a984d4815"
+   },
+   "args": [
+    {
+     "pointer": "des state",
+     "offset": 2072
+    },
+    {
+     "pointer": "des block 33",
+     "offset": 2200
+    },
+    {
+     "pointer": "des encrypted",
+     "offset": 2208
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "XeCrypt hashes and ciphers",
+   "name": "XeCryptDesEcb decrypt",
+   "export": "XeCryptDesEcb",
+   "capture": {
+    "des decrypted": "4e6f772069732074"
+   },
+   "args": [
+    {
+     "pointer": "des state",
+     "offset": 2072
+    },
+    {
+     "pointer": "des encrypted",
+     "offset": 2208
+    },
+    {
+     "pointer": "des decrypted",
+     "offset": 2216
+    },
+    {
+     "value": 0
+    }
+   ]
+  }
+ ]
+}
