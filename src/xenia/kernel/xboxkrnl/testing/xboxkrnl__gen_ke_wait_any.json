@@ -1,0 +1,2850 @@
+{
+ "corpus": "ke_wait_any",
+ "source": "Physical Xbox 360, bundle fafbb4373f867e64; private dispatcher-batch-01 evidence",
+ "steps": [
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "all clear poll",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "all clear finite wait",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "20 ms timeout",
+     "offset": 344
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "only index 2 signalled",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000002",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "index 2 retention or consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000002",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "only index 1 signalled",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000001",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000001",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "index 1 retention or consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000001",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000001",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "only index 0 signalled",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000001",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "index 0 retention or consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000001",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "all signalled chooses first array entry",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000001",
+    "event 1+0x4[:0x4]": "00000001",
+    "event 2+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "reverse array chooses its first signalled entry",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000001",
+    "event 1+0x4[:0x4]": "00000001",
+    "event 2+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "reversed array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "remaining signals",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000001",
+    "event 1+0x4[:0x4]": "00000001",
+    "event 2+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 0, 0)",
+   "name": "final all clear",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "all clear poll",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "all clear finite wait",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "20 ms timeout",
+     "offset": 344
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "only index 2 signalled",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000002",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "index 2 retention or consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "only index 1 signalled",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000001",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "index 1 retention or consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "only index 0 signalled",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "index 0 retention or consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "all signalled chooses first array entry",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000001",
+    "event 2+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "reverse array chooses its first signalled entry",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000001",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "reversed array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "remaining signals",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000001",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 1, 1)",
+   "name": "final all clear",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "all clear poll",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "all clear finite wait",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "20 ms timeout",
+     "offset": 344
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "only index 2 signalled",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000002",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "index 2 retention or consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "only index 1 signalled",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000001",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "index 1 retention or consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "only index 0 signalled",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000001",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "index 0 retention or consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000001",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "all signalled chooses first array entry",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000001",
+    "event 1+0x4[:0x4]": "00000001",
+    "event 2+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "reverse array chooses its first signalled entry",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000001",
+    "event 1+0x4[:0x4]": "00000001",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "reversed array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "remaining signals",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000001",
+    "event 1+0x4[:0x4]": "00000001",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (0, 1, 1)",
+   "name": "final all clear",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "all clear poll",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "all clear finite wait",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "20 ms timeout",
+     "offset": 344
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "only index 2 signalled",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000002",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "index 2 retention or consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "only index 1 signalled",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000001",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000001",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "index 1 retention or consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000001",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000001",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "only index 0 signalled",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "index 0 retention or consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "all signalled chooses first array entry",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000001",
+    "event 2+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "reverse array chooses its first signalled entry",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000001",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "reversed array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "remaining signals",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000001",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000001",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 0",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "event 1",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event 2",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "wait any event types (1, 0, 1)",
+   "name": "final all clear",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "event 0+0x4[:0x4]": "00000000",
+    "event 1+0x4[:0x4]": "00000000",
+    "event 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "object array",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 80
+    }
+   ]
+  }
+ ]
+}

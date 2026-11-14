@@ -34,6 +34,7 @@ bool XSemaphore::InitializeNative(void* native_ptr, X_DISPATCH_HEADER* header) {
   assert_false(semaphore_);
 
   auto semaphore = reinterpret_cast<X_KSEMAPHORE*>(native_ptr);
+  guest_header_ptr_ = memory()->HostToGuestVirtual(native_ptr);
   maximum_count_ = semaphore->limit;
   semaphore_ = xe::threading::Semaphore::Create(semaphore->header.signal_state,
                                                 semaphore->limit);
@@ -42,12 +43,28 @@ bool XSemaphore::InitializeNative(void* native_ptr, X_DISPATCH_HEADER* header) {
 
 bool XSemaphore::ReleaseSemaphore(int32_t release_count,
                                   int32_t* out_previous_count) {
+  std::lock_guard<std::mutex> lock(header_mutex_);
   int32_t previous_count = 0;
   bool success = semaphore_->Release(release_count, &previous_count);
   if (out_previous_count) {
     *out_previous_count = previous_count;
   }
+  UpdateGuestCount();
   return success;
+}
+
+void XSemaphore::UpdateGuestCount() {
+  if (guest_header_ptr_) {
+    // Release may hand permits directly to parked waiters. Query the remaining
+    // host count rather than adding the adjustment to a stale guest header.
+    memory()->TranslateVirtual<X_DISPATCH_HEADER*>(guest_header_ptr_)
+        ->signal_state = semaphore_->QueryCount();
+  }
+}
+
+void XSemaphore::WaitCallback() {
+  std::lock_guard<std::mutex> lock(header_mutex_);
+  UpdateGuestCount();
 }
 
 bool XSemaphore::Save(ByteStream* stream) {

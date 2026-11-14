@@ -1081,6 +1081,11 @@ class PosixCondition<Semaphore> final : public PosixConditionBase {
 
   bool Signal() override { return Release(1, nullptr); }
 
+  int QueryCount() {
+    auto lock = std::unique_lock(mutex_);
+    return static_cast<int>(count_);
+  }
+
   bool Release(uint32_t release_count, int* out_previous_count) {
     auto lock = std::unique_lock(mutex_);
     // Validate that releasing would not exceed the maximum count
@@ -1951,6 +1956,7 @@ class PosixSemaphore final : public PosixConditionHandle<Semaphore> {
       : PosixConditionHandle(static_cast<uint32_t>(initial_count),
                              static_cast<uint32_t>(maximum_count)) {}
   ~PosixSemaphore() override = default;
+  int QueryCount() override { return handle_.QueryCount(); }
   bool Release(int release_count, int* out_previous_count) override {
     if (release_count < 1) {
       return false;

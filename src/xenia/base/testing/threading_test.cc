@@ -610,6 +610,27 @@ TEST_CASE("Wait on Multiple Events", "[event]") {
   REQUIRE(order[3] == '3');
 }
 
+TEST_CASE("Semaphore count snapshots", "[semaphore]") {
+  auto first = Semaphore::Create(2, 3);
+  auto second = Semaphore::Create(0, 3);
+  REQUIRE(first);
+  REQUIRE(second);
+  REQUIRE(first->QueryCount() == 2);
+  REQUIRE(first->QueryCount() == 2);  // Querying must not acquire a permit.
+  REQUIRE(WaitAll({first.get(), second.get()}, false, 0ms) ==
+          WaitResult::kTimeout);
+  REQUIRE(first->QueryCount() == 2);
+  REQUIRE(second->Release(1, nullptr));
+  REQUIRE(WaitAll({first.get(), second.get()}, false, 0ms) ==
+          WaitResult::kSuccess);
+  REQUIRE(first->QueryCount() == 1);
+  REQUIRE(second->QueryCount() == 0);
+  REQUIRE_FALSE(first->Release(3, nullptr));
+  REQUIRE(first->QueryCount() == 1);
+  REQUIRE(Wait(first.get(), false, 0ms) == WaitResult::kSuccess);
+  REQUIRE(first->QueryCount() == 0);
+}
+
 TEST_CASE("Wait on Semaphore", "[semaphore]") {
   WaitResult result;
   std::unique_ptr<Semaphore> sem;

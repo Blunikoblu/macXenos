@@ -1,0 +1,1862 @@
+{
+ "corpus": "ke_events",
+ "source": "Physical Xbox 360, bundle 3f0ab50ee738a1ae; private dispatcher-batch-01 evidence",
+ "steps": [
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "initial poll",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "second initial poll",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "set",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "set already signalled",
+   "export": "KeSetEvent",
+   "r3": "0000000000000001",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "consume or retain signal",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "poll after consumption",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "reset",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "reset again",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "finite wait on reset event",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "20 ms timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "pulse reset event without waiters",
+   "export": "KePulseEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "pulse leaves no stored signal",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "pulse signalled event without waiters",
+   "export": "KePulseEvent",
+   "r3": "0000000000000001",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "signalled pulse leaves no stored signal",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "poll after inline clear",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "set after inline clear",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "wait after inline clear and set",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 0",
+   "name": "final reset",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "initial poll",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "second initial poll",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "set",
+   "export": "KeSetEvent",
+   "r3": "0000000000000001",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "set already signalled",
+   "export": "KeSetEvent",
+   "r3": "0000000000000001",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "consume or retain signal",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "poll after consumption",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "reset",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "reset again",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "finite wait on reset event",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "20 ms timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "pulse reset event without waiters",
+   "export": "KePulseEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "pulse leaves no stored signal",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "pulse signalled event without waiters",
+   "export": "KePulseEvent",
+   "r3": "0000000000000001",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "signalled pulse leaves no stored signal",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "poll after inline clear",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "set after inline clear",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "wait after inline clear and set",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 0, initial 1",
+   "name": "final reset",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "initial poll",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "second initial poll",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "set",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "set already signalled",
+   "export": "KeSetEvent",
+   "r3": "0000000000000001",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "consume or retain signal",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "poll after consumption",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "reset",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "reset again",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "finite wait on reset event",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "20 ms timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "pulse reset event without waiters",
+   "export": "KePulseEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "pulse leaves no stored signal",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "pulse signalled event without waiters",
+   "export": "KePulseEvent",
+   "r3": "0000000000000001",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "signalled pulse leaves no stored signal",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "poll after inline clear",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "set after inline clear",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "wait after inline clear and set",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 0",
+   "name": "final reset",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "initial poll",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "second initial poll",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "set",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "set already signalled",
+   "export": "KeSetEvent",
+   "r3": "0000000000000001",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "consume or retain signal",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "poll after consumption",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "reset",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "reset again",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "finite wait on reset event",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "20 ms timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "pulse reset event without waiters",
+   "export": "KePulseEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "pulse leaves no stored signal",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "pulse signalled event without waiters",
+   "export": "KePulseEvent",
+   "r3": "0000000000000001",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "signalled pulse leaves no stored signal",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "KeSetEvent",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "poll after inline clear",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "set after inline clear",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "wait after inline clear and set",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "event type 1, initial 1",
+   "name": "final reset",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event",
+     "offset": 0
+    }
+   ]
+  }
+ ]
+}
