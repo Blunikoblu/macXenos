@@ -180,6 +180,9 @@ void XEvent::SyncGuestStateBeforeWait() {
   std::lock_guard<std::mutex> lock(header_mutex_);
   const int32_t header_state = guest_header()->signal_state;
   const int32_t seen = header_state_seen_.load(std::memory_order_relaxed);
+  if (header_state == seen) {
+    return;
+  }
   header_state_seen_.store(header_state, std::memory_order_relaxed);
   static const bool log_changes = [] {
     const char* v = std::getenv("XE_EVENT_HEADER_SYNC_LOG");
