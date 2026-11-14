@@ -1,0 +1,1588 @@
+{
+ "corpus": "ke_timer_reentrant",
+ "source": "Physical Xbox 360, bundle 66d76b544963a431; private hardware evidence timer-reentrant-01",
+ "steps": [
+  {
+   "scenario": "periodic self cancellation, timer type 0",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 0",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 0",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 0",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    },
+    {
+     "routine": "first callback"
+    },
+    {
+     "value": 324478056
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 0",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "replacement DPC",
+     "offset": 72
+    },
+    {
+     "routine": "replacement callback"
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 0",
+   "name": "KeSetTimerEx",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 1000
+    },
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 0",
+   "name": "first callback completes timer operation",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "first callback arguments IRQL and result": "82030028135724680000000200000001"
+   },
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 176
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 0",
+   "name": "KeDelayExecutionThread",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "1300 ms",
+     "offset": 184
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 0",
+   "name": "no extra first callback ready",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "first callback arguments IRQL and result": "82030028135724680000000200000001"
+   },
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 192
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 0",
+   "name": "no extra replacement callback ready",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "replacement callback arguments IRQL and result": "00000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 200
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 0",
+   "name": "final timer cleanup",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 0",
+   "name": "KeRemoveQueueDpc",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 0",
+   "name": "KeRemoveQueueDpc",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "replacement DPC",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 0",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 0",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 0",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 0",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    },
+    {
+     "routine": "first callback"
+    },
+    {
+     "value": 324478056
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 0",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "replacement DPC",
+     "offset": 72
+    },
+    {
+     "routine": "replacement callback"
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 0",
+   "name": "KeSetTimerEx",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 0",
+   "name": "first callback completes timer operation",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "first callback arguments IRQL and result": "82030028135724680000000200000000"
+   },
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 176
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 0",
+   "name": "replacement callback completes",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "replacement callback arguments IRQL and result": "82030048246813570000000200000000"
+   },
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 184
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 0",
+   "name": "KeDelayExecutionThread",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "1300 ms",
+     "offset": 192
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 0",
+   "name": "no extra first callback ready",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "first callback arguments IRQL and result": "82030028135724680000000200000000"
+   },
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 200
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 0",
+   "name": "no extra replacement callback ready",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "replacement callback arguments IRQL and result": "82030048246813570000000200000000"
+   },
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 208
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 0",
+   "name": "final timer cleanup",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 0",
+   "name": "KeRemoveQueueDpc",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 0",
+   "name": "KeRemoveQueueDpc",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "replacement DPC",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 0",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 0",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 0",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 0",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    },
+    {
+     "routine": "first callback"
+    },
+    {
+     "value": 324478056
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 0",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "replacement DPC",
+     "offset": 72
+    },
+    {
+     "routine": "replacement callback"
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 0",
+   "name": "KeSetTimerEx",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 1000
+    },
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 0",
+   "name": "first callback completes timer operation",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "first callback arguments IRQL and result": "82030028135724680000000200000001"
+   },
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 176
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 0",
+   "name": "replacement callback completes",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "replacement callback arguments IRQL and result": "82030048246813570000000200000000"
+   },
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 184
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 0",
+   "name": "KeDelayExecutionThread",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "1300 ms",
+     "offset": 192
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 0",
+   "name": "no extra first callback ready",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "first callback arguments IRQL and result": "82030028135724680000000200000001"
+   },
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 200
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 0",
+   "name": "no extra replacement callback ready",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "replacement callback arguments IRQL and result": "82030048246813570000000200000000"
+   },
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 208
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 0",
+   "name": "final timer cleanup",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 0",
+   "name": "KeRemoveQueueDpc",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 0",
+   "name": "KeRemoveQueueDpc",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "replacement DPC",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 1",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 1",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 1",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 1",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    },
+    {
+     "routine": "first callback"
+    },
+    {
+     "value": 324478056
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 1",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "replacement DPC",
+     "offset": 72
+    },
+    {
+     "routine": "replacement callback"
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 1",
+   "name": "KeSetTimerEx",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 1000
+    },
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 1",
+   "name": "first callback completes timer operation",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "first callback arguments IRQL and result": "82030028135724680000000200000001"
+   },
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 176
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 1",
+   "name": "KeDelayExecutionThread",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "1300 ms",
+     "offset": 184
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 1",
+   "name": "no extra first callback ready",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "first callback arguments IRQL and result": "82030028135724680000000200000001"
+   },
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 192
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 1",
+   "name": "no extra replacement callback ready",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "replacement callback arguments IRQL and result": "00000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 200
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 1",
+   "name": "final timer cleanup",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 1",
+   "name": "KeRemoveQueueDpc",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self cancellation, timer type 1",
+   "name": "KeRemoveQueueDpc",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "replacement DPC",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 1",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 1",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 1",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 1",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    },
+    {
+     "routine": "first callback"
+    },
+    {
+     "value": 324478056
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 1",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "replacement DPC",
+     "offset": 72
+    },
+    {
+     "routine": "replacement callback"
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 1",
+   "name": "KeSetTimerEx",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 1",
+   "name": "first callback completes timer operation",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "first callback arguments IRQL and result": "82030028135724680000000200000000"
+   },
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 176
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 1",
+   "name": "replacement callback completes",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "replacement callback arguments IRQL and result": "82030048246813570000000200000000"
+   },
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 184
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 1",
+   "name": "KeDelayExecutionThread",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "1300 ms",
+     "offset": 192
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 1",
+   "name": "no extra first callback ready",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "first callback arguments IRQL and result": "82030028135724680000000200000000"
+   },
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 200
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 1",
+   "name": "no extra replacement callback ready",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "replacement callback arguments IRQL and result": "82030048246813570000000200000000"
+   },
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 208
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 1",
+   "name": "final timer cleanup",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 1",
+   "name": "KeRemoveQueueDpc",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "one shot self rearm, timer type 1",
+   "name": "KeRemoveQueueDpc",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "replacement DPC",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 1",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 1",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 1",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 1",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    },
+    {
+     "routine": "first callback"
+    },
+    {
+     "value": 324478056
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 1",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "replacement DPC",
+     "offset": 72
+    },
+    {
+     "routine": "replacement callback"
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 1",
+   "name": "KeSetTimerEx",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 1000
+    },
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 1",
+   "name": "first callback completes timer operation",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "first callback arguments IRQL and result": "82030028135724680000000200000001"
+   },
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 176
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 1",
+   "name": "replacement callback completes",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "replacement callback arguments IRQL and result": "82030048246813570000000200000000"
+   },
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 184
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 1",
+   "name": "KeDelayExecutionThread",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "1300 ms",
+     "offset": 192
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 1",
+   "name": "no extra first callback ready",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "first callback arguments IRQL and result": "82030028135724680000000200000001"
+   },
+   "args": [
+    {
+     "pointer": "first callback ready",
+     "offset": 104
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 200
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 1",
+   "name": "no extra replacement callback ready",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "replacement callback arguments IRQL and result": "82030048246813570000000200000000"
+   },
+   "args": [
+    {
+     "pointer": "replacement callback ready",
+     "offset": 120
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 208
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 1",
+   "name": "final timer cleanup",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 1",
+   "name": "KeRemoveQueueDpc",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "first DPC",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic self replacement, timer type 1",
+   "name": "KeRemoveQueueDpc",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "replacement DPC",
+     "offset": 72
+    }
+   ]
+  }
+ ]
+}
