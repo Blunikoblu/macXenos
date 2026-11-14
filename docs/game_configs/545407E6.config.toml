@@ -16,3 +16,8 @@ occlusion_query = "strict"
 # on the M1 Max, routes-20261103/occl-m1 m2-accum / m2-default).
 # limit_uncapped_games still holds it to 60 when that is on.
 scanline_counter_from_time = false
+# The old counter still shows the limiter a visible line on one vblank in
+# about 23, and the game then waits two vblanks: a 33 ms frame 2.6 times a
+# second (2026-11-14, M5 Max: a 120 fps cap read 112.2; 120.0 with this, and
+# the longest frame in the menus went from 33 ms to 4 ms).
+scanline_counter_stay_in_vblank = true

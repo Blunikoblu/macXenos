@@ -26,6 +26,7 @@ DECLARE_uint64(framerate_limit);
 DECLARE_bool(limit_uncapped_games);
 DECLARE_uint32(uncapped_games_fps);
 DECLARE_bool(scanline_counter_from_time);
+DECLARE_bool(scanline_counter_stay_in_vblank);
 
 DECLARE_bool(gpu_allow_invalid_fetch_constants);
 
