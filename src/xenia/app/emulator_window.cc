@@ -1290,6 +1290,51 @@ void EmulatorWindow::AutoScreenshotLoop() {
     const double ui_ms = capture->ui_ms;
     lock.unlock();
     const auto save_start = clock::now();
+    // XE_SCREENSHOT_BURST_PPM=N (diagnostic): burst shots are written as
+    // binary PPMs decimated N times per axis instead of PNGs. A PNG encode
+    // takes tens of ms, so PNG bursts sample about one swap in six; this
+    // keeps up with 60 fps, for flicker that alternates swap by swap. A shot
+    // of a swap already written is skipped.
+    static const uint32_t s_burst_ppm = [] {
+      const char* v = std::getenv("XE_SCREENSHOT_BURST_PPM");
+      return v ? uint32_t(std::max(std::atoi(v), 0)) : 0u;
+    }();
+    if (burst && s_burst_ppm && image.width && image.height) {
+      static uint64_t s_last_swap = UINT64_MAX;
+      gpu::GraphicsSystem* graphics = emulator_->graphics_system();
+      gpu::CommandProcessor* command_processor =
+          graphics ? graphics->command_processor() : nullptr;
+      const uint64_t swap =
+          command_processor ? command_processor->guest_swap_count() : 0;
+      if (swap == s_last_swap) {
+        continue;
+      }
+      s_last_swap = swap;
+      std::filesystem::path folder = cvars::screenshot_path;
+      if (folder.empty()) {
+        continue;
+      }
+      std::error_code error;
+      std::filesystem::create_directories(folder, error);
+      const uint32_t out_width = (image.width + s_burst_ppm - 1) / s_burst_ppm;
+      const uint32_t out_height =
+          (image.height + s_burst_ppm - 1) / s_burst_ppm;
+      std::vector<uint8_t> rgb(size_t(out_width) * out_height * 3);
+      for (uint32_t y = 0; y < out_height; ++y) {
+        const uint8_t* row = image.data.data() + image.stride * (y * s_burst_ppm);
+        uint8_t* out = rgb.data() + size_t(y) * out_width * 3;
+        for (uint32_t x = 0; x < out_width; ++x) {
+          std::memcpy(out + x * 3, row + size_t(x) * s_burst_ppm * 4, 3);
+        }
+      }
+      const auto file_path = folder / fmt::format("{}.ppm", suffix);
+      if (FILE* file = xe::filesystem::OpenFile(file_path, "wb")) {
+        fmt::print(file, "P6\n{} {}\n255\n", out_width, out_height);
+        std::fwrite(rgb.data(), 1, rgb.size(), file);
+        std::fclose(file);
+      }
+      continue;
+    }
     ExportScreenshot(image, /*notify=*/false, suffix);
     static uint32_t s_timing_logs = 0;
     if (s_timing_logs++ < 8) {
