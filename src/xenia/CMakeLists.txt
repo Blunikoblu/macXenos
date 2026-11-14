@@ -41,9 +41,8 @@ add_subdirectory(debug/ui)
 add_subdirectory(app/discord)
 add_subdirectory(app)
 
-# SDL-based modules. On macOS, SDL2 is now built from the vendored submodule
-# (third_party/CMakeLists.txt) so these provide real audio + joystick (formerly
-# skipped on APPLE to avoid the SDL2.framework dependency).
+# SDL-based modules. On macOS, SDL3 is built from the vendored submodule
+# (third_party/CMakeLists.txt) so these provide real audio + joystick.
 add_subdirectory(apu/sdl)
 add_subdirectory(helper/sdl)
 add_subdirectory(hid/sdl)

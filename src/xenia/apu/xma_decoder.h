@@ -71,6 +71,15 @@ class XmaDecoder {
   cpu::Processor* processor_ = nullptr;
 
   std::atomic<bool> worker_running_ = {false};
+
+  // XE_APU_STATS=1: how long guest kicks block on the dedicated decoder
+  // thread (written by guest threads, read and reset by the worker's 5 s
+  // log line).
+  bool stats_enabled_ = false;
+  std::atomic<uint32_t> stats_kicks_ = {0};
+  std::atomic<uint32_t> stats_kicked_contexts_ = {0};
+  std::atomic<uint64_t> stats_kick_wait_us_ = {0};
+  std::atomic<uint64_t> stats_kick_wait_max_us_ = {0};
   kernel::object_ref<kernel::XHostThread> worker_thread_;
   std::unique_ptr<xe::threading::Event> work_event_ = nullptr;
 

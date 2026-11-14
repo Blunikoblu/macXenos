@@ -16,10 +16,10 @@ export function mockState(): NativeState {
     upscalers: ["bilinear", "cas", "fsr", "metalfx"],
     cvars: structuredClone(cvars as unknown as Record<string, Cvar>),
     controllers: [
-      { slot: 0, present: true, kind: "Xbox", name: "Xbox Wireless Controller" },
-      { slot: 1, present: false, kind: "Unknown", name: "" },
-      { slot: 2, present: false, kind: "Unknown", name: "" },
-      { slot: 3, present: false, kind: "Unknown", name: "" }
+      { slot: 0, present: true, kind: "Xbox", name: "Xbox Wireless Controller", rumble: true },
+      { slot: 1, present: false, kind: "Unknown", name: "", rumble: false },
+      { slot: 2, present: false, kind: "Unknown", name: "", rumble: false },
+      { slot: 3, present: false, kind: "Unknown", name: "", rumble: false }
     ],
     hotkeys: [
       { id: 1, label: "Y + Guide = Toggle Fullscreen", enabled: true, inGame: true },

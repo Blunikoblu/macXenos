@@ -10,11 +10,13 @@
 #ifndef XENIA_APU_SDL_SDL_AUDIO_DRIVER_H_
 #define XENIA_APU_SDL_SDL_AUDIO_DRIVER_H_
 
+#include <cstdint>
 #include <mutex>
 #include <queue>
 #include <stack>
+#include <vector>
 
-#include "SDL.h"
+#include <SDL3/SDL.h>
 #include "xenia/apu/audio_driver.h"
 #include "xenia/base/threading.h"
 
@@ -38,11 +40,24 @@ class SDLAudioDriver : public AudioDriver {
   void Shutdown() override;
 
  protected:
-  static void SDLCallback(void* userdata, Uint8* stream, int len);
+  // SDL3: the device asks for at least `additional_amount` more bytes; they
+  // are supplied one guest frame at a time (FillFrameLocked).
+  static void SDLCALL SDLCallback(void* userdata, SDL_AudioStream* stream,
+                                  int additional_amount, int total_amount);
+  // Writes one frame for the device into frame_out_ from the queue (or
+  // silence when it is empty) and releases the guest's semaphore for a frame
+  // it took. Called with frames_mutex_ held.
+  void FillFrameLocked();
 
   xe::threading::Semaphore* semaphore_ = nullptr;
 
-  SDL_AudioDeviceID sdl_device_id_ = -1;
+  // The playback stream bound to the default device (SDL3's
+  // SDL_OpenAudioDeviceStream); its device id labels the stats lines.
+  SDL_AudioStream* sdl_stream_ = nullptr;
+  uint32_t sdl_device_id_ = 0;
+  // One frame in the device's layout (channel_samples_ x sdl_device_channels_
+  // floats), reused by the callback.
+  std::vector<float> frame_out_;
   bool sdl_initialized_ = false;
   uint8_t sdl_device_channels_ = 0;
 
@@ -56,6 +71,20 @@ class SDLAudioDriver : public AudioDriver {
   std::queue<float*> frames_queued_ = {};
   std::stack<float*> frames_unused_ = {};
   std::mutex frames_mutex_ = {};
+
+  // XE_APU_STATS=1: device-side pacing, logged every 5 s from the SDL
+  // callback (guarded by frames_mutex_). An underrun is a device callback
+  // that found no guest frame queued and played silence.
+  void LogStatsLocked();
+  bool stats_enabled_ = false;
+  uint64_t stats_window_start_ticks_ = 0;
+  uint32_t stats_callbacks_ = 0;
+  uint32_t stats_submitted_ = 0;
+  uint32_t stats_underruns_ = 0;
+  uint32_t stats_underrun_runs_ = 0;
+  bool stats_in_underrun_ = false;
+  size_t stats_depth_min_ = SIZE_MAX;
+  size_t stats_depth_max_ = 0;
 };
 
 }  // namespace sdl

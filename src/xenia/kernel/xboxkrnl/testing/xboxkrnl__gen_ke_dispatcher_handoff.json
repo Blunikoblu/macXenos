@@ -1,0 +1,2117 @@
+{
+ "corpus": "ke_dispatcher_handoff",
+ "source": "Physical Xbox 360, bundle d1f0936a043f1fa3; private hardware evidence wait-all-wake-01",
+ "steps": [
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "auto event: worker attempting wait",
+     "offset": 24
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "auto event: worker done",
+     "offset": 40
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "auto event: object 0",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "auto event: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "auto event: worker handle",
+     "offset": 96
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "auto event: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "auto event: worker reached wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "auto event: worker attempting wait",
+     "offset": 24
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "auto event: 2000 ms",
+     "offset": 88
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "auto event: cannot finish while clear",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "auto event: object 0+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "auto event: worker done",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "auto event: 20 ms",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "auto event: release worker",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "auto event: object 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "auto event: worker completed wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "auto event: worker done",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "auto event: 2000 ms",
+     "offset": 88
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "auto event: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "auto event: worker status and object states": "00000000000000000000000000000001",
+    "auto event: object 0+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "variable": "auto event: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "auto event: 2000 ms",
+     "offset": 88
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "auto event: main poll object 0, attempt 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "auto event: object 0+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "auto event: object 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "auto event: 0 ms",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "auto event: main poll object 0, attempt 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "auto event: object 0+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "auto event: object 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "auto event: 0 ms",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "auto event: object 0",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "auto event: close worker handle",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "auto event: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "manual event: worker attempting wait",
+     "offset": 392
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "manual event: worker done",
+     "offset": 408
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "manual event: object 0",
+     "offset": 368
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "manual event: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "manual event: worker handle",
+     "offset": 464
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "manual event: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "manual event: worker reached wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "manual event: worker attempting wait",
+     "offset": 392
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "manual event: 2000 ms",
+     "offset": 456
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "manual event: cannot finish while clear",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "manual event: object 0+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "manual event: worker done",
+     "offset": 408
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "manual event: 20 ms",
+     "offset": 448
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "manual event: release worker",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "manual event: object 0",
+     "offset": 368
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "manual event: worker completed wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "manual event: worker done",
+     "offset": 408
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "manual event: 2000 ms",
+     "offset": 456
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "manual event: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "manual event: worker status and object states": "00000000000000010000000000000001",
+    "manual event: object 0+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "variable": "manual event: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "manual event: 2000 ms",
+     "offset": 456
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "manual event: main poll object 0, attempt 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "manual event: object 0+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "manual event: object 0",
+     "offset": 368
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "manual event: 0 ms",
+     "offset": 440
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "manual event: main poll object 0, attempt 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "manual event: object 0+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "manual event: object 0",
+     "offset": 368
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "manual event: 0 ms",
+     "offset": 440
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "manual event: object 0",
+     "offset": 368
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "manual event: close worker handle",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "manual event: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "semaphore: worker attempting wait",
+     "offset": 760
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "semaphore: worker done",
+     "offset": 776
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "semaphore: object 0",
+     "offset": 736
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 3
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "semaphore: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore: worker handle",
+     "offset": 832
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "semaphore: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "semaphore: worker reached wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore: worker attempting wait",
+     "offset": 760
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "semaphore: 2000 ms",
+     "offset": 824
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "semaphore: cannot finish while clear",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "semaphore: object 0+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "semaphore: worker done",
+     "offset": 776
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "semaphore: 20 ms",
+     "offset": 816
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "semaphore: supply two permits",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore: object 0",
+     "offset": 736
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "semaphore: worker completed wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore: worker done",
+     "offset": 776
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "semaphore: 2000 ms",
+     "offset": 824
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "semaphore: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore: worker status and object states": "00000000000000010000000000000001",
+    "semaphore: object 0+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "variable": "semaphore: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "semaphore: 2000 ms",
+     "offset": 824
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "semaphore: main poll object 0, attempt 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore: object 0+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "semaphore: object 0",
+     "offset": 736
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "semaphore: 0 ms",
+     "offset": 808
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "semaphore: main poll object 0, attempt 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "semaphore: object 0+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "semaphore: object 0",
+     "offset": 736
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "semaphore: 0 ms",
+     "offset": 808
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "semaphore: close worker handle",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "semaphore: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "wait any auto event and semaphore: worker attempting wait",
+     "offset": 1152
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "wait any auto event and semaphore: worker done",
+     "offset": 1168
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "wait any auto event and semaphore: object 0",
+     "offset": 1104
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "wait any auto event and semaphore: object 1",
+     "offset": 1128
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 3
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait any auto event and semaphore: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait any auto event and semaphore: worker handle",
+     "offset": 1224
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "wait any auto event and semaphore: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait any auto event and semaphore: worker reached wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait any auto event and semaphore: worker attempting wait",
+     "offset": 1152
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait any auto event and semaphore: 2000 ms",
+     "offset": 1216
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait any auto event and semaphore: cannot finish while clear",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "wait any auto event and semaphore: object 0+0x4[:0x4]": "00000000",
+    "wait any auto event and semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "wait any auto event and semaphore: worker done",
+     "offset": 1168
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait any auto event and semaphore: 20 ms",
+     "offset": 1208
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait any auto event and semaphore: supply two permits",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait any auto event and semaphore: object 1",
+     "offset": 1128
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait any auto event and semaphore: worker completed wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait any auto event and semaphore: worker done",
+     "offset": 1168
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait any auto event and semaphore: 2000 ms",
+     "offset": 1216
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait any auto event and semaphore: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "wait any auto event and semaphore: worker status and object states": "00000001000000000000000100000001",
+    "wait any auto event and semaphore: object 0+0x4[:0x4]": "00000000",
+    "wait any auto event and semaphore: object 1+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "variable": "wait any auto event and semaphore: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait any auto event and semaphore: 2000 ms",
+     "offset": 1216
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait any auto event and semaphore: main poll object 0, attempt 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "wait any auto event and semaphore: object 0+0x4[:0x4]": "00000000",
+    "wait any auto event and semaphore: object 1+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "wait any auto event and semaphore: object 0",
+     "offset": 1104
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait any auto event and semaphore: 0 ms",
+     "offset": 1200
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait any auto event and semaphore: main poll object 0, attempt 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "wait any auto event and semaphore: object 0+0x4[:0x4]": "00000000",
+    "wait any auto event and semaphore: object 1+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "wait any auto event and semaphore: object 0",
+     "offset": 1104
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait any auto event and semaphore: 0 ms",
+     "offset": 1200
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait any auto event and semaphore: main poll object 1, attempt 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "wait any auto event and semaphore: object 0+0x4[:0x4]": "00000000",
+    "wait any auto event and semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "wait any auto event and semaphore: object 1",
+     "offset": 1128
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait any auto event and semaphore: 0 ms",
+     "offset": 1200
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait any auto event and semaphore: main poll object 1, attempt 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "wait any auto event and semaphore: object 0+0x4[:0x4]": "00000000",
+    "wait any auto event and semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "wait any auto event and semaphore: object 1",
+     "offset": 1128
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait any auto event and semaphore: 0 ms",
+     "offset": 1200
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait any auto event and semaphore: object 0",
+     "offset": 1104
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait any auto event and semaphore: close worker handle",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "wait any auto event and semaphore: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: worker attempting wait",
+     "offset": 1544
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: worker done",
+     "offset": 1560
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: object 0",
+     "offset": 1496
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: object 1",
+     "offset": 1520
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 3
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all auto event and semaphore: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: worker handle",
+     "offset": 1616
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "wait all auto event and semaphore: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all auto event and semaphore: worker reached wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: worker attempting wait",
+     "offset": 1544
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all auto event and semaphore: 2000 ms",
+     "offset": 1608
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all auto event and semaphore: cannot finish while clear",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "wait all auto event and semaphore: object 0+0x4[:0x4]": "00000000",
+    "wait all auto event and semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: worker done",
+     "offset": 1560
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all auto event and semaphore: 20 ms",
+     "offset": 1600
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all auto event and semaphore: make only first ready",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: object 0",
+     "offset": 1496
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all auto event and semaphore: partial readiness cannot finish",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "wait all auto event and semaphore: object 0+0x4[:0x4]": "00000001",
+    "wait all auto event and semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: worker done",
+     "offset": 1560
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all auto event and semaphore: 20 ms",
+     "offset": 1600
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all auto event and semaphore: main acquires unconsumed first signal",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "wait all auto event and semaphore: object 0+0x4[:0x4]": "00000000",
+    "wait all auto event and semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: object 0",
+     "offset": 1496
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all auto event and semaphore: 0 ms",
+     "offset": 1592
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all auto event and semaphore: restore first readiness",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: object 0",
+     "offset": 1496
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all auto event and semaphore: supply two permits",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: object 1",
+     "offset": 1520
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all auto event and semaphore: worker completed wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: worker done",
+     "offset": 1560
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all auto event and semaphore: 2000 ms",
+     "offset": 1608
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all auto event and semaphore: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "wait all auto event and semaphore: worker status and object states": "00000001000000000000000100000001",
+    "wait all auto event and semaphore: object 0+0x4[:0x4]": "00000000",
+    "wait all auto event and semaphore: object 1+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "variable": "wait all auto event and semaphore: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all auto event and semaphore: 2000 ms",
+     "offset": 1608
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all auto event and semaphore: main poll object 0, attempt 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "wait all auto event and semaphore: object 0+0x4[:0x4]": "00000000",
+    "wait all auto event and semaphore: object 1+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: object 0",
+     "offset": 1496
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all auto event and semaphore: 0 ms",
+     "offset": 1592
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all auto event and semaphore: main poll object 0, attempt 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "wait all auto event and semaphore: object 0+0x4[:0x4]": "00000000",
+    "wait all auto event and semaphore: object 1+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: object 0",
+     "offset": 1496
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all auto event and semaphore: 0 ms",
+     "offset": 1592
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all auto event and semaphore: main poll object 1, attempt 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "wait all auto event and semaphore: object 0+0x4[:0x4]": "00000000",
+    "wait all auto event and semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: object 1",
+     "offset": 1520
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all auto event and semaphore: 0 ms",
+     "offset": 1592
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all auto event and semaphore: main poll object 1, attempt 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "wait all auto event and semaphore: object 0+0x4[:0x4]": "00000000",
+    "wait all auto event and semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: object 1",
+     "offset": 1520
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all auto event and semaphore: 0 ms",
+     "offset": 1592
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait all auto event and semaphore: object 0",
+     "offset": 1496
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all auto event and semaphore: close worker handle",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "wait all auto event and semaphore: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: worker attempting wait",
+     "offset": 1936
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: worker done",
+     "offset": 1952
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: object 0",
+     "offset": 1888
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: object 1",
+     "offset": 1912
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 3
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all manual event and semaphore: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: worker handle",
+     "offset": 2008
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "wait all manual event and semaphore: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all manual event and semaphore: worker reached wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: worker attempting wait",
+     "offset": 1936
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all manual event and semaphore: 2000 ms",
+     "offset": 2000
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all manual event and semaphore: cannot finish while clear",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "wait all manual event and semaphore: object 0+0x4[:0x4]": "00000000",
+    "wait all manual event and semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: worker done",
+     "offset": 1952
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all manual event and semaphore: 20 ms",
+     "offset": 1992
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all manual event and semaphore: make only first ready",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: object 0",
+     "offset": 1888
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all manual event and semaphore: partial readiness cannot finish",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "wait all manual event and semaphore: object 0+0x4[:0x4]": "00000001",
+    "wait all manual event and semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: worker done",
+     "offset": 1952
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all manual event and semaphore: 20 ms",
+     "offset": 1992
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all manual event and semaphore: main acquires unconsumed first signal",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "wait all manual event and semaphore: object 0+0x4[:0x4]": "00000001",
+    "wait all manual event and semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: object 0",
+     "offset": 1888
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all manual event and semaphore: 0 ms",
+     "offset": 1984
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all manual event and semaphore: restore first readiness",
+   "export": "KeSetEvent",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: object 0",
+     "offset": 1888
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all manual event and semaphore: supply two permits",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: object 1",
+     "offset": 1912
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all manual event and semaphore: worker completed wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: worker done",
+     "offset": 1952
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all manual event and semaphore: 2000 ms",
+     "offset": 2000
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all manual event and semaphore: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "wait all manual event and semaphore: worker status and object states": "00000001000000010000000100000001",
+    "wait all manual event and semaphore: object 0+0x4[:0x4]": "00000001",
+    "wait all manual event and semaphore: object 1+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "variable": "wait all manual event and semaphore: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all manual event and semaphore: 2000 ms",
+     "offset": 2000
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all manual event and semaphore: main poll object 0, attempt 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "wait all manual event and semaphore: object 0+0x4[:0x4]": "00000001",
+    "wait all manual event and semaphore: object 1+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: object 0",
+     "offset": 1888
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all manual event and semaphore: 0 ms",
+     "offset": 1984
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all manual event and semaphore: main poll object 0, attempt 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "wait all manual event and semaphore: object 0+0x4[:0x4]": "00000001",
+    "wait all manual event and semaphore: object 1+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: object 0",
+     "offset": 1888
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all manual event and semaphore: 0 ms",
+     "offset": 1984
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all manual event and semaphore: main poll object 1, attempt 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "wait all manual event and semaphore: object 0+0x4[:0x4]": "00000001",
+    "wait all manual event and semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: object 1",
+     "offset": 1912
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all manual event and semaphore: 0 ms",
+     "offset": 1984
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all manual event and semaphore: main poll object 1, attempt 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "wait all manual event and semaphore: object 0+0x4[:0x4]": "00000001",
+    "wait all manual event and semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: object 1",
+     "offset": 1912
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "wait all manual event and semaphore: 0 ms",
+     "offset": 1984
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "KeResetEvent",
+   "export": "KeResetEvent",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "wait all manual event and semaphore: object 0",
+     "offset": 1888
+    }
+   ]
+  },
+  {
+   "scenario": "dispatcher handoffs with independent worker storage",
+   "name": "wait all manual event and semaphore: close worker handle",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "wait all manual event and semaphore: worker handle"
+    }
+   ]
+  }
+ ]
+}

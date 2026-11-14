@@ -7,6 +7,7 @@ import {
   Options,
   ResetGroup,
   Slider,
+  TextField,
   Value,
   type Option
 } from "../ui/settings-controls";
@@ -31,6 +32,10 @@ const REFRESH: Option[] = [
   { value: true, label: "60 Hz", short: "60 Hz", recommended: true },
   { value: false, label: "Unlocked", short: "Unlocked" }
 ];
+
+// Caps for games with no frame rate of their own (limit_uncapped_games at
+// uncapped_games_fps): the common display refresh rates.
+const UNCAPPED_PRESETS = [60, 120, 180, 240];
 
 const SCALES: Option[] = [
   { value: 1, label: "1x — 720p", short: "1x" },
@@ -69,6 +74,16 @@ export function graphics(state: NativeState): BladeDef {
   const vsync = state.cvars.vsync?.value !== false;
   const limit = Number(state.cvars.framerate_limit?.value ?? 0);
   const limitUncapped = state.cvars.limit_uncapped_games?.value === true;
+  const uncappedFps = Number(state.cvars.uncapped_games_fps?.value ?? 60);
+  // 0 stands for Unlimited and -1 for Custom; the rest are caps.
+  const uncappedChoice = !limitUncapped
+    ? 0
+    : UNCAPPED_PRESETS.includes(uncappedFps)
+      ? uncappedFps
+      : -1;
+  const uncappedLabel = !limitUncapped
+    ? t("graphics.uncapped.unlimited")
+    : t("graphics.uncapped.fps", { fps: uncappedFps });
   const scaleX = Number(state.cvars.draw_resolution_scale_x?.value ?? 1);
   const scaleY = Number(state.cvars.draw_resolution_scale_y?.value ?? 1);
 
@@ -126,11 +141,7 @@ export function graphics(state: NativeState): BladeDef {
       id: "uncapped",
       label: t("graphics.uncapped.label"),
       glyph: "speed",
-      value: (
-        <>
-          {limitUncapped ? t("graphics.uncapped.cap") : t("graphics.uncapped.unlimited")}
-        </>
-      ),
+      value: <>{uncappedLabel}</>,
       heading: t("graphics.uncapped.label"),
       detail: (
         <>
@@ -139,11 +150,37 @@ export function graphics(state: NativeState): BladeDef {
             name="limit_uncapped_games"
             title={t("graphics.uncapped.label")}
             options={[
-              { value: false, label: t("graphics.uncapped.unlimited") },
-              { value: true, label: t("graphics.uncapped.cap") }
+              { value: 0, label: t("graphics.uncapped.unlimited") },
+              ...UNCAPPED_PRESETS.map((fps) => ({
+                value: fps,
+                label: t("graphics.uncapped.fps", { fps })
+              })),
+              { value: -1, label: t("graphics.uncapped.custom") }
             ]}
-            current={limitUncapped}
+            current={uncappedChoice}
+            onChoose={(value) => {
+              const choice = Number(value);
+              if (choice === 0) {
+                setCvar("limit_uncapped_games", false);
+                return;
+              }
+              setCvar("limit_uncapped_games", true);
+              // Custom keeps a rate already set off the presets; otherwise it
+              // starts from the common 144 Hz gaming refresh.
+              if (choice > 0) setCvar("uncapped_games_fps", choice);
+              else if (UNCAPPED_PRESETS.includes(uncappedFps)) setCvar("uncapped_games_fps", 144);
+            }}
           />
+          {uncappedChoice === -1 ? (
+            <>
+              <TextField
+                name="uncapped_games_fps"
+                title={t("graphics.uncapped.customField")}
+                numeric
+              />
+              <Aside>{t("graphics.uncapped.customNote")}</Aside>
+            </>
+          ) : null}
         </>
       )
     },

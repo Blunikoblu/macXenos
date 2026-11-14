@@ -102,7 +102,7 @@ target_link_libraries(xenia-app PRIVATE
   xenia-app-discord
   xenia-debug-ui
 )
-# SDL audio/input. On macOS SDL2 is built from the vendored submodule, so the
+# SDL audio/input. On macOS SDL3 is built from the vendored submodule, so the
 # app links the SDL modules on all desktop platforms (audio is registered;
 # SDL HID remains unregistered on macOS until input is wired separately).
 target_link_libraries(xenia-app PRIVATE

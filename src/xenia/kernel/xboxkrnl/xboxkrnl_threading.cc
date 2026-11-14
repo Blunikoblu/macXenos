@@ -1114,7 +1114,9 @@ uint32_t KeDelayExecutionThread(uint32_t processor_mode, uint32_t alertable,
                                 cpu::ppc::PPCContext* ctx) {
   XThread* thread = XThread::GetCurrentThread();
 
-  if (alertable) {
+  // Kernel-mode delays leave user APCs queued, even when alertable.
+  const bool user_alertable = alertable && processor_mode == 1;
+  if (user_alertable) {
     X_STATUS stat = xeProcessUserApcs(ctx);
     if (stat == X_STATUS_USER_APC) {
       return stat;
@@ -1123,8 +1125,8 @@ uint32_t KeDelayExecutionThread(uint32_t processor_mode, uint32_t alertable,
   // See xeKeWaitForSingleObject for the loop.
   X_STATUS result;
   do {
-    result = thread->Delay(processor_mode, alertable, *interval_ptr);
-  } while (result == X_STATUS_USER_APC &&
+    result = thread->Delay(processor_mode, user_alertable, *interval_ptr);
+  } while (user_alertable && result == X_STATUS_USER_APC &&
            xeProcessUserApcs(ctx) != X_STATUS_USER_APC);
 
   return result;
@@ -1532,6 +1534,34 @@ dword_result_t NtReleaseSemaphore_entry(dword_t sem_handle,
 DECLARE_XBOXKRNL_EXPORT2(NtReleaseSemaphore, kThreading, kImplemented,
                          kHighFrequency);
 
+void KeInitializeMutant_entry(pointer_t<X_KMUTANT> mutant,
+                              dword_t initial_owner,
+                              const ppc_context_t& context) {
+  mutant->header.type = 2;
+  mutant->header.signal_state = initial_owner ? 0 : 1;
+  util::XeInitializeListHead(&mutant->header.wait_list, context);
+  mutant->abandoned = false;
+  mutant->owner = initial_owner ? XThread::GetCurrentThread()->guest_object() : 0;
+  // Materialize now: an initially owned mutant belongs to this thread, not
+  // whichever thread first tries to wait on it.
+  XObject::GetNativeObject<XMutant>(kernel_state(), mutant);
+}
+DECLARE_XBOXKRNL_EXPORT1(KeInitializeMutant, kThreading, kImplemented);
+
+dword_result_t KeReleaseMutant_entry(pointer_t<X_KMUTANT> mutant,
+                                   dword_t increment, dword_t abandon,
+                                   dword_t wait) {
+  auto object = XObject::GetNativeObject<XMutant>(kernel_state(), mutant);
+  int32_t previous_state = 0;
+  auto status = object->ReleaseMutant(increment, abandon != 0, wait != 0,
+                                    &previous_state);
+  // The Ke API returns the previous signal state, not NtReleaseMutant's status.
+  // Abandonment, wrong-owner exceptions and the release-and-wait IRQL contract
+  // remain unsupported.
+  return XSUCCEEDED(status) ? static_cast<uint32_t>(previous_state) : status;
+}
+DECLARE_XBOXKRNL_EXPORT1(KeReleaseMutant, kThreading, kSketchy);
+
 dword_result_t NtCreateMutant_entry(
     lpdword_t handle_out, pointer_t<X_OBJECT_ATTRIBUTES> obj_attributes,
     dword_t initial_owner) {
@@ -1710,23 +1740,30 @@ uint32_t xeKeWaitForSingleObject(void* object_ptr, uint32_t wait_reason,
     return X_STATUS_ABANDONED_WAIT_0;
   }
 
-  // An alertable wait delivers user APCs already queued on this thread before
-  // blocking and returns STATUS_USER_APC without waiting, as
-  // KeDelayExecutionThread already does. Without this, an APC a thread queues
-  // on itself (NtReadFile's completion routine) is never delivered on macOS,
-  // where the wake signal is dropped unless the thread is already inside an
-  // alertable wait (Spider-Man: Web of Shadows, 2026-09-27).
-  if (alertable && xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
-    return X_STATUS_USER_APC;
+  const bool user_alertable = alertable && processor_mode == 1;
+  X_STATUS result;
+  // Native waits follow the same ready-object precedence and user-mode APC
+  // gating as Nt waits (ke_apc_waits hardware corpus). Poll first so ready
+  // objects win; partial WaitAll readiness is preserved by the wait machinery.
+  if (user_alertable) {
+    uint64_t poll_timeout = 0;
+    result = object->Wait(wait_reason, processor_mode, false, &poll_timeout);
+    if (result != X_STATUS_TIMEOUT) {
+      return result;
+    }
+    // Process prequeued APCs before blocking: a self-queued APC's host wake
+    // may have been dropped before the thread entered an alertable wait.
+    if (xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
+      return X_STATUS_USER_APC;
+    }
   }
   // A wake for an APC queued from another thread ends the host wait; deliver
   // it and return. The wake can also outlive its APC (the delivery above took
   // the APC, the wake arrived after): nothing is delivered then, and the wait
   // starts over rather than report an APC that never ran.
-  X_STATUS result;
   do {
-    result = object->Wait(wait_reason, processor_mode, alertable, timeout_ptr);
-  } while (alertable && result == X_STATUS_USER_APC &&
+    result = object->Wait(wait_reason, processor_mode, user_alertable, timeout_ptr);
+  } while (user_alertable && result == X_STATUS_USER_APC &&
            xeProcessUserApcs(nullptr) != X_STATUS_USER_APC);
   return result;
 }
@@ -1764,14 +1801,24 @@ uint32_t NtWaitForSingleObjectEx(uint32_t object_handle, uint32_t wait_mode,
       kernel_state()->object_table()->LookupObject<XObject>(object_handle);
   if (object) {
     uint64_t timeout = timeout_ptr ? static_cast<uint64_t>(*timeout_ptr) : 0u;
-    // See xeKeWaitForSingleObject: pending user APCs are delivered first.
-    if (alertable && xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
-      return X_STATUS_USER_APC;
+    const bool user_alertable = alertable && wait_mode == 1;
+    // Hardware satisfies an immediately ready object before delivering a
+    // queued user APC. Kernel-mode waits leave user APCs pending, even when
+    // alertable (nt_apc_waits hardware corpus).
+    if (user_alertable) {
+      uint64_t poll_timeout = 0;
+      result = object->Wait(3, wait_mode, false, &poll_timeout);
+      if (result != X_STATUS_TIMEOUT) {
+        return result;
+      }
+      if (xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
+        return X_STATUS_USER_APC;
+      }
     }
     do {
-      result = object->Wait(3, wait_mode, alertable,
+      result = object->Wait(3, wait_mode, user_alertable,
                             timeout_ptr ? &timeout : nullptr);
-    } while (alertable && result == X_STATUS_USER_APC &&
+    } while (user_alertable && result == X_STATUS_USER_APC &&
              xeProcessUserApcs(nullptr) != X_STATUS_USER_APC);
   } else {
     result = X_STATUS_INVALID_HANDLE;
@@ -1837,18 +1884,29 @@ dword_result_t KeWaitForMultipleObjects_entry(
                       false, harr);
     t0 = Clock::QueryHostUptimeMillis();
   }
-  // See xeKeWaitForSingleObject: pending user APCs are delivered first.
-  if (alertable && xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
-    return X_STATUS_USER_APC;
-  }
+  const bool user_alertable = alertable && processor_mode == 1;
   X_STATUS result;
-  do {
-    result = XObject::WaitMultiple(
+  // Preserve diagnostic enter/exit pairing for immediate and APC completion.
+  auto wait = [&](bool host_alertable, uint64_t* wait_timeout) {
+    return XObject::WaitMultiple(
         uint32_t(count), reinterpret_cast<XObject**>(&objects[0]), wait_type,
-        wait_reason, processor_mode, alertable,
-        timeout_ptr ? &timeout : nullptr);
-  } while (alertable && result == X_STATUS_USER_APC &&
-           xeProcessUserApcs(nullptr) != X_STATUS_USER_APC);
+        wait_reason, processor_mode, host_alertable, wait_timeout);
+  };
+  result = X_STATUS_TIMEOUT;
+  if (user_alertable) {
+    uint64_t poll_timeout = 0;
+    result = wait(false, &poll_timeout);
+    if (result == X_STATUS_TIMEOUT &&
+        xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
+      result = X_STATUS_USER_APC;
+    }
+  }
+  if (result == X_STATUS_TIMEOUT) {
+    do {
+      result = wait(user_alertable, timeout_ptr ? &timeout : nullptr);
+    } while (user_alertable && result == X_STATUS_USER_APC &&
+             xeProcessUserApcs(nullptr) != X_STATUS_USER_APC);
+  }
   if (diag) {
     IoLedgerWaitExit();
     LoaderWaitTap("KeWaitMultiple", count ? uint32_t(objects_ptr[0]) : 0u, false,
@@ -1890,16 +1948,27 @@ uint32_t xeNtWaitForMultipleObjectsEx(uint32_t count, xe::be<uint32_t>* handles,
     }
   }
 
-  // See xeKeWaitForSingleObject: pending user APCs are delivered first.
-  if (alertable && xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
-    return X_STATUS_USER_APC;
-  }
+  const bool user_alertable = alertable && wait_mode == 1;
   X_STATUS result;
+  // As with NtWaitForSingleObjectEx, try immediate satisfaction without
+  // delivering APCs. WaitAll's poll preserves partial readiness atomically.
+  if (user_alertable) {
+    uint64_t poll_timeout = 0;
+    result = XObject::WaitMultiple(
+        count, reinterpret_cast<XObject**>(&objects[0]), wait_type, 6,
+        wait_mode, false, &poll_timeout);
+    if (result != X_STATUS_TIMEOUT) {
+      return result;
+    }
+    if (xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
+      return X_STATUS_USER_APC;
+    }
+  }
   do {
-    result =
-        XObject::WaitMultiple(count, reinterpret_cast<XObject**>(&objects[0]),
-                              wait_type, 6, wait_mode, alertable, timeout_ptr);
-  } while (alertable && result == X_STATUS_USER_APC &&
+    result = XObject::WaitMultiple(
+        count, reinterpret_cast<XObject**>(&objects[0]), wait_type, 6,
+        wait_mode, user_alertable, timeout_ptr);
+  } while (user_alertable && result == X_STATUS_USER_APC &&
            xeProcessUserApcs(nullptr) != X_STATUS_USER_APC);
   return result;
 }
@@ -2487,13 +2556,16 @@ void KeInitializeDpc_entry(pointer_t<XDPC> dpc, lpvoid_t routine,
 }
 DECLARE_XBOXKRNL_EXPORT2(KeInitializeDpc, kThreading, kImplemented, kSketchy);
 
-dword_result_t KeInsertQueueDpc_entry(pointer_t<XDPC> dpc, dword_t arg1,
-                                      dword_t arg2) {
-  uint32_t list_entry_ptr = dpc.guest_address() + 4;
+uint32_t xeKeInsertQueueDpc(XDPC* dpc, uint32_t dpc_address, uint32_t arg1,
+                          uint32_t arg2) {
+  uint32_t list_entry_ptr = dpc_address + offsetof(XDPC, list_entry);
 
   // Lock dispatcher.
   auto global_lock = xe::global_critical_region::AcquireDirect();
   auto dpc_list = kernel_state()->dpc_list();
+  if (dpc_list->IsQueued(list_entry_ptr)) {
+    return 0;
+  }
 
   // Prep DPC.
   dpc->arg1 = (uint32_t)arg1;
@@ -2511,6 +2583,9 @@ dword_result_t KeInsertQueueDpc_entry(pointer_t<XDPC> dpc, dword_t arg1,
   if (routine) {
     auto thread = XThread::GetCurrentThread();
     if (thread) {
+      // A DPC is no longer queued once execution begins. In particular,
+      // completion must not leave a stale entry that prevents its next use.
+      dpc_list->Remove(list_entry_ptr);
       auto thread_state = thread->thread_state();
       auto ppc_context = thread_state->context();
       auto kpcr = ppc_context->TranslateVirtualGPR<X_KPCR*>(ppc_context->r[13]);
@@ -2524,7 +2599,7 @@ dword_result_t KeInsertQueueDpc_entry(pointer_t<XDPC> dpc, dword_t arg1,
         kernel_state()->BeginDPCImpersonation(ppc_context, dpc_scope);
       }
 
-      uint64_t args[] = {dpc.guest_address(), (uint64_t)dpc->context,
+      uint64_t args[] = {dpc_address, (uint64_t)dpc->context,
                          (uint64_t)arg1, (uint64_t)arg2};
       kernel_state()->processor()->Execute(thread_state, routine, args,
                                            xe::countof(args));
@@ -2536,6 +2611,11 @@ dword_result_t KeInsertQueueDpc_entry(pointer_t<XDPC> dpc, dword_t arg1,
   }
 
   return 1;
+}
+
+dword_result_t KeInsertQueueDpc_entry(pointer_t<XDPC> dpc, dword_t arg1,
+                                     dword_t arg2) {
+  return xeKeInsertQueueDpc(dpc, dpc.guest_address(), arg1, arg2);
 }
 DECLARE_XBOXKRNL_EXPORT2(KeInsertQueueDpc, kThreading, kImplemented, kSketchy);
 
@@ -2815,6 +2895,43 @@ void KeInitializeTimerEx_entry(pointer_t<X_KTIMER> timer, dword_t type,
   xeKeInitializeTimerEx(timer, type, proctype & 0xFF, context);
 }
 DECLARE_XBOXKRNL_EXPORT1(KeInitializeTimerEx, kThreading, kImplemented);
+
+dword_result_t KeSetTimerEx_entry(pointer_t<X_KTIMER> timer, qword_t due_time,
+                                 dword_t period_ms, pointer_t<XDPC> dpc) {
+  auto object = XObject::GetNativeObject<XTimer>(kernel_state(), timer);
+  std::function<void()> callback;
+  if (dpc) {
+    auto state = kernel_state();
+    auto dpc_address = dpc.guest_address();
+    callback = [state, dpc_address] {
+      const uint64_t time = Clock::QueryGuestSystemTime();
+      // The host timer thread has no guest KPCR. Use the existing kernel
+      // dispatch thread and DPC path rather than treating a KDPC as an APC.
+      state->Dispatch([state, dpc_address, time] {
+        xeKeInsertQueueDpc(
+            state->memory()->TranslateVirtual<XDPC*>(dpc_address),
+            dpc_address, static_cast<uint32_t>(time),
+            static_cast<uint32_t>(time >> 32));
+      });
+    };
+  }
+  return object->SetNativeTimer(static_cast<int64_t>(due_time),
+                               period_ms, dpc.guest_address(),
+                               std::move(callback));
+}
+DECLARE_XBOXKRNL_EXPORT1(KeSetTimerEx, kThreading, kSketchy);
+
+dword_result_t KeSetTimer_entry(pointer_t<X_KTIMER> timer, qword_t due_time,
+                               pointer_t<XDPC> dpc) {
+  return KeSetTimerEx_entry(timer, due_time, 0, dpc);
+}
+DECLARE_XBOXKRNL_EXPORT1(KeSetTimer, kThreading, kSketchy);
+
+dword_result_t KeCancelTimer_entry(pointer_t<X_KTIMER> timer) {
+  auto object = XObject::GetNativeObject<XTimer>(kernel_state(), timer);
+  return object->CancelNativeTimer();
+}
+DECLARE_XBOXKRNL_EXPORT1(KeCancelTimer, kThreading, kImplemented);
 
 }  // namespace xboxkrnl
 }  // namespace kernel

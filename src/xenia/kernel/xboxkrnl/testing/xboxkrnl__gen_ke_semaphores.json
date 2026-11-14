@@ -1,0 +1,1193 @@
+{
+ "corpus": "ke_semaphores",
+ "source": "Physical Xbox 360, bundle e2f6e36eaa6b1cd2; private dispatcher-batch-01 evidence",
+ "steps": [
+  {
+   "scenario": "semaphore initial 0, limit 3",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 3
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 0, limit 3",
+   "name": "drain initial permit 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 0, limit 3",
+   "name": "finite wait when empty",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "20 ms timeout",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 0, limit 3",
+   "name": "release two from empty",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000002",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 0, limit 3",
+   "name": "consume one of two",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000001",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 0, limit 3",
+   "name": "release two to reach limit",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000001",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000003",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 0, limit 3",
+   "name": "drain full semaphore 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000002",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 0, limit 3",
+   "name": "drain full semaphore 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000001",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 0, limit 3",
+   "name": "drain full semaphore 3",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 0, limit 3",
+   "name": "drain full semaphore 4",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 0, limit 3",
+   "name": "release one from empty",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000001",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 0, limit 3",
+   "name": "consume last permit",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 0, limit 3",
+   "name": "final empty poll",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 1, limit 3",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000001",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 3
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 1, limit 3",
+   "name": "drain initial permit 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 1, limit 3",
+   "name": "drain initial permit 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 1, limit 3",
+   "name": "finite wait when empty",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "20 ms timeout",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 1, limit 3",
+   "name": "release two from empty",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000002",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 1, limit 3",
+   "name": "consume one of two",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000001",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 1, limit 3",
+   "name": "release two to reach limit",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000001",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000003",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 1, limit 3",
+   "name": "drain full semaphore 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000002",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 1, limit 3",
+   "name": "drain full semaphore 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000001",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 1, limit 3",
+   "name": "drain full semaphore 3",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 1, limit 3",
+   "name": "drain full semaphore 4",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 1, limit 3",
+   "name": "release one from empty",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000001",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 1, limit 3",
+   "name": "consume last permit",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 1, limit 3",
+   "name": "final empty poll",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000003",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 3
+    },
+    {
+     "value": 3
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "drain initial permit 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000002",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "drain initial permit 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000001",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "drain initial permit 3",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "drain initial permit 4",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "finite wait when empty",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "20 ms timeout",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "release two from empty",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000002",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "consume one of two",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000001",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "release two to reach limit",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000001",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000003",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "drain full semaphore 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000002",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "drain full semaphore 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000001",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "drain full semaphore 3",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "drain full semaphore 4",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "release one from empty",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000001",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "consume last permit",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "semaphore initial 3, limit 3",
+   "name": "final empty poll",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "semaphore+0x4[:0x4]": "00000000",
+    "semaphore+0x10[:0x4]": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 24
+    }
+   ]
+  }
+ ]
+}

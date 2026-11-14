@@ -610,6 +610,66 @@ TEST_CASE("Wait on Multiple Events", "[event]") {
   REQUIRE(order[3] == '3');
 }
 
+#if XE_PLATFORM_WIN32 == 0
+TEST_CASE("Blocking WaitAll reports its member wake", "[wait]") {
+  for (size_t last = 0; last < 3; ++last) {
+    auto first = Event::CreateAutoResetEvent(true);
+    auto second = Event::CreateAutoResetEvent(true);
+    auto third = Event::CreateAutoResetEvent(true);
+    Event* events[] = {first.get(), second.get(), third.get()};
+    WaitHandle* handles[] = {events[0], events[1], events[2]};
+    auto immediate = WaitMultiple(handles, 3, true, false, 0ms);
+    REQUIRE(immediate.first == WaitResult::kSuccess);
+    REQUIRE(immediate.second == 0);
+
+    for (size_t i = 0; i < 3; ++i) {
+      if (i != last) {
+        events[i]->Set();
+      }
+    }
+    auto started = Event::CreateManualResetEvent(false);
+    std::pair<WaitResult, size_t> result{WaitResult::kFailed, 0};
+    std::thread waiter([&] {
+      started->Set();
+      result = WaitMultiple(handles, 3, true, false, 2s);
+    });
+    auto ready = Wait(started.get(), false, 1s);
+    // As in ReleasedWaiters, readiness precedes registration. Allow the
+    // worker to enter its wait before supplying the final missing signal.
+    Sleep(20ms);
+    events[last]->Set();
+    waiter.join();
+    REQUIRE(ready == WaitResult::kSuccess);
+    REQUIRE(result.first == WaitResult::kSuccess);
+    REQUIRE(result.second == last);
+    for (auto* event : events) {
+      REQUIRE(event->Query().state == 0);
+    }
+  }
+}
+#endif
+
+TEST_CASE("Semaphore count snapshots", "[semaphore]") {
+  auto first = Semaphore::Create(2, 3);
+  auto second = Semaphore::Create(0, 3);
+  REQUIRE(first);
+  REQUIRE(second);
+  REQUIRE(first->QueryCount() == 2);
+  REQUIRE(first->QueryCount() == 2);  // Querying must not acquire a permit.
+  REQUIRE(WaitAll({first.get(), second.get()}, false, 0ms) ==
+          WaitResult::kTimeout);
+  REQUIRE(first->QueryCount() == 2);
+  REQUIRE(second->Release(1, nullptr));
+  REQUIRE(WaitAll({first.get(), second.get()}, false, 0ms) ==
+          WaitResult::kSuccess);
+  REQUIRE(first->QueryCount() == 1);
+  REQUIRE(second->QueryCount() == 0);
+  REQUIRE_FALSE(first->Release(3, nullptr));
+  REQUIRE(first->QueryCount() == 1);
+  REQUIRE(Wait(first.get(), false, 0ms) == WaitResult::kSuccess);
+  REQUIRE(first->QueryCount() == 0);
+}
+
 TEST_CASE("Wait on Semaphore", "[semaphore]") {
   WaitResult result;
   std::unique_ptr<Semaphore> sem;

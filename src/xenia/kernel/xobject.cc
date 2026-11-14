@@ -22,6 +22,7 @@
 #include "xenia/kernel/xsemaphore.h"
 #include "xenia/kernel/xsymboliclink.h"
 #include "xenia/kernel/xthread.h"
+#include "xenia/kernel/xtimer.h"
 #include "xenia/xbox.h"
 
 DECLARE_bool(guest_wait_profile);  // defined in xthread.cc
@@ -397,9 +398,9 @@ X_STATUS XObject::WaitMultiple(uint32_t count, XObject** objects,
         break;
     }
   } else {
-    auto result = xe::threading::WaitAll(wait_handles, count,
-                                         alertable ? true : false, timeout_ms);
-    switch (result) {
+    auto result = xe::threading::WaitMultiple(
+        wait_handles, count, true, alertable ? true : false, timeout_ms);
+    switch (result.first) {
       case xe::threading::WaitResult::kSuccess:
         for (uint32_t i = 0; i < count; i++) {
           objects[i]->WaitCallback();
@@ -408,7 +409,10 @@ X_STATUS XObject::WaitMultiple(uint32_t count, XObject** objects,
             boost_increment = objects[i]->priority_increment();
           }
         }
-        status = X_STATUS_SUCCESS;
+        // Hardware KeWaitForMultipleObjects and NtWaitForMultipleObjectsEx
+        // return the completing object's index after a blocked WaitAll, but
+        // zero for immediate completion.
+        status = X_STATUS(result.second);
         break;
       case xe::threading::WaitResult::kUserCallback:
         status = X_STATUS_USER_APC;
@@ -572,10 +576,10 @@ object_ref<XObject> XObject::GetNativeObject(KernelState* kernel_state,
         result->Release();
         result = nullptr;
       }
-      // Events, mutants and semaphores are rebuilt from the header below;
+      // Events, mutants, semaphores and timers are rebuilt from the header below;
       // other types cannot be, and stay unresolved as before.
       if (expected == Type::Event || expected == Type::Mutant ||
-          expected == Type::Semaphore) {
+          expected == Type::Semaphore || expected == Type::Timer) {
         header->wait_list.flink_ptr = 0;
       }
     }
@@ -606,12 +610,17 @@ object_ref<XObject> XObject::GetNativeObject(KernelState* kernel_state,
         assert_true(success);
         object = sem;
       } break;
+      case 8:  // TimerNotificationObject
+      case 9:  // TimerSynchronizationObject
+      {
+        auto timer = new XTimer(kernel_state);
+        timer->InitializeNative(native_ptr, header);
+        object = timer;
+      } break;
       case 3:   // ProcessObject
       case 4:   // QueueObject
       case 6:   // ThreadObject
       case 7:   // GateObject
-      case 8:   // TimerNotificationObject
-      case 9:   // TimerSynchronizationObject
       case 18:  // ApcObject
       case 19:  // DpcObject
       case 20:  // DeviceQueueObject

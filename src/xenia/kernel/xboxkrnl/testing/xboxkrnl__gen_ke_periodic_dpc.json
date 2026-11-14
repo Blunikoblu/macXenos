@@ -1,0 +1,863 @@
+{
+ "corpus": "ke_periodic_dpc",
+ "source": "Physical Xbox 360, bundle 7376b13b852db53f; private hardware evidence periodic-dpc-01",
+ "steps": [
+  {
+   "scenario": "periodic DPC notification",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "dpc",
+     "offset": 40
+    },
+    {
+     "routine": "periodic timer callback"
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "KeSetTimerEx",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 200
+    },
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "callback delivery 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "callback state": "00000001820300282468135700000002"
+   },
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 104
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "callback delivery 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "callback state": "00000001820300282468135700000002"
+   },
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 112
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "callback delivery 3",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "callback state": "00000001820300282468135700000002"
+   },
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 120
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "cancel recurring callbacks",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "allow previously queued callback to finish",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "400 ms",
+     "offset": 128
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "clear old callback readiness",
+   "export": "KeResetEvent",
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "no new callback after cancellation",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "callback state": "00000001820300282468135700000002"
+   },
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "500 ms",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "reuse DPC for one shot",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "one shot callback delivery",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "callback state": "00000001820300282468135700000002"
+   },
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 144
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "cancel expired one shot",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "allow previously queued callback to finish",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "400 ms",
+     "offset": 152
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "clear old callback readiness",
+   "export": "KeResetEvent",
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "one shot does not repeat",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "callback state": "00000001820300282468135700000002"
+   },
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "300 ms",
+     "offset": 160
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC notification",
+   "name": "final DPC removal",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "dpc",
+     "offset": 40
+    },
+    {
+     "routine": "periodic timer callback"
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "KeSetTimerEx",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 200
+    },
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "callback delivery 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "callback state": "00000001820300282468135700000002"
+   },
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 104
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "callback delivery 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "callback state": "00000001820300282468135700000002"
+   },
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 112
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "callback delivery 3",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "callback state": "00000001820300282468135700000002"
+   },
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 120
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "cancel recurring callbacks",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "allow previously queued callback to finish",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "400 ms",
+     "offset": 128
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "clear old callback readiness",
+   "export": "KeResetEvent",
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "no new callback after cancellation",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "callback state": "00000001820300282468135700000002"
+   },
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "500 ms",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "reuse DPC for one shot",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "one shot callback delivery",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "callback state": "00000001820300282468135700000002"
+   },
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 144
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "cancel expired one shot",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "allow previously queued callback to finish",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "400 ms",
+     "offset": 152
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "clear old callback readiness",
+   "export": "KeResetEvent",
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "one shot does not repeat",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "callback state": "00000001820300282468135700000002"
+   },
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "300 ms",
+     "offset": 160
+    }
+   ]
+  },
+  {
+   "scenario": "periodic DPC synchronization",
+   "name": "final DPC removal",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "cancel periodic before first DPC",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "cancel periodic before first DPC",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "cancel periodic before first DPC",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "dpc",
+     "offset": 40
+    },
+    {
+     "routine": "periodic timer callback"
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "cancel periodic before first DPC",
+   "name": "KeSetTimerEx",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073706551616
+    },
+    {
+     "value": 200
+    },
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "cancel periodic before first DPC",
+   "name": "KeCancelTimer",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "cancel periodic before first DPC",
+   "name": "KeDelayExecutionThread",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "500 ms",
+     "offset": 104
+    }
+   ]
+  },
+  {
+   "scenario": "cancel periodic before first DPC",
+   "name": "no callback delivered",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "callback state": "00000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "pointer": "callback ready",
+     "offset": 72
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 112
+    }
+   ]
+  },
+  {
+   "scenario": "cancel periodic before first DPC",
+   "name": "final DPC removal",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  }
+ ]
+}

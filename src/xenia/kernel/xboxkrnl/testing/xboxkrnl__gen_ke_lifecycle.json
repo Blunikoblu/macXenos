@@ -1,0 +1,1200 @@
+{
+ "corpus": "ke_lifecycle",
+ "source": "Physical Xbox 360 with Peer Pressure and XBDM, 2026-11-13; bundle 43a2f3536a041510; private hardware evidence",
+ "steps": [
+  {
+   "scenario": "mutant recursion initial owner 0",
+   "name": "KeInitializeMutant",
+   "export": "KeInitializeMutant",
+   "capture": {
+    "mutant[:0x8]": "0200000000000001"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 0",
+   "name": "acquire 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "mutant[:0x8]": "0200000000000000"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 0",
+   "name": "acquire 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "mutant[:0x8]": "02000000ffffffff"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 0",
+   "name": "acquire 3",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "mutant[:0x8]": "02000000fffffffe"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 0",
+   "name": "release 1",
+   "export": "KeReleaseMutant",
+   "r3": "00000000FFFFFFFE",
+   "capture": {
+    "mutant[:0x8]": "02000000ffffffff"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 0",
+   "name": "release 2",
+   "export": "KeReleaseMutant",
+   "r3": "00000000FFFFFFFF",
+   "capture": {
+    "mutant[:0x8]": "0200000000000000"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 0",
+   "name": "release 3",
+   "export": "KeReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "mutant[:0x8]": "0200000000000001"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 0",
+   "name": "reacquire after final release",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "mutant[:0x8]": "0200000000000000"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 0",
+   "name": "release reacquired",
+   "export": "KeReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "mutant[:0x8]": "0200000000000001"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 1",
+   "name": "KeInitializeMutant",
+   "export": "KeInitializeMutant",
+   "capture": {
+    "mutant[:0x8]": "0200000000000000"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 1",
+   "name": "acquire 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "mutant[:0x8]": "02000000ffffffff"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 1",
+   "name": "acquire 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "mutant[:0x8]": "02000000fffffffe"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 1",
+   "name": "acquire 3",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "mutant[:0x8]": "02000000fffffffd"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 1",
+   "name": "release 1",
+   "export": "KeReleaseMutant",
+   "r3": "00000000FFFFFFFD",
+   "capture": {
+    "mutant[:0x8]": "02000000fffffffe"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 1",
+   "name": "release 2",
+   "export": "KeReleaseMutant",
+   "r3": "00000000FFFFFFFE",
+   "capture": {
+    "mutant[:0x8]": "02000000ffffffff"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 1",
+   "name": "release 3",
+   "export": "KeReleaseMutant",
+   "r3": "00000000FFFFFFFF",
+   "capture": {
+    "mutant[:0x8]": "0200000000000000"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 1",
+   "name": "release 4",
+   "export": "KeReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "mutant[:0x8]": "0200000000000001"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 1",
+   "name": "reacquire after final release",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "mutant[:0x8]": "0200000000000000"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "mutant recursion initial owner 1",
+   "name": "release reacquired",
+   "export": "KeReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "mutant[:0x8]": "0200000000000001"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "capture": {
+    "timer[:0x8]": "0800010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "cancel never armed",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0800010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "poll unarmed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer[:0x8]": "0800010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "set for cancellation",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073707551616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "cancel pending",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "KeDelayExecutionThread",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "300 ms",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "poll after cancelled deadline",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer[:0x8]": "0800010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "set for expiry",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "wait for expiry",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0800010000000001"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "1000 ms",
+     "offset": 64
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "poll after expiry wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0800010000000001"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "cancel expired",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0800010000000001"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "poll after expired cancellation",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0800010000000001"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "rearm expired",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073707551616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "poll rearmed before expiry",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer[:0x8]": "0800010100000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 88
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "replace pending",
+   "export": "KeSetTimer",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "wait for replacement",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0800010000000001"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "1000 ms",
+     "offset": 96
+    }
+   ]
+  },
+  {
+   "scenario": "notification timer",
+   "name": "final cancel",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "capture": {
+    "timer[:0x8]": "0900010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "cancel never armed",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0900010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "poll unarmed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer[:0x8]": "0900010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "set for cancellation",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073707551616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "cancel pending",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "KeDelayExecutionThread",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "300 ms",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "poll after cancelled deadline",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer[:0x8]": "0900010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "set for expiry",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "wait for expiry",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0900010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "1000 ms",
+     "offset": 64
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "poll after expiry wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer[:0x8]": "0900010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "cancel expired",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0900010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "poll after expired cancellation",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer[:0x8]": "0900010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "rearm expired",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073707551616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "poll rearmed before expiry",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer[:0x8]": "0900010100000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 88
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "replace pending",
+   "export": "KeSetTimer",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "wait for replacement",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0900010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "1000 ms",
+     "offset": 96
+    }
+   ]
+  },
+  {
+   "scenario": "synchronization timer",
+   "name": "final cancel",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  }
+ ]
+}

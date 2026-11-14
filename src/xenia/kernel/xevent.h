@@ -49,9 +49,10 @@ class XEvent : public XObject {
  protected:
   xe::threading::WaitHandle* GetWaitHandle() override { return event_.get(); }
   void SyncGuestStateBeforeWait() override;
+  void WaitCallback() override;
 
  private:
-  // Guest address of the title-owned KEVENT a notification event was built
+  // Guest address of the title-owned KEVENT this event was built
   // from (InitializeNative), or 0: its header's signal_state is kept in step
   // with the host event (see SyncGuestStateBeforeWait).
   X_DISPATCH_HEADER* guest_header() const;

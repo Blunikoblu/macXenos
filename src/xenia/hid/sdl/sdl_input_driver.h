@@ -18,7 +18,7 @@
 #include <vector>
 #include <unordered_map>
 
-#include "SDL.h"
+#include <SDL3/SDL.h>
 #include "third_party/rapidcsv/src/rapidcsv.h"
 #include "xenia/hid/input_driver.h"
 
@@ -65,7 +65,7 @@ class SDLInputDriver final : public InputDriver {
 
  private:
   struct ControllerState {
-    SDL_GameController* sdl;
+    SDL_Gamepad* sdl;
     X_INPUT_CAPABILITIES caps;
     X_INPUT_STATE state;
     bool state_changed;

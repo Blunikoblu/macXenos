@@ -1,0 +1,922 @@
+{
+ "corpus": "ke_periodic",
+ "source": "Physical Xbox 360 with Peer Pressure and XBDM, 2026-11-13; bundle 51e315ac04c7ef0a; private hardware evidence",
+ "steps": [
+  {
+   "scenario": "periodic notification",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "set periodic",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073707551616
+    },
+    {
+     "value": 200
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "replace periodic",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073707551616
+    },
+    {
+     "value": 200
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "poll before first expiry",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer[:0x8]": "0800010100000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "wait for first expiry",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0800010100000001"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "poll after first wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0800010100000001"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "wait again while still periodic",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0800010100000001"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "allow later expirations",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "450 ms",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "cancel periodic after expiry",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000001",
+   "capture": {
+    "timer[:0x8]": "0800010000000001"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "poll signaled timer after cancel",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0800010000000001"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "poll again after cancel",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0800010000000001"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "past next cancelled period",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "300 ms",
+     "offset": 64
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "poll after cancelled period",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0800010000000001"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "cancel again",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "period zero is one shot",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "wait for period zero expiry",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0800010000000001"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "cancel expired period zero",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "start periodic for replacement",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073707551616
+    },
+    {
+     "value": 200
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "replace periodic with one shot",
+   "export": "KeSetTimer",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "wait for one shot replacement",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0800010000000001"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "periodic notification",
+   "name": "final cancel",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "set periodic",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073707551616
+    },
+    {
+     "value": 200
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "replace periodic",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073707551616
+    },
+    {
+     "value": 200
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "poll before first expiry",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer[:0x8]": "0900010100000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "wait for first expiry",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0900010100000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "poll after first wait",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer[:0x8]": "0900010100000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "wait again while still periodic",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0900010100000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "allow later expirations",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "450 ms",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "cancel periodic after expiry",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000001",
+   "capture": {
+    "timer[:0x8]": "0900010000000001"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "poll signaled timer after cancel",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0900010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "poll again after cancel",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer[:0x8]": "0900010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "past next cancelled period",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "300 ms",
+     "offset": 64
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "poll after cancelled period",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer[:0x8]": "0900010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "cancel again",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "period zero is one shot",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "wait for period zero expiry",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0900010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "cancel expired period zero",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "start periodic for replacement",
+   "export": "KeSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073707551616
+    },
+    {
+     "value": 200
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "replace periodic with one shot",
+   "export": "KeSetTimer",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "wait for one shot replacement",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer[:0x8]": "0900010000000000"
+   },
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "periodic synchronization",
+   "name": "final cancel",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  }
+ ]
+}

@@ -30,7 +30,70 @@ DEFINE_uint32(
     "seamless updates if default value of any option is changed.",
     "Config");
 
+DEFINE_string(
+    config_arch, "",
+    "Do not modify - the CPU architecture of the build that last saved this "
+    "config (arm64 or x86_64). A config carried to a Mac of the other "
+    "architecture (Migration Assistant, or the Intel half of the app under "
+    "Rosetta) then takes that Mac's architecture-dependent defaults.",
+    "Config");
+
 namespace config {
+// The architecture stamp, and the settings whose default depends on it with
+// the default the OTHER architecture's build writes. A config saved by that
+// build holds those values as plain values, indistinguishable from choices,
+// so a Mac Pro's config migrated to an Apple silicon Mac kept
+// guest_thread_qos = "off": Mafia II ran at 57-72 fps on an M5 Max where the
+// Apple silicon default gives 184 (2026-11-13).
+#if XE_ARCH_AMD64
+constexpr const char* kBuildArch = "x86_64";
+#else
+constexpr const char* kBuildArch = "arm64";
+#endif
+struct ArchDependentDefault {
+  const char* name;
+  // config_value() spelling (TOML: strings quoted) of the other build's
+  // default.
+  const char* other_arch_config_value;
+};
+constexpr ArchDependentDefault kArchDependentDefaults[] = {
+#if XE_ARCH_AMD64
+    {"guest_thread_qos", "\"all\""},
+#else
+    {"guest_thread_qos", "\"off\""},
+#endif
+};
+
+// Called after a config file is loaded. When the file was saved by a build
+// of the other architecture, a setting that still holds that build's default
+// goes back to this build's; a value that is neither default was chosen and
+// stays. A file with no stamp (saved before 2026-11-13) is left alone: its
+// values cannot be told apart from choices.
+static void ApplyArchitectureDefaults() {
+  auto arch_cvar =
+      dynamic_cast<cvar::ConfigVar<std::string>*>(cv::cv_config_arch);
+  assert_not_null(arch_cvar);
+  const std::string stored_arch = arch_cvar->GetTypedConfigValue();
+  if (stored_arch.empty() || stored_arch == kBuildArch) {
+    return;
+  }
+  for (const ArchDependentDefault& entry : kArchDependentDefaults) {
+    auto it = cvar::ConfigVars->find(entry.name);
+    if (it == cvar::ConfigVars->end()) {
+      continue;
+    }
+    auto config_var = static_cast<cvar::IConfigVar*>(it->second);
+    if (config_var->config_value() != entry.other_arch_config_value) {
+      continue;
+    }
+    config_var->ResetConfigValueToDefault();
+    XELOGI("Config saved by an {} build: {} was that build's default ({}), "
+           "now this build's ({})",
+           stored_arch, entry.name, entry.other_arch_config_value,
+           config_var->config_value());
+  }
+}
+
 std::string config_name = "macXenos.config.toml";
 // The name the config had before macXenos renamed it, adopted on first launch.
 constexpr std::string_view kLegacyConfigName = "xenia-canary.config.toml";
@@ -112,6 +175,11 @@ void ReadConfig(const std::filesystem::path& file_path,
       dynamic_cast<cvar::ConfigVar<uint32_t>*>(cv::cv_defaults_date);
   assert_not_null(defaults_date_cvar);
   defaults_date_cvar->SetConfigValue(0);
+  // Likewise the architecture stamp: absent from the file means unknown.
+  auto arch_cvar =
+      dynamic_cast<cvar::ConfigVar<std::string>*>(cv::cv_config_arch);
+  assert_not_null(arch_cvar);
+  arch_cvar->SetConfigValue("");
   for (auto& it : *cvar::ConfigVars) {
     auto config_var = static_cast<cvar::IConfigVar*>(it.second);
     // Transient values are never saved, so one in a config file is stale:
@@ -132,6 +200,8 @@ void ReadConfig(const std::filesystem::path& file_path,
   if (update_if_no_version_stored || config_defaults_date) {
     cvar::IConfigVarUpdate::ApplyUpdates(config_defaults_date);
   }
+  // After the dated updates, which may themselves rewrite these values.
+  ApplyArchitectureDefaults();
 
   // Check for type mismatch warnings
   if (cvar::config_type_mismatch_warnings &&
@@ -190,6 +260,11 @@ void SaveConfig() {
   assert_not_null(defaults_date_cvar);
   defaults_date_cvar->SetConfigValue(
       cvar::IConfigVarUpdate::GetLastUpdateDate());
+  // And this build's architecture, for ApplyArchitectureDefaults.
+  auto arch_cvar =
+      dynamic_cast<cvar::ConfigVar<std::string>*>(cv::cv_config_arch);
+  assert_not_null(arch_cvar);
+  arch_cvar->SetConfigValue(kBuildArch);
 
   std::vector<cvar::IConfigVar*> vars;
   if (cvar::ConfigVars) {

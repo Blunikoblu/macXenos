@@ -87,9 +87,11 @@ class GraphicsSystem {
   uint64_t vblank_count() const {
     return vblank_count_.load(std::memory_order_acquire);
   }
-  // With limit_uncapped_games, holds a swap until a vblank has passed since
-  // the previous one: a game that waits for vblank is never held; one that
-  // presents without waiting is held to the vblank rate (60 Hz).
+  // With limit_uncapped_games, holds a game that presents faster than
+  // uncapped_games_fps to that rate. At 60 a swap waits until a guest vblank
+  // has passed since the previous one; at any other rate it waits until
+  // 1/fps of host time after the previous swap's deadline. Either way a game
+  // whose own frame rate is at or below the cap is never held.
   void PaceUncappedSwap();
   void Pause();
   void Resume();
@@ -140,6 +142,9 @@ class GraphicsSystem {
   std::atomic<int64_t> last_vblank_host_ns_{0};
   std::atomic<int64_t> vblank_interval_host_ns_{0};
   uint64_t last_swap_vblank_ = UINT64_MAX;
+  // Host steady-clock deadline for the next uncapped swap when
+  // uncapped_games_fps is not 60 (0 = no schedule yet).
+  int64_t next_uncapped_swap_ns_ = 0;
   kernel::object_ref<kernel::XHostThread> frame_limiter_worker_thread_;
 
   RegisterFile* register_file_;

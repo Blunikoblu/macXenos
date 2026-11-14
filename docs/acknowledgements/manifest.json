@@ -26,11 +26,11 @@
       "files": [{ "path": "third_party/FFmpeg/LICENSE.md" }, { "path": "third_party/FFmpeg/COPYING.LGPLv2.1" }]
     },
     {
-      "name": "SDL2",
+      "name": "SDL3",
       "license": "Zlib",
       "url": "https://www.libsdl.org",
-      "libs": ["libSDL2.a"],
-      "files": [{ "path": "third_party/SDL2/LICENSE.txt" }]
+      "libs": ["libSDL3.a"],
+      "files": [{ "path": "third_party/SDL3/LICENSE.txt" }]
     },
     {
       "name": "DirectX Shader Compiler (dxilconv)",

@@ -40,6 +40,8 @@ export type Controller = {
   present: boolean;
   kind: string;
   name: string;
+  /** Whether the controller reports vibration motors. */
+  rumble: boolean;
 };
 
 export type Hotkey = {

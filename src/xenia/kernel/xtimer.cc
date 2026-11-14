@@ -22,7 +22,18 @@ namespace kernel {
 XTimer::XTimer(KernelState* kernel_state)
     : XObject(kernel_state, kObjectType) {}
 
-XTimer::~XTimer() = default;
+XTimer::~XTimer() {
+  if (native_state_) {
+    {
+      std::lock_guard<std::mutex> lock(native_state_->mutex);
+      ++native_state_->generation;
+      native_state_->pending = false;
+    }
+    // Drain host callbacks before destroying the kernel object.
+    timer_->Cancel();
+    timer_.reset();
+  }
+}
 
 void XTimer::Initialize(uint32_t timer_type) {
   assert_false(timer_);
@@ -39,6 +50,119 @@ void XTimer::Initialize(uint32_t timer_type) {
       break;
   }
   assert_not_null(timer_);
+}
+
+void XTimer::InitializeNative(void* native_ptr, X_DISPATCH_HEADER* header) {
+  Initialize(header->type - 8);
+  native_state_ = std::make_shared<NativeState>();
+  native_state_->guest_ptr = memory()->HostToGuestVirtual(native_ptr);
+  native_state_->event =
+      manual_reset_
+          ? xe::threading::Event::CreateManualResetEvent(header->signal_state != 0)
+          : xe::threading::Event::CreateAutoResetEvent(header->signal_state != 0);
+  SetNativePointer(native_state_->guest_ptr, true);
+}
+
+xe::threading::WaitHandle* XTimer::GetWaitHandle() {
+  // Native timers publish their guest state before waking a waiter. The host
+  // timer is only the scheduler; its signal precedes its callback and cannot
+  // keep repeated expirations in sync with guest signal consumption.
+  if (native_state_) {
+    return native_state_->event.get();
+  }
+  return timer_.get();
+}
+
+bool XTimer::SetNativeTimer(int64_t due_time, uint32_t period_ms, uint32_t dpc,
+                           std::function<void()> callback) {
+  using xe::chrono::WinSystemClock;
+  using xe::chrono::XSystemClock;
+  std::lock_guard<std::mutex> schedule_lock(timer_lock_);
+  auto state = native_state_;
+  uint64_t generation;
+  bool previous;
+  {
+    std::lock_guard<std::mutex> lock(state->mutex);
+    previous = state->pending;
+    generation = ++state->generation;
+    state->pending = true;
+    state->event->Reset();
+    auto timer = memory()->TranslateVirtual<X_KTIMER*>(state->guest_ptr);
+    timer->header.inserted = 1;
+    timer->header.signal_state = 0;
+    timer->header.absolute = due_time >= 0;
+    timer->due_time =
+        due_time < 0
+            ? Clock::QueryGuestSystemTime() - static_cast<uint64_t>(due_time)
+            : static_cast<uint64_t>(due_time);
+    timer->dpc = dpc;
+    timer->period = period_ms;
+  }
+  auto due = due_time < 0
+                 ? date::clock_cast<WinSystemClock>(
+                       XSystemClock::now() +
+                       xe::chrono::hundrednanoseconds(-due_time))
+                 : date::clock_cast<WinSystemClock>(
+                       XSystemClock::from_file_time(due_time));
+  auto mem = memory();
+  auto fire =
+      [state, generation, mem, period_ms, callback = std::move(callback)] {
+        {
+          std::lock_guard<std::mutex> lock(state->mutex);
+          if (generation != state->generation) {
+            return;
+          }
+          state->pending = period_ms != 0;
+          auto timer = mem->TranslateVirtual<X_KTIMER*>(state->guest_ptr);
+          timer->header.inserted = state->pending;
+          state->event->Set();
+          timer->header.signal_state = state->event->Query().state;
+        }
+        if (callback) {
+          callback();
+        }
+      };
+  bool success = period_ms
+                     ? timer_->SetRepeatingAt(
+                           due, std::chrono::milliseconds(
+                                    Clock::ScaleGuestDurationMillis(period_ms)),
+                           std::move(fire))
+                     : timer_->SetOnceAt(due, std::move(fire));
+  if (!success) {
+    std::lock_guard<std::mutex> lock(state->mutex);
+    state->pending = false;
+    ++state->generation;
+    mem->TranslateVirtual<X_KTIMER*>(state->guest_ptr)->header.inserted = 0;
+    XELOGE("Unable to schedule guest timer {:08X}", state->guest_ptr);
+  }
+  return previous;
+}
+
+bool XTimer::CancelNativeTimer() {
+  std::lock_guard<std::mutex> schedule_lock(timer_lock_);
+  bool previous;
+  {
+    std::lock_guard<std::mutex> lock(native_state_->mutex);
+    previous = native_state_->pending;
+    native_state_->pending = false;
+    ++native_state_->generation;
+    memory()->TranslateVirtual<X_KTIMER*>(native_state_->guest_ptr)
+        ->header.inserted = 0;
+  }
+  // Cancellation removes the timer from the queue, without clearing a signal
+  // that has already been delivered.
+  timer_->Cancel();
+  return previous;
+}
+
+void XTimer::WaitCallback() {
+  if (native_state_) {
+    std::lock_guard<std::mutex> lock(native_state_->mutex);
+    auto timer = memory()->TranslateVirtual<X_KTIMER*>(native_state_->guest_ptr);
+    // A periodic timer remains queued when a waiter consumes its signal. Use
+    // the event's current state so a subsequent expiry is not cleared here.
+    timer->header.signal_state = native_state_->event->Query().state;
+  }
 }
 
 X_STATUS XTimer::SetTimer(int64_t due_time, uint32_t period_ms,

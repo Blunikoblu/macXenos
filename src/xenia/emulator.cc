@@ -396,6 +396,11 @@ X_STATUS Emulator::TerminateTitle() {
   }
 
   kernel_state_->TerminateTitle();
+  // The title can no longer stop a rumble it started.
+  if (input_system_) {
+    auto input_lock = input_system_->lock();
+    input_system_->ResetVibration();
+  }
   title_id_ = std::nullopt;
   title_name_ = "";
   title_version_ = "";

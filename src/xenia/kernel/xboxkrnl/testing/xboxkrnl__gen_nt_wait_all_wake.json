@@ -1,0 +1,3477 @@
+{
+ "corpus": "nt_wait_all_wake",
+ "source": "Physical Xbox 360, bundle 56f12126e16a7692; private nt-wait-all-wake-01 evidence",
+ "steps": [
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 0: attempting",
+     "offset": 8
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 0: done",
+     "offset": 24
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: create event 0",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 0: object handles+0x0[:0x4]",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: create event 1",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 0: object handles+0x4[:0x4]",
+     "offset": 4
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: immediate signal 0",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1), final index 0: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 0: handle 0"
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 0: previous signal state",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: immediate signal 1",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1), final index 0: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 0: handle 1"
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 0: previous signal state",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: immediate wait all",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 0: object handles",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 0: zero timeout",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: after immediate wait poll 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 0: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 0: zero timeout",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: after immediate wait poll 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 0: handle 1"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 0: zero timeout",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 0: worker handle",
+     "offset": 80
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "Nt types (1, 1), final index 0: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: worker attempting",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 0: attempting",
+     "offset": 8
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 0: 2 s timeout",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: initially pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 0: done",
+     "offset": 24
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 0: 20 ms timeout",
+     "offset": 64
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: partial signal 1",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1), final index 0: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 0: handle 1"
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 0: previous signal state",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: still pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 0: done",
+     "offset": 24
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 0: 20 ms timeout",
+     "offset": 64
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: final signal 0",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1), final index 0: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 0: handle 0"
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 0: previous signal state",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: completed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 0: done",
+     "offset": 24
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 0: 2 s timeout",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: joined",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1), final index 0: worker wait return": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 0: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 0: 2 s timeout",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: after blocked wait poll 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 0: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 0: zero timeout",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: after blocked wait poll 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 0: handle 1"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 0: zero timeout",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: close worker",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 0: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: close object 0",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 0: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 0: close object 1",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 0: handle 1"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 1: attempting",
+     "offset": 96
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 1: done",
+     "offset": 112
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: create event 0",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 1: object handles+0x0[:0x4]",
+     "offset": 88
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: create event 1",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 1: object handles+0x4[:0x4]",
+     "offset": 92
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: immediate signal 0",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1), final index 1: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 1: handle 0"
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 1: previous signal state",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: immediate signal 1",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1), final index 1: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 1: handle 1"
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 1: previous signal state",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: immediate wait all",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 1: object handles",
+     "offset": 88
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 1: zero timeout",
+     "offset": 144
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: after immediate wait poll 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 1: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 1: zero timeout",
+     "offset": 144
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: after immediate wait poll 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 1: handle 1"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 1: zero timeout",
+     "offset": 144
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 1: worker handle",
+     "offset": 168
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "Nt types (1, 1), final index 1: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: worker attempting",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 1: attempting",
+     "offset": 96
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 1: 2 s timeout",
+     "offset": 160
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: initially pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 1: done",
+     "offset": 112
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 1: 20 ms timeout",
+     "offset": 152
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: partial signal 0",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1), final index 1: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 1: handle 0"
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 1: previous signal state",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: still pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 1: done",
+     "offset": 112
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 1: 20 ms timeout",
+     "offset": 152
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: final signal 1",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1), final index 1: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 1: handle 1"
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 1: previous signal state",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: completed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1), final index 1: done",
+     "offset": 112
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 1: 2 s timeout",
+     "offset": 160
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: joined",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1), final index 1: worker wait return": "00000001"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 1: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 1: 2 s timeout",
+     "offset": 160
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: after blocked wait poll 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 1: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 1: zero timeout",
+     "offset": 144
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: after blocked wait poll 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 1: handle 1"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1), final index 1: zero timeout",
+     "offset": 144
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: close worker",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 1: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: close object 0",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 1: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1), final index 1: close object 1",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1), final index 1: handle 1"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt types (5, 1), final index 0: attempting",
+     "offset": 184
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt types (5, 1), final index 0: done",
+     "offset": 200
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: create semaphore 0",
+   "export": "NtCreateSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (5, 1), final index 0: object handles+0x0[:0x4]",
+     "offset": 176
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: create event 1",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (5, 1), final index 0: object handles+0x4[:0x4]",
+     "offset": 180
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: immediate signal 0",
+   "export": "NtReleaseSemaphore",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (5, 1), final index 0: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (5, 1), final index 0: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "Nt types (5, 1), final index 0: previous signal state",
+     "offset": 224
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: immediate signal 1",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (5, 1), final index 0: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (5, 1), final index 0: handle 1"
+    },
+    {
+     "pointer": "Nt types (5, 1), final index 0: previous signal state",
+     "offset": 224
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: immediate wait all",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "Nt types (5, 1), final index 0: object handles",
+     "offset": 176
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (5, 1), final index 0: zero timeout",
+     "offset": 232
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: after immediate wait poll 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (5, 1), final index 0: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (5, 1), final index 0: zero timeout",
+     "offset": 232
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: after immediate wait poll 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (5, 1), final index 0: handle 1"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (5, 1), final index 0: zero timeout",
+     "offset": 232
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (5, 1), final index 0: worker handle",
+     "offset": 256
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "Nt types (5, 1), final index 0: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: worker attempting",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (5, 1), final index 0: attempting",
+     "offset": 184
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (5, 1), final index 0: 2 s timeout",
+     "offset": 248
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: initially pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "Nt types (5, 1), final index 0: done",
+     "offset": 200
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (5, 1), final index 0: 20 ms timeout",
+     "offset": 240
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: partial signal 1",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (5, 1), final index 0: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (5, 1), final index 0: handle 1"
+    },
+    {
+     "pointer": "Nt types (5, 1), final index 0: previous signal state",
+     "offset": 224
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: still pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "Nt types (5, 1), final index 0: done",
+     "offset": 200
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (5, 1), final index 0: 20 ms timeout",
+     "offset": 240
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: final signal 0",
+   "export": "NtReleaseSemaphore",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (5, 1), final index 0: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (5, 1), final index 0: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "Nt types (5, 1), final index 0: previous signal state",
+     "offset": 224
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: completed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (5, 1), final index 0: done",
+     "offset": 200
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (5, 1), final index 0: 2 s timeout",
+     "offset": 248
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: joined",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (5, 1), final index 0: worker wait return": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (5, 1), final index 0: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (5, 1), final index 0: 2 s timeout",
+     "offset": 248
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: after blocked wait poll 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (5, 1), final index 0: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (5, 1), final index 0: zero timeout",
+     "offset": 232
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: after blocked wait poll 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (5, 1), final index 0: handle 1"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (5, 1), final index 0: zero timeout",
+     "offset": 232
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: close worker",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (5, 1), final index 0: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: close object 0",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (5, 1), final index 0: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (5, 1), final index 0: close object 1",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (5, 1), final index 0: handle 1"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt types (1, 5), final index 1: attempting",
+     "offset": 272
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt types (1, 5), final index 1: done",
+     "offset": 288
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: create event 0",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 5), final index 1: object handles+0x0[:0x4]",
+     "offset": 264
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: create semaphore 1",
+   "export": "NtCreateSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 5), final index 1: object handles+0x4[:0x4]",
+     "offset": 268
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: immediate signal 0",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 5), final index 1: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 5), final index 1: handle 0"
+    },
+    {
+     "pointer": "Nt types (1, 5), final index 1: previous signal state",
+     "offset": 312
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: immediate signal 1",
+   "export": "NtReleaseSemaphore",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 5), final index 1: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 5), final index 1: handle 1"
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "Nt types (1, 5), final index 1: previous signal state",
+     "offset": 312
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: immediate wait all",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "Nt types (1, 5), final index 1: object handles",
+     "offset": 264
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 5), final index 1: zero timeout",
+     "offset": 320
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: after immediate wait poll 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 5), final index 1: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 5), final index 1: zero timeout",
+     "offset": 320
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: after immediate wait poll 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 5), final index 1: handle 1"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 5), final index 1: zero timeout",
+     "offset": 320
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 5), final index 1: worker handle",
+     "offset": 344
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "Nt types (1, 5), final index 1: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: worker attempting",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 5), final index 1: attempting",
+     "offset": 272
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 5), final index 1: 2 s timeout",
+     "offset": 336
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: initially pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "Nt types (1, 5), final index 1: done",
+     "offset": 288
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 5), final index 1: 20 ms timeout",
+     "offset": 328
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: partial signal 0",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 5), final index 1: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 5), final index 1: handle 0"
+    },
+    {
+     "pointer": "Nt types (1, 5), final index 1: previous signal state",
+     "offset": 312
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: still pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "Nt types (1, 5), final index 1: done",
+     "offset": 288
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 5), final index 1: 20 ms timeout",
+     "offset": 328
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: final signal 1",
+   "export": "NtReleaseSemaphore",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 5), final index 1: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 5), final index 1: handle 1"
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "Nt types (1, 5), final index 1: previous signal state",
+     "offset": 312
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: completed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 5), final index 1: done",
+     "offset": 288
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 5), final index 1: 2 s timeout",
+     "offset": 336
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: joined",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 5), final index 1: worker wait return": "00000001"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 5), final index 1: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 5), final index 1: 2 s timeout",
+     "offset": 336
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: after blocked wait poll 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 5), final index 1: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 5), final index 1: zero timeout",
+     "offset": 320
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: after blocked wait poll 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 5), final index 1: handle 1"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 5), final index 1: zero timeout",
+     "offset": 320
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: close worker",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 5), final index 1: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: close object 0",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 5), final index 1: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 5), final index 1: close object 1",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 5), final index 1: handle 1"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: attempting",
+     "offset": 368
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: done",
+     "offset": 384
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: create event 0",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: object handles+0x0[:0x4]",
+     "offset": 352
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: create event 1",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: object handles+0x4[:0x4]",
+     "offset": 356
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: create event 2",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: object handles+0x8[:0x4]",
+     "offset": 360
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: immediate signal 0",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 0: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: handle 0"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: previous signal state",
+     "offset": 408
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: immediate signal 1",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 0: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: handle 1"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: previous signal state",
+     "offset": 408
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: immediate signal 2",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 0: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: handle 2"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: previous signal state",
+     "offset": 408
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: immediate wait all",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: object handles",
+     "offset": 352
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: zero timeout",
+     "offset": 416
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: after immediate wait poll 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: zero timeout",
+     "offset": 416
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: after immediate wait poll 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: handle 1"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: zero timeout",
+     "offset": 416
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: after immediate wait poll 2",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: handle 2"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: zero timeout",
+     "offset": 416
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: worker handle",
+     "offset": 440
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "Nt types (1, 1, 1), final index 0: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: worker attempting",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: attempting",
+     "offset": 368
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: 2 s timeout",
+     "offset": 432
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: initially pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: done",
+     "offset": 384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: 20 ms timeout",
+     "offset": 424
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: partial signal 1",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 0: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: handle 1"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: previous signal state",
+     "offset": 408
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: partial signal 2",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 0: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: handle 2"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: previous signal state",
+     "offset": 408
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: still pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: done",
+     "offset": 384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: 20 ms timeout",
+     "offset": 424
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: final signal 0",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 0: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: handle 0"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: previous signal state",
+     "offset": 408
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: completed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: done",
+     "offset": 384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: 2 s timeout",
+     "offset": 432
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: joined",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 0: worker wait return": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: 2 s timeout",
+     "offset": 432
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: after blocked wait poll 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: zero timeout",
+     "offset": 416
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: after blocked wait poll 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: handle 1"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: zero timeout",
+     "offset": 416
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: after blocked wait poll 2",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: handle 2"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 0: zero timeout",
+     "offset": 416
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: close worker",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: close object 0",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: close object 1",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: handle 1"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 0: close object 2",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 0: handle 2"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: attempting",
+     "offset": 464
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: done",
+     "offset": 480
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: create event 0",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: object handles+0x0[:0x4]",
+     "offset": 448
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: create event 1",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: object handles+0x4[:0x4]",
+     "offset": 452
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: create event 2",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: object handles+0x8[:0x4]",
+     "offset": 456
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: immediate signal 0",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 1: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: handle 0"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: previous signal state",
+     "offset": 504
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: immediate signal 1",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 1: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: handle 1"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: previous signal state",
+     "offset": 504
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: immediate signal 2",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 1: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: handle 2"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: previous signal state",
+     "offset": 504
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: immediate wait all",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: object handles",
+     "offset": 448
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: zero timeout",
+     "offset": 512
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: after immediate wait poll 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: zero timeout",
+     "offset": 512
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: after immediate wait poll 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: handle 1"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: zero timeout",
+     "offset": 512
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: after immediate wait poll 2",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: handle 2"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: zero timeout",
+     "offset": 512
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: worker handle",
+     "offset": 536
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "Nt types (1, 1, 1), final index 1: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: worker attempting",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: attempting",
+     "offset": 464
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: 2 s timeout",
+     "offset": 528
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: initially pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: done",
+     "offset": 480
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: 20 ms timeout",
+     "offset": 520
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: partial signal 0",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 1: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: handle 0"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: previous signal state",
+     "offset": 504
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: partial signal 2",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 1: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: handle 2"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: previous signal state",
+     "offset": 504
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: still pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: done",
+     "offset": 480
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: 20 ms timeout",
+     "offset": 520
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: final signal 1",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 1: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: handle 1"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: previous signal state",
+     "offset": 504
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: completed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: done",
+     "offset": 480
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: 2 s timeout",
+     "offset": 528
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: joined",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 1: worker wait return": "00000001"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: 2 s timeout",
+     "offset": 528
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: after blocked wait poll 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: zero timeout",
+     "offset": 512
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: after blocked wait poll 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: handle 1"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: zero timeout",
+     "offset": 512
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: after blocked wait poll 2",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: handle 2"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 1: zero timeout",
+     "offset": 512
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: close worker",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: close object 0",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: close object 1",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: handle 1"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 1: close object 2",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 1: handle 2"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: attempting",
+     "offset": 560
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: done",
+     "offset": 576
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: create event 0",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: object handles+0x0[:0x4]",
+     "offset": 544
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: create event 1",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: object handles+0x4[:0x4]",
+     "offset": 548
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: create event 2",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: object handles+0x8[:0x4]",
+     "offset": 552
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: immediate signal 0",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 2: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: handle 0"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: previous signal state",
+     "offset": 600
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: immediate signal 1",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 2: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: handle 1"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: previous signal state",
+     "offset": 600
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: immediate signal 2",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 2: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: handle 2"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: previous signal state",
+     "offset": 600
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: immediate wait all",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: object handles",
+     "offset": 544
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: zero timeout",
+     "offset": 608
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: after immediate wait poll 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: zero timeout",
+     "offset": 608
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: after immediate wait poll 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: handle 1"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: zero timeout",
+     "offset": 608
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: after immediate wait poll 2",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: handle 2"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: zero timeout",
+     "offset": 608
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: worker handle",
+     "offset": 632
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "Nt types (1, 1, 1), final index 2: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: worker attempting",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: attempting",
+     "offset": 560
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: 2 s timeout",
+     "offset": 624
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: initially pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: done",
+     "offset": 576
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: 20 ms timeout",
+     "offset": 616
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: partial signal 0",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 2: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: handle 0"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: previous signal state",
+     "offset": 600
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: partial signal 1",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 2: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: handle 1"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: previous signal state",
+     "offset": 600
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: still pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: done",
+     "offset": 576
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: 20 ms timeout",
+     "offset": 616
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: final signal 2",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 2: previous signal state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: handle 2"
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: previous signal state",
+     "offset": 600
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: completed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: done",
+     "offset": 576
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: 2 s timeout",
+     "offset": 624
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: joined",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt types (1, 1, 1), final index 2: worker wait return": "00000002"
+   },
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: 2 s timeout",
+     "offset": 624
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: after blocked wait poll 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: zero timeout",
+     "offset": 608
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: after blocked wait poll 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: handle 1"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: zero timeout",
+     "offset": 608
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: after blocked wait poll 2",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: handle 2"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt types (1, 1, 1), final index 2: zero timeout",
+     "offset": 608
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: close worker",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: close object 0",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: close object 1",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: handle 1"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt WaitAll wake return matrix",
+   "name": "Nt types (1, 1, 1), final index 2: close object 2",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt types (1, 1, 1), final index 2: handle 2"
+    }
+   ]
+  }
+ ]
+}

@@ -246,7 +246,21 @@ X_RESULT InputSystem::GetStateInternal(uint32_t user_index, uint32_t flags,
 X_RESULT InputSystem::SetState(uint32_t user_index,
                                X_INPUT_VIBRATION* vibration) {
   SCOPE_profile_cpu_f("hid");
-  X_INPUT_VIBRATION modified_vibration = ModifyVibrationLevel(vibration);
+  if (user_index < XUserMaxUserCount) {
+    guest_vibration_[user_index] = *vibration;
+  }
+  if (vibration_suspended_) {
+    // Held silent by the host; the request is kept for ResumeVibration.
+    // Report what the drivers would: success with a controller in the slot.
+    X_INPUT_VIBRATION silent = {};
+    return ApplyVibration(user_index, silent);
+  }
+  return ApplyVibration(user_index, *vibration);
+}
+
+X_RESULT InputSystem::ApplyVibration(uint32_t user_index,
+                                     X_INPUT_VIBRATION vibration) {
+  X_INPUT_VIBRATION modified_vibration = ModifyVibrationLevel(&vibration);
   for (auto& driver : drivers_) {
     X_RESULT result = driver->SetState(user_index, &modified_vibration);
     if (result == X_ERROR_SUCCESS) {
@@ -254,6 +268,48 @@ X_RESULT InputSystem::SetState(uint32_t user_index,
     }
   }
   return X_ERROR_DEVICE_NOT_CONNECTED;
+}
+
+void InputSystem::RefreshVibration() {
+  for (uint32_t user_index = 0; user_index < XUserMaxUserCount; user_index++) {
+    X_INPUT_VIBRATION silent = {};
+    ApplyVibration(user_index,
+                   vibration_suspended_ ? silent : guest_vibration_[user_index]);
+  }
+}
+
+void InputSystem::SuspendVibration() {
+  vibration_suspended_ = true;
+  RefreshVibration();
+}
+
+void InputSystem::ResumeVibration() {
+  vibration_suspended_ = false;
+  RefreshVibration();
+}
+
+void InputSystem::ResetVibration() {
+  guest_vibration_ = {};
+  RefreshVibration();
+}
+
+bool InputSystem::TestVibration(uint32_t user_index, bool on) {
+  if (user_index >= XUserMaxUserCount) {
+    return false;
+  }
+  if (!on) {
+    X_INPUT_VIBRATION silent = {};
+    ApplyVibration(user_index,
+                   vibration_suspended_ ? silent : guest_vibration_[user_index]);
+    return true;
+  }
+  if (!cvars::vibration) {
+    return false;
+  }
+  X_INPUT_VIBRATION full = {};
+  full.left_motor_speed = UINT16_MAX;
+  full.right_motor_speed = UINT16_MAX;
+  return ApplyVibration(user_index, full) == X_ERROR_SUCCESS;
 }
 
 X_RESULT InputSystem::GetKeystroke(uint32_t user_index, uint32_t flags,
@@ -289,12 +345,11 @@ bool InputSystem::GetVibrationCvar() { return cvars::vibration; }
 
 void InputSystem::ToggleVibration() {
   OVERRIDE_bool(vibration, !cvars::vibration);
-  // Send instant update to vibration state to prevent awaiting for next tick.
-  X_INPUT_VIBRATION vibration = X_INPUT_VIBRATION();
-
-  for (uint8_t user_index = 0; user_index < XUserMaxUserCount; user_index++) {
-    SetState(user_index, &vibration);
-  }
+  // Apply it now rather than at the guest's next request: off stops the
+  // motors, on restores a rumble the guest still wants. (This used to send
+  // zeros through SetState, which also overwrote what the guest had asked
+  // for.)
+  RefreshVibration();
 }
 
 void InputSystem::AdjustDeadzoneLevels(const uint8_t slot,

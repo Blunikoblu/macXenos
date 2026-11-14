@@ -1919,6 +1919,12 @@ void EmulatorWindow::FreezeGame(bool freeze) {
         input_lock = input->lock();
       }
       processor->SuspendGuestThreads();
+      // A frozen game cannot stop a rumble it started, so the controller
+      // would shake for as long as the dashboard is open (the console's
+      // Guide pauses vibration the same way). Restored on resume.
+      if (input) {
+        input->SuspendVibration();
+      }
     }
     // Some games mix on the host-side audio worker, which keeps running;
     // silence the output (in memory only, never saved) until they resume.
@@ -1927,6 +1933,11 @@ void EmulatorWindow::FreezeGame(bool freeze) {
     game_frozen_ = true;
     XELOGI("Dashboard: game frozen");
   } else {
+    // While the guest threads are still stopped, so none can hold the lock.
+    if (hid::InputSystem* input = emulator_->input_system()) {
+      auto input_lock = input->lock();
+      input->ResumeVibration();
+    }
     if (processor) {
       processor->ResumeGuestThreads();
     }
@@ -2514,12 +2525,9 @@ void EmulatorWindow::VibrateController(xe::hid::InputSystem* input_sys,
   // otherwise the rumble may fail.
   auto input_lock = input_sys->lock();
 
-  X_INPUT_VIBRATION vibration = {};
-
-  vibration.left_motor_speed = toggle_rumble ? UINT16_MAX : 0;
-  vibration.right_motor_speed = toggle_rumble ? UINT16_MAX : 0;
-
-  input_sys->SetState(user_index, &vibration);
+  // A host pulse, not a guest request: it must not replace what the game
+  // asked the motors to do, and ending it goes back to that.
+  input_sys->TestVibration(user_index, toggle_rumble);
 
   // Vibration duration
   if (toggle_rumble) {

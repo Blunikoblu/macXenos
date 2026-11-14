@@ -48,6 +48,9 @@ struct ControllerIdentity {
   bool present = false;
   ControllerKind kind = ControllerKind::kUnknown;
   std::string name;  // backend-reported display name, e.g. "PS4 Controller"
+  // Whether the backend reports vibration motors for this controller (SDL's
+  // SDL_GameControllerHasRumble). False also when the backend cannot tell.
+  bool rumble = false;
 };
 
 class InputDriver {

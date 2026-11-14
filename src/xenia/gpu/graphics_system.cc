@@ -395,8 +395,40 @@ void GraphicsSystem::DispatchInterruptCallback(uint32_t source, uint32_t cpu) {
 void GraphicsSystem::PaceUncappedSwap() {
   if (!cvars::limit_uncapped_games) {
     last_swap_vblank_ = UINT64_MAX;
+    next_uncapped_swap_ns_ = 0;
     return;
   }
+  const uint32_t fps =
+      std::clamp<uint32_t>(cvars::uncapped_games_fps, 30, 1000);
+  // Name the pacing in force once per change (the setting can change live).
+  static std::atomic<uint32_t> s_logged_fps{0};
+  if (s_logged_fps.exchange(fps) != fps) {
+    XELOGI("PaceUncappedSwap: holding uncapped games to {} FPS ({})", fps,
+           fps == 60 ? "one swap per guest vblank" : "host clock deadline");
+  }
+  if (fps != 60) {
+    // Host-time pacing for high refresh displays. Sleeping to a deadline
+    // carried forward (rather than a flat 1/fps after each swap) keeps a late
+    // wake-up from lowering the rate; a game running below the cap is always
+    // past its deadline, so it is never held, and falling more than two
+    // periods behind restarts the schedule instead of letting the next frames
+    // through unpaced to catch up.
+    last_swap_vblank_ = UINT64_MAX;
+    const int64_t period_ns = 1000000000LL / fps;
+    const int64_t now = std::chrono::duration_cast<std::chrono::nanoseconds>(
+                            std::chrono::steady_clock::now().time_since_epoch())
+                            .count();
+    if (!next_uncapped_swap_ns_ || now - next_uncapped_swap_ns_ > 2 * period_ns) {
+      next_uncapped_swap_ns_ = now + period_ns;
+      return;
+    }
+    if (now < next_uncapped_swap_ns_) {
+      xe::threading::NanoSleep(next_uncapped_swap_ns_ - now);
+    }
+    next_uncapped_swap_ns_ += period_ns;
+    return;
+  }
+  next_uncapped_swap_ns_ = 0;
   // Bounded so a stopped vblank source (paused, shutting down) can't hold the
   // guest: the longest legitimate wait is one 60 Hz period.
   const uint64_t last = last_swap_vblank_;
