@@ -17,6 +17,7 @@
 #include <string>
 #include <vector>
 
+#include "xenia/base/cvar.h"
 #include "xenia/base/math.h"
 #include "xenia/vfs/devices/host_path_device.h"
 #include "xenia/vfs/devices/stfs_xbox.h"
@@ -25,6 +26,8 @@
 #include "xenia/vfs/file.h"
 
 #include "third_party/catch/include/catch.hpp"
+
+DECLARE_bool(honor_package_licenses);
 
 namespace xe::vfs::test {
 
@@ -406,6 +409,47 @@ TEST_CASE("STFS package mounted from its host file or another device",
     REQUIRE_FALSE(XContentContainerDevice::CreateContentDevice(
         "\\Device\\Package", disc.ResolvePath("dir")));
   }
+}
+
+TEST_CASE("Package license entries", "[xcontent_license]") {
+  auto header = std::make_unique<XContentHeader>();
+  std::memset(header.get(), 0, sizeof(*header));
+  auto set_entry = [&](int i, uint64_t licensee, uint32_t bits,
+                       uint32_t flags) {
+    header->licenses[i].licensee_id = licensee;
+    header->licenses[i].license_bits = bits;
+    header->licenses[i].license_flags = flags;
+  };
+  const bool honor = cvars::honor_package_licenses;
+
+  SECTION("Arcade full-game entry: unrestricted, bits 1, flags 0") {
+    set_entry(0, ~uint64_t(0), 0x1, 0);
+    REQUIRE(header->unrestricted_license_bits() == 0x1);
+    cvars::honor_package_licenses = true;
+    REQUIRE(XContentContainerDevice::LicenseMaskFromHeader(*header) == 0x1);
+    cvars::honor_package_licenses = false;
+    REQUIRE(XContentContainerDevice::LicenseMaskFromHeader(*header) == 0);
+  }
+
+  SECTION("Console- and profile-bound entries are not granted") {
+    set_entry(0, 0xF000000012345678ull, 0x1, 0);  // console
+    set_entry(1, 0x0009000001234567ull, 0x2, 0);  // profile
+    set_entry(2, ~uint64_t(0), 0x4, 1);
+    REQUIRE(header->unrestricted_license_bits() == 0x4);
+    cvars::honor_package_licenses = true;
+    REQUIRE(XContentContainerDevice::LicenseMaskFromHeader(*header) == 0x4);
+  }
+
+  SECTION("Entries with flags set count as before") {
+    set_entry(3, 0xF000000012345678ull, 0x8, 1);
+    set_entry(4, ~uint64_t(0), 0x1, 0);
+    cvars::honor_package_licenses = false;
+    REQUIRE(XContentContainerDevice::LicenseMaskFromHeader(*header) == 0x8);
+    cvars::honor_package_licenses = true;
+    REQUIRE(XContentContainerDevice::LicenseMaskFromHeader(*header) == 0x9);
+  }
+
+  cvars::honor_package_licenses = honor;
 }
 
 }  // namespace xe::vfs::test

@@ -8,13 +8,36 @@
  */
 
 #include "xenia/vfs/devices/xcontent_container_device.h"
+#include "xenia/base/cvar.h"
 #include "xenia/base/logging.h"
 #include "xenia/vfs/devices/xcontent_devices/stfs_container_device.h"
 #include "xenia/vfs/devices/xcontent_devices/svod_container_device.h"
 #include "xenia/vfs/file.h"
 
+DEFINE_bool(
+    honor_package_licenses, true,
+    "Grant the licenses a game's package gives to any console and profile "
+    "(its unrestricted license entries). Xbox Live Arcade packages carry their "
+    "full-game license this way, so with this off they run as trials unless "
+    "license_mask is set. license_mask is added on top either way.",
+    "Content");
+
 namespace xe {
 namespace vfs {
+
+uint32_t XContentContainerDevice::LicenseMaskFromHeader(
+    const XContentHeader& header) {
+  uint32_t mask = 0;
+  for (uint8_t i = 0; i < license_count; i++) {
+    if (header.licenses[i].license_flags) {
+      mask |= header.licenses[i].license_bits;
+    }
+  }
+  if (cvars::honor_package_licenses) {
+    mask |= header.unrestricted_license_bits();
+  }
+  return mask;
+}
 
 std::unique_ptr<XContentContainerDevice>
 XContentContainerDevice::CreateContentDevice(

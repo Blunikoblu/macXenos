@@ -511,6 +511,22 @@ struct XContentHeader {
            magic == XContentPackageType::kLive ||
            magic == XContentPackageType::kPirs;
   }
+
+  // A licensee of all ones is unrestricted: the entry holds on any console
+  // and for any profile, so its bits are always granted. Arcade packages carry
+  // their full-game license this way (bits 0x1); the entry's flags are often
+  // 0 and do not gate it. Entries bound to a console or a profile are not
+  // counted: there is no console or Live account to match them against.
+  static constexpr uint64_t kUnrestrictedLicensee = ~uint64_t(0);
+  uint32_t unrestricted_license_bits() const {
+    uint32_t bits = 0;
+    for (uint8_t i = 0; i < license_count; i++) {
+      if (licenses[i].licensee_id == kUnrestrictedLicensee) {
+        bits |= licenses[i].license_bits;
+      }
+    }
+    return bits;
+  }
 };
 static_assert_size(XContentHeader, 0x344);
 #pragma pack(pop)

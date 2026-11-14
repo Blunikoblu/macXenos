@@ -341,6 +341,10 @@ class KernelState {
 
   uint32_t notification_position_ = 2;
   XDeploymentType deployment_type_ = XDeploymentType::kOther;
+  // The licenses the running title's own package grants (its unrestricted
+  // license entries), which XamContentGetLicenseMask reports. 0 for a title
+  // not launched from a package.
+  uint32_t title_license_mask_ = 0;
 
   uint32_t GetKeTimestampBundle();
 

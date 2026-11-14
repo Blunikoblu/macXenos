@@ -30,7 +30,8 @@
 
 DEFINE_int32(
     license_mask, 0,
-    "Set license mask for activated content.\n"
+    "Set license mask for activated content. Added to the licenses the game's "
+    "own package grants (see honor_package_licenses).\n"
     " 0 = No licenses enabled.\n"
     " 1 = First license enabled. Generally the full version license in\n"
     "     Xbox Live Arcade titles.\n"
@@ -57,8 +58,11 @@ dword_result_t XamContentGetLicenseMask_entry(lpdword_t mask_ptr,
     if (kernel_state()->deployment_type_ != XDeploymentType::kOther) {
       // Each bit in the mask represents a granted license. Available licenses
       // seems to vary from game to game, but most appear to use bit 0 to
-      // indicate if the game is purchased or not.
-      *mask_ptr = static_cast<uint32_t>(cvars::license_mask);
+      // indicate if the game is purchased or not. The title's package grants
+      // its unrestricted licenses; license_mask adds to them (it can unlock,
+      // never lock: honor_package_licenses=false restores trial mode).
+      *mask_ptr = kernel_state()->title_license_mask_ |
+                  static_cast<uint32_t>(cvars::license_mask);
       result = X_ERROR_SUCCESS;
     }
 

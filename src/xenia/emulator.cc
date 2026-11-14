@@ -85,6 +85,7 @@
 
 DECLARE_bool(headless);
 DECLARE_bool(enable_early_precompilation);
+DECLARE_bool(honor_package_licenses);
 
 DEFINE_bool(mount_cache, true, "Enable cache mount", "Storage");
 UPDATE_from_bool(mount_cache, 2024, 8, 31, 20, false);
@@ -404,6 +405,7 @@ X_STATUS Emulator::TerminateTitle() {
   title_id_ = std::nullopt;
   title_name_ = "";
   title_version_ = "";
+  kernel_state_->title_license_mask_ = 0;
   on_terminate();
   return X_STATUS_SUCCESS;
 }
@@ -583,6 +585,7 @@ Emulator::FileSignatureType Emulator::GetFileSignature(
 X_STATUS Emulator::LaunchPath(const std::filesystem::path& path) {
   X_STATUS mount_result = X_STATUS_SUCCESS;
   launch_path_ = path;
+  kernel_state_->title_license_mask_ = 0;
 
   switch (GetFileSignature(path)) {
     case FileSignatureType::XEX1:
@@ -595,7 +598,23 @@ X_STATUS Emulator::LaunchPath(const std::filesystem::path& path) {
     case FileSignatureType::CON:
     case FileSignatureType::PIRS: {
       mount_result = MountPath(path, "\\Device\\Package_0");
-      return mount_result ? mount_result : LaunchStfsContainer(path);
+      if (mount_result) {
+        return mount_result;
+      }
+      // A title started from its package (an Xbox Live Arcade game, opened
+      // from the library or relaunched by XamContentLaunchImage) holds the
+      // licenses the package gives every console and profile.
+      if (cvars::honor_package_licenses) {
+        const auto header =
+            vfs::XContentContainerDevice::ReadContainerHeader(path);
+        if (header && header->content_header.is_magic_valid()) {
+          kernel_state_->title_license_mask_ =
+              header->content_header.unrestricted_license_bits();
+          XELOGI("Title package license mask: {:08X}",
+                 kernel_state_->title_license_mask_);
+        }
+      }
+      return LaunchStfsContainer(path);
     } break;
     case FileSignatureType::XISO: {
       mount_result = MountPath(path, "\\Device\\Cdrom0");

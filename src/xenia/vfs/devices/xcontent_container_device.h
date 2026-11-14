@@ -76,14 +76,12 @@ class XContentContainerDevice : public Device {
   }
 
   kernel::xam::XCONTENT_AGGREGATE_DATA content_header() const;
+  // The licenses a package grants: entries with flags set, plus the
+  // unrestricted entries (see XContentHeader::unrestricted_license_bits)
+  // unless honor_package_licenses is off.
+  static uint32_t LicenseMaskFromHeader(const XContentHeader& header);
   uint32_t license_mask() const {
-    uint32_t final_license = 0;
-    for (uint8_t i = 0; i < license_count; i++) {
-      if (header_->content_header.licenses[i].license_flags) {
-        final_license |= header_->content_header.licenses[i].license_bits;
-      }
-    }
-    return final_license;
+    return LicenseMaskFromHeader(header_->content_header);
   }
 
   const XContentContainerHeader* GetContainerHeader() const {
