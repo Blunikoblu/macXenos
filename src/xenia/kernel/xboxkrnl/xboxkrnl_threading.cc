@@ -1792,14 +1792,24 @@ uint32_t NtWaitForSingleObjectEx(uint32_t object_handle, uint32_t wait_mode,
       kernel_state()->object_table()->LookupObject<XObject>(object_handle);
   if (object) {
     uint64_t timeout = timeout_ptr ? static_cast<uint64_t>(*timeout_ptr) : 0u;
-    // See xeKeWaitForSingleObject: pending user APCs are delivered first.
-    if (alertable && xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
-      return X_STATUS_USER_APC;
+    const bool user_alertable = alertable && wait_mode == 1;
+    // Hardware satisfies an immediately ready object before delivering a
+    // queued user APC. Kernel-mode waits leave user APCs pending, even when
+    // alertable (nt_apc_waits hardware corpus).
+    if (user_alertable) {
+      uint64_t poll_timeout = 0;
+      result = object->Wait(3, wait_mode, false, &poll_timeout);
+      if (result != X_STATUS_TIMEOUT) {
+        return result;
+      }
+      if (xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
+        return X_STATUS_USER_APC;
+      }
     }
     do {
-      result = object->Wait(3, wait_mode, alertable,
+      result = object->Wait(3, wait_mode, user_alertable,
                             timeout_ptr ? &timeout : nullptr);
-    } while (alertable && result == X_STATUS_USER_APC &&
+    } while (user_alertable && result == X_STATUS_USER_APC &&
              xeProcessUserApcs(nullptr) != X_STATUS_USER_APC);
   } else {
     result = X_STATUS_INVALID_HANDLE;
@@ -1918,16 +1928,27 @@ uint32_t xeNtWaitForMultipleObjectsEx(uint32_t count, xe::be<uint32_t>* handles,
     }
   }
 
-  // See xeKeWaitForSingleObject: pending user APCs are delivered first.
-  if (alertable && xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
-    return X_STATUS_USER_APC;
-  }
+  const bool user_alertable = alertable && wait_mode == 1;
   X_STATUS result;
+  // As with NtWaitForSingleObjectEx, try immediate satisfaction without
+  // delivering APCs. WaitAll's poll preserves partial readiness atomically.
+  if (user_alertable) {
+    uint64_t poll_timeout = 0;
+    result = XObject::WaitMultiple(
+        count, reinterpret_cast<XObject**>(&objects[0]), wait_type, 6,
+        wait_mode, false, &poll_timeout);
+    if (result != X_STATUS_TIMEOUT) {
+      return result;
+    }
+    if (xeProcessUserApcs(nullptr) == X_STATUS_USER_APC) {
+      return X_STATUS_USER_APC;
+    }
+  }
   do {
-    result =
-        XObject::WaitMultiple(count, reinterpret_cast<XObject**>(&objects[0]),
-                              wait_type, 6, wait_mode, alertable, timeout_ptr);
-  } while (alertable && result == X_STATUS_USER_APC &&
+    result = XObject::WaitMultiple(
+        count, reinterpret_cast<XObject**>(&objects[0]), wait_type, 6,
+        wait_mode, user_alertable, timeout_ptr);
+  } while (user_alertable && result == X_STATUS_USER_APC &&
            xeProcessUserApcs(nullptr) != X_STATUS_USER_APC);
   return result;
 }
