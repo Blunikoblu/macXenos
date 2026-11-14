@@ -231,6 +231,9 @@ WaitResult SignalAndWait(
     bool is_alertable,
     std::chrono::milliseconds timeout = std::chrono::milliseconds::max());
 
+// The index identifies the satisfied object for WaitAny. The POSIX blocking
+// WaitAll path also reports its latest member wake after a pending wait, or
+// zero for immediate completion. WaitAll's convenience wrapper ignores it.
 std::pair<WaitResult, size_t> WaitMultiple(
     WaitHandle* wait_handles[], size_t wait_handle_count, bool wait_all,
     bool is_alertable,

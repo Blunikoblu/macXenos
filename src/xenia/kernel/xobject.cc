@@ -354,7 +354,7 @@ X_STATUS XObject::SignalAndWait(XObject* signal_object, XObject* wait_object,
 X_STATUS XObject::WaitMultiple(uint32_t count, XObject** objects,
                                uint32_t wait_type, uint32_t wait_reason,
                                uint32_t processor_mode, uint32_t alertable,
-                               uint64_t* opt_timeout) {
+                               uint64_t* opt_timeout, bool native_wait_all_key) {
   xe::threading::WaitHandle* wait_handles[64];
 
   for (size_t i = 0; i < count; ++i) {
@@ -398,9 +398,9 @@ X_STATUS XObject::WaitMultiple(uint32_t count, XObject** objects,
         break;
     }
   } else {
-    auto result = xe::threading::WaitAll(wait_handles, count,
-                                         alertable ? true : false, timeout_ms);
-    switch (result) {
+    auto result = xe::threading::WaitMultiple(
+        wait_handles, count, true, alertable ? true : false, timeout_ms);
+    switch (result.first) {
       case xe::threading::WaitResult::kSuccess:
         for (uint32_t i = 0; i < count; i++) {
           objects[i]->WaitCallback();
@@ -409,7 +409,10 @@ X_STATUS XObject::WaitMultiple(uint32_t count, XObject** objects,
             boost_increment = objects[i]->priority_increment();
           }
         }
-        status = X_STATUS_SUCCESS;
+        // Hardware KeWaitForMultipleObjects returns the completing object's
+        // index after a blocked WaitAll, but zero for immediate completion.
+        // Preserve the existing Nt behavior until that path is measured.
+        status = native_wait_all_key ? X_STATUS(result.second) : X_STATUS_SUCCESS;
         break;
       case xe::threading::WaitResult::kUserCallback:
         status = X_STATUS_USER_APC;

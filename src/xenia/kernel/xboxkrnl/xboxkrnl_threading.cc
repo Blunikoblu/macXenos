@@ -1874,7 +1874,7 @@ dword_result_t KeWaitForMultipleObjects_entry(
     result = XObject::WaitMultiple(
         uint32_t(count), reinterpret_cast<XObject**>(&objects[0]), wait_type,
         wait_reason, processor_mode, alertable,
-        timeout_ptr ? &timeout : nullptr);
+        timeout_ptr ? &timeout : nullptr, true);
   } while (alertable && result == X_STATUS_USER_APC &&
            xeProcessUserApcs(nullptr) != X_STATUS_USER_APC);
   if (diag) {
