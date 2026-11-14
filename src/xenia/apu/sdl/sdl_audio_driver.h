@@ -14,8 +14,9 @@
 #include <mutex>
 #include <queue>
 #include <stack>
+#include <vector>
 
-#include "SDL.h"
+#include <SDL3/SDL.h>
 #include "xenia/apu/audio_driver.h"
 #include "xenia/base/threading.h"
 
@@ -39,11 +40,24 @@ class SDLAudioDriver : public AudioDriver {
   void Shutdown() override;
 
  protected:
-  static void SDLCallback(void* userdata, Uint8* stream, int len);
+  // SDL3: the device asks for at least `additional_amount` more bytes; they
+  // are supplied one guest frame at a time (FillFrameLocked).
+  static void SDLCALL SDLCallback(void* userdata, SDL_AudioStream* stream,
+                                  int additional_amount, int total_amount);
+  // Writes one frame for the device into frame_out_ from the queue (or
+  // silence when it is empty) and releases the guest's semaphore for a frame
+  // it took. Called with frames_mutex_ held.
+  void FillFrameLocked();
 
   xe::threading::Semaphore* semaphore_ = nullptr;
 
-  SDL_AudioDeviceID sdl_device_id_ = -1;
+  // The playback stream bound to the default device (SDL3's
+  // SDL_OpenAudioDeviceStream); its device id labels the stats lines.
+  SDL_AudioStream* sdl_stream_ = nullptr;
+  uint32_t sdl_device_id_ = 0;
+  // One frame in the device's layout (channel_samples_ x sdl_device_channels_
+  // floats), reused by the callback.
+  std::vector<float> frame_out_;
   bool sdl_initialized_ = false;
   uint8_t sdl_device_channels_ = 0;
 

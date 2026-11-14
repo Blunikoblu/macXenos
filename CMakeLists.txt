@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 if(APPLE)
-  # OBJC (plain Objective-C, .m) is needed for the vendored SDL2's CoreAudio/
+  # OBJC (plain Objective-C, .m) is needed for the vendored SDL3's CoreAudio/
   # Cocoa backend; without it CMake compiles .m as Objective-C++ and applies the
   # C++ standard flag, which clang rejects ("-std=gnu++2a not allowed with
   # Objective-C"). OBJCXX (.mm) is used by Xenia's own Cocoa glue.
