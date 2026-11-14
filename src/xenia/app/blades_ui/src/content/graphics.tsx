@@ -63,6 +63,9 @@ const WINDOW_SIZING: Option[] = [
 export function graphics(state: NativeState): BladeDef {
   const upscalerValue = String(state.cvars.postprocess_scaling_and_sharpening?.value ?? "");
   const upscaler = upscalerValue === "" ? "bilinear" : upscalerValue;
+  const antialiasingValue = String(state.cvars.postprocess_antialiasing?.value ?? "");
+  const antialiasing =
+    antialiasingValue === "fxaa" || antialiasingValue === "fxaa_extreme" ? antialiasingValue : "none";
   const upscalers = state.upscalers.map((id) => UPSCALER_LABELS[id]).filter(Boolean);
   // "any" picks Metal on a Mac, so it reads as Metal.
   const renderer = String(state.cvars.gpu?.value ?? "any") === "vulkan" ? "vulkan" : "metal";
@@ -253,6 +256,45 @@ export function graphics(state: NativeState): BladeDef {
               />
             </>
           ) : null}
+        </>
+      )
+    },
+    {
+      id: "antialiasing",
+      label: t("graphics.antialiasing.label"),
+      glyph: "eye",
+      value: (
+        <>
+          {antialiasing === "fxaa"
+            ? t("graphics.antialiasing.fxaaShort")
+            : antialiasing === "fxaa_extreme"
+              ? t("graphics.antialiasing.extremeShort")
+              : t("common.off")}
+        </>
+      ),
+      heading: t("graphics.antialiasing.label"),
+      detail: (
+        <>
+          <p>{t("graphics.antialiasing.body")}</p>
+          <Options
+            name="postprocess_antialiasing"
+            title={t("graphics.antialiasing.label")}
+            options={[
+              { value: "none", label: t("common.off") },
+              {
+                value: "fxaa",
+                label: t("graphics.antialiasing.fxaa"),
+                short: t("graphics.antialiasing.fxaaShort")
+              },
+              {
+                value: "fxaa_extreme",
+                label: t("graphics.antialiasing.extreme"),
+                short: t("graphics.antialiasing.extremeShort")
+              }
+            ]}
+            current={antialiasing}
+          />
+          <Aside>{t("graphics.antialiasing.aside")}</Aside>
         </>
       )
     },

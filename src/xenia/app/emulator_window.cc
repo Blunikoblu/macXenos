@@ -125,6 +125,20 @@ DEFINE_string(preferences_button, "guide",
               "none.",
               "UI");
 DEFINE_string(
+    postprocess_antialiasing, "",
+    "Post-processing anti-aliasing effect to apply to the image output of the "
+    "game, at the internal resolution, before it is scaled to the window.\n"
+    "Use: [none, fxaa, fxaa_extreme]\n"
+    " none (or any value not listed here):\n"
+    "  Don't alter the original image.\n"
+    " fxaa:\n"
+    "  NVIDIA Fast Approximate Anti-Aliasing 3.11, normal quality preset (12)."
+    "\n"
+    " fxaa_extreme:\n"
+    "  NVIDIA Fast Approximate Anti-Aliasing 3.11, extreme quality preset "
+    "(39).",
+    "Display");
+DEFINE_string(
     postprocess_scaling_and_sharpening, "",
     "Post-processing effect to use for resampling and/or sharpening of the "
     "final display output.\n"
@@ -986,6 +1000,19 @@ void EmulatorWindow::ApplyDisplayConfigForCvars() {
   gpu::GraphicsSystem* graphics_system = emulator_->graphics_system();
   if (!graphics_system) {
     return;
+  }
+
+  gpu::CommandProcessor* command_processor =
+      graphics_system->command_processor();
+  if (command_processor) {
+    gpu::CommandProcessor::SwapPostEffect swap_post_effect =
+        gpu::CommandProcessor::SwapPostEffect::kNone;
+    if (cvars::postprocess_antialiasing == "fxaa") {
+      swap_post_effect = gpu::CommandProcessor::SwapPostEffect::kFxaa;
+    } else if (cvars::postprocess_antialiasing == "fxaa_extreme") {
+      swap_post_effect = gpu::CommandProcessor::SwapPostEffect::kFxaaExtreme;
+    }
+    command_processor->SetDesiredSwapPostEffect(swap_post_effect);
   }
 
   ui::Presenter* presenter = graphics_system->presenter();

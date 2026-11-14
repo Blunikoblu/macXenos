@@ -937,6 +937,22 @@ class MetalCommandProcessor : public CommandProcessor {
   // True between recording a ramp-reading pass and its completion wait. Exists
   // so the "IssueSwap always waits" invariant is asserted rather than assumed.
   bool gamma_ramp_upload_in_flight_ = false;
+  // Post-process anti-aliasing of the guest output (SwapPostEffect::kFxaa and
+  // kFxaaExtreme), run on the swap mailbox after gamma and before the
+  // presenter scales it. command_buffer is an id<MTLCommandBuffer> and
+  // mailbox an id<MTLTexture>. Returns false (mailbox untouched) if the
+  // pipeline or the copy could not be created.
+  bool EncodeSwapFxaa(void* command_buffer, void* mailbox, bool extreme);
+  // id<MTLRenderPipelineState>: [0] FXAA, [1] FXAA extreme; built for
+  // swap_fxaa_pipeline_format_ (an MTLPixelFormat).
+  void* swap_fxaa_pipelines_[2] = {};
+  uint64_t swap_fxaa_pipeline_format_ = 0;
+  bool swap_fxaa_pipeline_failed_[2] = {};
+  // id<MTLSamplerState>, linear, clamp to edge.
+  void* swap_fxaa_sampler_ = nullptr;
+  // id<MTLTexture>: the copy of the mailbox the pass reads.
+  void* swap_fxaa_source_texture_ = nullptr;
+  uint64_t swap_fxaa_applications_ = 0;
   // Stage 3 (optimize-metal-gpu-resident-resolve-coherence,
   // XE_METAL_SWAP_LIFETIME, default on, exact-0 rollback): the swap no longer drains the GPU. The frame
   // command buffer is committed without waiting and the CPU waits only for

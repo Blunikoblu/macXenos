@@ -11,6 +11,7 @@
 #include "xenia/gpu/metal/metal_command_processor.h"
 #include "xenia/gpu/metal/metal_encode_stream.h"
 #include "xenia/gpu/metal/metal_tiled_publish_run.h"
+#include "xenia/gpu/metal/metal_fxaa_shader.h"
 #include "xenia/gpu/metal/metal_gamma_ramp_shader.h"
 #include "xenia/gpu/metal/metal_pwl_gamma.h"
 #include "xenia/gpu/metal/metal_present_convert_shader.h"
@@ -17977,6 +17978,133 @@ void MetalCommandProcessor::SaveShaderStorageToDisk() {
 
 
 
+bool MetalCommandProcessor::EncodeSwapFxaa(void* command_buffer_ptr,
+                                           void* mailbox_ptr, bool extreme) {
+  id<MTLCommandBuffer> command_buffer =
+      (__bridge id<MTLCommandBuffer>)command_buffer_ptr;
+  id<MTLTexture> mailbox = (__bridge id<MTLTexture>)mailbox_ptr;
+  id<MTLDevice> device = mailbox.device;
+  const uint32_t index = extreme ? 1 : 0;
+  if (swap_fxaa_pipeline_format_ != uint64_t(mailbox.pixelFormat)) {
+    for (uint32_t i = 0; i < 2; ++i) {
+      if (swap_fxaa_pipelines_[i]) {
+        id<MTLRenderPipelineState> old_pipeline =
+            (__bridge_transfer id<MTLRenderPipelineState>)
+                swap_fxaa_pipelines_[i];
+        (void)old_pipeline;
+        swap_fxaa_pipelines_[i] = nullptr;
+      }
+      swap_fxaa_pipeline_failed_[i] = false;
+    }
+    swap_fxaa_pipeline_format_ = uint64_t(mailbox.pixelFormat);
+  }
+  if (!swap_fxaa_pipelines_[index]) {
+    if (swap_fxaa_pipeline_failed_[index]) {
+      return false;
+    }
+    NSError* error = nil;
+    id<MTLLibrary> library =
+        [device newLibraryWithSource:(extreme ? kMetalFxaaExtremeShader
+                                              : kMetalFxaaShader)
+                             options:nil
+                               error:&error];
+    id<MTLRenderPipelineState> pipeline = nil;
+    if (library) {
+      MTLRenderPipelineDescriptor* descriptor =
+          [[MTLRenderPipelineDescriptor alloc] init];
+      descriptor.label = extreme ? @"cp:swap-fxaa-extreme" : @"cp:swap-fxaa";
+      descriptor.vertexFunction = [library newFunctionWithName:@"xe_fxaa_vs"];
+      descriptor.fragmentFunction =
+          [library newFunctionWithName:@"xe_fxaa_fs"];
+      descriptor.colorAttachments[0].pixelFormat = mailbox.pixelFormat;
+      pipeline = [device newRenderPipelineStateWithDescriptor:descriptor
+                                                        error:&error];
+    }
+    if (!pipeline) {
+      XELOGE("MetalFxaa: pipeline creation failed: {}",
+             error ? error.localizedDescription.UTF8String : "unknown");
+      swap_fxaa_pipeline_failed_[index] = true;
+      return false;
+    }
+    swap_fxaa_pipelines_[index] = (__bridge_retained void*)pipeline;
+  }
+  if (!swap_fxaa_sampler_) {
+    MTLSamplerDescriptor* descriptor = [[MTLSamplerDescriptor alloc] init];
+    descriptor.minFilter = MTLSamplerMinMagFilterLinear;
+    descriptor.magFilter = MTLSamplerMinMagFilterLinear;
+    descriptor.mipFilter = MTLSamplerMipFilterNotMipmapped;
+    descriptor.sAddressMode = MTLSamplerAddressModeClampToEdge;
+    descriptor.tAddressMode = MTLSamplerAddressModeClampToEdge;
+    id<MTLSamplerState> sampler =
+        [device newSamplerStateWithDescriptor:descriptor];
+    if (!sampler) {
+      return false;
+    }
+    swap_fxaa_sampler_ = (__bridge_retained void*)sampler;
+  }
+  // The pass cannot read the texture it renders to, so it reads a copy, kept
+  // at the mailbox's size and format.
+  id<MTLTexture> source = (__bridge id<MTLTexture>)swap_fxaa_source_texture_;
+  if (source && (source.width != mailbox.width ||
+                 source.height != mailbox.height ||
+                 source.pixelFormat != mailbox.pixelFormat)) {
+    id<MTLTexture> old_source =
+        (__bridge_transfer id<MTLTexture>)swap_fxaa_source_texture_;
+    (void)old_source;
+    swap_fxaa_source_texture_ = nullptr;
+    source = nil;
+  }
+  if (!source) {
+    MTLTextureDescriptor* descriptor = [MTLTextureDescriptor
+        texture2DDescriptorWithPixelFormat:mailbox.pixelFormat
+                                     width:mailbox.width
+                                    height:mailbox.height
+                                 mipmapped:NO];
+    descriptor.usage = MTLTextureUsageShaderRead;
+    descriptor.storageMode = MTLStorageModePrivate;
+    source = [device newTextureWithDescriptor:descriptor];
+    if (!source) {
+      return false;
+    }
+    source.label = @"cp:swap-fxaa-source";
+    swap_fxaa_source_texture_ = (__bridge_retained void*)source;
+  }
+  id<MTLBlitCommandEncoder> blit = [command_buffer blitCommandEncoder];
+  [blit copyFromTexture:mailbox
+            sourceSlice:0
+            sourceLevel:0
+           sourceOrigin:MTLOriginMake(0, 0, 0)
+             sourceSize:MTLSizeMake(mailbox.width, mailbox.height, 1)
+              toTexture:source
+       destinationSlice:0
+       destinationLevel:0
+      destinationOrigin:MTLOriginMake(0, 0, 0)];
+  [blit endEncoding];
+  MTLRenderPassDescriptor* pass =
+      [MTLRenderPassDescriptor renderPassDescriptor];
+  pass.colorAttachments[0].texture = mailbox;
+  pass.colorAttachments[0].loadAction = MTLLoadActionDontCare;
+  pass.colorAttachments[0].storeAction = MTLStoreActionStore;
+  id<MTLRenderCommandEncoder> encoder =
+      [command_buffer renderCommandEncoderWithDescriptor:pass];
+  [encoder setRenderPipelineState:(__bridge id<MTLRenderPipelineState>)
+                                      swap_fxaa_pipelines_[index]];
+  [encoder setFragmentTexture:source atIndex:0];
+  [encoder setFragmentSamplerState:(__bridge id<MTLSamplerState>)
+                                       swap_fxaa_sampler_
+                           atIndex:0];
+  [encoder drawPrimitives:MTLPrimitiveTypeTriangle
+              vertexStart:0
+              vertexCount:3];
+  [encoder endEncoding];
+  if (!swap_fxaa_applications_++) {
+    XELOGI("MetalFxaa: anti-aliasing the guest output ({}, {}x{})",
+           extreme ? "fxaa_extreme" : "fxaa", uint32_t(mailbox.width),
+           uint32_t(mailbox.height));
+  }
+  return true;
+}
+
 // The base implementation is preserved by calling through, so guest ramp
 // tracking is unchanged.
 void MetalCommandProcessor::OnGammaRamp256EntryTableValueWritten() {
@@ -23239,6 +23367,14 @@ void MetalCommandProcessor::IssueSwap(uint32_t frontbuffer_ptr,
       id<MTLRenderCommandEncoder> encoder =
           [command_buffer renderCommandEncoderWithDescriptor:metal::MetalApplyXenosSamplePositions(pass)];
       [encoder endEncoding];
+    }
+    // Post-process anti-aliasing (postprocess_antialiasing), on the finished
+    // guest image at its internal resolution: after the gamma ramp, before
+    // the presenter's scaling, sharpening and UI.
+    const SwapPostEffect swap_post_effect = GetActualSwapPostEffect();
+    if (source_rt && swap_post_effect != SwapPostEffect::kNone) {
+      EncodeSwapFxaa((__bridge void*)command_buffer, (__bridge void*)mailbox,
+                     swap_post_effect == SwapPostEffect::kFxaaExtreme);
     }
     [command_buffer commit];
     if (SwapLifetimeEnabled() && !trace_writer_.is_open() &&

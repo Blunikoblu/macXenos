@@ -125,6 +125,11 @@ Everything here is on the **Graphics** blade.
   window or screen: **Bilinear**, **AMD CAS**, **AMD FSR 1.0** or
   **Apple MetalFX**. FSR and MetalFX look best on large or high-resolution
   displays.
+- **Anti-aliasing.** Smooths the stair-stepped edges left in the finished
+  picture, before it is stretched to your window: **Off**, **FXAA** or
+  **FXAA, extreme quality**. It costs very little and softens fine detail
+  slightly. It helps most on thin things such as fences, wires and foliage,
+  which stay jagged even at a higher internal resolution.
 - **Uncapped games.** A few games, like GTA IV and Mafia II, never set a
   frame rate of their own and run as fast as your Mac can. **60 FPS** holds
   them to your display's rate and saves power.
