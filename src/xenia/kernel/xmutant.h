@@ -11,6 +11,7 @@
 #define XENIA_KERNEL_XMUTANT_H_
 
 #include <atomic>
+#include <mutex>
 
 #include "xenia/base/threading.h"
 #include "xenia/kernel/xobject.h"
@@ -30,11 +31,12 @@ class XMutant : public XObject {
   void Initialize(bool initial_owner);
   void InitializeNative(void* native_ptr, X_DISPATCH_HEADER* header);
 
-  X_STATUS ReleaseMutant(uint32_t priority_increment, bool abandon, bool wait);
+  X_STATUS ReleaseMutant(uint32_t priority_increment, bool abandon, bool wait,
+                         int32_t* previous_state = nullptr);
 
   bool Save(ByteStream* stream) override;
   static object_ref<XMutant> Restore(KernelState* kernel_state,
-                                     ByteStream* stream);
+                                    ByteStream* stream);
 
  protected:
   xe::threading::WaitHandle* GetWaitHandle() override { return mutant_.get(); }
@@ -42,9 +44,13 @@ class XMutant : public XObject {
 
  private:
   XMutant();
+  void WriteGuestState();
 
   std::unique_ptr<xe::threading::Mutant> mutant_;
   std::atomic<XThread*> owning_thread_{nullptr};
+  std::mutex state_mutex_;
+  uint32_t ownership_depth_ = 0;
+  uint32_t guest_header_ptr_ = 0;
 };
 
 }  // namespace kernel

@@ -1532,6 +1532,34 @@ dword_result_t NtReleaseSemaphore_entry(dword_t sem_handle,
 DECLARE_XBOXKRNL_EXPORT2(NtReleaseSemaphore, kThreading, kImplemented,
                          kHighFrequency);
 
+void KeInitializeMutant_entry(pointer_t<X_KMUTANT> mutant,
+                              dword_t initial_owner,
+                              const ppc_context_t& context) {
+  mutant->header.type = 2;
+  mutant->header.signal_state = initial_owner ? 0 : 1;
+  util::XeInitializeListHead(&mutant->header.wait_list, context);
+  mutant->abandoned = false;
+  mutant->owner = initial_owner ? XThread::GetCurrentThread()->guest_object() : 0;
+  // Materialize now: an initially owned mutant belongs to this thread, not
+  // whichever thread first tries to wait on it.
+  XObject::GetNativeObject<XMutant>(kernel_state(), mutant);
+}
+DECLARE_XBOXKRNL_EXPORT1(KeInitializeMutant, kThreading, kImplemented);
+
+dword_result_t KeReleaseMutant_entry(pointer_t<X_KMUTANT> mutant,
+                                   dword_t increment, dword_t abandon,
+                                   dword_t wait) {
+  auto object = XObject::GetNativeObject<XMutant>(kernel_state(), mutant);
+  int32_t previous_state = 0;
+  auto status = object->ReleaseMutant(increment, abandon != 0, wait != 0,
+                                    &previous_state);
+  // The Ke API returns the previous signal state, not NtReleaseMutant's status.
+  // Abandonment, wrong-owner exceptions and the release-and-wait IRQL contract
+  // remain unsupported.
+  return XSUCCEEDED(status) ? static_cast<uint32_t>(previous_state) : status;
+}
+DECLARE_XBOXKRNL_EXPORT1(KeReleaseMutant, kThreading, kSketchy);
+
 dword_result_t NtCreateMutant_entry(
     lpdword_t handle_out, pointer_t<X_OBJECT_ATTRIBUTES> obj_attributes,
     dword_t initial_owner) {
@@ -2487,13 +2515,16 @@ void KeInitializeDpc_entry(pointer_t<XDPC> dpc, lpvoid_t routine,
 }
 DECLARE_XBOXKRNL_EXPORT2(KeInitializeDpc, kThreading, kImplemented, kSketchy);
 
-dword_result_t KeInsertQueueDpc_entry(pointer_t<XDPC> dpc, dword_t arg1,
-                                      dword_t arg2) {
-  uint32_t list_entry_ptr = dpc.guest_address() + 4;
+uint32_t xeKeInsertQueueDpc(XDPC* dpc, uint32_t dpc_address, uint32_t arg1,
+                          uint32_t arg2) {
+  uint32_t list_entry_ptr = dpc_address + offsetof(XDPC, list_entry);
 
   // Lock dispatcher.
   auto global_lock = xe::global_critical_region::AcquireDirect();
   auto dpc_list = kernel_state()->dpc_list();
+  if (dpc_list->IsQueued(list_entry_ptr)) {
+    return 0;
+  }
 
   // Prep DPC.
   dpc->arg1 = (uint32_t)arg1;
@@ -2511,6 +2542,9 @@ dword_result_t KeInsertQueueDpc_entry(pointer_t<XDPC> dpc, dword_t arg1,
   if (routine) {
     auto thread = XThread::GetCurrentThread();
     if (thread) {
+      // A DPC is no longer queued once execution begins. In particular,
+      // completion must not leave a stale entry that prevents its next use.
+      dpc_list->Remove(list_entry_ptr);
       auto thread_state = thread->thread_state();
       auto ppc_context = thread_state->context();
       auto kpcr = ppc_context->TranslateVirtualGPR<X_KPCR*>(ppc_context->r[13]);
@@ -2524,7 +2558,7 @@ dword_result_t KeInsertQueueDpc_entry(pointer_t<XDPC> dpc, dword_t arg1,
         kernel_state()->BeginDPCImpersonation(ppc_context, dpc_scope);
       }
 
-      uint64_t args[] = {dpc.guest_address(), (uint64_t)dpc->context,
+      uint64_t args[] = {dpc_address, (uint64_t)dpc->context,
                          (uint64_t)arg1, (uint64_t)arg2};
       kernel_state()->processor()->Execute(thread_state, routine, args,
                                            xe::countof(args));
@@ -2536,6 +2570,11 @@ dword_result_t KeInsertQueueDpc_entry(pointer_t<XDPC> dpc, dword_t arg1,
   }
 
   return 1;
+}
+
+dword_result_t KeInsertQueueDpc_entry(pointer_t<XDPC> dpc, dword_t arg1,
+                                     dword_t arg2) {
+  return xeKeInsertQueueDpc(dpc, dpc.guest_address(), arg1, arg2);
 }
 DECLARE_XBOXKRNL_EXPORT2(KeInsertQueueDpc, kThreading, kImplemented, kSketchy);
 
@@ -2815,6 +2854,36 @@ void KeInitializeTimerEx_entry(pointer_t<X_KTIMER> timer, dword_t type,
   xeKeInitializeTimerEx(timer, type, proctype & 0xFF, context);
 }
 DECLARE_XBOXKRNL_EXPORT1(KeInitializeTimerEx, kThreading, kImplemented);
+
+dword_result_t KeSetTimer_entry(pointer_t<X_KTIMER> timer, qword_t due_time,
+                               pointer_t<XDPC> dpc) {
+  auto object = XObject::GetNativeObject<XTimer>(kernel_state(), timer);
+  std::function<void()> callback;
+  if (dpc) {
+    auto state = kernel_state();
+    auto dpc_address = dpc.guest_address();
+    callback = [state, dpc_address] {
+      const uint64_t time = Clock::QueryGuestSystemTime();
+      // The host timer thread has no guest KPCR. Use the existing kernel
+      // dispatch thread and DPC path rather than treating a KDPC as an APC.
+      state->Dispatch([state, dpc_address, time] {
+        xeKeInsertQueueDpc(
+            state->memory()->TranslateVirtual<XDPC*>(dpc_address),
+            dpc_address, static_cast<uint32_t>(time),
+            static_cast<uint32_t>(time >> 32));
+      });
+    };
+  }
+  return object->SetNativeTimer(static_cast<int64_t>(due_time),
+                               dpc.guest_address(), std::move(callback));
+}
+DECLARE_XBOXKRNL_EXPORT1(KeSetTimer, kThreading, kSketchy);
+
+dword_result_t KeCancelTimer_entry(pointer_t<X_KTIMER> timer) {
+  auto object = XObject::GetNativeObject<XTimer>(kernel_state(), timer);
+  return object->CancelNativeTimer();
+}
+DECLARE_XBOXKRNL_EXPORT1(KeCancelTimer, kThreading, kImplemented);
 
 }  // namespace xboxkrnl
 }  // namespace kernel

@@ -44,11 +44,8 @@ class NativeList {
   void set_memory(Memory* mem) { memory_ = mem; }
 
  private:
-  const uint32_t kInvalidPointer = 0xE0FE0FFF;
-
- private:
   Memory* memory_ = nullptr;
-  uint32_t head_;
+  uint32_t head_ = 0;
 };
 template <typename VirtualTranslator>
 static X_LIST_ENTRY* XeHostList(uint32_t ptr, VirtualTranslator context) {

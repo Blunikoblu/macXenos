@@ -22,7 +22,18 @@ namespace kernel {
 XTimer::XTimer(KernelState* kernel_state)
     : XObject(kernel_state, kObjectType) {}
 
-XTimer::~XTimer() = default;
+XTimer::~XTimer() {
+  if (native_state_) {
+    {
+      std::lock_guard<std::mutex> lock(native_state_->mutex);
+      ++native_state_->generation;
+      native_state_->pending = false;
+    }
+    // Drain host callbacks before destroying the kernel object.
+    timer_->Cancel();
+    timer_.reset();
+  }
+}
 
 void XTimer::Initialize(uint32_t timer_type) {
   assert_false(timer_);
@@ -39,6 +50,100 @@ void XTimer::Initialize(uint32_t timer_type) {
       break;
   }
   assert_not_null(timer_);
+}
+
+void XTimer::InitializeNative(void* native_ptr, X_DISPATCH_HEADER* header) {
+  Initialize(header->type - 8);
+  native_state_ = std::make_shared<NativeState>();
+  native_state_->guest_ptr = memory()->HostToGuestVirtual(native_ptr);
+  SetNativePointer(native_state_->guest_ptr, true);
+}
+
+bool XTimer::SetNativeTimer(int64_t due_time, uint32_t dpc,
+                           std::function<void()> callback) {
+  using xe::chrono::WinSystemClock;
+  using xe::chrono::XSystemClock;
+  std::lock_guard<std::mutex> schedule_lock(timer_lock_);
+  auto state = native_state_;
+  uint64_t generation;
+  bool previous;
+  {
+    std::lock_guard<std::mutex> lock(state->mutex);
+    previous = state->pending;
+    generation = ++state->generation;
+    state->pending = true;
+    state->consumed = false;
+    auto timer = memory()->TranslateVirtual<X_KTIMER*>(state->guest_ptr);
+    timer->header.inserted = 1;
+    timer->header.signal_state = 0;
+    timer->header.absolute = due_time >= 0;
+    timer->due_time =
+        due_time < 0
+            ? Clock::QueryGuestSystemTime() - static_cast<uint64_t>(due_time)
+            : static_cast<uint64_t>(due_time);
+    timer->dpc = dpc;
+    timer->period = 0;
+  }
+  auto due = due_time < 0
+                 ? date::clock_cast<WinSystemClock>(
+                       XSystemClock::now() +
+                       xe::chrono::hundrednanoseconds(-due_time))
+                 : date::clock_cast<WinSystemClock>(
+                       XSystemClock::from_file_time(due_time));
+  auto mem = memory();
+  const bool manual_reset = manual_reset_;
+  bool success = timer_->SetOnceAt(
+      due, [state, generation, mem, manual_reset, callback = std::move(callback)] {
+        {
+          std::lock_guard<std::mutex> lock(state->mutex);
+          if (generation != state->generation) {
+            return;
+          }
+          state->pending = false;
+          auto timer = mem->TranslateVirtual<X_KTIMER*>(state->guest_ptr);
+          timer->header.inserted = 0;
+          timer->header.signal_state = manual_reset || !state->consumed;
+        }
+        if (callback) {
+          callback();
+        }
+      });
+  if (!success) {
+    std::lock_guard<std::mutex> lock(state->mutex);
+    state->pending = false;
+    ++state->generation;
+    mem->TranslateVirtual<X_KTIMER*>(state->guest_ptr)->header.inserted = 0;
+    XELOGE("Unable to schedule guest timer {:08X}", state->guest_ptr);
+  }
+  return previous;
+}
+
+bool XTimer::CancelNativeTimer() {
+  std::lock_guard<std::mutex> schedule_lock(timer_lock_);
+  bool previous;
+  {
+    std::lock_guard<std::mutex> lock(native_state_->mutex);
+    previous = native_state_->pending;
+    native_state_->pending = false;
+    ++native_state_->generation;
+    memory()->TranslateVirtual<X_KTIMER*>(native_state_->guest_ptr)
+        ->header.inserted = 0;
+  }
+  // Cancellation removes the timer from the queue, without clearing a signal
+  // that has already been delivered.
+  timer_->Cancel();
+  return previous;
+}
+
+void XTimer::WaitCallback() {
+  if (native_state_) {
+    std::lock_guard<std::mutex> lock(native_state_->mutex);
+    native_state_->consumed = true;
+    native_state_->pending = false;
+    auto timer = memory()->TranslateVirtual<X_KTIMER*>(native_state_->guest_ptr);
+    timer->header.inserted = 0;
+    timer->header.signal_state = manual_reset_;
+  }
 }
 
 X_STATUS XTimer::SetTimer(int64_t due_time, uint32_t period_ms,
