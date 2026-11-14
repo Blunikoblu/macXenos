@@ -1,0 +1,948 @@
+{
+ "corpus": "pulse_waiters",
+ "source": "Physical Xbox 360 (Aurora, XBDM), 2026-11-14, bundle 7aa03cd9fcf3a356; two runs identical; evidence xbox-hardware-2026-11-14/pulse_waiters",
+ "steps": [
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 0: attempting",
+     "offset": 24
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 0: done",
+     "offset": 40
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 0: native event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Ke pulse, event type 0: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 0: worker handle",
+     "offset": 104
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "Ke pulse, event type 0: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Ke pulse, event type 0: worker started",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 0: attempting",
+     "offset": 24
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Ke pulse, event type 0: 2000 ms",
+     "offset": 88
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Ke pulse, event type 0: let the worker park",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Ke pulse, event type 0: 100 ms",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Ke pulse, event type 0: pulse",
+   "export": "KePulseEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Ke pulse, event type 0: native event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 0: native event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Ke pulse, event type 0: worker finished",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 0: done",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Ke pulse, event type 0: 5000 ms",
+     "offset": 96
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Ke pulse, event type 0: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "Ke pulse, event type 0: worker wait status, flag": "0000000000000001"
+   },
+   "args": [
+    {
+     "variable": "Ke pulse, event type 0: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Ke pulse, event type 0: 5000 ms",
+     "offset": 96
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Ke pulse, event type 0: no signal is left",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "Ke pulse, event type 0: native event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 0: native event",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Ke pulse, event type 0: 0 ms",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Ke pulse, event type 0: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 1: attempting",
+     "offset": 136
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 1: done",
+     "offset": 152
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 1: native event",
+     "offset": 112
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Ke pulse, event type 1: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 1: worker handle",
+     "offset": 216
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "Ke pulse, event type 1: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Ke pulse, event type 1: worker started",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 1: attempting",
+     "offset": 136
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Ke pulse, event type 1: 2000 ms",
+     "offset": 200
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Ke pulse, event type 1: let the worker park",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Ke pulse, event type 1: 100 ms",
+     "offset": 192
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Ke pulse, event type 1: pulse",
+   "export": "KePulseEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Ke pulse, event type 1: native event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 1: native event",
+     "offset": 112
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Ke pulse, event type 1: worker finished",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 1: done",
+     "offset": 152
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Ke pulse, event type 1: 5000 ms",
+     "offset": 208
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Ke pulse, event type 1: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "Ke pulse, event type 1: worker wait status, flag": "0000000000000001"
+   },
+   "args": [
+    {
+     "variable": "Ke pulse, event type 1: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Ke pulse, event type 1: 5000 ms",
+     "offset": 208
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Ke pulse, event type 1: no signal is left",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "Ke pulse, event type 1: native event+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "Ke pulse, event type 1: native event",
+     "offset": 112
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Ke pulse, event type 1: 0 ms",
+     "offset": 184
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Ke pulse, event type 1: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt pulse, event type 0: attempting",
+     "offset": 248
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt pulse, event type 0: done",
+     "offset": 264
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt pulse, event type 0: event handle",
+     "offset": 240
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Nt pulse, event type 0: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt pulse, event type 0: worker handle",
+     "offset": 328
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "Nt pulse, event type 0: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Nt pulse, event type 0: worker started",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt pulse, event type 0: attempting",
+     "offset": 248
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt pulse, event type 0: 2000 ms",
+     "offset": 312
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Nt pulse, event type 0: let the worker park",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt pulse, event type 0: 100 ms",
+     "offset": 304
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Nt pulse, event type 0: pulse",
+   "export": "NtPulseEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt pulse, event type 0: previous state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt pulse, event type 0: event handle"
+    },
+    {
+     "pointer": "Nt pulse, event type 0: previous state",
+     "offset": 288
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Nt pulse, event type 0: worker finished",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt pulse, event type 0: done",
+     "offset": 264
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt pulse, event type 0: 5000 ms",
+     "offset": 320
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Nt pulse, event type 0: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt pulse, event type 0: worker wait status, flag": "0000000000000001"
+   },
+   "args": [
+    {
+     "variable": "Nt pulse, event type 0: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt pulse, event type 0: 5000 ms",
+     "offset": 320
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Nt pulse, event type 0: no signal is left",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt pulse, event type 0: event handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt pulse, event type 0: 0 ms",
+     "offset": 296
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt pulse, event type 0: event handle"
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt pulse, event type 0: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt pulse, event type 1: attempting",
+     "offset": 360
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "Nt pulse, event type 1: done",
+     "offset": 376
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt pulse, event type 1: event handle",
+     "offset": 352
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Nt pulse, event type 1: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt pulse, event type 1: worker handle",
+     "offset": 440
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "Nt pulse, event type 1: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Nt pulse, event type 1: worker started",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt pulse, event type 1: attempting",
+     "offset": 360
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt pulse, event type 1: 2000 ms",
+     "offset": 424
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Nt pulse, event type 1: let the worker park",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt pulse, event type 1: 100 ms",
+     "offset": 416
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Nt pulse, event type 1: pulse",
+   "export": "NtPulseEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt pulse, event type 1: previous state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "Nt pulse, event type 1: event handle"
+    },
+    {
+     "pointer": "Nt pulse, event type 1: previous state",
+     "offset": 400
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Nt pulse, event type 1: worker finished",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "Nt pulse, event type 1: done",
+     "offset": 376
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt pulse, event type 1: 5000 ms",
+     "offset": 432
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Nt pulse, event type 1: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "Nt pulse, event type 1: worker wait status, flag": "0000000000000001"
+   },
+   "args": [
+    {
+     "variable": "Nt pulse, event type 1: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt pulse, event type 1: 5000 ms",
+     "offset": 432
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "Nt pulse, event type 1: no signal is left",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "Nt pulse, event type 1: event handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "Nt pulse, event type 1: 0 ms",
+     "offset": 408
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt pulse, event type 1: event handle"
+    }
+   ]
+  },
+  {
+   "scenario": "pulse with a parked waiter",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "Nt pulse, event type 1: worker handle"
+    }
+   ]
+  }
+ ]
+}

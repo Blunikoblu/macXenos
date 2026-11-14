@@ -1,0 +1,1234 @@
+{
+ "corpus": "nt_timers",
+ "source": "Physical Xbox 360 (Aurora, XBDM), 2026-11-14, bundle 30bc6681290a645c; two runs identical; evidence xbox-hardware-2026-11-14/nt_timers",
+ "steps": [
+  {
+   "scenario": "Nt timer type 0",
+   "name": "NtCreateTimer",
+   "export": "NtCreateTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer handle",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "poll, never armed",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "cancel, never armed",
+   "export": "NtCancelTimer",
+   "r3": "0000000000000000",
+   "capture": {
+    "cancel current state": "00cdcdcd"
+   },
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "cancel current state",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "arm 20 ms one-shot",
+   "export": "NtSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "20 ms",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "poll before expiry",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "wait for expiry",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "poll after expiry",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "second poll after expiry",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "cancel after expiry",
+   "export": "NtCancelTimer",
+   "r3": "0000000000000000",
+   "capture": {
+    "cancel current state": "01cdcdcd"
+   },
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "cancel current state",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "poll after cancelling an expired timer",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "arm 5 s",
+   "export": "NtSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "5000 ms",
+     "offset": 48
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "cancel while pending",
+   "export": "NtCancelTimer",
+   "r3": "0000000000000000",
+   "capture": {
+    "cancel current state": "00cdcdcd"
+   },
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "cancel current state",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "short wait after cancel",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "60 ms",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "arm 5 s again",
+   "export": "NtSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "5000 ms",
+     "offset": 48
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "replace with 20 ms",
+   "export": "NtSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "20 ms",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "wait for replacement expiry",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "rearm an expired timer",
+   "export": "NtSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "20 ms",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "poll right after rearm",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "wait for rearmed expiry",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "arm 20 ms then every 30 ms",
+   "export": "NtSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "20 ms",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 30
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "periodic expiry 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "periodic expiry 2",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "periodic expiry 3",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "cancel periodic",
+   "export": "NtCancelTimer",
+   "r3": "0000000000000000",
+   "capture": {
+    "cancel current state": "01cdcdcd"
+   },
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "cancel current state",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "poll after cancelling periodic",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "short wait: no further expiry",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "60 ms",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 0",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "NtCreateTimer",
+   "export": "NtCreateTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer handle",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "poll, never armed",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "cancel, never armed",
+   "export": "NtCancelTimer",
+   "r3": "0000000000000000",
+   "capture": {
+    "cancel current state": "00cdcdcd"
+   },
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "cancel current state",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "arm 20 ms one-shot",
+   "export": "NtSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "20 ms",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "poll before expiry",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "wait for expiry",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "poll after expiry",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "second poll after expiry",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "cancel after expiry",
+   "export": "NtCancelTimer",
+   "r3": "0000000000000000",
+   "capture": {
+    "cancel current state": "00cdcdcd"
+   },
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "cancel current state",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "poll after cancelling an expired timer",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "arm 5 s",
+   "export": "NtSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "5000 ms",
+     "offset": 48
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "cancel while pending",
+   "export": "NtCancelTimer",
+   "r3": "0000000000000000",
+   "capture": {
+    "cancel current state": "00cdcdcd"
+   },
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "cancel current state",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "short wait after cancel",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "60 ms",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "arm 5 s again",
+   "export": "NtSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "5000 ms",
+     "offset": 48
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "replace with 20 ms",
+   "export": "NtSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "20 ms",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "wait for replacement expiry",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "rearm an expired timer",
+   "export": "NtSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "20 ms",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "poll right after rearm",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "wait for rearmed expiry",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "arm 20 ms then every 30 ms",
+   "export": "NtSetTimerEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "20 ms",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 30
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "periodic expiry 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "periodic expiry 2",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "periodic expiry 3",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "cancel periodic",
+   "export": "NtCancelTimer",
+   "r3": "0000000000000000",
+   "capture": {
+    "cancel current state": "00cdcdcd"
+   },
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "pointer": "cancel current state",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "poll after cancelling periodic",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "short wait: no further expiry",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "timer handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "60 ms",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "Nt timer type 1",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer handle"
+    }
+   ]
+  }
+ ]
+}
