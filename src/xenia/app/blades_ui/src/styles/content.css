@@ -210,6 +210,28 @@
   transform: translateY(1px);
 }
 
+/* An action that sits beside a pane's options (Test vibration under Off /
+   On). There the glossy sheet means "this option is chosen", and a button
+   that always wears it reads as permanently selected: at rest this one is
+   the outline an unchosen option has, and it takes the tint under the
+   pointer. Focus shows the pane's usual rim. */
+.pane-button--quiet {
+  background: transparent;
+  box-shadow: none;
+  font-weight: inherit;
+  text-shadow: var(--emboss);
+  transition: background 160ms ease, transform 120ms ease;
+}
+
+.pane-button--quiet:hover {
+  background: var(--hl-c);
+  filter: none;
+}
+
+.pane-button--quiet[aria-disabled]:hover {
+  background: transparent;
+}
+
 /* A pane action with nothing to do yet (Refresh with no folders, Reset when
    all are default): still reachable, visibly resting. */
 .pane-button[aria-disabled] {

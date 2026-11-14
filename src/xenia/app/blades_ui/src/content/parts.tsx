@@ -9,17 +9,21 @@ export function Aside({ children }: { children: ReactNode }) {
 export function PaneAction({
   children,
   onSelect,
-  disabled = false
+  disabled = false,
+  quiet = false
 }: {
   children: ReactNode;
   onSelect: () => void;
   disabled?: boolean;
+  /** For an action beside a pane's options (Test vibration under Off / On):
+      an outline at rest, so the glossy sheet keeps meaning "chosen". */
+  quiet?: boolean;
 }) {
   return (
     <button
       type="button"
       aria-disabled={disabled || undefined}
-      className="pane-button rounded-row mt-[0.3em] inline-flex min-h-[2.2em] cursor-pointer items-center justify-self-start px-[0.9em]"
+      className={`pane-button${quiet ? " pane-button--quiet" : ""} rounded-row mt-[0.3em] inline-flex min-h-[2.2em] cursor-pointer items-center justify-self-start px-[0.9em]`}
       onClick={() => {
         if (!disabled) onSelect();
       }}
