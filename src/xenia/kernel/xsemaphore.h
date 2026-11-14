@@ -10,6 +10,8 @@
 #ifndef XENIA_KERNEL_XSEMAPHORE_H_
 #define XENIA_KERNEL_XSEMAPHORE_H_
 
+#include <mutex>
+
 #include "xenia/base/threading.h"
 #include "xenia/kernel/xobject.h"
 #include "xenia/kernel/xthread.h"
@@ -40,10 +42,14 @@ class XSemaphore : public XObject {
   xe::threading::WaitHandle* GetWaitHandle() override {
     return semaphore_.get();
   }
+  void WaitCallback() override;
 
  private:
+  void UpdateGuestCount();  // Requires header_mutex_.
   std::unique_ptr<xe::threading::Semaphore> semaphore_;
   uint32_t maximum_count_ = 0;
+  uint32_t guest_header_ptr_ = 0;
+  std::mutex header_mutex_;
 };
 
 }  // namespace kernel

@@ -1,0 +1,499 @@
+{
+ "corpus": "ke_timer_dpc",
+ "source": "Physical Xbox 360 with Peer Pressure and XBDM, 2026-11-13; bundle 748bd1f661c6f44c; private hardware evidence",
+ "steps": [
+  {
+   "scenario": "timer callback expiry",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "timer callback expiry",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "dpc",
+     "offset": 40
+    },
+    {
+     "recorder": "callback"
+    },
+    {
+     "value": 305419896
+    }
+   ]
+  },
+  {
+   "scenario": "timer callback expiry",
+   "name": "KeSetTimer",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "timer callback expiry",
+   "name": "after expiry",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "callback": "000000010000000000000000820300280000000012345678"
+   },
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "settle interval",
+     "offset": 96
+    }
+   ]
+  },
+  {
+   "scenario": "timer callback expiry",
+   "name": "final cancel",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer callback expiry",
+   "name": "remove after completion 0",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "cancel before callback",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "cancel before callback",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "dpc",
+     "offset": 40
+    },
+    {
+     "recorder": "callback"
+    },
+    {
+     "value": 305419896
+    }
+   ]
+  },
+  {
+   "scenario": "cancel before callback",
+   "name": "KeSetTimer",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073707551616
+    },
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "cancel before callback",
+   "name": "cancel pending callback",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "cancel before callback",
+   "name": "after cancelled deadline",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "callback": "000000000000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "settle interval",
+     "offset": 96
+    }
+   ]
+  },
+  {
+   "scenario": "cancel before callback",
+   "name": "final cancel",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "cancel before callback",
+   "name": "remove after completion 0",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "replace callback",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "replace callback",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "dpc",
+     "offset": 40
+    },
+    {
+     "recorder": "callback"
+    },
+    {
+     "value": 305419896
+    }
+   ]
+  },
+  {
+   "scenario": "replace callback",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "replacement dpc",
+     "offset": 96
+    },
+    {
+     "recorder": "replacement callback"
+    },
+    {
+     "value": 1985229328
+    }
+   ]
+  },
+  {
+   "scenario": "replace callback",
+   "name": "set original",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073707551616
+    },
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "replace callback",
+   "name": "replace pending",
+   "export": "KeSetTimer",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "pointer": "replacement dpc",
+     "offset": 96
+    }
+   ]
+  },
+  {
+   "scenario": "replace callback",
+   "name": "after both deadlines",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "callback": "000000000000000000000000000000000000000000000000",
+    "replacement callback": "000000010000000000000000820300600000000076543210"
+   },
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "settle interval",
+     "offset": 152
+    }
+   ]
+  },
+  {
+   "scenario": "replace callback",
+   "name": "final cancel",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "replace callback",
+   "name": "remove after completion 0",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "replace callback",
+   "name": "remove after completion 1",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "replacement dpc",
+     "offset": 96
+    }
+   ]
+  },
+  {
+   "scenario": "reuse callback",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "reuse callback",
+   "name": "KeInitializeDpc",
+   "export": "KeInitializeDpc",
+   "args": [
+    {
+     "pointer": "dpc",
+     "offset": 40
+    },
+    {
+     "recorder": "callback"
+    },
+    {
+     "value": 305419896
+    }
+   ]
+  },
+  {
+   "scenario": "reuse callback",
+   "name": "set 0",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "reuse callback",
+   "name": "after expiry 0",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "callback": "00000001000000000000000082030028000000001234567800000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "settle interval",
+     "offset": 112
+    }
+   ]
+  },
+  {
+   "scenario": "reuse callback",
+   "name": "set 1",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "reuse callback",
+   "name": "after expiry 1",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "callback": "00000002000000000000000082030028000000001234567800000000820300280000000012345678"
+   },
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "settle interval",
+     "offset": 120
+    }
+   ]
+  },
+  {
+   "scenario": "reuse callback",
+   "name": "final cancel",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "reuse callback",
+   "name": "remove after completion 0",
+   "export": "KeRemoveQueueDpc",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "dpc",
+     "offset": 40
+    }
+   ]
+  }
+ ]
+}

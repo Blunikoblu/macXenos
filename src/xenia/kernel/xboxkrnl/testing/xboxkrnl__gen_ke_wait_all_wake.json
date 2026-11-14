@@ -1,0 +1,2912 @@
+{
+ "corpus": "ke_wait_all_wake",
+ "source": "Physical Xbox 360, bundle 3293e0eb2509c050; private wait-all-wake-01 evidence",
+ "steps": [
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 0: attempting",
+     "offset": 568
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 0: done",
+     "offset": 584
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 0: object 0",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 0: object 1",
+     "offset": 24
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 0: immediate signal 0",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 0: object 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 0: immediate signal 1",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 0: object 1",
+     "offset": 24
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 0: immediate wait all",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "types (1, 1), final index 0: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1), final index 0: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "types (1, 1), final index 0: object array",
+     "offset": 48
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1), final index 0: zero timeout",
+     "offset": 608
+    },
+    {
+     "pointer": "types (1, 1), final index 0: main wait blocks",
+     "offset": 312
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 0: all signals consumed",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "types (1, 1), final index 0: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1), final index 0: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "types (1, 1), final index 0: object array",
+     "offset": 48
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1), final index 0: zero timeout",
+     "offset": 608
+    },
+    {
+     "pointer": "types (1, 1), final index 0: main wait blocks",
+     "offset": 312
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 0: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 0: worker handle",
+     "offset": 632
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "types (1, 1), final index 0: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 0: worker attempting",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 0: attempting",
+     "offset": 568
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1), final index 0: 2 s timeout",
+     "offset": 624
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 0: initially pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 0: done",
+     "offset": 584
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1), final index 0: 20 ms timeout",
+     "offset": 616
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 0: partial signal 1",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 0: object 1",
+     "offset": 24
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 0: still pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "types (1, 1), final index 0: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1), final index 0: object 1+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 0: done",
+     "offset": 584
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1), final index 0: 20 ms timeout",
+     "offset": 616
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 0: final signal 0",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 0: object 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 0: completed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 0: done",
+     "offset": 584
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1), final index 0: 2 s timeout",
+     "offset": 624
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 0: joined",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "types (1, 1), final index 0: worker wait return": "00000000",
+    "types (1, 1), final index 0: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1), final index 0: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "variable": "types (1, 1), final index 0: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1), final index 0: 2 s timeout",
+     "offset": 624
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "types (1, 1), final index 0: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 1: attempting",
+     "offset": 1208
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 1: done",
+     "offset": 1224
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 1: object 0",
+     "offset": 640
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 1: object 1",
+     "offset": 664
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 1: immediate signal 0",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 1: object 0",
+     "offset": 640
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 1: immediate signal 1",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 1: object 1",
+     "offset": 664
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 1: immediate wait all",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "types (1, 1), final index 1: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1), final index 1: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "types (1, 1), final index 1: object array",
+     "offset": 688
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1), final index 1: zero timeout",
+     "offset": 1248
+    },
+    {
+     "pointer": "types (1, 1), final index 1: main wait blocks",
+     "offset": 952
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 1: all signals consumed",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "types (1, 1), final index 1: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1), final index 1: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "types (1, 1), final index 1: object array",
+     "offset": 688
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1), final index 1: zero timeout",
+     "offset": 1248
+    },
+    {
+     "pointer": "types (1, 1), final index 1: main wait blocks",
+     "offset": 952
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 1: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 1: worker handle",
+     "offset": 1272
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "types (1, 1), final index 1: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 1: worker attempting",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 1: attempting",
+     "offset": 1208
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1), final index 1: 2 s timeout",
+     "offset": 1264
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 1: initially pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 1: done",
+     "offset": 1224
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1), final index 1: 20 ms timeout",
+     "offset": 1256
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 1: partial signal 0",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 1: object 0",
+     "offset": 640
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 1: still pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "types (1, 1), final index 1: object 0+0x4[:0x4]": "00000001",
+    "types (1, 1), final index 1: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 1: done",
+     "offset": 1224
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1), final index 1: 20 ms timeout",
+     "offset": 1256
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 1: final signal 1",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 1: object 1",
+     "offset": 664
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 1: completed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1), final index 1: done",
+     "offset": 1224
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1), final index 1: 2 s timeout",
+     "offset": 1264
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1), final index 1: joined",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "types (1, 1), final index 1: worker wait return": "00000001",
+    "types (1, 1), final index 1: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1), final index 1: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "variable": "types (1, 1), final index 1: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1), final index 1: 2 s timeout",
+     "offset": 1264
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "types (1, 1), final index 1: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (5, 1), final index 0: attempting",
+     "offset": 1848
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (5, 1), final index 0: done",
+     "offset": 1864
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "types (5, 1), final index 0: object 0",
+     "offset": 1280
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (5, 1), final index 0: object 1",
+     "offset": 1304
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (5, 1), final index 0: immediate signal 0",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (5, 1), final index 0: object 0",
+     "offset": 1280
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (5, 1), final index 0: immediate signal 1",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (5, 1), final index 0: object 1",
+     "offset": 1304
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (5, 1), final index 0: immediate wait all",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "types (5, 1), final index 0: object 0+0x4[:0x4]": "00000000",
+    "types (5, 1), final index 0: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "types (5, 1), final index 0: object array",
+     "offset": 1328
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (5, 1), final index 0: zero timeout",
+     "offset": 1888
+    },
+    {
+     "pointer": "types (5, 1), final index 0: main wait blocks",
+     "offset": 1592
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (5, 1), final index 0: all signals consumed",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "types (5, 1), final index 0: object 0+0x4[:0x4]": "00000000",
+    "types (5, 1), final index 0: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "types (5, 1), final index 0: object array",
+     "offset": 1328
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (5, 1), final index 0: zero timeout",
+     "offset": 1888
+    },
+    {
+     "pointer": "types (5, 1), final index 0: main wait blocks",
+     "offset": 1592
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (5, 1), final index 0: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (5, 1), final index 0: worker handle",
+     "offset": 1912
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "types (5, 1), final index 0: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (5, 1), final index 0: worker attempting",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (5, 1), final index 0: attempting",
+     "offset": 1848
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (5, 1), final index 0: 2 s timeout",
+     "offset": 1904
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (5, 1), final index 0: initially pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "types (5, 1), final index 0: done",
+     "offset": 1864
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (5, 1), final index 0: 20 ms timeout",
+     "offset": 1896
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (5, 1), final index 0: partial signal 1",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (5, 1), final index 0: object 1",
+     "offset": 1304
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (5, 1), final index 0: still pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "types (5, 1), final index 0: object 0+0x4[:0x4]": "00000000",
+    "types (5, 1), final index 0: object 1+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "types (5, 1), final index 0: done",
+     "offset": 1864
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (5, 1), final index 0: 20 ms timeout",
+     "offset": 1896
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (5, 1), final index 0: final signal 0",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (5, 1), final index 0: object 0",
+     "offset": 1280
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (5, 1), final index 0: completed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (5, 1), final index 0: done",
+     "offset": 1864
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (5, 1), final index 0: 2 s timeout",
+     "offset": 1904
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (5, 1), final index 0: joined",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "types (5, 1), final index 0: worker wait return": "00000000",
+    "types (5, 1), final index 0: object 0+0x4[:0x4]": "00000000",
+    "types (5, 1), final index 0: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "variable": "types (5, 1), final index 0: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (5, 1), final index 0: 2 s timeout",
+     "offset": 1904
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "types (5, 1), final index 0: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 5), final index 1: attempting",
+     "offset": 2488
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 5), final index 1: done",
+     "offset": 2504
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 5), final index 1: object 0",
+     "offset": 1920
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "types (1, 5), final index 1: object 1",
+     "offset": 1944
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 5), final index 1: immediate signal 0",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 5), final index 1: object 0",
+     "offset": 1920
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 5), final index 1: immediate signal 1",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 5), final index 1: object 1",
+     "offset": 1944
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 5), final index 1: immediate wait all",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "types (1, 5), final index 1: object 0+0x4[:0x4]": "00000000",
+    "types (1, 5), final index 1: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "types (1, 5), final index 1: object array",
+     "offset": 1968
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 5), final index 1: zero timeout",
+     "offset": 2528
+    },
+    {
+     "pointer": "types (1, 5), final index 1: main wait blocks",
+     "offset": 2232
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 5), final index 1: all signals consumed",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "types (1, 5), final index 1: object 0+0x4[:0x4]": "00000000",
+    "types (1, 5), final index 1: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "types (1, 5), final index 1: object array",
+     "offset": 1968
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 5), final index 1: zero timeout",
+     "offset": 2528
+    },
+    {
+     "pointer": "types (1, 5), final index 1: main wait blocks",
+     "offset": 2232
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 5), final index 1: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 5), final index 1: worker handle",
+     "offset": 2552
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "types (1, 5), final index 1: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 5), final index 1: worker attempting",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 5), final index 1: attempting",
+     "offset": 2488
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 5), final index 1: 2 s timeout",
+     "offset": 2544
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 5), final index 1: initially pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "types (1, 5), final index 1: done",
+     "offset": 2504
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 5), final index 1: 20 ms timeout",
+     "offset": 2536
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 5), final index 1: partial signal 0",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 5), final index 1: object 0",
+     "offset": 1920
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 5), final index 1: still pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "types (1, 5), final index 1: object 0+0x4[:0x4]": "00000001",
+    "types (1, 5), final index 1: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "types (1, 5), final index 1: done",
+     "offset": 2504
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 5), final index 1: 20 ms timeout",
+     "offset": 2536
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 5), final index 1: final signal 1",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 5), final index 1: object 1",
+     "offset": 1944
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 5), final index 1: completed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 5), final index 1: done",
+     "offset": 2504
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 5), final index 1: 2 s timeout",
+     "offset": 2544
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 5), final index 1: joined",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "types (1, 5), final index 1: worker wait return": "00000001",
+    "types (1, 5), final index 1: object 0+0x4[:0x4]": "00000000",
+    "types (1, 5), final index 1: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "variable": "types (1, 5), final index 1: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 5), final index 1: 2 s timeout",
+     "offset": 2544
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "types (1, 5), final index 1: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: attempting",
+     "offset": 3160
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: done",
+     "offset": 3176
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: object 0",
+     "offset": 2560
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: object 1",
+     "offset": 2584
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: object 2",
+     "offset": 2608
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 0: immediate signal 0",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: object 0",
+     "offset": 2560
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 0: immediate signal 1",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: object 1",
+     "offset": 2584
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 0: immediate signal 2",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: object 2",
+     "offset": 2608
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 0: immediate wait all",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "types (1, 1, 1), final index 0: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 0: object 1+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 0: object 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 0: object array",
+     "offset": 2632
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 0: zero timeout",
+     "offset": 3200
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 0: main wait blocks",
+     "offset": 2904
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 0: all signals consumed",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "types (1, 1, 1), final index 0: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 0: object 1+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 0: object 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 0: object array",
+     "offset": 2632
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 0: zero timeout",
+     "offset": 3200
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 0: main wait blocks",
+     "offset": 2904
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 0: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: worker handle",
+     "offset": 3224
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "types (1, 1, 1), final index 0: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 0: worker attempting",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: attempting",
+     "offset": 3160
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 0: 2 s timeout",
+     "offset": 3216
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 0: initially pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: done",
+     "offset": 3176
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 0: 20 ms timeout",
+     "offset": 3208
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 0: partial signal 1",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: object 1",
+     "offset": 2584
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 0: partial signal 2",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: object 2",
+     "offset": 2608
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 0: still pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "types (1, 1, 1), final index 0: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 0: object 1+0x4[:0x4]": "00000001",
+    "types (1, 1, 1), final index 0: object 2+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: done",
+     "offset": 3176
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 0: 20 ms timeout",
+     "offset": 3208
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 0: final signal 0",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: object 0",
+     "offset": 2560
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 0: completed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 0: done",
+     "offset": 3176
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 0: 2 s timeout",
+     "offset": 3216
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 0: joined",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "types (1, 1, 1), final index 0: worker wait return": "00000000",
+    "types (1, 1, 1), final index 0: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 0: object 1+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 0: object 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "variable": "types (1, 1, 1), final index 0: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 0: 2 s timeout",
+     "offset": 3216
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "types (1, 1, 1), final index 0: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: attempting",
+     "offset": 3832
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: done",
+     "offset": 3848
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: object 0",
+     "offset": 3232
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: object 1",
+     "offset": 3256
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: object 2",
+     "offset": 3280
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 1: immediate signal 0",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: object 0",
+     "offset": 3232
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 1: immediate signal 1",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: object 1",
+     "offset": 3256
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 1: immediate signal 2",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: object 2",
+     "offset": 3280
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 1: immediate wait all",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "types (1, 1, 1), final index 1: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 1: object 1+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 1: object 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 1: object array",
+     "offset": 3304
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 1: zero timeout",
+     "offset": 3872
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 1: main wait blocks",
+     "offset": 3576
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 1: all signals consumed",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "types (1, 1, 1), final index 1: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 1: object 1+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 1: object 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 1: object array",
+     "offset": 3304
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 1: zero timeout",
+     "offset": 3872
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 1: main wait blocks",
+     "offset": 3576
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 1: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: worker handle",
+     "offset": 3896
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "types (1, 1, 1), final index 1: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 1: worker attempting",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: attempting",
+     "offset": 3832
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 1: 2 s timeout",
+     "offset": 3888
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 1: initially pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: done",
+     "offset": 3848
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 1: 20 ms timeout",
+     "offset": 3880
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 1: partial signal 0",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: object 0",
+     "offset": 3232
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 1: partial signal 2",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: object 2",
+     "offset": 3280
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 1: still pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "types (1, 1, 1), final index 1: object 0+0x4[:0x4]": "00000001",
+    "types (1, 1, 1), final index 1: object 1+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 1: object 2+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: done",
+     "offset": 3848
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 1: 20 ms timeout",
+     "offset": 3880
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 1: final signal 1",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: object 1",
+     "offset": 3256
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 1: completed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 1: done",
+     "offset": 3848
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 1: 2 s timeout",
+     "offset": 3888
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 1: joined",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "types (1, 1, 1), final index 1: worker wait return": "00000001",
+    "types (1, 1, 1), final index 1: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 1: object 1+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 1: object 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "variable": "types (1, 1, 1), final index 1: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 1: 2 s timeout",
+     "offset": 3888
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "types (1, 1, 1), final index 1: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: attempting",
+     "offset": 4504
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: done",
+     "offset": 4520
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: object 0",
+     "offset": 3904
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: object 1",
+     "offset": 3928
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: object 2",
+     "offset": 3952
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 2: immediate signal 0",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: object 0",
+     "offset": 3904
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 2: immediate signal 1",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: object 1",
+     "offset": 3928
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 2: immediate signal 2",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: object 2",
+     "offset": 3952
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 2: immediate wait all",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "types (1, 1, 1), final index 2: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 2: object 1+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 2: object 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 2: object array",
+     "offset": 3976
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 2: zero timeout",
+     "offset": 4544
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 2: main wait blocks",
+     "offset": 4248
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 2: all signals consumed",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "types (1, 1, 1), final index 2: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 2: object 1+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 2: object 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 3
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 2: object array",
+     "offset": 3976
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 2: zero timeout",
+     "offset": 4544
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 2: main wait blocks",
+     "offset": 4248
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 2: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: worker handle",
+     "offset": 4568
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "types (1, 1, 1), final index 2: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 2: worker attempting",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: attempting",
+     "offset": 4504
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 2: 2 s timeout",
+     "offset": 4560
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 2: initially pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: done",
+     "offset": 4520
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 2: 20 ms timeout",
+     "offset": 4552
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 2: partial signal 0",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: object 0",
+     "offset": 3904
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 2: partial signal 1",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: object 1",
+     "offset": 3928
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 2: still pending",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "types (1, 1, 1), final index 2: object 0+0x4[:0x4]": "00000001",
+    "types (1, 1, 1), final index 2: object 1+0x4[:0x4]": "00000001",
+    "types (1, 1, 1), final index 2: object 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: done",
+     "offset": 4520
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 2: 20 ms timeout",
+     "offset": 4552
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 2: final signal 2",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: object 2",
+     "offset": 3952
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 2: completed",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "types (1, 1, 1), final index 2: done",
+     "offset": 4520
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 2: 2 s timeout",
+     "offset": 4560
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "types (1, 1, 1), final index 2: joined",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "types (1, 1, 1), final index 2: worker wait return": "00000002",
+    "types (1, 1, 1), final index 2: object 0+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 2: object 1+0x4[:0x4]": "00000000",
+    "types (1, 1, 1), final index 2: object 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "variable": "types (1, 1, 1), final index 2: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "types (1, 1, 1), final index 2: 2 s timeout",
+     "offset": 4560
+    }
+   ]
+  },
+  {
+   "scenario": "wait all wake return matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "types (1, 1, 1), final index 2: worker handle"
+    }
+   ]
+  }
+ ]
+}

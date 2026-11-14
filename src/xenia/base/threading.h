@@ -231,6 +231,9 @@ WaitResult SignalAndWait(
     bool is_alertable,
     std::chrono::milliseconds timeout = std::chrono::milliseconds::max());
 
+// The index identifies the satisfied object for WaitAny. The POSIX blocking
+// WaitAll path also reports its latest member wake after a pending wait, or
+// zero for immediate completion. WaitAll's convenience wrapper ignores it.
 std::pair<WaitResult, size_t> WaitMultiple(
     WaitHandle* wait_handles[], size_t wait_handle_count, bool wait_all,
     bool is_alertable,
@@ -333,6 +336,10 @@ class Semaphore : public WaitHandle {
   // Returns false if adding release_count would set the semaphore over the
   // initially specified maximum_count.
   virtual bool Release(int release_count, int* out_previous_count) = 0;
+
+  // Returns the current available count without consuming a permit. This is
+  // a snapshot; another thread may acquire or release immediately afterward.
+  virtual int QueryCount() = 0;
 };
 
 // Models a Win32-like mutant (mutex) object.

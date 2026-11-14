@@ -352,20 +352,27 @@ target_include_directories(zlib-ng PUBLIC zlib-ng)
 # SDL2
 # ==============================================================================
 if(APPLE)
-  # Build SDL2 from the vendored submodule via its own CMake (self-contained;
-  # no system SDL2 framework required). SDL2 configures its own CoreAudio/Cocoa/
-  # IOKit backends and links the needed system frameworks through its target
-  # interface.
+  # macOS builds SDL3 from the vendored submodule (third_party/SDL3), static,
+  # through its own CMake: no system SDL needed, and its CoreAudio/IOKit/
+  # GameController backends and frameworks come through the target. SDL3
+  # rather than SDL2 for its controller drivers: SDL 2.32 has none for newer
+  # pads (an 8BitDo Ultimate 2 over Bluetooth reported no rumble; SDL 3.4's
+  # HIDAPI 8BitDo driver drives it). The app uses audio, events and gamepads
+  # only, so the subsystems that would pull in rendering are left out.
+  # third_party/SDL2 stays for the Linux sources, which are not built here.
   set(SDL_SHARED OFF CACHE BOOL "" FORCE)
   set(SDL_STATIC ON CACHE BOOL "" FORCE)
-  set(SDL_TEST OFF CACHE BOOL "" FORCE)
-  set(SDL2_DISABLE_INSTALL ON CACHE BOOL "" FORCE)
-  set(SDL2_DISABLE_UNINSTALL ON CACHE BOOL "" FORCE)
-  add_subdirectory(SDL2 EXCLUDE_FROM_ALL)
-  # The rest of the tree links the target name "SDL2"; SDL's static target is
-  # "SDL2-static".
-  if(NOT TARGET SDL2)
-    add_library(SDL2 ALIAS SDL2-static)
+  set(SDL_TEST_LIBRARY OFF CACHE BOOL "" FORCE)
+  set(SDL_INSTALL OFF CACHE BOOL "" FORCE)
+  set(SDL_GPU OFF CACHE BOOL "" FORCE)
+  set(SDL_RENDER OFF CACHE BOOL "" FORCE)
+  set(SDL_CAMERA OFF CACHE BOOL "" FORCE)
+  set(SDL_DIALOG OFF CACHE BOOL "" FORCE)
+  set(SDL_TRAY OFF CACHE BOOL "" FORCE)
+  add_subdirectory(SDL3 EXCLUDE_FROM_ALL)
+  # The rest of the tree links the target name "SDL3".
+  if(NOT TARGET SDL3)
+    add_library(SDL3 ALIAS SDL3-static)
   endif()
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
   # Use system SDL2 on Linux

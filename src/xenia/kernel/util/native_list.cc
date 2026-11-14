@@ -15,8 +15,7 @@ namespace util {
 
 NativeList::NativeList() = default;
 
-NativeList::NativeList(Memory* memory)
-    : memory_(memory), head_(kInvalidPointer) {}
+NativeList::NativeList(Memory* memory) : memory_(memory) {}
 
 void NativeList::Insert(uint32_t ptr) {
   xe::store_and_swap<uint32_t>(memory_->TranslateVirtual(ptr + 0), head_);
@@ -28,11 +27,15 @@ void NativeList::Insert(uint32_t ptr) {
 }
 
 bool NativeList::IsQueued(uint32_t ptr) {
-  uint32_t flink =
-      xe::load_and_swap<uint32_t>(memory_->TranslateVirtual(ptr + 0));
-  uint32_t blink =
-      xe::load_and_swap<uint32_t>(memory_->TranslateVirtual(ptr + 4));
-  return head_ == ptr || flink || blink;
+  // A guest object's stale/uninitialized link words do not make it a member
+  // of this queue. Follow the links owned by the queue instead.
+  for (uint32_t entry = head_; entry;
+       entry = xe::load_and_swap<uint32_t>(memory_->TranslateVirtual(entry))) {
+    if (entry == ptr) {
+      return true;
+    }
+  }
+  return false;
 }
 
 void NativeList::Remove(uint32_t ptr) {
@@ -67,7 +70,7 @@ uint32_t NativeList::Shift() {
   return ptr;
 }
 
-bool NativeList::HasPending() { return head_ != kInvalidPointer; }
+bool NativeList::HasPending() { return head_ != 0; }
 
 }  // namespace util
 }  // namespace kernel

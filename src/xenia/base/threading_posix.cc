@@ -872,13 +872,17 @@ class PosixConditionBase {
     // no Signal between the check and the sleep is missed.
     for (auto* h : sorted) {
       std::lock_guard<std::mutex> hl(h->mutex_);
-      h->wait_blocks_.push_back({&block, 0});
+      const size_t index = std::find(handles.begin(), handles.end(), h) -
+                           handles.begin();
+      h->wait_blocks_.push_back({&block, index});
     }
 
     const auto end = (timeout == std::chrono::milliseconds::max())
                          ? std::chrono::steady_clock::time_point::max()
                          : std::chrono::steady_clock::now() + timeout;
     WaitResult result = WaitResult::kTimeout;
+    bool was_pending = false;
+    size_t completion_index = 0;
     while (true) {
       {
         std::vector<std::unique_lock<std::mutex>> locks;
@@ -894,12 +898,19 @@ class PosixConditionBase {
           }
         }
         if (all_signaled) {
+          if (was_pending) {
+            std::lock_guard<std::mutex> bl(block.m);
+            if (block.fired_index >= 0) {
+              completion_index = static_cast<size_t>(block.fired_index);
+            }
+          }
           for (size_t i = 0; i < n; ++i) {
             handles[i]->post_execution();
           }
           result = WaitResult::kSuccess;
           break;
         }
+        was_pending = true;
       }
       if (alert.pending()) {
         result = WaitResult::kUserCallback;
@@ -934,7 +945,7 @@ class PosixConditionBase {
         }
       }
     }
-    return std::make_pair(result, size_t(0));
+    return std::make_pair(result, completion_index);
   }
 
   [[nodiscard]] virtual void* native_handle() const {
@@ -956,6 +967,9 @@ class PosixConditionBase {
   void PokeWaitBlocksLocked() {
     for (auto& [b, index] : wait_blocks_) {
       std::lock_guard<std::mutex> bl(b->m);
+      if (b->notify_only) {
+        b->fired_index = static_cast<int>(index);
+      }
       b->pending = true;
       b->cv.notify_all();
     }
@@ -978,6 +992,7 @@ class PosixConditionBase {
         // WaitAll waiter: poke it and leave the signal and the registration
         // alone (it consumes every member itself once all are signaled).
         std::lock_guard<std::mutex> bl(b->m);
+        b->fired_index = static_cast<int>(idx);
         b->pending = true;
         b->cv.notify_all();
         ++it;
@@ -1080,6 +1095,11 @@ class PosixCondition<Semaphore> final : public PosixConditionBase {
       : count_(initial_count), maximum_count_(maximum_count) {}
 
   bool Signal() override { return Release(1, nullptr); }
+
+  int QueryCount() {
+    auto lock = std::unique_lock(mutex_);
+    return static_cast<int>(count_);
+  }
 
   bool Release(uint32_t release_count, int* out_previous_count) {
     auto lock = std::unique_lock(mutex_);
@@ -1951,6 +1971,7 @@ class PosixSemaphore final : public PosixConditionHandle<Semaphore> {
       : PosixConditionHandle(static_cast<uint32_t>(initial_count),
                              static_cast<uint32_t>(maximum_count)) {}
   ~PosixSemaphore() override = default;
+  int QueryCount() override { return handle_.QueryCount(); }
   bool Release(int release_count, int* out_previous_count) override {
     if (release_count < 1) {
       return false;

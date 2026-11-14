@@ -1,0 +1,1516 @@
+{
+ "corpus": "ke_wait_timers",
+ "source": "Physical Xbox 360, bundle 198f544da095b145; private dispatcher-batch-01 evidence",
+ "steps": [
+  {
+   "scenario": "timer type 0, wait type 0",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 0",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 3
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 0",
+   "name": "neither ready",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer+0x4[:0x4]": "00000000",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 0",
+   "name": "KeSetTimer",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 0",
+   "name": "KeReleaseSemaphore",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 0",
+   "name": "wait for timer expiry",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer+0x4[:0x4]": "00000001",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2 second timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 0",
+   "name": "poll after expiry wait",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer+0x4[:0x4]": "00000001",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 0",
+   "name": "KeCancelTimer",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 0",
+   "name": "KeSetTimer",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 0",
+   "name": "KeDelayExecutionThread",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "200 ms settle",
+     "offset": 344
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 0",
+   "name": "only expired timer ready",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer+0x4[:0x4]": "00000001",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 0",
+   "name": "KeReleaseSemaphore",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 0",
+   "name": "semaphore joins timer state",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer+0x4[:0x4]": "00000001",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 0",
+   "name": "poll after mixed consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer+0x4[:0x4]": "00000001",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 0",
+   "name": "KeCancelTimer",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 1",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 1",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 3
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 1",
+   "name": "neither ready",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer+0x4[:0x4]": "00000000",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 1",
+   "name": "KeSetTimer",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 1",
+   "name": "wait for timer expiry",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer+0x4[:0x4]": "00000001",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2 second timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 1",
+   "name": "poll after expiry wait",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer+0x4[:0x4]": "00000001",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 1",
+   "name": "KeCancelTimer",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 1",
+   "name": "KeSetTimer",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 1",
+   "name": "KeDelayExecutionThread",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "200 ms settle",
+     "offset": 344
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 1",
+   "name": "only expired timer ready",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer+0x4[:0x4]": "00000001",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 1",
+   "name": "KeReleaseSemaphore",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 1",
+   "name": "semaphore joins timer state",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer+0x4[:0x4]": "00000001",
+    "semaphore+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 1",
+   "name": "poll after mixed consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer+0x4[:0x4]": "00000001",
+    "semaphore+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 0, wait type 1",
+   "name": "KeCancelTimer",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 0",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 0",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 3
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 0",
+   "name": "neither ready",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer+0x4[:0x4]": "00000000",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 0",
+   "name": "KeSetTimer",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 0",
+   "name": "KeReleaseSemaphore",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 0",
+   "name": "wait for timer expiry",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer+0x4[:0x4]": "00000000",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2 second timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 0",
+   "name": "poll after expiry wait",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer+0x4[:0x4]": "00000000",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 0",
+   "name": "KeCancelTimer",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 0",
+   "name": "KeSetTimer",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 0",
+   "name": "KeDelayExecutionThread",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "200 ms settle",
+     "offset": 344
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 0",
+   "name": "only expired timer ready",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer+0x4[:0x4]": "00000001",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 0",
+   "name": "KeReleaseSemaphore",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 0",
+   "name": "semaphore joins timer state",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer+0x4[:0x4]": "00000000",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 0",
+   "name": "poll after mixed consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer+0x4[:0x4]": "00000000",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 0",
+   "name": "KeCancelTimer",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 1",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 1",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 3
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 1",
+   "name": "neither ready",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer+0x4[:0x4]": "00000000",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 1",
+   "name": "KeSetTimer",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 1",
+   "name": "wait for timer expiry",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer+0x4[:0x4]": "00000000",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2 second timeout",
+     "offset": 336
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 1",
+   "name": "poll after expiry wait",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer+0x4[:0x4]": "00000000",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 1",
+   "name": "KeCancelTimer",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 1",
+   "name": "KeSetTimer",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    },
+    {
+     "value": 18446744073709051616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 1",
+   "name": "KeDelayExecutionThread",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "200 ms settle",
+     "offset": 344
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 1",
+   "name": "only expired timer ready",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer+0x4[:0x4]": "00000000",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 1",
+   "name": "KeReleaseSemaphore",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 1",
+   "name": "semaphore joins timer state",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000001",
+   "capture": {
+    "timer+0x4[:0x4]": "00000000",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 1",
+   "name": "poll after mixed consumption",
+   "export": "KeWaitForMultipleObjects",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer+0x4[:0x4]": "00000000",
+    "semaphore+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "object array",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll timeout",
+     "offset": 328
+    },
+    {
+     "pointer": "wait block storage",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "timer type 1, wait type 1",
+   "name": "KeCancelTimer",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer",
+     "offset": 0
+    }
+   ]
+  }
+ ]
+}

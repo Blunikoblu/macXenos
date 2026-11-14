@@ -57,10 +57,8 @@ void XEvent::InitializeNative(void* native_ptr, X_DISPATCH_HEADER* header) {
       return;
   }
 
-  if (manual_reset_) {
-    guest_header_ptr_ = memory()->HostToGuestVirtual(native_ptr);
-    header_state_seen_.store(header->signal_state, std::memory_order_relaxed);
-  }
+  guest_header_ptr_ = memory()->HostToGuestVirtual(native_ptr);
+  header_state_seen_.store(header->signal_state, std::memory_order_relaxed);
   bool initial_state = header->signal_state ? true : false;
   if (manual_reset_) {
     event_ = xe::threading::Event::CreateManualResetEvent(initial_state);
@@ -83,10 +81,14 @@ int32_t XEvent::Set(uint32_t priority_increment, bool wait) {
   // KeSetEvent returns the signal state from before.
   std::lock_guard<std::mutex> lock(header_mutex_);
   const int32_t old_signal_state = SignalStateLocked();
-  if (guest_header_ptr_) {
+  if (guest_header_ptr_ && manual_reset_) {
     WriteGuestSignalState(1);
   }
   event_->Set();
+  if (guest_header_ptr_ && !manual_reset_) {
+    // A parked waiter may have consumed the signal during Set.
+    WriteGuestSignalState(event_->Query().state);
+  }
   return old_signal_state;
 }
 
@@ -129,10 +131,12 @@ int32_t XEvent::Reset() {
 }
 
 int32_t XEvent::SignalStateLocked() const {
-  // A notification event's state is its header, which the title may have
-  // cleared itself. A synchronization event's is the host event's: a released
-  // waiter consumes it there.
-  if (guest_header_ptr_) {
+  // Respect an inline guest clear. Otherwise an auto-reset event's host
+  // state accounts for a released waiter that has not run WaitCallback yet.
+  if (guest_header_ptr_ &&
+      (manual_reset_ ||
+       int32_t(guest_header()->signal_state) !=
+           header_state_seen_.load(std::memory_order_relaxed))) {
     return guest_header()->signal_state;
   }
   return int32_t(event_->Query().state);
@@ -155,8 +159,8 @@ void XEvent::WriteGuestSignalState(uint32_t state) {
 // host event woke it with no command posted and it called through a null
 // object (4 of 4 boots on the briefing screen). Set/Pulse/Reset keep the
 // header current and each wait first takes the header's state.
-// Synchronization (auto-reset) events are left alone: a released waiter
-// consumes them on the host side, which the header cannot record.
+// Synchronization events also support inline clears. Set and WaitCallback
+// publish host consumption so it is not mistaken for a guest header edit.
 void XEvent::SyncGuestStateBeforeWait() {
   static const bool enabled = [] {
     const char* v = std::getenv("XE_EVENT_HEADER_SYNC");
@@ -184,10 +188,7 @@ void XEvent::SyncGuestStateBeforeWait() {
   if (log_changes) {
     // Every wait that finds the header moved by the title, and whether the
     // host event disagreed with it.
-    const bool host_signaled =
-        xe::threading::Wait(event_.get(), false,
-                            std::chrono::milliseconds(0)) ==
-        xe::threading::WaitResult::kSuccess;
+    const bool host_signaled = event_->Query().state != 0;
     {
       static std::atomic<uint32_t> changes{0};
       const uint32_t n = ++changes;
@@ -207,6 +208,13 @@ void XEvent::SyncGuestStateBeforeWait() {
     event_->Set();
   } else {
     event_->Reset();
+  }
+}
+
+void XEvent::WaitCallback() {
+  if (guest_header_ptr_ && !manual_reset_) {
+    std::lock_guard<std::mutex> lock(header_mutex_);
+    WriteGuestSignalState(event_->Query().state);
   }
 }
 

@@ -1,0 +1,2770 @@
+{
+ "corpus": "nt_apc_waits",
+ "source": "Physical Xbox 360; bundle 41b1538185edc939; private nt-apc-waits-01 evidence",
+ "steps": [
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "single, mode 0, initially ready 0: handles+0x0[:0x4]",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 0, initially ready 0: queue APC to self",
+   "export": "NtQueueApcThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "single, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 4294967294
+    },
+    {
+     "routine": "single, mode 0, initially ready 0: APC normal routine"
+    },
+    {
+     "value": 324478056
+    },
+    {
+     "value": 305419896
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 0, initially ready 0: nonalertable wait with APC pending",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "single, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "variable": "single, mode 0, initially ready 0: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "single, mode 0, initially ready 0: 20 ms timeout",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 0, initially ready 0: alertable wait",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "single, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "variable": "single, mode 0, initially ready 0: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "single, mode 0, initially ready 0: 20 ms timeout",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 0, initially ready 0: drain pending APC",
+   "export": "KeDelayExecutionThread",
+   "r3": "00000000000000C0",
+   "capture": {
+    "single, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "single, mode 0, initially ready 0: 20 ms timeout",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 0, initially ready 0: no second delivery",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "single, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "single, mode 0, initially ready 0: 20 ms timeout",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 0, initially ready 0: remaining signal 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "single, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "single, mode 0, initially ready 0: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "single, mode 0, initially ready 0: zero timeout",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "single, mode 0, initially ready 0: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "single, mode 0, initially ready 1: handles+0x0[:0x4]",
+     "offset": 48
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 0, initially ready 1: queue APC to self",
+   "export": "NtQueueApcThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "single, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 4294967294
+    },
+    {
+     "routine": "single, mode 0, initially ready 1: APC normal routine"
+    },
+    {
+     "value": 324478056
+    },
+    {
+     "value": 305419896
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 0, initially ready 1: nonalertable wait with APC pending",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "single, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "variable": "single, mode 0, initially ready 1: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "single, mode 0, initially ready 1: 20 ms timeout",
+     "offset": 88
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtSetEvent",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "single, mode 0, initially ready 1: handle 0"
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 0, initially ready 1: alertable wait",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "single, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "variable": "single, mode 0, initially ready 1: handle 0"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "single, mode 0, initially ready 1: 20 ms timeout",
+     "offset": 88
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 0, initially ready 1: drain pending APC",
+   "export": "KeDelayExecutionThread",
+   "r3": "00000000000000C0",
+   "capture": {
+    "single, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "single, mode 0, initially ready 1: 20 ms timeout",
+     "offset": 88
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 0, initially ready 1: no second delivery",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "single, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "single, mode 0, initially ready 1: 20 ms timeout",
+     "offset": 88
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 0, initially ready 1: remaining signal 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "single, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "single, mode 0, initially ready 1: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "single, mode 0, initially ready 1: zero timeout",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "single, mode 0, initially ready 1: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "single, mode 1, initially ready 0: handles+0x0[:0x4]",
+     "offset": 96
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 1, initially ready 0: queue APC to self",
+   "export": "NtQueueApcThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "single, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 4294967294
+    },
+    {
+     "routine": "single, mode 1, initially ready 0: APC normal routine"
+    },
+    {
+     "value": 324478056
+    },
+    {
+     "value": 305419896
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 1, initially ready 0: nonalertable wait with APC pending",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "single, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "variable": "single, mode 1, initially ready 0: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "single, mode 1, initially ready 0: 20 ms timeout",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 1, initially ready 0: alertable wait",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "00000000000000C0",
+   "capture": {
+    "single, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "single, mode 1, initially ready 0: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "single, mode 1, initially ready 0: 20 ms timeout",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 1, initially ready 0: drain pending APC",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "single, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "single, mode 1, initially ready 0: 20 ms timeout",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 1, initially ready 0: no second delivery",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "single, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "single, mode 1, initially ready 0: 20 ms timeout",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 1, initially ready 0: remaining signal 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "single, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "single, mode 1, initially ready 0: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "single, mode 1, initially ready 0: zero timeout",
+     "offset": 128
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "single, mode 1, initially ready 0: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "single, mode 1, initially ready 1: handles+0x0[:0x4]",
+     "offset": 144
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 1, initially ready 1: queue APC to self",
+   "export": "NtQueueApcThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "single, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 4294967294
+    },
+    {
+     "routine": "single, mode 1, initially ready 1: APC normal routine"
+    },
+    {
+     "value": 324478056
+    },
+    {
+     "value": 305419896
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 1, initially ready 1: nonalertable wait with APC pending",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "single, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "variable": "single, mode 1, initially ready 1: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "single, mode 1, initially ready 1: 20 ms timeout",
+     "offset": 184
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtSetEvent",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "single, mode 1, initially ready 1: handle 0"
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 1, initially ready 1: alertable wait",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "single, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "variable": "single, mode 1, initially ready 1: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "single, mode 1, initially ready 1: 20 ms timeout",
+     "offset": 184
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 1, initially ready 1: drain pending APC",
+   "export": "KeDelayExecutionThread",
+   "r3": "00000000000000C0",
+   "capture": {
+    "single, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "single, mode 1, initially ready 1: 20 ms timeout",
+     "offset": 184
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 1, initially ready 1: no second delivery",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "single, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "single, mode 1, initially ready 1: 20 ms timeout",
+     "offset": 184
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "single, mode 1, initially ready 1: remaining signal 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "single, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "single, mode 1, initially ready 1: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "single, mode 1, initially ready 1: zero timeout",
+     "offset": 176
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "single, mode 1, initially ready 1: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "any, mode 0, initially ready 0: handles+0x0[:0x4]",
+     "offset": 192
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "any, mode 0, initially ready 0: handles+0x4[:0x4]",
+     "offset": 196
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 0, initially ready 0: queue APC to self",
+   "export": "NtQueueApcThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "any, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 4294967294
+    },
+    {
+     "routine": "any, mode 0, initially ready 0: APC normal routine"
+    },
+    {
+     "value": 324478056
+    },
+    {
+     "value": 305419896
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 0, initially ready 0: nonalertable wait with APC pending",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "any, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "any, mode 0, initially ready 0: handles",
+     "offset": 192
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "any, mode 0, initially ready 0: 20 ms timeout",
+     "offset": 232
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 0, initially ready 0: alertable wait",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "any, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "any, mode 0, initially ready 0: handles",
+     "offset": 192
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "any, mode 0, initially ready 0: 20 ms timeout",
+     "offset": 232
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 0, initially ready 0: drain pending APC",
+   "export": "KeDelayExecutionThread",
+   "r3": "00000000000000C0",
+   "capture": {
+    "any, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "any, mode 0, initially ready 0: 20 ms timeout",
+     "offset": 232
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 0, initially ready 0: no second delivery",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "any, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "any, mode 0, initially ready 0: 20 ms timeout",
+     "offset": 232
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 0, initially ready 0: remaining signal 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "any, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "any, mode 0, initially ready 0: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "any, mode 0, initially ready 0: zero timeout",
+     "offset": 224
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "any, mode 0, initially ready 0: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 0, initially ready 0: remaining signal 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "any, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "any, mode 0, initially ready 0: handle 1"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "any, mode 0, initially ready 0: zero timeout",
+     "offset": 224
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "any, mode 0, initially ready 0: handle 1"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "any, mode 0, initially ready 1: handles+0x0[:0x4]",
+     "offset": 240
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "any, mode 0, initially ready 1: handles+0x4[:0x4]",
+     "offset": 244
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 0, initially ready 1: queue APC to self",
+   "export": "NtQueueApcThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "any, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 4294967294
+    },
+    {
+     "routine": "any, mode 0, initially ready 1: APC normal routine"
+    },
+    {
+     "value": 324478056
+    },
+    {
+     "value": 305419896
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 0, initially ready 1: nonalertable wait with APC pending",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "any, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "any, mode 0, initially ready 1: handles",
+     "offset": 240
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "any, mode 0, initially ready 1: 20 ms timeout",
+     "offset": 280
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtSetEvent",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "any, mode 0, initially ready 1: handle 0"
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtSetEvent",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "any, mode 0, initially ready 1: handle 1"
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 0, initially ready 1: alertable wait",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "any, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "any, mode 0, initially ready 1: handles",
+     "offset": 240
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "any, mode 0, initially ready 1: 20 ms timeout",
+     "offset": 280
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 0, initially ready 1: drain pending APC",
+   "export": "KeDelayExecutionThread",
+   "r3": "00000000000000C0",
+   "capture": {
+    "any, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "any, mode 0, initially ready 1: 20 ms timeout",
+     "offset": 280
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 0, initially ready 1: no second delivery",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "any, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "any, mode 0, initially ready 1: 20 ms timeout",
+     "offset": 280
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 0, initially ready 1: remaining signal 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "any, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "any, mode 0, initially ready 1: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "any, mode 0, initially ready 1: zero timeout",
+     "offset": 272
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "any, mode 0, initially ready 1: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 0, initially ready 1: remaining signal 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "any, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "any, mode 0, initially ready 1: handle 1"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "any, mode 0, initially ready 1: zero timeout",
+     "offset": 272
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "any, mode 0, initially ready 1: handle 1"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "any, mode 1, initially ready 0: handles+0x0[:0x4]",
+     "offset": 288
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "any, mode 1, initially ready 0: handles+0x4[:0x4]",
+     "offset": 292
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 1, initially ready 0: queue APC to self",
+   "export": "NtQueueApcThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "any, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 4294967294
+    },
+    {
+     "routine": "any, mode 1, initially ready 0: APC normal routine"
+    },
+    {
+     "value": 324478056
+    },
+    {
+     "value": 305419896
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 1, initially ready 0: nonalertable wait with APC pending",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "any, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "any, mode 1, initially ready 0: handles",
+     "offset": 288
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "any, mode 1, initially ready 0: 20 ms timeout",
+     "offset": 328
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 1, initially ready 0: alertable wait",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "00000000000000C0",
+   "capture": {
+    "any, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "any, mode 1, initially ready 0: handles",
+     "offset": 288
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "any, mode 1, initially ready 0: 20 ms timeout",
+     "offset": 328
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 1, initially ready 0: drain pending APC",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "any, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "any, mode 1, initially ready 0: 20 ms timeout",
+     "offset": 328
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 1, initially ready 0: no second delivery",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "any, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "any, mode 1, initially ready 0: 20 ms timeout",
+     "offset": 328
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 1, initially ready 0: remaining signal 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "any, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "any, mode 1, initially ready 0: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "any, mode 1, initially ready 0: zero timeout",
+     "offset": 320
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "any, mode 1, initially ready 0: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 1, initially ready 0: remaining signal 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "any, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "any, mode 1, initially ready 0: handle 1"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "any, mode 1, initially ready 0: zero timeout",
+     "offset": 320
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "any, mode 1, initially ready 0: handle 1"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "any, mode 1, initially ready 1: handles+0x0[:0x4]",
+     "offset": 336
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "any, mode 1, initially ready 1: handles+0x4[:0x4]",
+     "offset": 340
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 1, initially ready 1: queue APC to self",
+   "export": "NtQueueApcThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "any, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 4294967294
+    },
+    {
+     "routine": "any, mode 1, initially ready 1: APC normal routine"
+    },
+    {
+     "value": 324478056
+    },
+    {
+     "value": 305419896
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 1, initially ready 1: nonalertable wait with APC pending",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "any, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "any, mode 1, initially ready 1: handles",
+     "offset": 336
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "any, mode 1, initially ready 1: 20 ms timeout",
+     "offset": 376
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtSetEvent",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "any, mode 1, initially ready 1: handle 0"
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtSetEvent",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "any, mode 1, initially ready 1: handle 1"
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 1, initially ready 1: alertable wait",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "any, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "any, mode 1, initially ready 1: handles",
+     "offset": 336
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "any, mode 1, initially ready 1: 20 ms timeout",
+     "offset": 376
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 1, initially ready 1: drain pending APC",
+   "export": "KeDelayExecutionThread",
+   "r3": "00000000000000C0",
+   "capture": {
+    "any, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "any, mode 1, initially ready 1: 20 ms timeout",
+     "offset": 376
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 1, initially ready 1: no second delivery",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "any, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "any, mode 1, initially ready 1: 20 ms timeout",
+     "offset": 376
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 1, initially ready 1: remaining signal 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "any, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "any, mode 1, initially ready 1: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "any, mode 1, initially ready 1: zero timeout",
+     "offset": 368
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "any, mode 1, initially ready 1: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "any, mode 1, initially ready 1: remaining signal 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "any, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "any, mode 1, initially ready 1: handle 1"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "any, mode 1, initially ready 1: zero timeout",
+     "offset": 368
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "any, mode 1, initially ready 1: handle 1"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "all, mode 0, initially ready 0: handles+0x0[:0x4]",
+     "offset": 384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "all, mode 0, initially ready 0: handles+0x4[:0x4]",
+     "offset": 388
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 0, initially ready 0: queue APC to self",
+   "export": "NtQueueApcThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "all, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 4294967294
+    },
+    {
+     "routine": "all, mode 0, initially ready 0: APC normal routine"
+    },
+    {
+     "value": 324478056
+    },
+    {
+     "value": 305419896
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 0, initially ready 0: nonalertable wait with APC pending",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "all, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "all, mode 0, initially ready 0: handles",
+     "offset": 384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "all, mode 0, initially ready 0: 20 ms timeout",
+     "offset": 424
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 0, initially ready 0: alertable wait",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "all, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "all, mode 0, initially ready 0: handles",
+     "offset": 384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "all, mode 0, initially ready 0: 20 ms timeout",
+     "offset": 424
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 0, initially ready 0: drain pending APC",
+   "export": "KeDelayExecutionThread",
+   "r3": "00000000000000C0",
+   "capture": {
+    "all, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "all, mode 0, initially ready 0: 20 ms timeout",
+     "offset": 424
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 0, initially ready 0: no second delivery",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "all, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "all, mode 0, initially ready 0: 20 ms timeout",
+     "offset": 424
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 0, initially ready 0: remaining signal 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "all, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "all, mode 0, initially ready 0: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "all, mode 0, initially ready 0: zero timeout",
+     "offset": 416
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "all, mode 0, initially ready 0: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 0, initially ready 0: remaining signal 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "all, mode 0, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "all, mode 0, initially ready 0: handle 1"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "all, mode 0, initially ready 0: zero timeout",
+     "offset": 416
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "all, mode 0, initially ready 0: handle 1"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "all, mode 0, initially ready 1: handles+0x0[:0x4]",
+     "offset": 432
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "all, mode 0, initially ready 1: handles+0x4[:0x4]",
+     "offset": 436
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 0, initially ready 1: queue APC to self",
+   "export": "NtQueueApcThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "all, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 4294967294
+    },
+    {
+     "routine": "all, mode 0, initially ready 1: APC normal routine"
+    },
+    {
+     "value": 324478056
+    },
+    {
+     "value": 305419896
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 0, initially ready 1: nonalertable wait with APC pending",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "all, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "all, mode 0, initially ready 1: handles",
+     "offset": 432
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "all, mode 0, initially ready 1: 20 ms timeout",
+     "offset": 472
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtSetEvent",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "all, mode 0, initially ready 1: handle 0"
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtSetEvent",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "all, mode 0, initially ready 1: handle 1"
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 0, initially ready 1: alertable wait",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "all, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "all, mode 0, initially ready 1: handles",
+     "offset": 432
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "all, mode 0, initially ready 1: 20 ms timeout",
+     "offset": 472
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 0, initially ready 1: drain pending APC",
+   "export": "KeDelayExecutionThread",
+   "r3": "00000000000000C0",
+   "capture": {
+    "all, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "all, mode 0, initially ready 1: 20 ms timeout",
+     "offset": 472
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 0, initially ready 1: no second delivery",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "all, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "all, mode 0, initially ready 1: 20 ms timeout",
+     "offset": 472
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 0, initially ready 1: remaining signal 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "all, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "all, mode 0, initially ready 1: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "all, mode 0, initially ready 1: zero timeout",
+     "offset": 464
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "all, mode 0, initially ready 1: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 0, initially ready 1: remaining signal 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "all, mode 0, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "all, mode 0, initially ready 1: handle 1"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "all, mode 0, initially ready 1: zero timeout",
+     "offset": 464
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "all, mode 0, initially ready 1: handle 1"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "all, mode 1, initially ready 0: handles+0x0[:0x4]",
+     "offset": 480
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "all, mode 1, initially ready 0: handles+0x4[:0x4]",
+     "offset": 484
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 1, initially ready 0: queue APC to self",
+   "export": "NtQueueApcThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "all, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 4294967294
+    },
+    {
+     "routine": "all, mode 1, initially ready 0: APC normal routine"
+    },
+    {
+     "value": 324478056
+    },
+    {
+     "value": 305419896
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 1, initially ready 0: nonalertable wait with APC pending",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "all, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "all, mode 1, initially ready 0: handles",
+     "offset": 480
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "all, mode 1, initially ready 0: 20 ms timeout",
+     "offset": 520
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 1, initially ready 0: alertable wait",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "00000000000000C0",
+   "capture": {
+    "all, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "all, mode 1, initially ready 0: handles",
+     "offset": 480
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "all, mode 1, initially ready 0: 20 ms timeout",
+     "offset": 520
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 1, initially ready 0: drain pending APC",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "all, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "all, mode 1, initially ready 0: 20 ms timeout",
+     "offset": 520
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 1, initially ready 0: no second delivery",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "all, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "all, mode 1, initially ready 0: 20 ms timeout",
+     "offset": 520
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 1, initially ready 0: remaining signal 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "all, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "all, mode 1, initially ready 0: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "all, mode 1, initially ready 0: zero timeout",
+     "offset": 512
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "all, mode 1, initially ready 0: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 1, initially ready 0: remaining signal 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "all, mode 1, initially ready 0: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "all, mode 1, initially ready 0: handle 1"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "all, mode 1, initially ready 0: zero timeout",
+     "offset": 512
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "all, mode 1, initially ready 0: handle 1"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "all, mode 1, initially ready 1: handles+0x0[:0x4]",
+     "offset": 528
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "all, mode 1, initially ready 1: handles+0x4[:0x4]",
+     "offset": 532
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 1, initially ready 1: queue APC to self",
+   "export": "NtQueueApcThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "all, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 4294967294
+    },
+    {
+     "routine": "all, mode 1, initially ready 1: APC normal routine"
+    },
+    {
+     "value": 324478056
+    },
+    {
+     "value": 305419896
+    },
+    {
+     "value": 610800471
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 1, initially ready 1: nonalertable wait with APC pending",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "all, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "all, mode 1, initially ready 1: handles",
+     "offset": 528
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "all, mode 1, initially ready 1: 20 ms timeout",
+     "offset": 568
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtSetEvent",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "all, mode 1, initially ready 1: handle 0"
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtSetEvent",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "all, mode 1, initially ready 1: handle 1"
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 1, initially ready 1: alertable wait",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "all, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000000000000000000000000000000000000"
+   },
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "all, mode 1, initially ready 1: handles",
+     "offset": 528
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "all, mode 1, initially ready 1: 20 ms timeout",
+     "offset": 568
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 1, initially ready 1: drain pending APC",
+   "export": "KeDelayExecutionThread",
+   "r3": "00000000000000C0",
+   "capture": {
+    "all, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "all, mode 1, initially ready 1: 20 ms timeout",
+     "offset": 568
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 1, initially ready 1: no second delivery",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "all, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "all, mode 1, initially ready 1: 20 ms timeout",
+     "offset": 568
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 1, initially ready 1: remaining signal 0",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "all, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "all, mode 1, initially ready 1: handle 0"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "all, mode 1, initially ready 1: zero timeout",
+     "offset": 560
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "all, mode 1, initially ready 1: handle 0"
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "all, mode 1, initially ready 1: remaining signal 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "capture": {
+    "all, mode 1, initially ready 1: APC count context arguments and IRQL": "0000000113572468123456782468135700000000"
+   },
+   "args": [
+    {
+     "variable": "all, mode 1, initially ready 1: handle 1"
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "all, mode 1, initially ready 1: zero timeout",
+     "offset": 560
+    }
+   ]
+  },
+  {
+   "scenario": "self queued APC wait matrix",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "all, mode 1, initially ready 1: handle 1"
+    }
+   ]
+  }
+ ]
+}

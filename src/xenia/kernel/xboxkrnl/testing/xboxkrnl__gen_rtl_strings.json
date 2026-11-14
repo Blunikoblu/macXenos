@@ -1,0 +1,1995 @@
+{
+ "corpus": "rtl_strings",
+ "source": "Physical Xbox 360 (Aurora, XBDM), 2026-11-14, bundle f593eb03426876b4; two runs identical; evidence xbox-hardware-2026-11-14/rtl_strings",
+ "steps": [
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlInitAnsiString \"\"",
+   "export": "RtlInitAnsiString",
+   "capture": {
+    "ANSI_STRING for \"\"[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "ANSI_STRING for \"\"",
+     "offset": 0
+    },
+    {
+     "pointer": "\"\" 1",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlInitUnicodeString \"\"",
+   "export": "RtlInitUnicodeString",
+   "capture": {
+    "UNICODE_STRING for \"\"[:0x4]": "00000002"
+   },
+   "args": [
+    {
+     "pointer": "UNICODE_STRING for \"\"",
+     "offset": 16
+    },
+    {
+     "pointer": "L\"\" 2",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlInitAnsiString \"a\"",
+   "export": "RtlInitAnsiString",
+   "capture": {
+    "ANSI_STRING for \"a\"[:0x4]": "00010002"
+   },
+   "args": [
+    {
+     "pointer": "ANSI_STRING for \"a\"",
+     "offset": 32
+    },
+    {
+     "pointer": "\"a\" 3",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlInitUnicodeString \"a\"",
+   "export": "RtlInitUnicodeString",
+   "capture": {
+    "UNICODE_STRING for \"a\"[:0x4]": "00020004"
+   },
+   "args": [
+    {
+     "pointer": "UNICODE_STRING for \"a\"",
+     "offset": 48
+    },
+    {
+     "pointer": "L\"a\" 4",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlInitAnsiString \"Hello, Xbox\"",
+   "export": "RtlInitAnsiString",
+   "capture": {
+    "ANSI_STRING for \"Hello, Xbox\"[:0x4]": "000b000c"
+   },
+   "args": [
+    {
+     "pointer": "ANSI_STRING for \"Hello, Xbox\"",
+     "offset": 64
+    },
+    {
+     "pointer": "\"Hello, Xbox\" 5",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlInitUnicodeString \"Hello, Xbox\"",
+   "export": "RtlInitUnicodeString",
+   "capture": {
+    "UNICODE_STRING for \"Hello, Xbox\"[:0x4]": "00160018"
+   },
+   "args": [
+    {
+     "pointer": "UNICODE_STRING for \"Hello, Xbox\"",
+     "offset": 88
+    },
+    {
+     "pointer": "L\"Hello, Xbox\" 6",
+     "offset": 96
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"abc\" \"abc\" ci=0",
+   "export": "RtlCompareString",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"abc\" 8",
+     "offset": 128
+    },
+    {
+     "pointer": "ANSI_STRING \"abc\" 10",
+     "offset": 144
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"abc\" \"abc\" ci=1",
+   "export": "RtlCompareString",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"abc\" 12",
+     "offset": 160
+    },
+    {
+     "pointer": "ANSI_STRING \"abc\" 14",
+     "offset": 176
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"abc\" \"abd\" ci=0",
+   "export": "RtlCompareString",
+   "r3": "FFFFFFFFFFFFFFFF",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"abc\" 16",
+     "offset": 192
+    },
+    {
+     "pointer": "ANSI_STRING \"abd\" 18",
+     "offset": 208
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"abc\" \"abd\" ci=1",
+   "export": "RtlCompareString",
+   "r3": "FFFFFFFFFFFFFFFF",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"abc\" 20",
+     "offset": 224
+    },
+    {
+     "pointer": "ANSI_STRING \"abd\" 22",
+     "offset": 240
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"abd\" \"abc\" ci=0",
+   "export": "RtlCompareString",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"abd\" 24",
+     "offset": 256
+    },
+    {
+     "pointer": "ANSI_STRING \"abc\" 26",
+     "offset": 272
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"abd\" \"abc\" ci=1",
+   "export": "RtlCompareString",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"abd\" 28",
+     "offset": 288
+    },
+    {
+     "pointer": "ANSI_STRING \"abc\" 30",
+     "offset": 304
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"abc\" \"ABC\" ci=0",
+   "export": "RtlCompareString",
+   "r3": "0000000000000020",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"abc\" 32",
+     "offset": 320
+    },
+    {
+     "pointer": "ANSI_STRING \"ABC\" 34",
+     "offset": 336
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"abc\" \"ABC\" ci=1",
+   "export": "RtlCompareString",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"abc\" 36",
+     "offset": 352
+    },
+    {
+     "pointer": "ANSI_STRING \"ABC\" 38",
+     "offset": 368
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"abc\" \"abcd\" ci=0",
+   "export": "RtlCompareString",
+   "r3": "FFFFFFFFFFFFFFFF",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"abc\" 40",
+     "offset": 384
+    },
+    {
+     "pointer": "ANSI_STRING \"abcd\" 42",
+     "offset": 400
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"abc\" \"abcd\" ci=1",
+   "export": "RtlCompareString",
+   "r3": "FFFFFFFFFFFFFFFF",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"abc\" 44",
+     "offset": 416
+    },
+    {
+     "pointer": "ANSI_STRING \"abcd\" 46",
+     "offset": 432
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"abcd\" \"abc\" ci=0",
+   "export": "RtlCompareString",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"abcd\" 48",
+     "offset": 448
+    },
+    {
+     "pointer": "ANSI_STRING \"abc\" 50",
+     "offset": 464
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"abcd\" \"abc\" ci=1",
+   "export": "RtlCompareString",
+   "r3": "0000000000000001",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"abcd\" 52",
+     "offset": 480
+    },
+    {
+     "pointer": "ANSI_STRING \"abc\" 54",
+     "offset": 496
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"\" \"\" ci=0",
+   "export": "RtlCompareString",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"\" 56",
+     "offset": 512
+    },
+    {
+     "pointer": "ANSI_STRING \"\" 58",
+     "offset": 528
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"\" \"\" ci=1",
+   "export": "RtlCompareString",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"\" 60",
+     "offset": 544
+    },
+    {
+     "pointer": "ANSI_STRING \"\" 62",
+     "offset": 560
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"\" \"a\" ci=0",
+   "export": "RtlCompareString",
+   "r3": "FFFFFFFFFFFFFFFF",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"\" 64",
+     "offset": 576
+    },
+    {
+     "pointer": "ANSI_STRING \"a\" 66",
+     "offset": 592
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"\" \"a\" ci=1",
+   "export": "RtlCompareString",
+   "r3": "FFFFFFFFFFFFFFFF",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"\" 68",
+     "offset": 608
+    },
+    {
+     "pointer": "ANSI_STRING \"a\" 70",
+     "offset": 624
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"a\u00e9\" \"a\u00c9\" ci=0",
+   "export": "RtlCompareString",
+   "r3": "0000000000000020",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"a\u00e9\" 72",
+     "offset": 640
+    },
+    {
+     "pointer": "ANSI_STRING \"a\u00c9\" 74",
+     "offset": 656
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"a\u00e9\" \"a\u00c9\" ci=1",
+   "export": "RtlCompareString",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"a\u00e9\" 76",
+     "offset": 672
+    },
+    {
+     "pointer": "ANSI_STRING \"a\u00c9\" 78",
+     "offset": 688
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"Z\" \"a\" ci=0",
+   "export": "RtlCompareString",
+   "r3": "FFFFFFFFFFFFFFF9",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"Z\" 80",
+     "offset": 704
+    },
+    {
+     "pointer": "ANSI_STRING \"a\" 82",
+     "offset": 720
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"Z\" \"a\" ci=1",
+   "export": "RtlCompareString",
+   "r3": "0000000000000019",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"Z\" 84",
+     "offset": 736
+    },
+    {
+     "pointer": "ANSI_STRING \"a\" 86",
+     "offset": 752
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"[\" \"a\" ci=0",
+   "export": "RtlCompareString",
+   "r3": "FFFFFFFFFFFFFFFA",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"[\" 88",
+     "offset": 768
+    },
+    {
+     "pointer": "ANSI_STRING \"a\" 90",
+     "offset": 784
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareString \"[\" \"a\" ci=1",
+   "export": "RtlCompareString",
+   "r3": "000000000000001A",
+   "args": [
+    {
+     "pointer": "ANSI_STRING \"[\" 92",
+     "offset": 800
+    },
+    {
+     "pointer": "ANSI_STRING \"a\" 94",
+     "offset": 816
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareStringN \"abcdef\":3 \"abcxyz\":3 ci=0",
+   "export": "RtlCompareStringN",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "\"abcdef\" 95",
+     "offset": 824
+    },
+    {
+     "value": 3
+    },
+    {
+     "pointer": "\"abcxyz\" 96",
+     "offset": 832
+    },
+    {
+     "value": 3
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareStringN \"abcdef\":3 \"abcxyz\":3 ci=1",
+   "export": "RtlCompareStringN",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "\"abcdef\" 97",
+     "offset": 840
+    },
+    {
+     "value": 3
+    },
+    {
+     "pointer": "\"abcxyz\" 98",
+     "offset": 848
+    },
+    {
+     "value": 3
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareStringN \"abcdef\":4 \"abcxyz\":4 ci=0",
+   "export": "RtlCompareStringN",
+   "r3": "FFFFFFFFFFFFFFEC",
+   "args": [
+    {
+     "pointer": "\"abcdef\" 99",
+     "offset": 856
+    },
+    {
+     "value": 4
+    },
+    {
+     "pointer": "\"abcxyz\" 100",
+     "offset": 864
+    },
+    {
+     "value": 4
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareStringN \"abcdef\":4 \"abcxyz\":4 ci=1",
+   "export": "RtlCompareStringN",
+   "r3": "FFFFFFFFFFFFFFEC",
+   "args": [
+    {
+     "pointer": "\"abcdef\" 101",
+     "offset": 872
+    },
+    {
+     "value": 4
+    },
+    {
+     "pointer": "\"abcxyz\" 102",
+     "offset": 880
+    },
+    {
+     "value": 4
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareStringN \"abc\":3 \"abcdef\":6 ci=0",
+   "export": "RtlCompareStringN",
+   "r3": "FFFFFFFFFFFFFFFD",
+   "args": [
+    {
+     "pointer": "\"abc\" 103",
+     "offset": 888
+    },
+    {
+     "value": 3
+    },
+    {
+     "pointer": "\"abcdef\" 104",
+     "offset": 896
+    },
+    {
+     "value": 6
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareStringN \"abc\":3 \"abcdef\":6 ci=1",
+   "export": "RtlCompareStringN",
+   "r3": "FFFFFFFFFFFFFFFD",
+   "args": [
+    {
+     "pointer": "\"abc\" 105",
+     "offset": 904
+    },
+    {
+     "value": 3
+    },
+    {
+     "pointer": "\"abcdef\" 106",
+     "offset": 912
+    },
+    {
+     "value": 6
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareStringN \"ABC\":3 \"abc\":3 ci=0",
+   "export": "RtlCompareStringN",
+   "r3": "FFFFFFFFFFFFFFE0",
+   "args": [
+    {
+     "pointer": "\"ABC\" 107",
+     "offset": 920
+    },
+    {
+     "value": 3
+    },
+    {
+     "pointer": "\"abc\" 108",
+     "offset": 928
+    },
+    {
+     "value": 3
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareStringN \"ABC\":3 \"abc\":3 ci=1",
+   "export": "RtlCompareStringN",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "\"ABC\" 109",
+     "offset": 936
+    },
+    {
+     "value": 3
+    },
+    {
+     "pointer": "\"abc\" 110",
+     "offset": 944
+    },
+    {
+     "value": 3
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpperChar 0x61",
+   "export": "RtlUpperChar",
+   "r3": "0000000000000041",
+   "args": [
+    {
+     "value": 97
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpperChar 0x7a",
+   "export": "RtlUpperChar",
+   "r3": "000000000000005A",
+   "args": [
+    {
+     "value": 122
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpperChar 0x41",
+   "export": "RtlUpperChar",
+   "r3": "0000000000000041",
+   "args": [
+    {
+     "value": 65
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpperChar 0x7b",
+   "export": "RtlUpperChar",
+   "r3": "000000000000007B",
+   "args": [
+    {
+     "value": 123
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpperChar 0x30",
+   "export": "RtlUpperChar",
+   "r3": "0000000000000030",
+   "args": [
+    {
+     "value": 48
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpperChar 0xe9",
+   "export": "RtlUpperChar",
+   "r3": "00000000000000C9",
+   "args": [
+    {
+     "value": 233
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpperChar 0xff",
+   "export": "RtlUpperChar",
+   "r3": "000000000000003F",
+   "args": [
+    {
+     "value": 255
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpperChar 0xdf",
+   "export": "RtlUpperChar",
+   "r3": "00000000000000DF",
+   "args": [
+    {
+     "value": 223
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpperChar 0x00",
+   "export": "RtlUpperChar",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpcaseUnicodeChar 0x0061",
+   "export": "RtlUpcaseUnicodeChar",
+   "r3": "0000000000000041",
+   "args": [
+    {
+     "value": 97
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpcaseUnicodeChar 0x007a",
+   "export": "RtlUpcaseUnicodeChar",
+   "r3": "000000000000005A",
+   "args": [
+    {
+     "value": 122
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpcaseUnicodeChar 0x00e9",
+   "export": "RtlUpcaseUnicodeChar",
+   "r3": "00000000000000C9",
+   "args": [
+    {
+     "value": 233
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpcaseUnicodeChar 0x00ff",
+   "export": "RtlUpcaseUnicodeChar",
+   "r3": "0000000000000178",
+   "args": [
+    {
+     "value": 255
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpcaseUnicodeChar 0x03b1",
+   "export": "RtlUpcaseUnicodeChar",
+   "r3": "0000000000000391",
+   "args": [
+    {
+     "value": 945
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpcaseUnicodeChar 0x0430",
+   "export": "RtlUpcaseUnicodeChar",
+   "r3": "0000000000000410",
+   "args": [
+    {
+     "value": 1072
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpcaseUnicodeChar 0x0131",
+   "export": "RtlUpcaseUnicodeChar",
+   "r3": "0000000000000131",
+   "args": [
+    {
+     "value": 305
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpcaseUnicodeChar 0x01c6",
+   "export": "RtlUpcaseUnicodeChar",
+   "r3": "00000000000001C4",
+   "args": [
+    {
+     "value": 454
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpcaseUnicodeChar 0xff41",
+   "export": "RtlUpcaseUnicodeChar",
+   "r3": "000000000000FF21",
+   "args": [
+    {
+     "value": 65345
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUpcaseUnicodeChar 0x20ac",
+   "export": "RtlUpcaseUnicodeChar",
+   "r3": "00000000000020AC",
+   "args": [
+    {
+     "value": 8364
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareMemory, first difference at 32",
+   "export": "RtlCompareMemory",
+   "r3": "0000000000000020",
+   "args": [
+    {
+     "pointer": "block 111",
+     "offset": 952
+    },
+    {
+     "pointer": "other 112",
+     "offset": 984
+    },
+    {
+     "value": 32
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareMemory, first difference at 16",
+   "export": "RtlCompareMemory",
+   "r3": "0000000000000010",
+   "args": [
+    {
+     "pointer": "block 113",
+     "offset": 1016
+    },
+    {
+     "pointer": "other 114",
+     "offset": 1048
+    },
+    {
+     "value": 32
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareMemory, first difference at 0",
+   "export": "RtlCompareMemory",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "block 115",
+     "offset": 1080
+    },
+    {
+     "pointer": "other 116",
+     "offset": 1112
+    },
+    {
+     "value": 32
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareMemory, first difference at 0",
+   "export": "RtlCompareMemory",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "block 117",
+     "offset": 1144
+    },
+    {
+     "pointer": "other 118",
+     "offset": 1176
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareMemoryUlong length 16, 1122334411223344...",
+   "export": "RtlCompareMemoryUlong",
+   "r3": "0000000000000010",
+   "args": [
+    {
+     "pointer": "ulongs 119",
+     "offset": 1208
+    },
+    {
+     "value": 16
+    },
+    {
+     "value": 287454020
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareMemoryUlong length 16, 1122334411223344...",
+   "export": "RtlCompareMemoryUlong",
+   "r3": "0000000000000008",
+   "args": [
+    {
+     "pointer": "ulongs 120",
+     "offset": 1224
+    },
+    {
+     "value": 16
+    },
+    {
+     "value": 287454020
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareMemoryUlong length 14, 1122334411223344...",
+   "export": "RtlCompareMemoryUlong",
+   "r3": "000000000000000C",
+   "args": [
+    {
+     "pointer": "ulongs 121",
+     "offset": 1240
+    },
+    {
+     "value": 14
+    },
+    {
+     "value": 287454020
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareMemoryUlong length 8, 1122334411223300...",
+   "export": "RtlCompareMemoryUlong",
+   "r3": "0000000000000004",
+   "args": [
+    {
+     "pointer": "ulongs 122",
+     "offset": 1256
+    },
+    {
+     "value": 8
+    },
+    {
+     "value": 287454020
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlCompareMemoryUlong length 16, 0000000000000000...",
+   "export": "RtlCompareMemoryUlong",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "ulongs 123",
+     "offset": 1264
+    },
+    {
+     "value": 16
+    },
+    {
+     "value": 287454020
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlFillMemoryUlong length 0",
+   "export": "RtlFillMemoryUlong",
+   "capture": {
+    "fill destination 0": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "fill destination 0",
+     "offset": 1280
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2712847316
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlFillMemoryUlong length 4",
+   "export": "RtlFillMemoryUlong",
+   "capture": {
+    "fill destination 4": "a1b2c3d4cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "fill destination 4",
+     "offset": 1304
+    },
+    {
+     "value": 4
+    },
+    {
+     "value": 2712847316
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlFillMemoryUlong length 10",
+   "export": "RtlFillMemoryUlong",
+   "capture": {
+    "fill destination 10": "a1b2c3d4a1b2c3d4cdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "fill destination 10",
+     "offset": 1328
+    },
+    {
+     "value": 10
+    },
+    {
+     "value": 2712847316
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlFillMemoryUlong length 16",
+   "export": "RtlFillMemoryUlong",
+   "capture": {
+    "fill destination 16": "a1b2c3d4a1b2c3d4a1b2c3d4a1b2c3d4cdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "fill destination 16",
+     "offset": 1352
+    },
+    {
+     "value": 16
+    },
+    {
+     "value": 2712847316
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlMultiByteToUnicodeN \"Hello\" room 64",
+   "export": "RtlMultiByteToUnicodeN",
+   "r3": "0000000000000000",
+   "capture": {
+    "wide destination for \"Hello\" room 64[:0x18]": "00480065006c006c006fcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+    "bytes written": "0000000a"
+   },
+   "args": [
+    {
+     "pointer": "wide destination for \"Hello\" room 64",
+     "offset": 1384
+    },
+    {
+     "value": 64
+    },
+    {
+     "pointer": "bytes written",
+     "offset": 1376
+    },
+    {
+     "pointer": "\"Hello\" 124",
+     "offset": 1448
+    },
+    {
+     "value": 5
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlMultiByteToUnicodeN \"Hello\" room 4",
+   "export": "RtlMultiByteToUnicodeN",
+   "r3": "0000000000000000",
+   "capture": {
+    "wide destination for \"Hello\" room 4[:0x18]": "00480065cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+    "bytes written": "00000004"
+   },
+   "args": [
+    {
+     "pointer": "wide destination for \"Hello\" room 4",
+     "offset": 1456
+    },
+    {
+     "value": 4
+    },
+    {
+     "pointer": "bytes written",
+     "offset": 1376
+    },
+    {
+     "pointer": "\"Hello\" 125",
+     "offset": 1520
+    },
+    {
+     "value": 5
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlMultiByteToUnicodeN \"caf\u00e9 \u0080\u00ff\" room 64",
+   "export": "RtlMultiByteToUnicodeN",
+   "r3": "0000000000000000",
+   "capture": {
+    "wide destination for \"caf\u00e9 \u0080\u00ff\" room 64[:0x18]": "00630061006600e90020008000ffcdcdcdcdcdcdcdcdcdcd",
+    "bytes written": "0000000e"
+   },
+   "args": [
+    {
+     "pointer": "wide destination for \"caf\u00e9 \u0080\u00ff\" room 64",
+     "offset": 1528
+    },
+    {
+     "value": 64
+    },
+    {
+     "pointer": "bytes written",
+     "offset": 1376
+    },
+    {
+     "pointer": "\"caf\u00e9 \u0080\u00ff\" 126",
+     "offset": 1592
+    },
+    {
+     "value": 7
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlMultiByteToUnicodeN \"\" room 64",
+   "export": "RtlMultiByteToUnicodeN",
+   "r3": "0000000000000000",
+   "capture": {
+    "wide destination for \"\" room 64[:0x18]": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+    "bytes written": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "wide destination for \"\" room 64",
+     "offset": 1600
+    },
+    {
+     "value": 64
+    },
+    {
+     "pointer": "bytes written",
+     "offset": 1376
+    },
+    {
+     "pointer": "\"\" 127",
+     "offset": 1664
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUnicodeToMultiByteN \"Hello\" room 64",
+   "export": "RtlUnicodeToMultiByteN",
+   "r3": "0000000000000000",
+   "capture": {
+    "narrow destination for \"Hello\" room 64[:0x10]": "48656c6c6fcdcdcdcdcdcdcdcdcdcdcd",
+    "bytes written": "00000005"
+   },
+   "args": [
+    {
+     "pointer": "narrow destination for \"Hello\" room 64",
+     "offset": 1672
+    },
+    {
+     "value": 64
+    },
+    {
+     "pointer": "bytes written",
+     "offset": 1376
+    },
+    {
+     "pointer": "L\"Hello\" 128",
+     "offset": 1736
+    },
+    {
+     "value": 10
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUnicodeToMultiByteN \"Hello\" room 3",
+   "export": "RtlUnicodeToMultiByteN",
+   "r3": "0000000000000000",
+   "capture": {
+    "narrow destination for \"Hello\" room 3[:0x10]": "48656ccdcdcdcdcdcdcdcdcdcdcdcdcd",
+    "bytes written": "00000003"
+   },
+   "args": [
+    {
+     "pointer": "narrow destination for \"Hello\" room 3",
+     "offset": 1752
+    },
+    {
+     "value": 3
+    },
+    {
+     "pointer": "bytes written",
+     "offset": 1376
+    },
+    {
+     "pointer": "L\"Hello\" 129",
+     "offset": 1816
+    },
+    {
+     "value": 10
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl strings and memory",
+   "name": "RtlUnicodeToMultiByteN \"caf\u00e9 \u20ac \u0100\" room 64",
+   "export": "RtlUnicodeToMultiByteN",
+   "r3": "0000000000000000",
+   "capture": {
+    "narrow destination for \"caf\u00e9 \u20ac \u0100\" room 64[:0x10]": "636166e9203f203fcdcdcdcdcdcdcdcd",
+    "bytes written": "00000008"
+   },
+   "args": [
+    {
+     "pointer": "narrow destination for \"caf\u00e9 \u20ac \u0100\" room 64",
+     "offset": 1832
+    },
+    {
+     "value": 64
+    },
+    {
+     "pointer": "bytes written",
+     "offset": 1376
+    },
+    {
+     "pointer": "L\"caf\u00e9 \u20ac \u0100\" 130",
+     "offset": 1896
+    },
+    {
+     "value": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0x00000000",
+   "export": "RtlNtStatusToDosError",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0x00000103",
+   "export": "RtlNtStatusToDosError",
+   "r3": "00000000000003E5",
+   "args": [
+    {
+     "value": 259
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0x00000102",
+   "export": "RtlNtStatusToDosError",
+   "r3": "000000000000013D",
+   "args": [
+    {
+     "value": 258
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0x80000005",
+   "export": "RtlNtStatusToDosError",
+   "r3": "00000000000000EA",
+   "args": [
+    {
+     "value": 2147483653
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0x80000006",
+   "export": "RtlNtStatusToDosError",
+   "r3": "0000000000000012",
+   "args": [
+    {
+     "value": 2147483654
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc0000001",
+   "export": "RtlNtStatusToDosError",
+   "r3": "000000000000001F",
+   "args": [
+    {
+     "value": 3221225473
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc0000005",
+   "export": "RtlNtStatusToDosError",
+   "r3": "00000000000003E6",
+   "args": [
+    {
+     "value": 3221225477
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc0000008",
+   "export": "RtlNtStatusToDosError",
+   "r3": "0000000000000006",
+   "args": [
+    {
+     "value": 3221225480
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc000000d",
+   "export": "RtlNtStatusToDosError",
+   "r3": "0000000000000057",
+   "args": [
+    {
+     "value": 3221225485
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc000000f",
+   "export": "RtlNtStatusToDosError",
+   "r3": "0000000000000002",
+   "args": [
+    {
+     "value": 3221225487
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc0000011",
+   "export": "RtlNtStatusToDosError",
+   "r3": "0000000000000026",
+   "args": [
+    {
+     "value": 3221225489
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc0000017",
+   "export": "RtlNtStatusToDosError",
+   "r3": "0000000000000008",
+   "args": [
+    {
+     "value": 3221225495
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc0000022",
+   "export": "RtlNtStatusToDosError",
+   "r3": "0000000000000005",
+   "args": [
+    {
+     "value": 3221225506
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc0000023",
+   "export": "RtlNtStatusToDosError",
+   "r3": "000000000000007A",
+   "args": [
+    {
+     "value": 3221225507
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc0000034",
+   "export": "RtlNtStatusToDosError",
+   "r3": "0000000000000002",
+   "args": [
+    {
+     "value": 3221225524
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc0000035",
+   "export": "RtlNtStatusToDosError",
+   "r3": "00000000000000B7",
+   "args": [
+    {
+     "value": 3221225525
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc000003a",
+   "export": "RtlNtStatusToDosError",
+   "r3": "0000000000000003",
+   "args": [
+    {
+     "value": 3221225530
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc0000043",
+   "export": "RtlNtStatusToDosError",
+   "r3": "0000000000000020",
+   "args": [
+    {
+     "value": 3221225539
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc000007f",
+   "export": "RtlNtStatusToDosError",
+   "r3": "0000000000000070",
+   "args": [
+    {
+     "value": 3221225599
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc00000ba",
+   "export": "RtlNtStatusToDosError",
+   "r3": "0000000000000005",
+   "args": [
+    {
+     "value": 3221225658
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc0000120",
+   "export": "RtlNtStatusToDosError",
+   "r3": "00000000000003E3",
+   "args": [
+    {
+     "value": 3221225760
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc0000225",
+   "export": "RtlNtStatusToDosError",
+   "r3": "0000000000000490",
+   "args": [
+    {
+     "value": 3221226021
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0xc0ffffff",
+   "export": "RtlNtStatusToDosError",
+   "r3": "000000000000013D",
+   "args": [
+    {
+     "value": 3238002687
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlNtStatusToDosError 0x12345678",
+   "export": "RtlNtStatusToDosError",
+   "r3": "000000000000013D",
+   "args": [
+    {
+     "value": 305419896
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeToTimeFields 0",
+   "export": "RtlTimeToTimeFields",
+   "capture": {
+    "TIME_FIELDS of 0": "06410001000100000000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "time 0",
+     "offset": 16
+    },
+    {
+     "pointer": "TIME_FIELDS of 0",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeToTimeFields 1",
+   "export": "RtlTimeToTimeFields",
+   "capture": {
+    "TIME_FIELDS of 1": "06410001000100000000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "time 1",
+     "offset": 40
+    },
+    {
+     "pointer": "TIME_FIELDS of 1",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeToTimeFields 864000000000",
+   "export": "RtlTimeToTimeFields",
+   "capture": {
+    "TIME_FIELDS of 864000000000": "06410001000200000000000000000002"
+   },
+   "args": [
+    {
+     "pointer": "time 864000000000",
+     "offset": 64
+    },
+    {
+     "pointer": "TIME_FIELDS of 864000000000",
+     "offset": 48
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeToTimeFields 116444736000000000",
+   "export": "RtlTimeToTimeFields",
+   "capture": {
+    "TIME_FIELDS of 116444736000000000": "07b20001000100000000000000000004"
+   },
+   "args": [
+    {
+     "pointer": "time 116444736000000000",
+     "offset": 88
+    },
+    {
+     "pointer": "TIME_FIELDS of 116444736000000000",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeToTimeFields 128166372000000000",
+   "export": "RtlTimeToTimeFields",
+   "capture": {
+    "TIME_FIELDS of 128166372000000000": "07d70002001600110000000000000004"
+   },
+   "args": [
+    {
+     "pointer": "time 128166372000000000",
+     "offset": 112
+    },
+    {
+     "pointer": "TIME_FIELDS of 128166372000000000",
+     "offset": 96
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeToTimeFields 129067776000000000",
+   "export": "RtlTimeToTimeFields",
+   "capture": {
+    "TIME_FIELDS of 129067776000000000": "07da0001000100000000000000000005"
+   },
+   "args": [
+    {
+     "pointer": "time 129067776000000000",
+     "offset": 136
+    },
+    {
+     "pointer": "TIME_FIELDS of 129067776000000000",
+     "offset": 120
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeToTimeFields 9223372036854775807",
+   "export": "RtlTimeToTimeFields",
+   "capture": {
+    "TIME_FIELDS of 9223372036854775807": "786c0009000e00020030000501dd0004"
+   },
+   "args": [
+    {
+     "pointer": "time 9223372036854775807",
+     "offset": 160
+    },
+    {
+     "pointer": "TIME_FIELDS of 9223372036854775807",
+     "offset": 144
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeToTimeFields 132223104009990000",
+   "export": "RtlTimeToTimeFields",
+   "capture": {
+    "TIME_FIELDS of 132223104009990000": "07e40001000100000000000003e70003"
+   },
+   "args": [
+    {
+     "pointer": "time 132223104009990000",
+     "offset": 184
+    },
+    {
+     "pointer": "TIME_FIELDS of 132223104009990000",
+     "offset": 168
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeFieldsToTime (1601, 1, 1, 0, 0, 0, 0)",
+   "export": "RtlTimeFieldsToTime",
+   "r3": "0000000000000001",
+   "capture": {
+    "time for (1601, 1, 1, 0, 0, 0, 0)": "0000000000000000"
+   },
+   "args": [
+    {
+     "pointer": "fields (1601, 1, 1, 0, 0, 0, 0)",
+     "offset": 200
+    },
+    {
+     "pointer": "time for (1601, 1, 1, 0, 0, 0, 0)",
+     "offset": 192
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeFieldsToTime (2005, 11, 22, 12, 30, 15, 500)",
+   "export": "RtlTimeFieldsToTime",
+   "r3": "0000000000000001",
+   "capture": {
+    "time for (2005, 11, 22, 12, 30, 15, 500)": "01c5ef607db770c0"
+   },
+   "args": [
+    {
+     "pointer": "fields (2005, 11, 22, 12, 30, 15, 500)",
+     "offset": 224
+    },
+    {
+     "pointer": "time for (2005, 11, 22, 12, 30, 15, 500)",
+     "offset": 216
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeFieldsToTime (2000, 2, 29, 23, 59, 59, 999)",
+   "export": "RtlTimeFieldsToTime",
+   "r3": "0000000000000001",
+   "capture": {
+    "time for (2000, 2, 29, 23, 59, 59, 999)": "01bf8311163618f0"
+   },
+   "args": [
+    {
+     "pointer": "fields (2000, 2, 29, 23, 59, 59, 999)",
+     "offset": 248
+    },
+    {
+     "pointer": "time for (2000, 2, 29, 23, 59, 59, 999)",
+     "offset": 240
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeFieldsToTime (2001, 2, 29, 0, 0, 0, 0)",
+   "export": "RtlTimeFieldsToTime",
+   "r3": "0000000000000000",
+   "capture": {
+    "time for (2001, 2, 29, 0, 0, 0, 0)": "cdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "fields (2001, 2, 29, 0, 0, 0, 0)",
+     "offset": 272
+    },
+    {
+     "pointer": "time for (2001, 2, 29, 0, 0, 0, 0)",
+     "offset": 264
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeFieldsToTime (2024, 13, 1, 0, 0, 0, 0)",
+   "export": "RtlTimeFieldsToTime",
+   "r3": "0000000000000000",
+   "capture": {
+    "time for (2024, 13, 1, 0, 0, 0, 0)": "cdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "fields (2024, 13, 1, 0, 0, 0, 0)",
+     "offset": 296
+    },
+    {
+     "pointer": "time for (2024, 13, 1, 0, 0, 0, 0)",
+     "offset": 288
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeFieldsToTime (2024, 0, 1, 0, 0, 0, 0)",
+   "export": "RtlTimeFieldsToTime",
+   "r3": "0000000000000000",
+   "capture": {
+    "time for (2024, 0, 1, 0, 0, 0, 0)": "cdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "fields (2024, 0, 1, 0, 0, 0, 0)",
+     "offset": 320
+    },
+    {
+     "pointer": "time for (2024, 0, 1, 0, 0, 0, 0)",
+     "offset": 312
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeFieldsToTime (2024, 6, 31, 0, 0, 0, 0)",
+   "export": "RtlTimeFieldsToTime",
+   "r3": "0000000000000000",
+   "capture": {
+    "time for (2024, 6, 31, 0, 0, 0, 0)": "cdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "fields (2024, 6, 31, 0, 0, 0, 0)",
+     "offset": 344
+    },
+    {
+     "pointer": "time for (2024, 6, 31, 0, 0, 0, 0)",
+     "offset": 336
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeFieldsToTime (2024, 6, 15, 24, 0, 0, 0)",
+   "export": "RtlTimeFieldsToTime",
+   "r3": "0000000000000000",
+   "capture": {
+    "time for (2024, 6, 15, 24, 0, 0, 0)": "cdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "fields (2024, 6, 15, 24, 0, 0, 0)",
+     "offset": 368
+    },
+    {
+     "pointer": "time for (2024, 6, 15, 24, 0, 0, 0)",
+     "offset": 360
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeFieldsToTime (1600, 1, 1, 0, 0, 0, 0)",
+   "export": "RtlTimeFieldsToTime",
+   "r3": "0000000000000000",
+   "capture": {
+    "time for (1600, 1, 1, 0, 0, 0, 0)": "cdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "fields (1600, 1, 1, 0, 0, 0, 0)",
+     "offset": 392
+    },
+    {
+     "pointer": "time for (1600, 1, 1, 0, 0, 0, 0)",
+     "offset": 384
+    }
+   ]
+  },
+  {
+   "scenario": "Rtl status and time",
+   "name": "RtlTimeFieldsToTime (30000, 1, 1, 0, 0, 0, 0)",
+   "export": "RtlTimeFieldsToTime",
+   "r3": "0000000000000001",
+   "capture": {
+    "time for (30000, 1, 1, 0, 0, 0, 0)": "7c5eea80008fc000"
+   },
+   "args": [
+    {
+     "pointer": "fields (30000, 1, 1, 0, 0, 0, 0)",
+     "offset": 416
+    },
+    {
+     "pointer": "time for (30000, 1, 1, 0, 0, 0, 0)",
+     "offset": 408
+    }
+   ]
+  }
+ ]
+}

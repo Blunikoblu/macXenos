@@ -1,0 +1,296 @@
+{
+ "corpus": "slist",
+ "source": "Physical Xbox 360 (Aurora, XBDM), 2026-11-14, bundle 77ef235d3e11a139; two runs identical; evidence xbox-hardware-2026-11-14/slist",
+ "steps": [
+  {
+   "scenario": "interlocked SList",
+   "name": "pop from empty",
+   "export": "InterlockedPopEntrySList",
+   "r3": "0000000000000000",
+   "capture": {
+    "SLIST_HEADER": "0000000000000000",
+    "entry 0[:0x4]": "cdcdcdcd",
+    "entry 1[:0x4]": "cdcdcdcd",
+    "entry 2[:0x4]": "cdcdcdcd",
+    "entry 3[:0x4]": "cdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "SLIST_HEADER",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "interlocked SList",
+   "name": "flush empty",
+   "export": "InterlockedFlushSList",
+   "r3": "0000000000000000",
+   "capture": {
+    "SLIST_HEADER": "0000000000000000",
+    "entry 0[:0x4]": "cdcdcdcd",
+    "entry 1[:0x4]": "cdcdcdcd",
+    "entry 2[:0x4]": "cdcdcdcd",
+    "entry 3[:0x4]": "cdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "SLIST_HEADER",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "interlocked SList",
+   "name": "push entry 0",
+   "export": "InterlockedPushEntrySList",
+   "r3": "0000000000000000",
+   "capture": {
+    "SLIST_HEADER": "8203000800010001",
+    "entry 0[:0x4]": "00000000",
+    "entry 1[:0x4]": "cdcdcdcd",
+    "entry 2[:0x4]": "cdcdcdcd",
+    "entry 3[:0x4]": "cdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "SLIST_HEADER",
+     "offset": 0
+    },
+    {
+     "pointer": "entry 0",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "interlocked SList",
+   "name": "push entry 1",
+   "export": "InterlockedPushEntrySList",
+   "r3": "0000000082030008",
+   "capture": {
+    "SLIST_HEADER": "8203001000020002",
+    "entry 0[:0x4]": "00000000",
+    "entry 1[:0x4]": "82030008",
+    "entry 2[:0x4]": "cdcdcdcd",
+    "entry 3[:0x4]": "cdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "SLIST_HEADER",
+     "offset": 0
+    },
+    {
+     "pointer": "entry 1",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "interlocked SList",
+   "name": "push entry 2",
+   "export": "InterlockedPushEntrySList",
+   "r3": "0000000082030010",
+   "capture": {
+    "SLIST_HEADER": "8203001800030003",
+    "entry 0[:0x4]": "00000000",
+    "entry 1[:0x4]": "82030008",
+    "entry 2[:0x4]": "82030010",
+    "entry 3[:0x4]": "cdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "SLIST_HEADER",
+     "offset": 0
+    },
+    {
+     "pointer": "entry 2",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "interlocked SList",
+   "name": "pop",
+   "export": "InterlockedPopEntrySList",
+   "r3": "0000000082030018",
+   "capture": {
+    "SLIST_HEADER": "8203001000020003",
+    "entry 0[:0x4]": "00000000",
+    "entry 1[:0x4]": "82030008",
+    "entry 2[:0x4]": "82030010",
+    "entry 3[:0x4]": "cdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "SLIST_HEADER",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "interlocked SList",
+   "name": "push entry 3",
+   "export": "InterlockedPushEntrySList",
+   "r3": "0000000082030010",
+   "capture": {
+    "SLIST_HEADER": "8203002000030004",
+    "entry 0[:0x4]": "00000000",
+    "entry 1[:0x4]": "82030008",
+    "entry 2[:0x4]": "82030010",
+    "entry 3[:0x4]": "82030010"
+   },
+   "args": [
+    {
+     "pointer": "SLIST_HEADER",
+     "offset": 0
+    },
+    {
+     "pointer": "entry 3",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "interlocked SList",
+   "name": "flush three",
+   "export": "InterlockedFlushSList",
+   "r3": "0000000082030020",
+   "capture": {
+    "SLIST_HEADER": "0000000000000004",
+    "entry 0[:0x4]": "00000000",
+    "entry 1[:0x4]": "82030008",
+    "entry 2[:0x4]": "82030010",
+    "entry 3[:0x4]": "82030010"
+   },
+   "args": [
+    {
+     "pointer": "SLIST_HEADER",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "interlocked SList",
+   "name": "pop after flush",
+   "export": "InterlockedPopEntrySList",
+   "r3": "0000000000000000",
+   "capture": {
+    "SLIST_HEADER": "0000000000000004",
+    "entry 0[:0x4]": "00000000",
+    "entry 1[:0x4]": "82030008",
+    "entry 2[:0x4]": "82030010",
+    "entry 3[:0x4]": "82030010"
+   },
+   "args": [
+    {
+     "pointer": "SLIST_HEADER",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "interlocked SList",
+   "name": "push entry 0 again",
+   "export": "InterlockedPushEntrySList",
+   "r3": "0000000000000000",
+   "capture": {
+    "SLIST_HEADER": "8203000800010005",
+    "entry 0[:0x4]": "00000000",
+    "entry 1[:0x4]": "82030008",
+    "entry 2[:0x4]": "82030010",
+    "entry 3[:0x4]": "82030010"
+   },
+   "args": [
+    {
+     "pointer": "SLIST_HEADER",
+     "offset": 0
+    },
+    {
+     "pointer": "entry 0",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "interlocked SList",
+   "name": "push entry 1 again",
+   "export": "InterlockedPushEntrySList",
+   "r3": "0000000082030008",
+   "capture": {
+    "SLIST_HEADER": "8203001000020006",
+    "entry 0[:0x4]": "00000000",
+    "entry 1[:0x4]": "82030008",
+    "entry 2[:0x4]": "82030010",
+    "entry 3[:0x4]": "82030010"
+   },
+   "args": [
+    {
+     "pointer": "SLIST_HEADER",
+     "offset": 0
+    },
+    {
+     "pointer": "entry 1",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "interlocked SList",
+   "name": "drain 1",
+   "export": "InterlockedPopEntrySList",
+   "r3": "0000000082030010",
+   "capture": {
+    "SLIST_HEADER": "8203000800010006",
+    "entry 0[:0x4]": "00000000",
+    "entry 1[:0x4]": "82030008",
+    "entry 2[:0x4]": "82030010",
+    "entry 3[:0x4]": "82030010"
+   },
+   "args": [
+    {
+     "pointer": "SLIST_HEADER",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "interlocked SList",
+   "name": "drain 2",
+   "export": "InterlockedPopEntrySList",
+   "r3": "0000000082030008",
+   "capture": {
+    "SLIST_HEADER": "0000000000000006",
+    "entry 0[:0x4]": "00000000",
+    "entry 1[:0x4]": "82030008",
+    "entry 2[:0x4]": "82030010",
+    "entry 3[:0x4]": "82030010"
+   },
+   "args": [
+    {
+     "pointer": "SLIST_HEADER",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "interlocked SList",
+   "name": "drain 3",
+   "export": "InterlockedPopEntrySList",
+   "r3": "0000000000000000",
+   "capture": {
+    "SLIST_HEADER": "0000000000000006",
+    "entry 0[:0x4]": "00000000",
+    "entry 1[:0x4]": "82030008",
+    "entry 2[:0x4]": "82030010",
+    "entry 3[:0x4]": "82030010"
+   },
+   "args": [
+    {
+     "pointer": "SLIST_HEADER",
+     "offset": 0
+    }
+   ]
+  }
+ ]
+}

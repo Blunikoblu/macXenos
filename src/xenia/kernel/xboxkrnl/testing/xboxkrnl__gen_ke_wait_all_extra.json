@@ -1,0 +1,1945 @@
+{
+ "corpus": "ke_wait_all_extra",
+ "source": "Physical Xbox 360 (Aurora, XBDM), 2026-11-14, bundle fe877c4242e87c05; two runs identical; evidence xbox-hardware-2026-11-14/ke_wait_all_extra",
+ "steps": [
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "semaphore then event, extra semaphore: attempting",
+     "offset": 80
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "semaphore then event, extra semaphore: done",
+     "offset": 96
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "semaphore then event, extra semaphore: object 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 8
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "semaphore then event, extra semaphore: object 1",
+     "offset": 40
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "semaphore then event, extra semaphore: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore then event, extra semaphore: worker handle",
+     "offset": 144
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "semaphore then event, extra semaphore: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "semaphore then event, extra semaphore: worker started",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore then event, extra semaphore: attempting",
+     "offset": 80
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "semaphore then event, extra semaphore: 3000 ms",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "semaphore then event, extra semaphore: let the worker park",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "semaphore then event, extra semaphore: 100 ms",
+     "offset": 128
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "semaphore then event, extra semaphore: signal 1, semaphore 0",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore then event, extra semaphore: object 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "semaphore then event, extra semaphore: signal 2, event 1",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore then event, extra semaphore: object 1",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "semaphore then event, extra semaphore: signal 3, semaphore 0",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore then event, extra semaphore: object 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "semaphore then event, extra semaphore: worker finished",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "semaphore then event, extra semaphore: done",
+     "offset": 96
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "semaphore then event, extra semaphore: 3000 ms",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "semaphore then event, extra semaphore: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore then event, extra semaphore: worker wait status, flag": "0000000100000001",
+    "semaphore then event, extra semaphore: object 0+0x4[:0x4]": "00000001",
+    "semaphore then event, extra semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "variable": "semaphore then event, extra semaphore: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "semaphore then event, extra semaphore: 3000 ms",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "semaphore then event, extra semaphore: what is left on object 0",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "semaphore then event, extra semaphore: object 0+0x4[:0x4]": "00000000",
+    "semaphore then event, extra semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "semaphore then event, extra semaphore: object 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "semaphore then event, extra semaphore: 0 ms",
+     "offset": 120
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "semaphore then event, extra semaphore: what is left on object 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "semaphore then event, extra semaphore: object 0+0x4[:0x4]": "00000000",
+    "semaphore then event, extra semaphore: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "semaphore then event, extra semaphore: object 1",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "semaphore then event, extra semaphore: 0 ms",
+     "offset": 120
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "semaphore then event, extra semaphore: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event then semaphore, extra event: attempting",
+     "offset": 496
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event then semaphore, extra event: done",
+     "offset": 512
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event then semaphore, extra event: object 0",
+     "offset": 416
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "event then semaphore, extra event: object 1",
+     "offset": 456
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 8
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "event then semaphore, extra event: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event then semaphore, extra event: worker handle",
+     "offset": 560
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "event then semaphore, extra event: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "event then semaphore, extra event: worker started",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event then semaphore, extra event: attempting",
+     "offset": 496
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "event then semaphore, extra event: 3000 ms",
+     "offset": 552
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "event then semaphore, extra event: let the worker park",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "event then semaphore, extra event: 100 ms",
+     "offset": 544
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "event then semaphore, extra event: signal 1, event 0",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event then semaphore, extra event: object 0",
+     "offset": 416
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "event then semaphore, extra event: signal 2, semaphore 1",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event then semaphore, extra event: object 1",
+     "offset": 456
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "event then semaphore, extra event: signal 3, event 0",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event then semaphore, extra event: object 0",
+     "offset": 416
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "event then semaphore, extra event: worker finished",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event then semaphore, extra event: done",
+     "offset": 512
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "event then semaphore, extra event: 3000 ms",
+     "offset": 552
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "event then semaphore, extra event: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "event then semaphore, extra event: worker wait status, flag": "0000000100000001",
+    "event then semaphore, extra event: object 0+0x4[:0x4]": "00000001",
+    "event then semaphore, extra event: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "variable": "event then semaphore, extra event: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "event then semaphore, extra event: 3000 ms",
+     "offset": 552
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "event then semaphore, extra event: what is left on object 0",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "event then semaphore, extra event: object 0+0x4[:0x4]": "00000000",
+    "event then semaphore, extra event: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event then semaphore, extra event: object 0",
+     "offset": 416
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "event then semaphore, extra event: 0 ms",
+     "offset": 536
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "event then semaphore, extra event: what is left on object 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event then semaphore, extra event: object 0+0x4[:0x4]": "00000000",
+    "event then semaphore, extra event: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "event then semaphore, extra event: object 1",
+     "offset": 456
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "event then semaphore, extra event: 0 ms",
+     "offset": 536
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "event then semaphore, extra event: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "last then first, extra last: attempting",
+     "offset": 912
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "last then first, extra last: done",
+     "offset": 928
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "last then first, extra last: object 0",
+     "offset": 832
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 8
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "last then first, extra last: object 1",
+     "offset": 872
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 8
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "last then first, extra last: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "last then first, extra last: worker handle",
+     "offset": 976
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "last then first, extra last: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "last then first, extra last: worker started",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "last then first, extra last: attempting",
+     "offset": 912
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "last then first, extra last: 3000 ms",
+     "offset": 968
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "last then first, extra last: let the worker park",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "last then first, extra last: 100 ms",
+     "offset": 960
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "last then first, extra last: signal 1, semaphore 1",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "last then first, extra last: object 1",
+     "offset": 872
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "last then first, extra last: signal 2, semaphore 0",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "last then first, extra last: object 0",
+     "offset": 832
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "last then first, extra last: signal 3, semaphore 1",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "last then first, extra last: object 1",
+     "offset": 872
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "last then first, extra last: worker finished",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "last then first, extra last: done",
+     "offset": 928
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "last then first, extra last: 3000 ms",
+     "offset": 968
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "last then first, extra last: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "last then first, extra last: worker wait status, flag": "0000000000000001",
+    "last then first, extra last: object 0+0x4[:0x4]": "00000000",
+    "last then first, extra last: object 1+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "variable": "last then first, extra last: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "last then first, extra last: 3000 ms",
+     "offset": 968
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "last then first, extra last: what is left on object 0",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "last then first, extra last: object 0+0x4[:0x4]": "00000000",
+    "last then first, extra last: object 1+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "last then first, extra last: object 0",
+     "offset": 832
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "last then first, extra last: 0 ms",
+     "offset": 952
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "last then first, extra last: what is left on object 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "last then first, extra last: object 0+0x4[:0x4]": "00000000",
+    "last then first, extra last: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "last then first, extra last: object 1",
+     "offset": 872
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "last then first, extra last: 0 ms",
+     "offset": 952
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "last then first, extra last: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: attempting",
+     "offset": 1368
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: done",
+     "offset": 1384
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: object 0",
+     "offset": 1248
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 8
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: object 1",
+     "offset": 1288
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 8
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "KeInitializeSemaphore",
+   "export": "KeInitializeSemaphore",
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: object 2",
+     "offset": 1328
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 8
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "three objects, middle completes, extras either side: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: worker handle",
+     "offset": 1432
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "three objects, middle completes, extras either side: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "three objects, middle completes, extras either side: worker started",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: attempting",
+     "offset": 1368
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "three objects, middle completes, extras either side: 3000 ms",
+     "offset": 1424
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "three objects, middle completes, extras either side: let the worker park",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "three objects, middle completes, extras either side: 100 ms",
+     "offset": 1416
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "three objects, middle completes, extras either side: signal 1, semaphore 0",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: object 0",
+     "offset": 1248
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "three objects, middle completes, extras either side: signal 2, semaphore 2",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: object 2",
+     "offset": 1328
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "three objects, middle completes, extras either side: signal 3, semaphore 1",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: object 1",
+     "offset": 1288
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "three objects, middle completes, extras either side: signal 4, semaphore 0",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: object 0",
+     "offset": 1248
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "three objects, middle completes, extras either side: signal 5, semaphore 2",
+   "export": "KeReleaseSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: object 2",
+     "offset": 1328
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "three objects, middle completes, extras either side: worker finished",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: done",
+     "offset": 1384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "three objects, middle completes, extras either side: 3000 ms",
+     "offset": 1424
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "three objects, middle completes, extras either side: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "three objects, middle completes, extras either side: worker wait status, flag": "0000000100000001",
+    "three objects, middle completes, extras either side: object 0+0x4[:0x4]": "00000001",
+    "three objects, middle completes, extras either side: object 1+0x4[:0x4]": "00000000",
+    "three objects, middle completes, extras either side: object 2+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "variable": "three objects, middle completes, extras either side: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "three objects, middle completes, extras either side: 3000 ms",
+     "offset": 1424
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "three objects, middle completes, extras either side: what is left on object 0",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "three objects, middle completes, extras either side: object 0+0x4[:0x4]": "00000000",
+    "three objects, middle completes, extras either side: object 1+0x4[:0x4]": "00000000",
+    "three objects, middle completes, extras either side: object 2+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: object 0",
+     "offset": 1248
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "three objects, middle completes, extras either side: 0 ms",
+     "offset": 1408
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "three objects, middle completes, extras either side: what is left on object 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "three objects, middle completes, extras either side: object 0+0x4[:0x4]": "00000000",
+    "three objects, middle completes, extras either side: object 1+0x4[:0x4]": "00000000",
+    "three objects, middle completes, extras either side: object 2+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: object 1",
+     "offset": 1288
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "three objects, middle completes, extras either side: 0 ms",
+     "offset": 1408
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "three objects, middle completes, extras either side: what is left on object 2",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "three objects, middle completes, extras either side: object 0+0x4[:0x4]": "00000000",
+    "three objects, middle completes, extras either side: object 1+0x4[:0x4]": "00000000",
+    "three objects, middle completes, extras either side: object 2+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "three objects, middle completes, extras either side: object 2",
+     "offset": 1328
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "three objects, middle completes, extras either side: 0 ms",
+     "offset": 1408
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll with an extra signal after completion",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "three objects, middle completes, extras either side: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event then timer: attempting",
+     "offset": 80
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event then timer: done",
+     "offset": 96
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "event then timer: object 0",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "event then timer: object 1",
+     "offset": 40
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "event then timer: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event then timer: worker handle",
+     "offset": 144
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "event then timer: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "event then timer: worker started",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event then timer: attempting",
+     "offset": 80
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "event then timer: 3000 ms",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "event then timer: let the worker park",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "event then timer: 100 ms",
+     "offset": 128
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "event then timer: signal 1, event 0",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event then timer: object 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "event then timer: signal 2, arm timer 1",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event then timer: object 1",
+     "offset": 40
+    },
+    {
+     "value": 18446744073709151616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "event then timer: worker finished",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event then timer: done",
+     "offset": 96
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "event then timer: 3000 ms",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "event then timer: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "event then timer: worker wait status, flag": "0000000100000001",
+    "event then timer: object 0+0x4[:0x4]": "00000000",
+    "event then timer: object 1+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "variable": "event then timer: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "event then timer: 3000 ms",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "event then timer: what is left on object 0",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "event then timer: object 0+0x4[:0x4]": "00000000",
+    "event then timer: object 1+0x4[:0x4]": "00000001"
+   },
+   "args": [
+    {
+     "pointer": "event then timer: object 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "event then timer: 0 ms",
+     "offset": 120
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "event then timer: cancel timer 1",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event then timer: object 1",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "event then timer: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "timer first in the array: attempting",
+     "offset": 496
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "timer first in the array: done",
+     "offset": 512
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "KeInitializeTimerEx",
+   "export": "KeInitializeTimerEx",
+   "args": [
+    {
+     "pointer": "timer first in the array: object 0",
+     "offset": 416
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "timer first in the array: object 1",
+     "offset": 456
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "timer first in the array: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer first in the array: worker handle",
+     "offset": 560
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "timer first in the array: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "timer first in the array: worker started",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer first in the array: attempting",
+     "offset": 496
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "timer first in the array: 3000 ms",
+     "offset": 552
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "timer first in the array: let the worker park",
+   "export": "KeDelayExecutionThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "timer first in the array: 100 ms",
+     "offset": 544
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "timer first in the array: signal 1, event 1",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer first in the array: object 1",
+     "offset": 456
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "timer first in the array: signal 2, arm timer 0",
+   "export": "KeSetTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer first in the array: object 0",
+     "offset": 416
+    },
+    {
+     "value": 18446744073709151616
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "timer first in the array: worker finished",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer first in the array: done",
+     "offset": 512
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "timer first in the array: 3000 ms",
+     "offset": 552
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "timer first in the array: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "timer first in the array: worker wait status, flag": "0000000000000001",
+    "timer first in the array: object 0+0x4[:0x4]": "00000001",
+    "timer first in the array: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "variable": "timer first in the array: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "timer first in the array: 3000 ms",
+     "offset": 552
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "timer first in the array: cancel timer 0",
+   "export": "KeCancelTimer",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "timer first in the array: object 0",
+     "offset": 416
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "timer first in the array: what is left on object 1",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "timer first in the array: object 0+0x4[:0x4]": "00000001",
+    "timer first in the array: object 1+0x4[:0x4]": "00000000"
+   },
+   "args": [
+    {
+     "pointer": "timer first in the array: object 1",
+     "offset": 456
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "timer first in the array: 0 ms",
+     "offset": 536
+    }
+   ]
+  },
+  {
+   "scenario": "WaitAll completed by a timer",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "timer first in the array: worker handle"
+    }
+   ]
+  }
+ ]
+}

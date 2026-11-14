@@ -1,0 +1,488 @@
+{
+ "corpus": "ke_contention",
+ "source": "Physical Xbox 360 with Peer Pressure and XBDM, 2026-11-13; bundle 62ca76ecf87cae0a; private hardware evidence",
+ "steps": [
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "worker ready",
+     "offset": 32
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "worker gate",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "worker attempting acquire",
+     "offset": 64
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "KeInitializeMutant",
+   "export": "KeInitializeMutant",
+   "capture": {
+    "mutant[:0x8]": "0200000000000000"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "main recursive acquire",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "mutant[:0x8]": "02000000ffffffff"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 112
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "ExCreateThread",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker handle",
+     "offset": 128
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "mutex worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "worker polled while held twice",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "worker results[:0x4]": "00000102",
+    "mutant[:0x8]": "02000000ffffffff"
+   },
+   "args": [
+    {
+     "pointer": "worker ready",
+     "offset": 32
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 120
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "release inner",
+   "export": "KeReleaseMutant",
+   "r3": "00000000FFFFFFFF",
+   "capture": {
+    "mutant[:0x8]": "0200000000000000"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "allow second worker poll",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker gate",
+     "offset": 48
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "worker polled while held once",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "worker results[:0x8]": "0000010200000102",
+    "mutant[:0x8]": "0200000000000000"
+   },
+   "args": [
+    {
+     "pointer": "worker ready",
+     "offset": 32
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 120
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "allow worker timed acquire",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker gate",
+     "offset": 48
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "worker started timed acquisition",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker attempting acquire",
+     "offset": 64
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 120
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "worker cannot acquire before outer release",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "worker results[:0x8]": "0000010200000102",
+    "mutant[:0x8]": "0200000000000000"
+   },
+   "args": [
+    {
+     "pointer": "worker ready",
+     "offset": 32
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "20 ms",
+     "offset": 136
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "release outer",
+   "export": "KeReleaseMutant",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "worker owns mutant",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "worker results[:0xc]": "000001020000010200000000",
+    "mutant[:0x8]": "0200000000000000"
+   },
+   "args": [
+    {
+     "pointer": "worker ready",
+     "offset": 32
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 120
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "main poll while worker owns",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "mutant[:0x8]": "0200000000000000"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 112
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "allow worker release",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker gate",
+     "offset": 48
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "worker results": "0000010200000102000000000000000000000000000000000000000000000001",
+    "mutant[:0x8]": "0200000000000001"
+   },
+   "args": [
+    {
+     "variable": "worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2000 ms",
+     "offset": 120
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "main reacquire after worker",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "capture": {
+    "mutant[:0x8]": "0200000000000000"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "0 ms",
+     "offset": 112
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "main final release",
+   "export": "KeReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "mutant[:0x8]": "0200000000000001"
+   },
+   "args": [
+    {
+     "pointer": "mutant",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "mutex ownership across two threads",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "worker handle"
+    }
+   ]
+  }
+ ]
+}

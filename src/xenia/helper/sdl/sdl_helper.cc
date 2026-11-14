@@ -11,25 +11,6 @@
 
 #include "xenia/base/platform.h"
 
-// On linux we likely build on an "outdated" system but still want to control
-// these features when available on a newer system.
-#if !SDL_VERSION_ATLEAST(2, 0, 14)
-#define SDL_HINT_AUDIO_DEVICE_APP_NAME "SDL_AUDIO_DEVICE_APP_NAME"
-#endif
-
-// HIDAPI hint names are stable strings; define fallbacks so building against an
-// older SDL header still compiles (setting an unknown hint at runtime is a
-// harmless no-op). Mirrors the SDL_HINT_AUDIO_DEVICE_APP_NAME fallback above.
-#ifndef SDL_HINT_JOYSTICK_HIDAPI
-#define SDL_HINT_JOYSTICK_HIDAPI "SDL_JOYSTICK_HIDAPI"
-#endif
-#ifndef SDL_HINT_JOYSTICK_HIDAPI_PS4
-#define SDL_HINT_JOYSTICK_HIDAPI_PS4 "SDL_JOYSTICK_HIDAPI_PS4"
-#endif
-#ifndef SDL_HINT_JOYSTICK_HIDAPI_PS5
-#define SDL_HINT_JOYSTICK_HIDAPI_PS5 "SDL_JOYSTICK_HIDAPI_PS5"
-#endif
-
 #include "xenia/base/assert.h"
 #include "xenia/base/logging.h"
 
@@ -47,9 +28,9 @@ bool SDLHelper::Prepare() {
   is_prepared_ &= SetHints();
   is_prepared_ &= RedirectLog();
 
-  SDL_version ver = {};
-  SDL_GetVersion(&ver);
-  XELOGI("SDL Version {}.{}.{} initialized.", ver.major, ver.minor, ver.patch);
+  const int version = SDL_GetVersion();
+  XELOGI("SDL Version {}.{}.{} initialized.", SDL_VERSIONNUM_MAJOR(version),
+         SDL_VERSIONNUM_MINOR(version), SDL_VERSIONNUM_MICRO(version));
 
   return is_prepared_;
 }
@@ -62,8 +43,7 @@ bool SDLHelper::SetHints() {
     // Setting hints with normal priority fails when the hint is set via env
     // vars or a hint with override priority is set, which does not conclude a
     // failure.
-    if (SDL_FALSE ==
-        SDL_SetHintWithPriority(
+    if (!SDL_SetHintWithPriority(
             name, value, override_ ? SDL_HINT_OVERRIDE : SDL_HINT_NORMAL)) {
       const char* msg_fmt =
           "SDLHelper: Unable to set hint \"{}\" to value \"{}\".";
@@ -85,37 +65,34 @@ bool SDLHelper::SetHints() {
 
   suc &= setHint(SDL_HINT_AUDIO_CATEGORY, "playback");
 
-  suc &= setHint(SDL_HINT_AUDIO_DEVICE_APP_NAME, "xenia emulator");
+  // SDL3 names audio streams after the application (SDL2 had a separate
+  // SDL_AUDIO_DEVICE_APP_NAME).
+  suc &= setHint(SDL_HINT_APP_NAME, "xenia emulator");
 
-#if XE_PLATFORM_MAC
-  // macOS only: DISABLE SDL's HIDAPI joystick backend; route pads through the
-  // OS-native GameController (MFi) / IOKit drivers instead. SDL's macOS hidapi
-  // hot-plug teardown (SDL_JoystickUpdate -> HIDAPI_DelDevice ->
-  // PLATFORM_hid_close) crashes when a controller is unplugged while a title
-  // runs: it calls IOHIDDeviceRegisterInputReportCallback and then
-  // IOHIDDeviceClose on the already-freed IOKit handle, faulting with
-  // EXC_BAD_ACCESS. SDL's own hid_close guards for this are environment-
-  // dependent (its comment notes the IOHIDDeviceClose behavior flips across
-  // macOS versions) and can't win everywhere, so we avoid the path entirely.
-  // The IOKit/MFi drivers map DualShock/Xbox pads (via SDL's built-in mappings
-  // + gamecontrollerdb) and hot-plug cleanly. Tradeoff: HIDAPI-only extras
-  // (rumble/touchpad/gyro) are unavailable. Normal priority so a user env
-  // override can still re-enable HIDAPI if desired.
-  suc &= setHint(SDL_HINT_JOYSTICK_HIDAPI, "0");
-  suc &= setHint(SDL_HINT_JOYSTICK_HIDAPI_PS4, "0");
-  suc &= setHint(SDL_HINT_JOYSTICK_HIDAPI_PS5, "0");
-#endif  // XE_PLATFORM_MAC
+  // SDL's HIDAPI joystick drivers are left at SDL's default (on) on every
+  // platform, macOS included, so a pad is read by the driver that speaks its
+  // own protocol whatever its make. That is what gives rumble on pads macOS
+  // itself only sees as plain HID gamepads (the IOKit path reads those but
+  // "does not report vibration motors"). Where SDL judges the OS's
+  // GameController support the better route (wired Xbox One pads, for one),
+  // its drivers step aside by themselves.
+  //
+  // With SDL2 the Mac build turned HIDAPI off, because unplugging a pad while
+  // a title ran crashed in SDL2's hid_close. That was SDL2; see
+  // docs/dev/title_issues.md for the SDL3 retest. SDL_JOYSTICK_HIDAPI=0 in
+  // the environment still turns the drivers off.
 
   return suc;
 }
 
 bool SDLHelper::RedirectLog() {
   // Redirect SDL_Log* output (internal library stuff) to our log system.
-  SDL_LogSetOutputFunction(
+  SDL_SetLogOutputFunction(
       [](void* userdata, int category, SDL_LogPriority priority,
          const char* message) {
         const char* msg_fmt = "SDL: {}";
         switch (priority) {
+          case SDL_LOG_PRIORITY_TRACE:
           case SDL_LOG_PRIORITY_VERBOSE:
           case SDL_LOG_PRIORITY_DEBUG:
             XELOGD(msg_fmt, message);
@@ -140,7 +117,7 @@ bool SDLHelper::RedirectLog() {
   // SDL itself isn't that talkative. Additionally to this settings there are
   // hints that can be switched on to output additional internal logging
   // information.
-  SDL_LogSetAllPriority(SDL_LogPriority::SDL_LOG_PRIORITY_VERBOSE);
+  SDL_SetLogPriorities(SDL_LOG_PRIORITY_VERBOSE);
   return true;
 }
 }  // namespace sdl
