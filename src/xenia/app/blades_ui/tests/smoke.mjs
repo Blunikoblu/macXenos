@@ -65,6 +65,8 @@ const tests = {
     await page.eval("new Promise((r) => setTimeout(r, 300))");
     expect((await page.eval("document.querySelector('.subblade h2')?.textContent")) === "All Games", "All Games not open");
     expect((await page.eval(focusedSubRow)) === "Sonic Generations", "first game is not the most recent");
+    const tab = await page.eval("document.querySelector('.subblade-tab')?.textContent");
+    expect(tab.includes("dmug’s game library"), `the tab reads "${tab}"`);
     await page.key("ArrowDown");
     expect((await page.eval(focusedSubRow)) === "Just Cause 2", "↓ did not move");
     await page.key("ArrowRight");
@@ -86,6 +88,59 @@ const tests = {
     const sorted = [...names].sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }));
     expect(JSON.stringify(names) === JSON.stringify(sorted), `not alphabetical: ${names}`);
     expect((await page.eval("localStorage.getItem('macxenos.allGames.sort')")) === "alpha", "order not remembered");
+  },
+
+  async "X goes on to the two orders backwards, then round again"(page, base) {
+    await page.open(base, "#all-games");
+    const names = "[...document.querySelectorAll('.subblade-name')].map((e) => e.textContent)";
+    // Whatever an earlier test left: step to most recently played first.
+    for (let i = 0; i < 4 && !(await page.eval(subLegend)).includes("Most recently played"); i++) await page.key("x");
+    const recent = await page.eval(names);
+    await page.key("x");
+    const alpha = await page.eval(names);
+    await page.key("x");
+    expect((await page.eval(subLegend)).includes("Least recently played"), "third order is not least recently played");
+    expect(JSON.stringify(await page.eval(names)) === JSON.stringify([...recent].reverse()), "not most recent backwards");
+    await page.key("x");
+    expect((await page.eval(subLegend)).includes("Reverse alphabetical"), "fourth order is not reverse alphabetical");
+    expect(JSON.stringify(await page.eval(names)) === JSON.stringify([...alpha].reverse()), "not alphabetical backwards");
+    expect((await page.eval("localStorage.getItem('macxenos.allGames.sort')")) === "alphaReverse", "order not remembered");
+    await page.key("x");
+    expect(JSON.stringify(await page.eval(names)) === JSON.stringify(recent), "a fourth X did not come back round");
+  },
+
+  async "Y shows All Games as cards and back, and the arrows move across them"(page, base) {
+    await page.open(base, "#all-games");
+    const cards = "document.querySelectorAll('.game-card').length";
+    const focusedCard = "document.querySelector('.game-card[data-focused=true] .game-card-name')?.textContent";
+    if (await page.eval(cards)) await page.key("y"); // An earlier test left cards.
+    const rows = await page.eval("document.querySelectorAll('.subblade-row').length");
+    expect(rows > 1 && (await page.eval(cards)) === 0, "not a list to begin with");
+    expect((await page.eval(subLegend)).includes("Cards"), "legend does not offer cards");
+    const second = await page.eval("document.querySelectorAll('.subblade-name')[1]?.textContent");
+    await page.key("y");
+    expect((await page.eval(cards)) === rows, `cards ${await page.eval(cards)} of ${rows} games`);
+    expect((await page.eval(subLegend)).includes("List"), "legend does not offer the list");
+    expect((await page.eval("localStorage.getItem('macxenos.allGames.view')")) === "cards", "view not remembered");
+    const across = await page.eval(`(() => {
+      const tiles = [...document.querySelectorAll('.game-card')];
+      return tiles.filter((tile) => tile.offsetTop === tiles[0].offsetTop).length;
+    })()`);
+    expect(across > 1, `only ${across} card across`);
+    await page.key("ArrowRight");
+    expect((await page.eval(focusedCard)) === second, "→ did not move to the next card");
+    await page.key("ArrowLeft");
+    await page.key("ArrowDown");
+    const below = await page.eval(`document.querySelectorAll('.game-card-name')[${across}]?.textContent`);
+    if (below) expect((await page.eval(focusedCard)) === below, "↓ did not move a row down");
+    const card = await page.eval(`(() => {
+      const c = document.querySelector('.game-card');
+      return !!c.querySelector('.game-card-icon') && !!c.querySelector('.game-card-name') && !!c.querySelector('.game-card-sub');
+    })()`);
+    expect(card, "a card is missing its icon, name or achievements line");
+    await page.key("y");
+    expect((await page.eval(cards)) === 0, "a second Y did not go back to the list");
+    expect((await page.eval("localStorage.getItem('macxenos.allGames.view')")) === "list", "list not remembered");
   },
 
   async "Game Folders adds, and removes only on a second A"(page, base) {

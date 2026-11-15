@@ -368,6 +368,15 @@
 "description": "Wait for presentation queue idle before each frame to prevent semaphore reuse. May fix rendering issues but causes significant performance loss.",
 "changed": false
 },
+"honor_package_licenses": {
+"name": "honor_package_licenses",
+"category": "Content",
+"type": "bool",
+"value": true,
+"defaultValue": true,
+"description": "Grant the licenses a game's package gives to any console and profile (its unrestricted license entries). Xbox Live Arcade packages carry their full-game license this way, so with this off they run as trials unless license_mask is set. license_mask is added on top either way.",
+"changed": false
+},
 "texture_dump": {
 "name": "texture_dump",
 "category": "GPU",
@@ -1005,6 +1014,15 @@
 "value": true,
 "defaultValue": true,
 "description": "Report the display scanline counter (D1MODE_V_COUNTER) from the time since the last vblank, as the hardware does. Off restores the old counter, which only advances once per frame-pacing step: some games' own frame limiters then never wait (Mafia II runs uncapped instead of at 30), and video players that poll it for vblank crawl (WALL-E's videos at 2.6 FPS).",
+"changed": false
+},
+"scanline_counter_stay_in_vblank": {
+"name": "scanline_counter_stay_in_vblank",
+"category": "GPU",
+"type": "bool",
+"value": false,
+"defaultValue": false,
+"description": "With scanline_counter_from_time off, never report a visible display line: the old counter lands on one about every 23rd vblank, and a game whose frame limiter waits on the counter then stalls for two vblanks (Mafia II: a 33 ms frame 2.6 times a second). For games run uncapped that way; a game that waits for a visible line would hang with it.",
 "changed": false
 },
 "gpu_allow_invalid_fetch_constants": {
@@ -3254,7 +3272,7 @@
 "type": "int",
 "value": 0,
 "defaultValue": 0,
-"description": "Set license mask for activated content.\n 0 = No licenses enabled.\n 1 = First license enabled. Generally the full version license in\n     Xbox Live Arcade titles.\n -1 or 0xFFFFFFFF = All possible licenses enabled. Generally a\n                    bad idea, could lead to undefined behavior.",
+"description": "Set license mask for activated content. Added to the licenses the game's own package grants (see honor_package_licenses).\n 0 = No licenses enabled.\n 1 = First license enabled. Generally the full version license in\n     Xbox Live Arcade titles.\n -1 or 0xFFFFFFFF = All possible licenses enabled. Generally a\n                    bad idea, could lead to undefined behavior.",
 "changed": false
 },
 "show_achievement_notification": {
@@ -3302,6 +3320,15 @@
 "description": "Show storage device selection dialog when the game requests it.",
 "changed": false
 },
+"device_selector_complete_immediately": {
+"name": "device_selector_complete_immediately",
+"category": "UI",
+"type": "bool",
+"value": true,
+"defaultValue": true,
+"description": "When no storage device dialog is shown (headless, or storage_selection_dialog off), complete XamShowDeviceSelectorUI before it returns, the way a console with one storage device does. Titles that check the request once, right after the call (Supreme Commander 2), otherwise see it still pending and never get a device. false restores the deferred completion.",
+"changed": false
+},
 "allow_avatar_initialization": {
 "name": "allow_avatar_initialization",
 "category": "Kernel",
@@ -3309,6 +3336,15 @@
 "value": false,
 "defaultValue": false,
 "description": "Enable Avatar Initialization\nOnly set true when testing Avatar games. Certain games may crash due to requirement of full avatar implementation.",
+"changed": false
+},
+"xnet_resolve_own_address": {
+"name": "xnet_resolve_own_address",
+"category": "Network",
+"type": "bool",
+"value": true,
+"defaultValue": true,
+"description": "XNetXnAddrToInAddr resolves the console's own XNADDR (what XNetGetTitleXnAddr and a hosted session report) to its address, and XNetQosListen succeeds. A title that hosts a local or system-link session looks itself up this way (Shadowrun). false restores the old stubs, which fail both.",
 "changed": false
 },
 "avpack": {
@@ -3327,6 +3363,15 @@
 "value": false,
 "defaultValue": false,
 "description": "Enables preview mode in dashboards to render debug information.",
+"changed": false
+},
+"aggregate_disc_content": {
+"name": "aggregate_disc_content",
+"category": "Content",
+"type": "bool",
+"value": true,
+"defaultValue": true,
+"description": "List the content packages on the game disc when a title enumerates the optical drive's content across titles (Worms Collection's launcher). false lists none, as before.",
 "changed": false
 },
 "serve_disc_content": {
