@@ -134,11 +134,11 @@ smoother.
 | LEGO Indiana Jones 2: The Adventure Continues | The college hub | – | – | 60 | – |  |
 | LEGO Star Wars II | Mos Eisley Cantina | 60 | 60 | 60 | – |  |
 | Lost Planet: Colonies | Mission 1, the hangar | 47 | 30 | 50 | – | A late beta of the game. Runs above 30 on the M4 mini and M1 Max, not yet explained. Rarely crashes in play |
-| Madden NFL 10 | The coin toss, then the first play call or the kickoff | 30 | – | – | – | The test ends on the play call (30) or the kickoff (60), depending on the coin toss. Large dark shapes cut across the pre-game shots and the sky is blocky noise |
-| Madden NFL 13 | Play Now, CPU vs CPU | – | – | 60 | – | Large flat shapes can cover much of the screen during plays |
+| Madden NFL 10 | The coin toss, then the first play call or the kickoff | 30 | – | – | – | The test ends on the play call (30) or the kickoff (60), depending on the coin toss |
+| Madden NFL 13 | Play Now, CPU vs CPU | – | – | 60 | – |  |
 | Madden NFL 15 | Play Now, CPU vs CPU | 60 | – | – | – |  |
-| Madden NFL 17 | Play Now, CPU vs CPU | – | – | 60 | – | Large flat shapes cover much of the screen during plays |
-| Madden NFL 25 | Play Now, CPU vs CPU | – | 32 | 60 | – | Play runs at 30, with some presentation shots at 60. The 3D picture can be badly corrupted (coloured noise, spiky shapes across the screen) for a whole session; other sessions show only the odd spike |
+| Madden NFL 17 | Play Now, CPU vs CPU | – | – | 60 | – |  |
+| Madden NFL 25 | Play Now, CPU vs CPU | – | 32 | 60 | – | Play runs at 30, with some presentation shots at 60 |
 | Mafia II | Story opening | 119 | 148 | 109 | – | Doesn't cap its own frame rate (see below). Rarely crashes in play |
 | Major League Baseball 2K13 | Demo game, CPU vs CPU | – | 59 | 60 | – | Dips to about 30 in some camera shots |
 | Major League Baseball 2K7 | Demo game, CPU vs CPU | – | 60 | 60 | – | Dips to 30 in the busiest camera shots |
