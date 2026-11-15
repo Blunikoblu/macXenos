@@ -1,0 +1,11 @@
+# macXenos built-in per-title config: Call of Duty: Ghosts (415608FC).
+# The IW engine copies streamed texture data into its texture pool through
+# vertex shaders that also rasterize (memory export from a draw with a render
+# target bound), as Modern Warfare 2 and 3 do. That export class is off by
+# default for its cost elsewhere; without it textures turn to noise within
+# seconds of a match and get worse (macXenos issue 10, local multiplayer on
+# an M1 Pro; fixed there by turning the setting on by hand). The title's
+# menus already log the dropped exports (MetalMemexportUnrouted
+# class=rasterizing-vertex, 2026-11-14).
+[GPU]
+metal_memexport_raster = true
