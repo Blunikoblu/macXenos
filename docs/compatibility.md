@@ -192,7 +192,7 @@ smoother.
 | Ridge Racer 6 | Single race | 60 | 60 | 60 | – |  |
 | Ridge Racer Unbounded | Domination race | 30 | 30 | 30 | – |  |
 | Rio | Story mode, the first minigame | 60 | 60 | – | – |  |
-| Rise of the Tomb Raider | Ascension, the mountain | 30 | 30 | 30 | 30 | Fixed after these runs: whole-screen flashes in play (white, or false colours), most frequent on the fastest Macs. Not yet re-measured on the M4 and M1 Macs with the fix. Only the opening mountain has been checked |
+| Rise of the Tomb Raider | Ascension, the mountain | 30 | 30 | 30 | 30 | Whole-screen white flashes in play are fixed after these runs. On the M5 Max a single false-colour frame still shows about once a minute; the M1 Max shows none. Only the opening mountain has been checked |
 | Rock Band | Main menu | 60 | – | – | – | Every mode asks for a microphone when played with a controller, so the test stops at the menu |
 | Rockstar Games Presents Table Tennis | Training, the serve drill | 60 | 60 | – | – |  |
 | Rogue Warrior | First level, the night forest | 30 | 30 | – | – |  |
