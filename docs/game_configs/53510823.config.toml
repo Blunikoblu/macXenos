@@ -9,12 +9,12 @@
 #
 # Whole-frame flashes in gameplay: two races in the Metal backend's lazy
 # publication. 5d78b0a14 (the straddler re-assert keeps lazily published
-# pages RAM-authoritative) removed the rings, white-outs and white veils, but
-# single false-colour frames remain with lazy publication: about 20 per 480 s
-# on an M4 Pro, about one a minute on an M5 Max (2026-11-15). Copying
-# GPU-written memory back at swaps and fence packets instead
-# (metal_eager_publish_title) removes every flash. It costs nothing on M4 and
-# later Macs (30 fps held), but holds an M1 Max at about 15 fps in play.
+# pages RAM-authoritative) removed the rings, white-outs and white veils.
+# Single false-colour frames remain: about 20 per 480 s on an M4 Pro, about
+# one a minute on an M5 Max, none seen on an M1 Max (2026-11-15).
+# metal_eager_publish_title removes every flash but holds an M1 Max at about
+# 15 fps, so 1.0.1 ships without it (Greg, 2026-11-15: keep 30 fps for now).
+# TODO: fix the false-colour race (a stale colour-grading LUT read) or enable
+# the switch per chip, then revisit this setting.
 [GPU]
 force_depth_clamp = true
-metal_eager_publish_title = true
