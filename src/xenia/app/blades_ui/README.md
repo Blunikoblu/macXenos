@@ -29,7 +29,9 @@ recently played, alphabetical, then each backwards (least recently played,
 reverse alphabetical). Y switches between the list and a grid of cards (the
 icon, the name under it, then achievements and gamerscore), where ← → ↑ ↓
 move across the cards. Both choices are remembered in the page's local
-storage; `#all-games` opens it directly. Home's Game folders pane lists the folders and offers Edit
+storage; `#all-games` opens it directly. Its tab reads whose library it is
+("ds’s game library"; "game library" with nobody signed in), where the other
+sub-blades' tabs carry the gamertag alone. Home's Game folders pane lists the folders and offers Edit
 folders, a second sub-blade from the right (`src/ui/folder-editor.tsx`,
 `#game-folders`) that adds them and removes them on a second A, and Refresh
 folders. Both sub-blades share `src/ui/sub-blade.tsx`.

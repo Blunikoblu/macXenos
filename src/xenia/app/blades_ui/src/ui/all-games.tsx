@@ -66,7 +66,9 @@ export function sorted(games: RecentTitle[], sort: Sort): RecentTitle[] {
 }
 
 export function AllGames({ tone }: { tone: BladeTone }) {
-  const { allGames, gameFolders } = useNative();
+  const { allGames, gameFolders, profiles } = useNative();
+  // The tab says whose library this is, not only who is signed in.
+  const player = profiles.find((profile) => profile.slot === 0);
   const [sort, setSort] = useState<Sort>(() => saved(SORT_KEY, SORTS, "recent"));
   const [view, setView] = useState<View>(() => saved(VIEW_KEY, ["list", "cards"] as const, "list"));
   const games = sorted(allGames, sort);
@@ -114,6 +116,7 @@ export function AllGames({ tone }: { tone: BladeTone }) {
       side="left"
       tone={tone}
       title={t("allGames.title")}
+      tabLabel={player?.gamertag ? t("allGames.tab.player", { name: player.gamertag }) : t("allGames.tab")}
       count={games.length}
       onActivate={play}
       onX={changeSort}

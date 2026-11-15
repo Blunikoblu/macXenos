@@ -291,6 +291,8 @@ export const en = {
 
   // --- All Games ---------------------------------------------------------------
   "allGames.title": "All Games",
+  "allGames.tab": "game library",
+  "allGames.tab.player": "{name}’s game library",
   "allGames.sort": "Sort: {order}",
   "allGames.sort.recent": "Most recently played",
   "allGames.sort.leastRecent": "Least recently played",

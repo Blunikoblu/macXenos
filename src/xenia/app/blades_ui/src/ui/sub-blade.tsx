@@ -100,6 +100,8 @@ type SubBladeProps = {
       console's system sub-blades (Profile, Settings). */
   tone: BladeTone | "metal";
   title: string;
+  /** What the tab reads, when not the signed-in player's gamertag. */
+  tabLabel?: string;
   count: number;
   /** A, Return or a click on row `index`. */
   onActivate: (index: number) => void;
@@ -129,6 +131,7 @@ export function SubBlade({
   side,
   tone,
   title,
+  tabLabel,
   count,
   onActivate,
   onX,
@@ -377,7 +380,7 @@ export function SubBlade({
             </span>
           </span>
           <span className="blade-tab relative flex h-full items-start pt-[21.5dvh] pb-8 text-[clamp(1.05rem,3.2dvh,2.1rem)] font-normal tracking-[0.01em]">
-            <TabLabel id={`sub-${id}`} label={player?.gamertag ?? ""} side={side === "right" ? "center" : "right"} />
+            <TabLabel id={`sub-${id}`} label={tabLabel ?? player?.gamertag ?? ""} side={side === "right" ? "center" : "right"} />
           </span>
         </span>
       </section>

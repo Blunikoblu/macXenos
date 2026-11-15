@@ -65,6 +65,8 @@ const tests = {
     await page.eval("new Promise((r) => setTimeout(r, 300))");
     expect((await page.eval("document.querySelector('.subblade h2')?.textContent")) === "All Games", "All Games not open");
     expect((await page.eval(focusedSubRow)) === "Sonic Generations", "first game is not the most recent");
+    const tab = await page.eval("document.querySelector('.subblade-tab')?.textContent");
+    expect(tab.includes("dmug’s game library"), `the tab reads "${tab}"`);
     await page.key("ArrowDown");
     expect((await page.eval(focusedSubRow)) === "Just Cause 2", "↓ did not move");
     await page.key("ArrowRight");
