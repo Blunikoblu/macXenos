@@ -10,6 +10,7 @@
 #include "xenia/base/logging.h"
 
 #include "xenia/hid/input_system.h"
+#include "xenia/hid/stick_response.h"
 
 #include "xenia/base/profiling.h"
 #include "xenia/hid/hid_flags.h"
@@ -40,6 +41,22 @@ DEFINE_double(left_stick_deadzone_percentage, XE_HID_DEFAULT_STICK_DEADZONE,
 DEFINE_double(
     right_stick_deadzone_percentage, XE_HID_DEFAULT_STICK_DEADZONE,
     "Defines deadzone level for right stick. Allowed range [0.0-1.0].", "HID");
+
+DEFINE_double(
+    left_stick_anti_deadzone_percentage, 0.0,
+    "Anti-dead zone for the left stick: the smallest movement of the stick is "
+    "reported to the game as this share of full deflection, so a game's own "
+    "dead zone (about 0.24 for most titles' left stick) is skipped. The "
+    "rest of the stick's travel is squeezed in above it. 0 turns it off. "
+    "Too high and the game sees movement as soon as the stick leaves the "
+    "dead zone set above. Allowed range [0.0-1.0).",
+    "HID");
+DEFINE_double(
+    right_stick_anti_deadzone_percentage, 0.0,
+    "Anti-dead zone for the right stick (about 0.27 skips most titles' own "
+    "dead zone). See left_stick_anti_deadzone_percentage. Allowed range "
+    "[0.0-1.0).",
+    "HID");
 
 InputSystem::InputSystem(xe::ui::Window* window) : window_(window) {
 #ifdef XE_PLATFORM_WIN32
@@ -358,59 +375,25 @@ void InputSystem::AdjustDeadzoneLevels(const uint8_t slot,
     return;
   }
 
-  // Left stick
-  if (cvars::left_stick_deadzone_percentage > 0.0 &&
-      cvars::left_stick_deadzone_percentage < 1.0) {
-    const double deadzone_lx_percentage =
-        controllers_max_joystick_value[slot].first.first *
-        cvars::left_stick_deadzone_percentage;
-    const double deadzone_ly_percentage =
-        controllers_max_joystick_value[slot].first.second *
-        cvars::left_stick_deadzone_percentage;
+  // The dead zone, then the anti-dead zone, round each stick's centre
+  // (stick_response.h). The dead zone used to be worked out per axis with
+  // signed limits, which only ever cut a stick pushed up or to the right.
+  const auto& range = controllers_max_joystick_value[slot];
+  int16_t x = gamepad->thumb_lx;
+  int16_t y = gamepad->thumb_ly;
+  ApplyStickResponse(&x, &y, cvars::left_stick_deadzone_percentage,
+                     cvars::left_stick_anti_deadzone_percentage,
+                     range.first.first, range.first.second);
+  gamepad->thumb_lx = x;
+  gamepad->thumb_ly = y;
 
-    const double theta = std::atan2(static_cast<double>(gamepad->thumb_ly),
-                                    static_cast<double>(gamepad->thumb_lx));
-
-    const double deadzone_y_value = std::sin(theta) * deadzone_ly_percentage;
-    const double deadzone_x_value = std::cos(theta) * deadzone_lx_percentage;
-
-    if (gamepad->thumb_ly > -deadzone_y_value &&
-        gamepad->thumb_ly < deadzone_y_value) {
-      gamepad->thumb_ly = 0;
-    }
-
-    if (gamepad->thumb_lx > -deadzone_x_value &&
-        gamepad->thumb_lx < deadzone_x_value) {
-      gamepad->thumb_lx = 0;
-    }
-  }
-
-  // Right stick
-  if (cvars::right_stick_deadzone_percentage > 0.0 &&
-      cvars::right_stick_deadzone_percentage < 1.0) {
-    const double deadzone_rx_percentage =
-        controllers_max_joystick_value[slot].second.first *
-        cvars::right_stick_deadzone_percentage;
-    const double deadzone_ry_percentage =
-        controllers_max_joystick_value[slot].second.second *
-        cvars::right_stick_deadzone_percentage;
-
-    const double theta = std::atan2(static_cast<double>(gamepad->thumb_ry),
-                                    static_cast<double>(gamepad->thumb_rx));
-
-    const double deadzone_y_value = std::sin(theta) * deadzone_ry_percentage;
-    const double deadzone_x_value = std::cos(theta) * deadzone_rx_percentage;
-
-    if (gamepad->thumb_ry > -deadzone_y_value &&
-        gamepad->thumb_ry < deadzone_y_value) {
-      gamepad->thumb_ry = 0;
-    }
-
-    if (gamepad->thumb_rx > -deadzone_x_value &&
-        gamepad->thumb_rx < deadzone_x_value) {
-      gamepad->thumb_rx = 0;
-    }
-  }
+  x = gamepad->thumb_rx;
+  y = gamepad->thumb_ry;
+  ApplyStickResponse(&x, &y, cvars::right_stick_deadzone_percentage,
+                     cvars::right_stick_anti_deadzone_percentage,
+                     range.second.first, range.second.second);
+  gamepad->thumb_rx = x;
+  gamepad->thumb_ry = y;
 }
 
 X_INPUT_VIBRATION InputSystem::ModifyVibrationLevel(

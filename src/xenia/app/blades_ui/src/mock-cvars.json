@@ -2780,6 +2780,24 @@
 "description": "Defines deadzone level for right stick. Allowed range [0.0-1.0].",
 "changed": false
 },
+"left_stick_anti_deadzone_percentage": {
+"name": "left_stick_anti_deadzone_percentage",
+"category": "HID",
+"type": "float",
+"value": 0.0,
+"defaultValue": 0.0,
+"description": "Anti-dead zone for the left stick: the smallest movement of the stick is reported to the game as this share of full deflection, so a game's own dead zone (about 0.24 for most titles' left stick) is skipped. The rest of the stick's travel is squeezed in above it. 0 turns it off. Too high and the game sees movement as soon as the stick leaves the dead zone set above. Allowed range [0.0-1.0).",
+"changed": false
+},
+"right_stick_anti_deadzone_percentage": {
+"name": "right_stick_anti_deadzone_percentage",
+"category": "HID",
+"type": "float",
+"value": 0.0,
+"defaultValue": 0.0,
+"description": "Anti-dead zone for the right stick (about 0.27 skips most titles' own dead zone). See left_stick_anti_deadzone_percentage. Allowed range [0.0-1.0).",
+"changed": false
+},
 "mappings_file": {
 "name": "mappings_file",
 "category": "SDL",

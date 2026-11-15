@@ -348,6 +348,26 @@ const tests = {
     expect(row === "Volume95%", `row reads ${row}`);
   },
 
+  async "Anti-dead zones offer presets for each stick and a custom value"(page, base) {
+    await page.open(base, "#controller/anti-deadzones");
+    const pane = "document.querySelector('.blade[data-state=open] .menu-detail:not([hidden])')";
+    const text = await page.eval(`${pane}.textContent`);
+    for (const label of ["Left stick", "Right stick", "Off", "15%", "24%", "27%", "Custom"])
+      expect(text.includes(label), `the pane lacks "${label}"`);
+    const push = (edit) => page.eval(`import("/src/mock.ts").then(({ mockState }) => {
+      const state = mockState();
+      (${edit})(state);
+      window.__xeniaReceive(JSON.stringify(state));
+    })`);
+    const sliders = `${pane}.querySelectorAll('[role=slider], input[type=range]').length`;
+    expect((await page.eval(sliders)) === 0, "a slider shows with both sticks on a preset");
+    // A value off the presets is Custom, and brings that stick's slider.
+    await push("(s) => { s.cvars.right_stick_anti_deadzone_percentage.value = 0.2; }");
+    await page.eval("new Promise((r) => setTimeout(r, 100))");
+    expect((await page.eval(sliders)) === 1, "no slider for a custom value");
+    expect((await page.eval(`${pane}.textContent`)).includes("20%"), "the custom value is not shown");
+  },
+
   async "Vibration offers a test, and says when a controller cannot rumble"(page, base) {
     await page.open(base, "#controller/vibration");
     const pane = "document.querySelector('.blade[data-state=open] .menu-detail:not([hidden])')";
