@@ -136,7 +136,7 @@ export function mockState(): NativeState {
     },
     systemLanguages: [],
     appVersion: "1.0",
-    appBuild: "codex/metal-foundation-integration@4774abdb6 (dev)",
+    appBuild: "202611140930 (codex/metal-foundation-integration@4774abdb6)",
     updater: { available: true, asked: true },
     allGames: []
   };

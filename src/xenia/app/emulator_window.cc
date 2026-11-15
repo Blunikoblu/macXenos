@@ -247,10 +247,13 @@ EmulatorWindow::EmulatorWindow(Emulator* emulator,
           std::make_unique<ui::ImGuiDrawer>(window_.get(), kZOrderImGui)),
       display_config_game_config_load_callback_(
           new DisplayConfigGameConfigLoadCallback(*emulator, *this)) {
-  // A release names itself by version ("macXenos 1.0"); a development
-  // build adds the branch and commit it was built from.
+  // A release names itself by version and build ("macXenos 1.0 (build
+  // 202611121749)"); a development build adds the branch and commit it was
+  // built from.
   base_title_ = std::string(kBaseTitle) + " " + Version();
-  if (!IsReleaseVersion()) {
+  if (IsReleaseVersion()) {
+    base_title_ += " (build " + BuildNumber() + ")";
+  } else {
     base_title_ +=
 #ifdef DEBUG
 #if _NO_DEBUG_HEAP == 1

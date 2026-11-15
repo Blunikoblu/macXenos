@@ -1145,17 +1145,17 @@ void BladesModel::WriteApp(StateWriter& w) {
   w.EndArray();
 
   // Dashboard > About: the version ("1.0", or "1.0+3" for a development
-  // build) and the build: its commit, and for a development build the branch
-  // it came from.
+  // build) and the build: its number and commit, and for a development build
+  // the branch it came from.
   const std::string version = Version();
   w.Key("appVersion");
   w.String(version.c_str());
   w.Key("appBuild");
-  if (IsReleaseVersion()) {
-    w.String(XE_BUILD_COMMIT_SHORT " (" XE_BUILD_DATE ")");
-  } else {
-    w.String(XE_BUILD_BRANCH "@" XE_BUILD_COMMIT_SHORT " (" XE_BUILD_DATE ")");
-  }
+  const std::string build =
+      IsReleaseVersion()
+          ? BuildNumber() + " (" XE_BUILD_COMMIT_SHORT ")"
+          : BuildNumber() + " (" XE_BUILD_BRANCH "@" XE_BUILD_COMMIT_SHORT ")";
+  w.String(build.c_str());
   // Whether this copy can update itself (a release bundle carrying Sparkle),
   // and whether the first-launch question about checking has been answered.
   w.Key("updater");

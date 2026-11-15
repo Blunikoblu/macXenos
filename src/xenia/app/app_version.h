@@ -58,6 +58,15 @@ inline std::string Version() {
   return version.empty() ? std::string(XE_BUILD_VERSION) : version;
 }
 
+// The build number: the commit's date, YYYYMMDDHHMM in UTC. A packaged app
+// reports the CFBundleVersion tools/build/package_mac.sh stamped (the same
+// value, which Sparkle compares); a bare binary the one version.h was
+// generated with.
+inline std::string BuildNumber() {
+  std::string number = BundleInfoString("CFBundleVersion");
+  return number.empty() ? std::string(XE_BUILD_NUMBER) : number;
+}
+
 // Whether Version() is a release rather than a development build (a commit
 // past the last release tag, "+N", or an old "-dev" bundle).
 inline bool IsReleaseVersion() {
