@@ -7,14 +7,11 @@
 # (green / magenta casts, 2026-10-17). Depth clamping keeps the quad and
 # changes nothing else that was measured in this title.
 #
-# Whole-frame flashes in gameplay (white-outs, snow particles drawn as huge
-# rings, false-colour frames; about one every two seconds on an M5 Max, rarer
-# on slower Macs): the title's flush thread rewrites pages that a memory
-# export still owns, and with GPU-written memory copied back on first access
-# one of the two ends up stale. The exact race is open (see
-# UpdateLazyPublicationForTitle); copying back at swaps and fence packets
-# removes the flashes. "Wait for the GPU before signalling the game" does not
-# on an M5 Max or an M2 Max (2026-11-14).
+# Whole-frame flashes in gameplay (white-outs, snow particles as huge rings,
+# false-colour frames) were a race in the Metal backend's lazy publication,
+# fixed for every title by 5d78b0a14 (the straddler re-assert no longer
+# re-validates pages the title rewrote). The per-title eager publication that
+# hid it (metal_eager_publish_title) cost the M1 Max half its frame rate, so
+# this config no longer sets it (2026-11-15).
 [GPU]
 force_depth_clamp = true
-metal_eager_publish_title = true
