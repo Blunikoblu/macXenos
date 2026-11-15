@@ -1,0 +1,1137 @@
+{
+ "corpus": "nt_mutants",
+ "source": "Physical Xbox 360 (Aurora, XBDM), 2026-11-14, bundle 6adf838bb008d347; two runs identical; evidence xbox-hardware-2026-11-14/nt_mutants",
+ "steps": [
+  {
+   "scenario": "Nt mutant recursion, initial owner 0",
+   "name": "NtCreateMutant",
+   "export": "NtCreateMutant",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "mutant handle",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 0",
+   "name": "acquire 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "mutant handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 0",
+   "name": "acquire 2",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "mutant handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 0",
+   "name": "release 1",
+   "export": "NtReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous count": "ffffffff"
+   },
+   "args": [
+    {
+     "variable": "mutant handle"
+    },
+    {
+     "pointer": "previous count",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 0",
+   "name": "release 2",
+   "export": "NtReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous count": "00000000"
+   },
+   "args": [
+    {
+     "variable": "mutant handle"
+    },
+    {
+     "pointer": "previous count",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 0",
+   "name": "reacquire after full release",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "mutant handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 0",
+   "name": "final release",
+   "export": "NtReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous count": "00000000"
+   },
+   "args": [
+    {
+     "variable": "mutant handle"
+    },
+    {
+     "pointer": "previous count",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 0",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "mutant handle"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 1",
+   "name": "NtCreateMutant",
+   "export": "NtCreateMutant",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "mutant handle",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 1",
+   "name": "acquire 1",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "mutant handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 1",
+   "name": "acquire 2",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "mutant handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 1",
+   "name": "release 1",
+   "export": "NtReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous count": "fffffffe"
+   },
+   "args": [
+    {
+     "variable": "mutant handle"
+    },
+    {
+     "pointer": "previous count",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 1",
+   "name": "release 2",
+   "export": "NtReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous count": "ffffffff"
+   },
+   "args": [
+    {
+     "variable": "mutant handle"
+    },
+    {
+     "pointer": "previous count",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 1",
+   "name": "release 3",
+   "export": "NtReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous count": "00000000"
+   },
+   "args": [
+    {
+     "variable": "mutant handle"
+    },
+    {
+     "pointer": "previous count",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 1",
+   "name": "reacquire after full release",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "mutant handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 1",
+   "name": "final release",
+   "export": "NtReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous count": "00000000"
+   },
+   "args": [
+    {
+     "variable": "mutant handle"
+    },
+    {
+     "pointer": "previous count",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant recursion, initial owner 1",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "mutant handle"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant in immediate WaitAny and WaitAll",
+   "name": "NtCreateMutant",
+   "export": "NtCreateMutant",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "handles[:0x4]",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant in immediate WaitAny and WaitAll",
+   "name": "NtCreateSemaphore",
+   "export": "NtCreateSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "handles+0x4[:0x4]",
+     "offset": 4
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 2
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant in immediate WaitAny and WaitAll",
+   "name": "wait any: free mutant and one permit",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "handles",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant in immediate WaitAny and WaitAll",
+   "name": "wait any: release mutant",
+   "export": "NtReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous count": "00000000"
+   },
+   "args": [
+    {
+     "variable": "mutant handle"
+    },
+    {
+     "pointer": "previous count",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant in immediate WaitAny and WaitAll",
+   "name": "wait any: poll semaphore afterwards",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "semaphore handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant in immediate WaitAny and WaitAll",
+   "name": "wait any: restore one permit",
+   "export": "NtReleaseSemaphore",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous count": "00000000"
+   },
+   "args": [
+    {
+     "variable": "semaphore handle"
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "previous count",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant in immediate WaitAny and WaitAll",
+   "name": "wait all: free mutant and one permit",
+   "export": "NtWaitForMultipleObjectsEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "value": 2
+    },
+    {
+     "pointer": "handles",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant in immediate WaitAny and WaitAll",
+   "name": "wait all: release mutant",
+   "export": "NtReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous count": "00000000"
+   },
+   "args": [
+    {
+     "variable": "mutant handle"
+    },
+    {
+     "pointer": "previous count",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant in immediate WaitAny and WaitAll",
+   "name": "wait all: poll semaphore afterwards",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "semaphore handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant in immediate WaitAny and WaitAll",
+   "name": "wait all: restore one permit",
+   "export": "NtReleaseSemaphore",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous count": "00000000"
+   },
+   "args": [
+    {
+     "variable": "semaphore handle"
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "previous count",
+     "offset": 8
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant in immediate WaitAny and WaitAll",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "mutant handle"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant in immediate WaitAny and WaitAll",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "semaphore handle"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "worker single: attempting",
+     "offset": 8
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "worker single: done",
+     "offset": 24
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker single: handles: event, mutant[:0x4]",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker single: main creates an owned mutant",
+   "export": "NtCreateMutant",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker single: handles: event, mutant+0x4[:0x4]",
+     "offset": 4
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker single: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker single: worker handle",
+     "offset": 88
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "worker single: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker single: worker started",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker single: attempting",
+     "offset": 8
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "worker single: 2000 ms",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker single: worker cannot finish while main owns",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "worker single: done",
+     "offset": 24
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "worker single: 300 ms",
+     "offset": 96
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker single: main releases",
+   "export": "NtReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "worker single: previous count": "00000000"
+   },
+   "args": [
+    {
+     "variable": "worker single: mutant"
+    },
+    {
+     "pointer": "worker single: previous count",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker single: worker finished",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker single: done",
+     "offset": 24
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "worker single: 2000 ms",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker single: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "worker single: worker: short wait, long wait, release, previous": "00000102000000000000000000000000"
+   },
+   "args": [
+    {
+     "variable": "worker single: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "worker single: 2000 ms",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker single: main reacquires the released mutant",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "worker single: mutant"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "worker single: 0 ms",
+     "offset": 64
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker single: main releases again",
+   "export": "NtReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "worker single: previous count": "00000000"
+   },
+   "args": [
+    {
+     "variable": "worker single: mutant"
+    },
+    {
+     "pointer": "worker single: previous count",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "worker single: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "worker single: event"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "worker single: mutant"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "worker all: attempting",
+     "offset": 112
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "worker all: done",
+     "offset": 128
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker all: handles: event, mutant[:0x4]",
+     "offset": 104
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker all: main creates an owned mutant",
+   "export": "NtCreateMutant",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker all: handles: event, mutant+0x4[:0x4]",
+     "offset": 108
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker all: create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker all: worker handle",
+     "offset": 192
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "worker all: worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker all: worker started",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker all: attempting",
+     "offset": 112
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "worker all: 2000 ms",
+     "offset": 184
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker all: worker cannot finish while main owns",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "pointer": "worker all: done",
+     "offset": 128
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "worker all: 300 ms",
+     "offset": 200
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker all: main releases",
+   "export": "NtReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "worker all: previous count": "00000000"
+   },
+   "args": [
+    {
+     "variable": "worker all: mutant"
+    },
+    {
+     "pointer": "worker all: previous count",
+     "offset": 160
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker all: worker finished",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker all: done",
+     "offset": 128
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "worker all: 2000 ms",
+     "offset": 184
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker all: join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "worker all: worker: short wait, long wait, release, previous": "00000102000000010000000000000000"
+   },
+   "args": [
+    {
+     "variable": "worker all: worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "worker all: 2000 ms",
+     "offset": 184
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker all: main reacquires the released mutant",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "worker all: mutant"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "worker all: 0 ms",
+     "offset": 168
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "worker all: main releases again",
+   "export": "NtReleaseMutant",
+   "r3": "0000000000000000",
+   "capture": {
+    "worker all: previous count": "00000000"
+   },
+   "args": [
+    {
+     "variable": "worker all: mutant"
+    },
+    {
+     "pointer": "worker all: previous count",
+     "offset": 160
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "worker all: worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "worker all: event"
+    }
+   ]
+  },
+  {
+   "scenario": "Nt mutant handed to a waiting worker",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "worker all: mutant"
+    }
+   ]
+  }
+ ]
+}

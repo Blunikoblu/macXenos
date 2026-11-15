@@ -1,0 +1,1244 @@
+{
+ "corpus": "rtl_critical_sections",
+ "source": "Physical Xbox 360 (Aurora, XBDM), 2026-11-14, bundle 205a6c9a3dc1d1e3; two runs identical; evidence xbox-hardware-2026-11-14/rtl_critical_sections",
+ "steps": [
+  {
+   "scenario": "critical section, plain",
+   "name": "RtlInitializeCriticalSection",
+   "export": "RtlInitializeCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, plain",
+   "name": "enter, depth 1",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, plain",
+   "name": "enter, depth 2",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000100000002"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, plain",
+   "name": "enter, depth 3",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000200000003"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, plain",
+   "name": "try-enter while owned",
+   "export": "RtlTryEnterCriticalSection",
+   "r3": "0000000000000001",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000300000004"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, plain",
+   "name": "leave, 3 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000200000003"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, plain",
+   "name": "leave, 2 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000100000002"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, plain",
+   "name": "leave, 1 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, plain",
+   "name": "leave, 0 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, plain",
+   "name": "try-enter while free",
+   "export": "RtlTryEnterCriticalSection",
+   "r3": "0000000000000001",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, plain",
+   "name": "leave after try",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 0",
+   "name": "RtlInitializeCriticalSectionAndSpinCount",
+   "export": "RtlInitializeCriticalSectionAndSpinCount",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 0",
+   "name": "enter, depth 1",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 0",
+   "name": "enter, depth 2",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000100000002"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 0",
+   "name": "enter, depth 3",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000200000003"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 0",
+   "name": "try-enter while owned",
+   "export": "RtlTryEnterCriticalSection",
+   "r3": "0000000000000001",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000300000004"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 0",
+   "name": "leave, 3 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000200000003"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 0",
+   "name": "leave, 2 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000100000002"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 0",
+   "name": "leave, 1 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 0",
+   "name": "leave, 0 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 0",
+   "name": "try-enter while free",
+   "export": "RtlTryEnterCriticalSection",
+   "r3": "0000000000000001",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 0",
+   "name": "leave after try",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1",
+   "name": "RtlInitializeCriticalSectionAndSpinCount",
+   "export": "RtlInitializeCriticalSectionAndSpinCount",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1",
+   "name": "enter, depth 1",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1",
+   "name": "enter, depth 2",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000100000002"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1",
+   "name": "enter, depth 3",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000200000003"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1",
+   "name": "try-enter while owned",
+   "export": "RtlTryEnterCriticalSection",
+   "r3": "0000000000000001",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000300000004"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1",
+   "name": "leave, 3 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000200000003"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1",
+   "name": "leave, 2 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000100000002"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1",
+   "name": "leave, 1 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1",
+   "name": "leave, 0 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1",
+   "name": "try-enter while free",
+   "export": "RtlTryEnterCriticalSection",
+   "r3": "0000000000000001",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1",
+   "name": "leave after try",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 256",
+   "name": "RtlInitializeCriticalSectionAndSpinCount",
+   "export": "RtlInitializeCriticalSectionAndSpinCount",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    },
+    {
+     "value": 256
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 256",
+   "name": "enter, depth 1",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 256",
+   "name": "enter, depth 2",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000100000002"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 256",
+   "name": "enter, depth 3",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000200000003"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 256",
+   "name": "try-enter while owned",
+   "export": "RtlTryEnterCriticalSection",
+   "r3": "0000000000000001",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000300000004"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 256",
+   "name": "leave, 3 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000200000003"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 256",
+   "name": "leave, 2 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000100000002"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 256",
+   "name": "leave, 1 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 256",
+   "name": "leave, 0 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 256",
+   "name": "try-enter while free",
+   "export": "RtlTryEnterCriticalSection",
+   "r3": "0000000000000001",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 256",
+   "name": "leave after try",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0101000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1000",
+   "name": "RtlInitializeCriticalSectionAndSpinCount",
+   "export": "RtlInitializeCriticalSectionAndSpinCount",
+   "capture": {
+    "critical section[:0x8]": "0104000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    },
+    {
+     "value": 1000
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1000",
+   "name": "enter, depth 1",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0104000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1000",
+   "name": "enter, depth 2",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0104000000000000",
+    "critical section+0x10[:0x8]": "0000000100000002"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1000",
+   "name": "enter, depth 3",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0104000000000000",
+    "critical section+0x10[:0x8]": "0000000200000003"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1000",
+   "name": "try-enter while owned",
+   "export": "RtlTryEnterCriticalSection",
+   "r3": "0000000000000001",
+   "capture": {
+    "critical section[:0x8]": "0104000000000000",
+    "critical section+0x10[:0x8]": "0000000300000004"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1000",
+   "name": "leave, 3 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0104000000000000",
+    "critical section+0x10[:0x8]": "0000000200000003"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1000",
+   "name": "leave, 2 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0104000000000000",
+    "critical section+0x10[:0x8]": "0000000100000002"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1000",
+   "name": "leave, 1 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0104000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1000",
+   "name": "leave, 0 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0104000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1000",
+   "name": "try-enter while free",
+   "export": "RtlTryEnterCriticalSection",
+   "r3": "0000000000000001",
+   "capture": {
+    "critical section[:0x8]": "0104000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 1000",
+   "name": "leave after try",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0104000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 100000",
+   "name": "RtlInitializeCriticalSectionAndSpinCount",
+   "export": "RtlInitializeCriticalSectionAndSpinCount",
+   "capture": {
+    "critical section[:0x8]": "01ff000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    },
+    {
+     "value": 100000
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 100000",
+   "name": "enter, depth 1",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "01ff000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 100000",
+   "name": "enter, depth 2",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "01ff000000000000",
+    "critical section+0x10[:0x8]": "0000000100000002"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 100000",
+   "name": "enter, depth 3",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "01ff000000000000",
+    "critical section+0x10[:0x8]": "0000000200000003"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 100000",
+   "name": "try-enter while owned",
+   "export": "RtlTryEnterCriticalSection",
+   "r3": "0000000000000001",
+   "capture": {
+    "critical section[:0x8]": "01ff000000000000",
+    "critical section+0x10[:0x8]": "0000000300000004"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 100000",
+   "name": "leave, 3 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "01ff000000000000",
+    "critical section+0x10[:0x8]": "0000000200000003"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 100000",
+   "name": "leave, 2 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "01ff000000000000",
+    "critical section+0x10[:0x8]": "0000000100000002"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 100000",
+   "name": "leave, 1 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "01ff000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 100000",
+   "name": "leave, 0 left",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "01ff000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 100000",
+   "name": "try-enter while free",
+   "export": "RtlTryEnterCriticalSection",
+   "r3": "0000000000000001",
+   "capture": {
+    "critical section[:0x8]": "01ff000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, spin count 100000",
+   "name": "leave after try",
+   "export": "RtlLeaveCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "01ff000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, contended by a worker",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "worker attempting",
+     "offset": 32
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, contended by a worker",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "worker done",
+     "offset": 48
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, contended by a worker",
+   "name": "RtlInitializeCriticalSection",
+   "export": "RtlInitializeCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, contended by a worker",
+   "name": "main enters",
+   "export": "RtlEnterCriticalSection",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000000000001"
+   },
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, contended by a worker",
+   "name": "create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker handle",
+     "offset": 96
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, contended by a worker",
+   "name": "worker started",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker attempting",
+     "offset": 32
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2 s",
+     "offset": 88
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, contended by a worker",
+   "name": "worker cannot finish while main owns",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "0000000100000001"
+   },
+   "args": [
+    {
+     "pointer": "worker done",
+     "offset": 48
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "50 ms",
+     "offset": 80
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, contended by a worker",
+   "name": "main leaves",
+   "export": "RtlLeaveCriticalSection",
+   "args": [
+    {
+     "pointer": "critical section",
+     "offset": 0
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, contended by a worker",
+   "name": "worker finished",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker done",
+     "offset": 48
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2 s",
+     "offset": 88
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, contended by a worker",
+   "name": "join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "worker try result, counts when owned, flag": "00000000000000000000000100000001",
+    "critical section[:0x8]": "0100000000000000",
+    "critical section+0x10[:0x8]": "ffffffff00000000"
+   },
+   "args": [
+    {
+     "variable": "worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "2 s",
+     "offset": 88
+    }
+   ]
+  },
+  {
+   "scenario": "critical section, contended by a worker",
+   "name": "close worker handle",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "worker handle"
+    }
+   ]
+  }
+ ]
+}

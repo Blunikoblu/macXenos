@@ -1,0 +1,793 @@
+{
+ "corpus": "nt_objects_misc",
+ "source": "Physical Xbox 360 (Aurora, XBDM), 2026-11-14, bundle c9d4bc2aa481b349; two runs identical; evidence xbox-hardware-2026-11-14/nt_objects_misc",
+ "steps": [
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "gate",
+     "offset": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "done",
+     "offset": 16
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "KeInitializeEvent",
+   "export": "KeInitializeEvent",
+   "args": [
+    {
+     "pointer": "attempting",
+     "offset": 32
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "create worker",
+   "export": "ExCreateThread",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "worker handle",
+     "offset": 80
+    },
+    {
+     "value": 16384
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "routine": "worker"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "worker started",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "attempting",
+     "offset": 32
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "finite: 3000 ms",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "resume a thread that is not suspended",
+   "export": "NtResumeThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous suspend count": "00000000"
+   },
+   "args": [
+    {
+     "variable": "worker handle"
+    },
+    {
+     "pointer": "previous suspend count",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "suspend once",
+   "export": "NtSuspendThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous suspend count": "00000000"
+   },
+   "args": [
+    {
+     "variable": "worker handle"
+    },
+    {
+     "pointer": "previous suspend count",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "suspend twice",
+   "export": "NtSuspendThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous suspend count": "00000001"
+   },
+   "args": [
+    {
+     "variable": "worker handle"
+    },
+    {
+     "pointer": "previous suspend count",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "open the gate while suspended",
+   "export": "KeSetEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "gate",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "suspended worker does not finish",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "worker wait status, flag": "cdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "done",
+     "offset": 16
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "short: 100 ms",
+     "offset": 64
+    }
+   ]
+  },
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "resume once",
+   "export": "NtResumeThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous suspend count": "00000002"
+   },
+   "args": [
+    {
+     "variable": "worker handle"
+    },
+    {
+     "pointer": "previous suspend count",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "still suspended after one resume",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000102",
+   "capture": {
+    "worker wait status, flag": "cdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "done",
+     "offset": 16
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "short: 100 ms",
+     "offset": 64
+    }
+   ]
+  },
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "resume twice",
+   "export": "NtResumeThread",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous suspend count": "00000001"
+   },
+   "args": [
+    {
+     "variable": "worker handle"
+    },
+    {
+     "pointer": "previous suspend count",
+     "offset": 56
+    }
+   ]
+  },
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "worker finishes after the last resume",
+   "export": "KeWaitForSingleObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "done",
+     "offset": 16
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "finite: 3000 ms",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "join worker",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "capture": {
+    "worker wait status, flag": "0000000000000001"
+   },
+   "args": [
+    {
+     "variable": "worker handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "finite: 3000 ms",
+     "offset": 72
+    }
+   ]
+  },
+  {
+   "scenario": "NtSuspendThread and NtResumeThread counts",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "worker handle"
+    }
+   ]
+  },
+  {
+   "scenario": "NtDuplicateObject on an event",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "event handle",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "NtDuplicateObject on an event",
+   "name": "duplicate, options 0",
+   "export": "NtDuplicateObject",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "event handle"
+    },
+    {
+     "pointer": "copy handle",
+     "offset": 8
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "NtDuplicateObject on an event",
+   "name": "set through the copy",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "copy handle"
+    },
+    {
+     "pointer": "previous state",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "NtDuplicateObject on an event",
+   "name": "original sees the signal",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "event handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "NtDuplicateObject on an event",
+   "name": "copy sees it consumed",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "copy handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "NtDuplicateObject on an event",
+   "name": "close the original",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "event handle"
+    }
+   ]
+  },
+  {
+   "scenario": "NtDuplicateObject on an event",
+   "name": "set through the copy again",
+   "export": "NtSetEvent",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous state": "00000000"
+   },
+   "args": [
+    {
+     "variable": "copy handle"
+    },
+    {
+     "pointer": "previous state",
+     "offset": 16
+    }
+   ]
+  },
+  {
+   "scenario": "NtDuplicateObject on an event",
+   "name": "copy still works after the original closed",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "copy handle"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "NtDuplicateObject on an event",
+   "name": "close the copy",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "copy handle"
+    }
+   ]
+  },
+  {
+   "scenario": "NtSignalAndWaitForSingleObjectEx",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "handle 0",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "NtSignalAndWaitForSingleObjectEx",
+   "name": "NtCreateEvent",
+   "export": "NtCreateEvent",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "handle 1",
+     "offset": 8
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 1
+    },
+    {
+     "value": 1
+    }
+   ]
+  },
+  {
+   "scenario": "NtSignalAndWaitForSingleObjectEx",
+   "name": "NtCreateSemaphore",
+   "export": "NtCreateSemaphore",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "pointer": "handle 2",
+     "offset": 16
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 2
+    }
+   ]
+  },
+  {
+   "scenario": "NtSignalAndWaitForSingleObjectEx",
+   "name": "signal an event, wait on a signalled event",
+   "export": "NtSignalAndWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "first event"
+    },
+    {
+     "variable": "second event"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "short: 30 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "NtSignalAndWaitForSingleObjectEx",
+   "name": "the signalled event is set",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "first event"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "NtSignalAndWaitForSingleObjectEx",
+   "name": "the waited event was consumed",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "second event"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "NtSignalAndWaitForSingleObjectEx",
+   "name": "signal an event, wait times out",
+   "export": "NtSignalAndWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "first event"
+    },
+    {
+     "variable": "second event"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "short: 30 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "NtSignalAndWaitForSingleObjectEx",
+   "name": "the event was still signalled",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "first event"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "NtSignalAndWaitForSingleObjectEx",
+   "name": "release a semaphore and wait on it",
+   "export": "NtSignalAndWaitForSingleObjectEx",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "semaphore"
+    },
+    {
+     "variable": "semaphore"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "short: 30 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "NtSignalAndWaitForSingleObjectEx",
+   "name": "no permit is left",
+   "export": "NtWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "semaphore"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "poll: 0 ms",
+     "offset": 32
+    }
+   ]
+  },
+  {
+   "scenario": "NtSignalAndWaitForSingleObjectEx",
+   "name": "release a semaphore, wait on an unset event",
+   "export": "NtSignalAndWaitForSingleObjectEx",
+   "r3": "0000000000000102",
+   "args": [
+    {
+     "variable": "semaphore"
+    },
+    {
+     "variable": "first event"
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "short: 30 ms",
+     "offset": 40
+    }
+   ]
+  },
+  {
+   "scenario": "NtSignalAndWaitForSingleObjectEx",
+   "name": "the semaphore held one permit",
+   "export": "NtReleaseSemaphore",
+   "r3": "0000000000000000",
+   "capture": {
+    "previous": "00000001"
+   },
+   "args": [
+    {
+     "variable": "semaphore"
+    },
+    {
+     "value": 1
+    },
+    {
+     "pointer": "previous",
+     "offset": 24
+    }
+   ]
+  },
+  {
+   "scenario": "NtSignalAndWaitForSingleObjectEx",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "first event"
+    }
+   ]
+  },
+  {
+   "scenario": "NtSignalAndWaitForSingleObjectEx",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "second event"
+    }
+   ]
+  },
+  {
+   "scenario": "NtSignalAndWaitForSingleObjectEx",
+   "name": "NtClose",
+   "export": "NtClose",
+   "r3": "0000000000000000",
+   "args": [
+    {
+     "variable": "semaphore"
+    }
+   ]
+  }
+ ]
+}

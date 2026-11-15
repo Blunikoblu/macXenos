@@ -1,0 +1,1135 @@
+{
+ "corpus": "rtl_format",
+ "source": "Physical Xbox 360 (Aurora, XBDM), 2026-11-14, bundle eef87be1e62281f2; two runs identical; evidence xbox-hardware-2026-11-14/rtl_format",
+ "steps": [
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%d\"",
+   "export": "sprintf",
+   "r3": "0000000000000002",
+   "capture": {
+    "output": "2d3100cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 1: %d",
+     "offset": 96
+    },
+    {
+     "value": 18446744073709551615
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%d\"",
+   "export": "sprintf",
+   "r3": "0000000000000001",
+   "capture": {
+    "output": "3000cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 2: %d",
+     "offset": 104
+    },
+    {
+     "value": 0
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%i\"",
+   "export": "sprintf",
+   "r3": "000000000000000A",
+   "capture": {
+    "output": "3231343734383336343700cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 3: %i",
+     "offset": 112
+    },
+    {
+     "value": 2147483647
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%u\"",
+   "export": "sprintf",
+   "r3": "000000000000000A",
+   "capture": {
+    "output": "3432393439363732393500cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 4: %u",
+     "offset": 120
+    },
+    {
+     "value": 4294967295
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%5d|%-5d|%05d\"",
+   "export": "sprintf",
+   "r3": "0000000000000011",
+   "capture": {
+    "output": "20202034327c34322020207c303030343200cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 5: %5d|%-5d|%05d",
+     "offset": 128
+    },
+    {
+     "value": 42
+    },
+    {
+     "value": 42
+    },
+    {
+     "value": 42
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%+d|% d|%+d\"",
+   "export": "sprintf",
+   "r3": "0000000000000008",
+   "capture": {
+    "output": "2b377c20377c2d3700cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 6: %+d|% d|%+d",
+     "offset": 144
+    },
+    {
+     "value": 7
+    },
+    {
+     "value": 7
+    },
+    {
+     "value": 18446744073709551609
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%x|%X|%#x|%#X\"",
+   "export": "sprintf",
+   "r3": "0000000000000017",
+   "capture": {
+    "output": "626565667c424545467c3078626565667c30584245454600cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 7: %x|%X|%#x|%#X",
+     "offset": 160
+    },
+    {
+     "value": 48879
+    },
+    {
+     "value": 48879
+    },
+    {
+     "value": 48879
+    },
+    {
+     "value": 48879
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%08x\"",
+   "export": "sprintf",
+   "r3": "0000000000000008",
+   "capture": {
+    "output": "303030303132333400cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 8: %08x",
+     "offset": 176
+    },
+    {
+     "value": 4660
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%o|%#o\"",
+   "export": "sprintf",
+   "r3": "0000000000000006",
+   "capture": {
+    "output": "31307c30313000cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 9: %o|%#o",
+     "offset": 184
+    },
+    {
+     "value": 8
+    },
+    {
+     "value": 8
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%.0d|%.3d|%8.3d\"",
+   "export": "sprintf",
+   "r3": "000000000000000D",
+   "capture": {
+    "output": "7c3030357c202020202030303500cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 10: %.0d|%.3d|%8.3d",
+     "offset": 192
+    },
+    {
+     "value": 0
+    },
+    {
+     "value": 5
+    },
+    {
+     "value": 5
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%hd|%hu\"",
+   "export": "sprintf",
+   "r3": "0000000000000009",
+   "capture": {
+    "output": "393032397c3930323900cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 11: %hd|%hu",
+     "offset": 208
+    },
+    {
+     "value": 74565
+    },
+    {
+     "value": 74565
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%ld|%lu\"",
+   "export": "sprintf",
+   "r3": "000000000000000D",
+   "capture": {
+    "output": "2d327c3432393439363732393400cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 12: %ld|%lu",
+     "offset": 216
+    },
+    {
+     "value": 18446744073709551614
+    },
+    {
+     "value": 4294967294
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%c%c%c\"",
+   "export": "sprintf",
+   "r3": "0000000000000003",
+   "capture": {
+    "output": "41424300cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 13: %c%c%c",
+     "offset": 224
+    },
+    {
+     "value": 65
+    },
+    {
+     "value": 66
+    },
+    {
+     "value": 67
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%%|%5%|\"",
+   "export": "sprintf",
+   "r3": "0000000000000004",
+   "capture": {
+    "output": "257c257c00cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 14: %%|%5%|",
+     "offset": 232
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%p\"",
+   "export": "sprintf",
+   "r3": "0000000000000008",
+   "capture": {
+    "output": "383230303132333400cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 15: %p",
+     "offset": 240
+    },
+    {
+     "value": 2181042740
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%*d|%-*d|\"",
+   "export": "sprintf",
+   "r3": "000000000000000E",
+   "capture": {
+    "output": "2020202020397c3920202020207c00cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 16: %*d|%-*d|",
+     "offset": 248
+    },
+    {
+     "value": 6
+    },
+    {
+     "value": 9
+    },
+    {
+     "value": 6
+    },
+    {
+     "value": 9
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%.*d\"",
+   "export": "sprintf",
+   "r3": "0000000000000004",
+   "capture": {
+    "output": "3030303900cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 17: %.*d",
+     "offset": 264
+    },
+    {
+     "value": 4
+    },
+    {
+     "value": 9
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%s\"",
+   "export": "sprintf",
+   "r3": "0000000000000005",
+   "capture": {
+    "output": "706c61696e00cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 18: %s",
+     "offset": 272
+    },
+    {
+     "pointer": "narrow 19: plain",
+     "offset": 280
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%.3s|%10s|%-10s|\"",
+   "export": "sprintf",
+   "r3": "000000000000001A",
+   "capture": {
+    "output": "6162637c202020202072696768747c6c6566742020202020207c00cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 20: %.3s|%10s|%-10s|",
+     "offset": 288
+    },
+    {
+     "pointer": "narrow 21: abcdef",
+     "offset": 312
+    },
+    {
+     "pointer": "narrow 22: right",
+     "offset": 320
+    },
+    {
+     "pointer": "narrow 23: left",
+     "offset": 328
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%10.2s|\"",
+   "export": "sprintf",
+   "r3": "000000000000000B",
+   "capture": {
+    "output": "202020202020202061627c00cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 24: %10.2s|",
+     "offset": 336
+    },
+    {
+     "pointer": "narrow 25: abcdef",
+     "offset": 344
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%S\"",
+   "export": "sprintf",
+   "r3": "0000000000000004",
+   "capture": {
+    "output": "7769646500cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 26: %S",
+     "offset": 352
+    },
+    {
+     "pointer": "wide 27: wide",
+     "offset": 360
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%hs|%ws\"",
+   "export": "sprintf",
+   "r3": "000000000000000B",
+   "capture": {
+    "output": "6e6172726f777c7769646500cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 28: %hs|%ws",
+     "offset": 376
+    },
+    {
+     "pointer": "narrow 29: narrow",
+     "offset": 384
+    },
+    {
+     "pointer": "wide 30: wide",
+     "offset": 392
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%s and %d and %x\"",
+   "export": "sprintf",
+   "r3": "0000000000000011",
+   "capture": {
+    "output": "6d697820616e6420313220616e6420666600cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 31: %s and %d and %x",
+     "offset": 408
+    },
+    {
+     "pointer": "narrow 32: mix",
+     "offset": 432
+    },
+    {
+     "value": 12
+    },
+    {
+     "value": 255
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"no arguments\"",
+   "export": "sprintf",
+   "r3": "000000000000000C",
+   "capture": {
+    "output": "6e6f20617267756d656e747300cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 33: no arguments",
+     "offset": 440
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%z|%q|%y\"",
+   "export": "sprintf",
+   "r3": "0000000000000005",
+   "capture": {
+    "output": "7a7c717c7900cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 34: %z|%q|%y",
+     "offset": 456
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%\"",
+   "export": "sprintf",
+   "r3": "0000000000000000",
+   "capture": {
+    "output": "00cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 35: %",
+     "offset": 472
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%5\"",
+   "export": "sprintf",
+   "r3": "0000000000000000",
+   "capture": {
+    "output": "00cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 36: %5",
+     "offset": 480
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%lld\"",
+   "export": "sprintf",
+   "r3": "0000000000000001",
+   "capture": {
+    "output": "3500cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 37: %lld",
+     "offset": 488
+    },
+    {
+     "value": 5
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "sprintf \"%I32d\"",
+   "export": "sprintf",
+   "r3": "0000000000000002",
+   "capture": {
+    "output": "2d3900cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "narrow 38: %I32d",
+     "offset": 496
+    },
+    {
+     "value": 18446744073709551607
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "_snprintf limit 16 \"%s\" fits",
+   "export": "_snprintf",
+   "r3": "0000000000000004",
+   "capture": {
+    "output": "6669747300cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "value": 16
+    },
+    {
+     "pointer": "narrow 39: %s",
+     "offset": 504
+    },
+    {
+     "pointer": "narrow 40: fits",
+     "offset": 512
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "_snprintf limit 4 \"%s\" abcd",
+   "export": "_snprintf",
+   "r3": "0000000000000004",
+   "capture": {
+    "output": "61626364cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "value": 4
+    },
+    {
+     "pointer": "narrow 41: %s",
+     "offset": 520
+    },
+    {
+     "pointer": "narrow 42: abcd",
+     "offset": 528
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "_snprintf limit 4 \"%s\" abcde",
+   "export": "_snprintf",
+   "r3": "00000000FFFFFFFF",
+   "capture": {
+    "output": "61626364cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "value": 4
+    },
+    {
+     "pointer": "narrow 43: %s",
+     "offset": 536
+    },
+    {
+     "pointer": "narrow 44: abcde",
+     "offset": 544
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "_snprintf limit 0 \"%d\" 5",
+   "export": "_snprintf",
+   "r3": "00000000FFFFFFFF",
+   "capture": {
+    "output": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "value": 0
+    },
+    {
+     "pointer": "narrow 45: %d",
+     "offset": 552
+    },
+    {
+     "value": 5
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "_snprintf limit 3 \"%d\" 12345",
+   "export": "_snprintf",
+   "r3": "00000000FFFFFFFF",
+   "capture": {
+    "output": "313233cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "value": 3
+    },
+    {
+     "pointer": "narrow 46: %d",
+     "offset": 560
+    },
+    {
+     "value": 12345
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "_snprintf limit 6 \"%d\" 12345",
+   "export": "_snprintf",
+   "r3": "0000000000000005",
+   "capture": {
+    "output": "313233343500cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "value": 6
+    },
+    {
+     "pointer": "narrow 47: %d",
+     "offset": 568
+    },
+    {
+     "value": 12345
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "swprintf \"%d|%5d|%x\"",
+   "export": "swprintf",
+   "r3": "000000000000000D",
+   "capture": {
+    "output": "002d0031007c00200020002000340032007c00620065006500660000cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "wide 48: %d|%5d|%x",
+     "offset": 576
+    },
+    {
+     "value": 18446744073709551615
+    },
+    {
+     "value": 42
+    },
+    {
+     "value": 48879
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "swprintf \"%s\"",
+   "export": "swprintf",
+   "r3": "0000000000000004",
+   "capture": {
+    "output": "00770069006400650000cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "wide 49: %s",
+     "offset": 600
+    },
+    {
+     "pointer": "wide 50: wide",
+     "offset": 608
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "swprintf \"%S\"",
+   "export": "swprintf",
+   "r3": "0000000000000006",
+   "capture": {
+    "output": "006e006100720072006f00770000cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "wide 51: %S",
+     "offset": 624
+    },
+    {
+     "pointer": "narrow 52: narrow",
+     "offset": 632
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "swprintf \"%hs|%ls\"",
+   "export": "swprintf",
+   "r3": "000000000000000B",
+   "capture": {
+    "output": "006e006100720072006f0077007c00770069006400650000cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "wide 53: %hs|%ls",
+     "offset": 640
+    },
+    {
+     "pointer": "narrow 54: narrow",
+     "offset": 656
+    },
+    {
+     "pointer": "wide 55: wide",
+     "offset": 664
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "swprintf \"%c|%C\"",
+   "export": "swprintf",
+   "r3": "0000000000000003",
+   "capture": {
+    "output": "0041007c00420000cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "wide 56: %c|%C",
+     "offset": 680
+    },
+    {
+     "value": 65
+    },
+    {
+     "value": 66
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "swprintf \"%.2s|%6s|\"",
+   "export": "swprintf",
+   "r3": "000000000000000A",
+   "capture": {
+    "output": "00610062007c002000200020002000610062007c0000cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "wide 57: %.2s|%6s|",
+     "offset": 696
+    },
+    {
+     "pointer": "wide 58: abcdef",
+     "offset": 720
+    },
+    {
+     "pointer": "wide 59: ab",
+     "offset": 736
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "swprintf \"%%\"",
+   "export": "swprintf",
+   "r3": "0000000000000001",
+   "capture": {
+    "output": "00250000cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "pointer": "wide 60: %%",
+     "offset": 744
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "_snwprintf limit 8 \"%s\" fits",
+   "export": "_snwprintf",
+   "r3": "0000000000000004",
+   "capture": {
+    "output": "00660069007400730000cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "value": 8
+    },
+    {
+     "pointer": "wide 61: %s",
+     "offset": 752
+    },
+    {
+     "pointer": "wide 62: fits",
+     "offset": 760
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "_snwprintf limit 4 \"%s\" abcd",
+   "export": "_snwprintf",
+   "r3": "0000000000000004",
+   "capture": {
+    "output": "0061006200630064cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "value": 4
+    },
+    {
+     "pointer": "wide 63: %s",
+     "offset": 776
+    },
+    {
+     "pointer": "wide 64: abcd",
+     "offset": 784
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "_snwprintf limit 4 \"%s\" abcde",
+   "export": "_snwprintf",
+   "r3": "00000000FFFFFFFF",
+   "capture": {
+    "output": "0061006200630064cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "value": 4
+    },
+    {
+     "pointer": "wide 65: %s",
+     "offset": 800
+    },
+    {
+     "pointer": "wide 66: abcde",
+     "offset": 808
+    }
+   ]
+  },
+  {
+   "scenario": "sprintf family",
+   "name": "_snwprintf limit 2 \"%d\" 12345",
+   "export": "_snwprintf",
+   "r3": "00000000FFFFFFFF",
+   "capture": {
+    "output": "00310032cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+   },
+   "args": [
+    {
+     "pointer": "output",
+     "offset": 0
+    },
+    {
+     "value": 2
+    },
+    {
+     "pointer": "wide 67: %d",
+     "offset": 824
+    },
+    {
+     "value": 12345
+    }
+   ]
+  }
+ ]
+}
