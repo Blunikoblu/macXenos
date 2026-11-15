@@ -9,7 +9,7 @@ Metal renderer. The 77 games added since were each tested between November 9
 and 13 on one or both of those Macs. The M1 Max column is from an M1 Max
 MacBook Pro with 32 GB, in runs between November 5 and 14, also at 1x. The M5
 Max column is from an M5 Max Mac Studio, which has only been measured in a few
-games so far; the 14 games added on November 15 have been measured only on
+games so far; the 17 games added on November 15 have been measured only on
 that Mac. A dash means that Mac has no measurement for the game yet.
 
 **"Test reaches" is only how far the automated test goes, not how far the
