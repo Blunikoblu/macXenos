@@ -9,10 +9,26 @@
 
 #include "xenia/kernel/util/object_table.h"
 
+#include <unordered_set>
+
 #include "xenia/base/byte_stream.h"
+#include "xenia/base/cvar.h"
 #include "xenia/base/logging.h"
+#include "xenia/cpu/thread_state.h"
 #include "xenia/kernel/xobject.h"
 #include "xenia/kernel/xthread.h"
+
+// The console resolves a handle only when its high byte names the table
+// (0xF8 for a title's handles) and its index is allocated; anything else is
+// STATUS_INVALID_HANDLE (MvC2's loader waited on C0000008, an NTSTATUS stored
+// as a handle). The old lookup masked the high bits off, so a garbage value
+// whose low bits matched a live handle resolved to that object.
+DEFINE_bool(strict_handle_lookup, true,
+            "Resolve a handle only when it is exactly the value the kernel "
+            "handed out (as the console does); a garbage value whose low bits "
+            "match a live handle is an invalid handle. false = the old "
+            "lookup, which masked the high bits off.",
+            "Kernel");
 
 namespace xe {
 namespace kernel {
@@ -300,6 +316,35 @@ ObjectTable::ObjectTableEntry* ObjectTable::LookupTable(X_HANDLE handle) {
   return LookupTableInLock(handle);
 }
 
+bool ObjectTable::AcceptHandleInLock(X_HANDLE handle, uint32_t slot,
+                                     bool host,
+                                     const ObjectTableEntry& entry) {
+  if (!cvars::strict_handle_lookup) {
+    return true;
+  }
+  if (!entry.object) {
+    // A free slot: invalid either way.
+    return false;
+  }
+  if (IsCanonicalHandle(handle, slot, host, entry.object->type())) {
+    return true;
+  }
+  // The old lookup would have resolved this value to the slot's live object.
+  // Log each distinct value once: these are the places a garbage handle was
+  // hidden.
+  static std::unordered_set<uint32_t> logged;
+  if (logged.size() < 256 && logged.insert(handle).second) {
+    auto* thread_state = cpu::ThreadState::Get();
+    XELOGW(
+        "ObjectTable: invalid handle {:08X} rejected (the old lookup resolved "
+        "it to {:08X}, {}) lr={:08X}",
+        handle, CanonicalHandle(slot, host, entry.object->type()),
+        typeid(*entry.object).name(),
+        thread_state ? uint32_t(thread_state->context()->lr) : 0u);
+  }
+  return false;
+}
+
 ObjectTable::ObjectTableEntry* ObjectTable::LookupTableInLock(X_HANDLE handle) {
   handle = TranslateHandle(handle);
   if (!handle) {
@@ -308,15 +353,18 @@ ObjectTable::ObjectTableEntry* ObjectTable::LookupTableInLock(X_HANDLE handle) {
 
   const bool is_host_object = XObject::is_handle_host_object(handle);
   uint32_t slot = GetHandleSlot(handle, is_host_object);
+  ObjectTableEntry* entry = nullptr;
   if (is_host_object) {
-    if (slot <= host_table_capacity_) {
-      return &host_table_[slot];
+    if (slot < host_table_capacity_) {
+      entry = &host_table_[slot];
     }
-  } else if (slot <= table_capacity_) {
-    return &table_[slot];
+  } else if (slot < table_capacity_) {
+    entry = &table_[slot];
   }
-
-  return nullptr;
+  if (entry && !AcceptHandleInLock(handle, slot, is_host_object, *entry)) {
+    return nullptr;
+  }
+  return entry;
 }
 
 // Generic lookup
@@ -346,13 +394,15 @@ XObject* ObjectTable::LookupObject(X_HANDLE handle, bool already_locked) {
   if (is_host_object) {
     if (slot < host_table_capacity_) {
       ObjectTableEntry& entry = host_table_[slot];
-      if (entry.object) {
+      if (entry.object &&
+          AcceptHandleInLock(handle, slot, is_host_object, entry)) {
         object = entry.object;
       }
     }
   } else if (slot < table_capacity_) {
     ObjectTableEntry& entry = table_[slot];
-    if (entry.object) {
+    if (entry.object &&
+        AcceptHandleInLock(handle, slot, is_host_object, entry)) {
       object = entry.object;
     }
   }

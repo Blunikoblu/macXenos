@@ -99,6 +99,33 @@ class ObjectTable {
     handle &= host ? ~XObject::kHandleHostBase : ~XObject::kHandleBase;
     return handle >> 2;
   }
+
+ public:
+  // The one value a slot's handle carries, as AddHandle builds it: the guest
+  // table's 0xF8 high byte (none for sockets, which titles use as small
+  // descriptors), or the host table's 0x01. The low two bits are tag bits
+  // that the console ignores.
+  static constexpr X_HANDLE CanonicalHandle(uint32_t slot, bool host,
+                                            XObject::Type type) {
+    return (slot << 2) +
+           (host ? XObject::kHandleHostBase
+                 : (type == XObject::Type::Socket ? 0u
+                                                  : XObject::kHandleBase));
+  }
+  static constexpr bool IsCanonicalHandle(X_HANDLE handle, uint32_t slot,
+                                          bool host, XObject::Type type) {
+    return (handle & ~3u) == CanonicalHandle(slot, host, type);
+  }
+
+ private:
+  // Strict lookups (cvar strict_handle_lookup) resolve only a value equal to
+  // the slot's canonical handle. A value that merely shares its low bits with
+  // a live handle (an NTSTATUS stored as a handle, a stale small integer)
+  // is an invalid handle, as on the console, instead of the slot's object.
+  // Returns false when the value is rejected; logs a rejection that the old
+  // masking lookup would have resolved to a live object.
+  bool AcceptHandleInLock(X_HANDLE handle, uint32_t slot, bool host,
+                          const ObjectTableEntry& entry);
   X_STATUS FindFreeSlot(uint32_t* out_slot, bool host);
   bool Resize(uint32_t new_capacity, bool host);
 
