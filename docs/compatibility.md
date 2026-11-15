@@ -132,7 +132,7 @@ smoother.
 | LEGO Indiana Jones: The Original Adventures | The Lost Temple, first control | – | 60 | 60 |  |
 | LEGO Indiana Jones 2: The Adventure Continues | The college hub | – | – | 60 |  |
 | LEGO Star Wars II | Mos Eisley Cantina | 60 | 60 | 60 |  |
-| Lost Planet: Colonies | Mission 1, the hangar | 47 | 30 | 50 | A late beta of the game. Runs above 30 on the M4 mini, not yet explained. Rarely crashes in play |
+| Lost Planet: Colonies | Mission 1, the hangar | 47 | 30 | 50 | A late beta of the game. Runs above 30 on the M4 mini and M1 Max, not yet explained. Rarely crashes in play |
 | Madden NFL 10 | The coin toss, then the first play call or the kickoff | 30 | – | – | The test ends on the play call (30) or the kickoff (60), depending on the coin toss. Large dark shapes cut across the pre-game shots and the sky is blocky noise |
 | Madden NFL 13 | Play Now, CPU vs CPU | – | – | 60 | Large flat shapes can cover much of the screen during plays |
 | Madden NFL 15 | Play Now, CPU vs CPU | 60 | – | – |  |
