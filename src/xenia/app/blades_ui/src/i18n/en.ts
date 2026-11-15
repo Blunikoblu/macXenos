@@ -149,7 +149,7 @@ export const en = {
   "graphics.experimental.on": "On",
   "graphics.experimental.off": "Off",
   "graphics.serialize.heading": "Workaround: colour flashes (slower)",
-  "graphics.serialize.body": "Lets the GPU finish its pending work before the game is told a frame is done. This removes the brief whole-screen colour flashes in Rise of the Tomb Raider while we look for their cause.",
+  "graphics.serialize.body": "Lets the GPU finish its pending work before the game is told a frame is done. Try it if a game shows brief whole-screen colour flashes.",
   "graphics.serialize.label": "Wait for the GPU before signalling the game",
   "graphics.serialize.aside": "Costs frame rate on M1 and M2 Macs: on an M1 Max, Tomb Raider drops from 30 to about 22 fps. M4 Macs stay at the game's cap. Leave it off unless a game flashes.",
   "controller.vibration.body": "Rumble when the game asks for it. It pauses while the dashboard is open over a game, as the console's Guide did.",
