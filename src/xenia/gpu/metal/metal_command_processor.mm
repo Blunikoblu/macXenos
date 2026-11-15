@@ -4816,6 +4816,7 @@ void MetalCommandProcessor::OnLazyRead(uint32_t physical_address_start,
     }
   }
   if (access == Memory::PhysicalAccess::kDiscard) {
+    GuestRamWatchNote("lazy_discard", physical_address_start, length);
     lazy_publication_.DropRange(physical_address_start, length);
     return;
   }
@@ -5128,6 +5129,11 @@ void MetalCommandProcessor::RegisterGpuResidentResolve(uint32_t base,
     playback_gpu_written_.emplace_back(base, extent_bytes);
   }
   pending_writebacks_.back().gpu_current = 1u;
+  if (GuestRamWatchOverlaps(base, extent_bytes)) {
+    XELOGW("GuestRamWatch gpu_resolve {:08X}+{:X} seq={} sub={} swap#{}",
+           base, extent_bytes, pending_writebacks_.back().authority_sequence,
+           pending_writebacks_.back().submission, swap_count_);
+  }
   NoteDiscreteProducedResolve(base, extent_bytes);
   // Mark the destination GPU-written so the shared-memory
   // validity model does not upload guest RAM over the freshly
@@ -20627,22 +20633,60 @@ metal::ProducerDrainOutcome MetalCommandProcessor::DrainPendingWritebacks(
       reassert_buffer_contents = static_cast<uint8_t*>(reassert_buffer.contents);
     }
     const uint32_t page_size = 1u << shared_memory_->validity_page_size_log2();
+    // The bytes of a pending GPU-current record the shared buffer is still
+    // the authority for. For a lazily armed record that is only the pages the
+    // lazy table still owns: a page it published on first touch (or dropped
+    // on a host overwrite) holds the same or NEWER bytes in RAM, and the
+    // guest's write there already invalidated the shared-memory page.
+    // Re-asserting the whole record re-marked such pages valid+GPU-written,
+    // so the buffer's old render-target bytes stayed authoritative over the
+    // CPU's new data for good: the Madden NFL vertex explosions (geometry
+    // loaded into memory that had been a resolve destination drew from the
+    // old pixels for the rest of the boot). Eager publication
+    // (XE_METAL_LAZY_PUBLISH=0) hid it by never leaving armed records behind.
+    // XE_METAL_LAZY_REASSERT_OWNED=0 restores the whole-record re-assert.
+    static const bool s_reassert_owned = metal::ParseMetalEnvironmentFlag(
+        std::getenv("XE_METAL_LAZY_REASSERT_OWNED"), true);
+    auto reassert_ranges = [&](const PendingWriteback& record) {
+      std::vector<std::pair<uint32_t, uint32_t>> ranges;
+      if (!s_reassert_owned || !record.lazy_armed ||
+          !lazy_read_callback_handle_) {
+        ranges.emplace_back(record.guest_addr, record.range_bytes());
+        return ranges;
+      }
+      std::vector<std::pair<uint32_t, uint32_t>> owned_pages;
+      lazy_publication_.OwnedRangesOf(record.authority_sequence, &owned_pages);
+      const uint64_t record_end =
+          uint64_t(record.guest_addr) + record.range_bytes();
+      for (const auto& [r0, rlen] : owned_pages) {
+        const uint32_t c0 = std::max(r0, record.guest_addr);
+        const uint32_t c1 =
+            uint32_t(std::min<uint64_t>(uint64_t(r0) + rlen, record_end));
+        if (c0 < c1) {
+          ranges.emplace_back(c0, c1 - c0);
+        }
+      }
+      return ranges;
+    };
     auto refresh_foreign_fragment = [&](uint32_t frag_start,
                                         uint32_t frag_end) {
       if (!reassert_buffer_contents || frag_end <= frag_start) {
         return;
       }
       // Collect spans of the fragment owned by OTHER pending GPU producers.
+      // A lazily armed record owns only the pages the lazy table still holds
+      // for it (reassert_ranges above): RAM is the authority elsewhere.
       std::vector<std::pair<uint32_t, uint32_t>> owned;
       for (const PendingWriteback& other : pending_writebacks_) {
         if (!other.gpu_current) {
           continue;
         }
-        uint32_t o0 = std::max(frag_start, other.guest_addr);
-        uint32_t o1 = std::min(frag_end, other.guest_addr +
-                                             other.range_bytes());
-        if (o0 < o1) {
-          owned.emplace_back(o0, o1);
+        for (const auto& [r0, rlen] : reassert_ranges(other)) {
+          uint32_t o0 = std::max(frag_start, r0);
+          uint32_t o1 = std::min(frag_end, r0 + rlen);
+          if (o0 < o1) {
+            owned.emplace_back(o0, o1);
+          }
         }
       }
       for (const PendingMemexport& other : pending_memexports_) {
@@ -20690,8 +20734,20 @@ metal::ProducerDrainOutcome MetalCommandProcessor::DrainPendingWritebacks(
           // for this record already fired at its creation-time marking, and
           // re-firing per drain tore down resolved-target bridges every
           // frame (probe #4: 143,725 vs 13,219 slot registrations).
-          shared_memory_->ReassertGpuWritten(pending.guest_addr,
-                                             pending.range_bytes());
+          const auto ranges = reassert_ranges(pending);
+          if (GuestRamWatchOverlaps(pending.guest_addr, pending.range_bytes())) {
+            std::string list;
+            for (const auto& [r0, rlen] : ranges) {
+              list += fmt::format(" {:08X}+{:X}", r0, rlen);
+            }
+            XELOGW("GuestRamWatch reassert seq={} {:08X}+{:X} armed={} "
+                   "ranges:{}",
+                   pending.authority_sequence, pending.guest_addr,
+                   pending.range_bytes(), pending.lazy_armed, list);
+          }
+          for (const auto& [r0, rlen] : ranges) {
+            shared_memory_->ReassertGpuWritten(r0, rlen);
+          }
           break;
         }
       }
@@ -21708,6 +21764,60 @@ void MetalCommandProcessor::IssueSwap(uint32_t frontbuffer_ptr,
       for (size_t i = 0; i < ranges.size() && i < 4; ++i) {
         XELOGW("MetalStaleScan   {:08X}: {}", ranges[i].first,
                memory_->DescribePhysicalWatch(ranges[i].first));
+      }
+      // XE_METAL_STALE_SCAN_GPU=1: also compare the valid + GPU-written pages
+      // the base scan skips, classified by whether a pending producer or the
+      // lazy table still accounts for the difference. A differing page that
+      // neither owns is RAM and the buffer disagreeing with nobody to
+      // reconcile them.
+      static const bool s_stale_gpu =
+          std::getenv("XE_METAL_STALE_SCAN_GPU") != nullptr;
+      if (s_stale_gpu) {
+        const uint32_t shift = shared_memory_->validity_page_size_log2();
+        const uint32_t page_size = 1u << shift;
+        const uint8_t* mirror = static_cast<const uint8_t*>(buffer.contents);
+        uint32_t gpu_pages = 0, differ_owned = 0, differ_pending = 0,
+                 differ_orphan = 0;
+        std::string orphans;
+        for (uint32_t page = 0; page < (SharedMemory::kBufferSize >> shift);
+             ++page) {
+          if (!shared_memory_->IsPageValid(page) ||
+              !shared_memory_->IsPageGpuWritten(page)) {
+            continue;
+          }
+          ++gpu_pages;
+          const uint32_t address = page << shift;
+          const uint8_t* ram =
+              memory_->TranslatePhysical<const uint8_t*>(address);
+          if (!ram || !std::memcmp(ram, mirror + address, page_size)) {
+            continue;
+          }
+          if (lazy_publication_.OwnsAny(address, page_size)) {
+            ++differ_owned;
+          } else if (shared_memory_->AnyPendingGpuProducerSpan(address,
+                                                               page_size)) {
+            ++differ_pending;
+          } else {
+            ++differ_orphan;
+            if (orphans.size() < 600) {
+              uint32_t first = 0;
+              while (first < page_size && ram[first] == mirror[address + first]) {
+                ++first;
+              }
+              uint32_t ram_word = 0, buf_word = 0;
+              std::memcpy(&ram_word, ram + (first & ~3u), 4);
+              std::memcpy(&buf_word, mirror + address + (first & ~3u), 4);
+              orphans += fmt::format(" {:08X}(+{:X} ram={:08X} buf={:08X})",
+                                     address, first, xe::byte_swap(ram_word),
+                                     xe::byte_swap(buf_word));
+            }
+          }
+        }
+        XELOGW(
+            "MetalStaleScanGpu swap={} gpu_pages={} differ_owned={} "
+            "differ_pending={} differ_orphan={}{}",
+            s_stale_swaps, gpu_pages, differ_owned, differ_pending,
+            differ_orphan, orphans);
       }
       if (s_stale_fix) {
         for (const auto& [start, end] : ranges) {
