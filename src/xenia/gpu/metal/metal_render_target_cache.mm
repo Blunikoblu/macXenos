@@ -7139,6 +7139,22 @@ void* MetalRenderTargetCache::EnsureResolveSnapshot(uint32_t dest_base,
   return EnsureSnapshotTexture(key, width, height, pixel_format);
 }
 
+namespace {
+// Guest bytes per texel of a resolve snapshot's rows in guest memory: the
+// 64 bpp destinations (16_16_16_16 and its float form) are 8, everything
+// else a snapshot is made for is 4.
+uint32_t SnapshotGuestBytesPerTexel(uint64_t pixel_format) {
+  switch (MTLPixelFormat(pixel_format)) {
+    case MTLPixelFormatRGBA16Float:
+    case MTLPixelFormatRGBA16Unorm:
+    case MTLPixelFormatRGBA16Snorm:
+      return 8;
+    default:
+      return 4;
+  }
+}
+}  // namespace
+
 void MetalRenderTargetCache::NoteSnapshotStripContinuation(
     uint32_t dest_base, uint32_t width, uint32_t height,
     uint64_t pixel_format) {
@@ -7157,14 +7173,15 @@ void MetalRenderTargetCache::NoteSnapshotStripContinuation(
         snap.pixel_format != pixel_format || snap.width != width) {
       continue;
     }
-    // The same 4-byte row layout FindContainingSnapshot assumes. The strip
+    // The same row layout FindContainingSnapshot assumes. The strip
     // starts a whole number of rows into the snapshot, at its end or inside
     // rows a 1280-wide snapshot was only padded to (720): Burnout Paradise's
     // three 1280x640 shadow cascades, sampled as one 1280x1920 texture,
     // put the second at row 640 of the first's 720-row snapshot, where it
     // did not fit and became its own snapshot; the fetch saw 720 rows.
     const uint32_t snap_base = uint32_t(pair.first >> 1);
-    const uint64_t row_bytes = uint64_t(snap.width) * 4;
+    const uint64_t row_bytes =
+        uint64_t(snap.width) * SnapshotGuestBytesPerTexel(snap.pixel_format);
     if (dest_base <= snap_base || (dest_base - snap_base) % row_bytes) {
       continue;
     }
@@ -7758,7 +7775,13 @@ void* MetalRenderTargetCache::FindContainingSnapshot(
     if (!snap.texture || dest_base <= snap_base) {
       continue;
     }
-    uint32_t row_bytes = snap.width * 4;
+    // Rows are 8 guest bytes per texel for the 64 bpp formats. With 4
+    // assumed for those, Gears of War's 1280x208 RGBA16F strip (the bottom
+    // of its 1280x720 scene copy, written right after the 1280x512 one) was
+    // not found inside its parent, became its own snapshot, and a 2x fetch
+    // of the whole copy showed stale rows below 512.
+    uint32_t row_bytes =
+        snap.width * SnapshotGuestBytesPerTexel(snap.pixel_format);
     uint32_t extent = row_bytes * snap.height;
     uint32_t offset = dest_base - snap_base;
     if (offset < extent && (offset % row_bytes) == 0) {
