@@ -1,0 +1,7 @@
+# macXenos built-in per-title config: Project Gotham Racing 4 (4D5307F9).
+# The game plays its race soundtrack and the playlist preview through the
+# console's music player (XMP title playlists), which is off by default
+# (enable_xmp). With it off both are silent.
+# (GitHub issue 3; xenia-mac-evidence issues-20261113/issue3)
+[APU]
+enable_xmp = true

@@ -173,9 +173,13 @@ void AudioMediaPlayer::WorkerThreadMain() {
 }
 
 void AudioMediaPlayer::Setup() {
-  if (!cvars::enable_xmp) {
+  // Called at emulator setup and again once the title's config has loaded
+  // (Emulator::CompleteLaunch), so enable_xmp in a per-title config starts
+  // the player too.
+  if (!cvars::enable_xmp || worker_thread_) {
     return;
   }
+  XELOGI("AudioMediaPlayer: music player enabled");
 
   // sample_buffer_ptr_ = kernel_state_->memory()->SystemHeapAlloc(
   //     xe::apu::AudioDriver::kFrameSamplesMax);
@@ -242,6 +246,9 @@ void AudioMediaPlayer::Play() {
 
   state_ = XmpApp::State::kPlaying;
   current_song_handle_ = active_song_->handle;
+  XELOGI("AudioMediaPlayer: playing song {:08X} ({} Hz, {} channels)",
+         uint32_t(current_song_handle_), codecContext->sample_rate,
+         codecContext->ch_layout.nb_channels);
   OnStateChanged();
 
   if (volume_ == 0.0f) {

@@ -1025,6 +1025,15 @@
 "description": "With scanline_counter_from_time off, never report a visible display line: the old counter lands on one about every 23rd vblank, and a game whose frame limiter waits on the counter then stalls for two vblanks (Mafia II: a 33 ms frame 2.6 times a second). For games run uncapped that way; a game that waits for a visible line would hang with it.",
 "changed": false
 },
+"scanline_counter_from_time": {
+"name": "scanline_counter_from_time",
+"category": "GPU",
+"type": "bool",
+"value": true,
+"defaultValue": true,
+"description": "Report the display scanline counter (D1MODE_V_COUNTER) from the time since the last vblank, as the hardware does. Off restores the old counter, which only advances once per frame-pacing step: some games' own frame limiters then never wait (Mafia II runs uncapped instead of at 30), and video players that poll it for vblank crawl (WALL-E's videos at 2.6 FPS).",
+"changed": false
+},
 "gpu_allow_invalid_fetch_constants": {
 "name": "gpu_allow_invalid_fetch_constants",
 "category": "GPU",
@@ -1896,6 +1905,15 @@
 "value": "guide",
 "defaultValue": "guide",
 "description": "Controller button that opens Preferences: guide (a tap of Guide on its own), back_start (Back and Start together) or none.",
+"changed": false
+},
+"postprocess_antialiasing": {
+"name": "postprocess_antialiasing",
+"category": "Display",
+"type": "string",
+"value": "",
+"defaultValue": "",
+"description": "Post-processing anti-aliasing effect to apply to the image output of the game, at the internal resolution, before it is scaled to the window.\nUse: [none, fxaa, fxaa_extreme]\n none (or any value not listed here):\n  Don't alter the original image.\n fxaa:\n  NVIDIA Fast Approximate Anti-Aliasing 3.11, normal quality preset (12).\n fxaa_extreme:\n  NVIDIA Fast Approximate Anti-Aliasing 3.11, extreme quality preset (39).",
 "changed": false
 },
 "postprocess_scaling_and_sharpening": {

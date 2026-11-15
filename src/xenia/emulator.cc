@@ -2216,6 +2216,13 @@ X_STATUS Emulator::CompleteLaunch(const std::filesystem::path& path,
     }
     game_config_load_callback_loop_next_index_ = SIZE_MAX;
 
+    // enable_xmp from the title's config: the player's Setup at emulator
+    // setup ran before this file was read (PGR3 and PGR4 play their race
+    // music through the player).
+    if (audio_media_player_) {
+      audio_media_player_->Setup();
+    }
+
     // Per-title ahead-of-time compiles (jit_precompile_functions).
     if (!cvars::jit_precompile_functions.empty()) {
       uint32_t compiled = 0, requested = 0;
