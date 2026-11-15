@@ -14,6 +14,7 @@
 #include <string>
 
 #include "xenia/app/profile_dialogs.h"
+#include "xenia/app/recent_titles.h"
 #include "xenia/emulator.h"
 #include "xenia/gpu/command_processor.h"
 #include "xenia/ui/imgui_dialog.h"
@@ -32,14 +33,6 @@ namespace app {
 class BladesModel;
 class BladesOverlay;
 class GameLibrary;
-
-struct RecentTitleEntry {
-  std::string title_name;
-  std::filesystem::path path_to_file;
-  std::time_t last_run_time;
-  // 0 for entries recorded before title IDs were kept.
-  uint32_t title_id = 0;
-};
 
 class EmulatorWindow {
   // The Preferences blades read and change emulator state through the same
