@@ -1,0 +1,8 @@
+# macXenos built-in per-title config: Call of Duty: Black Ops (41560855).
+# The same IW-engine texture streaming as Modern Warfare 2 and Ghosts: streamed
+# texture data is copied into the texture pool by vertex shaders that also
+# rasterize, an export class that is off by default. Without it the characters
+# and props of the first mission (the bar in Havana) are colour noise
+# (2026-11-15, M5 Max; clean with it on).
+[GPU]
+metal_memexport_raster = true
