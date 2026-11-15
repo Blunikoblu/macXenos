@@ -2938,20 +2938,11 @@ void EmulatorWindow::AddRecentlyLaunchedTitle(
     return;
   }
 
-  // Check if game is already on list and pop it to front
-  auto entry_index = std::find_if(recently_launched_titles_.cbegin(),
-                                  recently_launched_titles_.cend(),
-                                  [&title_name](const RecentTitleEntry& entry) {
-                                    return entry.title_name == title_name;
-                                  });
-  if (entry_index != recently_launched_titles_.cend()) {
-    recently_launched_titles_.erase(entry_index);
-  }
-
+  // To the front, in place of what the history held under this name or for
+  // this file (recent_titles.h).
   const uint32_t title_id = emulator_->title_id();
-  recently_launched_titles_.insert(
-      recently_launched_titles_.cbegin(),
-      {title_name, path_to_file, time(nullptr), title_id});
+  RecordRecentTitle(&recently_launched_titles_,
+                    {title_name, path_to_file, time(nullptr), title_id});
   // Keep the game's icon for the dashboard.
   if (title_id && emulator_->game_info_database()) {
     const std::vector<uint8_t> icon =
