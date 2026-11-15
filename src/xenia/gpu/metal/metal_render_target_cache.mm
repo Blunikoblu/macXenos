@@ -196,11 +196,18 @@ NSUInteger GetCanonicalRangeTextureRowStart(
 MTLCompileOptions* EdramMslCompileOptions(uint32_t tile_width_samples,
                                           uint32_t tile_height_samples) {
   MTLCompileOptions* options = [[MTLCompileOptions alloc] init];
+  // XE_METAL_RESOLVE_AVERAGE_FLOAT=1: resolves average 8_8_8_8 samples in
+  // float, as before the console's rule was measured (exact rollback).
+  static const bool average_float = [] {
+    const char* v = std::getenv("XE_METAL_RESOLVE_AVERAGE_FLOAT");
+    return v && v[0] == '1' && !v[1];
+  }();
   options.preprocessorMacros = @{
     @"XE_EDRAM_TILE_WIDTH_SAMPLES" :
         [NSString stringWithFormat:@"%uu", tile_width_samples],
     @"XE_EDRAM_TILE_HEIGHT_SAMPLES" :
         [NSString stringWithFormat:@"%uu", tile_height_samples],
+    @"XE_RESOLVE_AVERAGE_FLOAT" : average_float ? @"1" : @"0",
   };
   return options;
 }
