@@ -86,7 +86,8 @@ Under **Controller** you can:
 
 - choose which player each controller is,
 - remap buttons on a picture of the pad,
-- adjust vibration and stick dead zones,
+- adjust vibration, stick dead zones and anti-dead zones (for games whose
+  own dead zone makes the stick feel dead in the middle),
 - choose how to open the dashboard (**Dashboard shortcut**: tap Guide, or
   hold Back + Start).
 

@@ -1,5 +1,5 @@
 import type { BladeDef } from "../ui/blade";
-import { send, useNative, type NativeState } from "../native";
+import { send, setCvar, useNative, type NativeState } from "../native";
 import {
   NextLaunchNote,
   Options,
@@ -7,6 +7,7 @@ import {
   Toggle,
   Value,
   announceSetting,
+  useCvar,
   type Option
 } from "../ui/settings-controls";
 import { Aside, PaneAction } from "./parts";
@@ -46,6 +47,46 @@ const INPUT_SYSTEMS: Option[] = [
 ];
 
 const percent = (value: number) => `${Math.round(value * 100)}%`;
+
+// Anti-dead zone presets: off, a mild one, and the console's own dead zones
+// for the left stick (7849 of 32767) and the right (8689), which most games
+// use as they are.
+const ANTI_DEADZONE_PRESETS = [0, 0.15, 0.24, 0.27];
+
+/** One stick's anti-dead zone: the presets, or a slider for any other value. */
+function AntiDeadzone({
+  name,
+  title
+}: {
+  name: "left_stick_anti_deadzone_percentage" | "right_stick_anti_deadzone_percentage";
+  title: string;
+}) {
+  const value = Number(useCvar(name)?.value ?? 0);
+  const preset = ANTI_DEADZONE_PRESETS.find((p) => Math.abs(p - value) < 0.0005);
+  // -1 stands for Custom.
+  const choice = preset ?? -1;
+  return (
+    <>
+      <Options
+        name={name}
+        title={title}
+        options={[
+          ...ANTI_DEADZONE_PRESETS.map((p) => ({ value: p, label: p === 0 ? t("controller.antiDeadzone.off") : percent(p) })),
+          { value: -1, label: t("controller.antiDeadzone.custom") }
+        ]}
+        current={choice}
+        onChoose={(chosen) => {
+          const picked = Number(chosen);
+          if (picked >= 0) setCvar(name, picked);
+          // Custom keeps a value already off the presets; otherwise it
+          // starts between the mild preset and the console's.
+          else if (preset !== undefined) setCvar(name, 0.2);
+        }}
+      />
+      {choice === -1 ? <Slider name={name} title={title} min={0.01} max={0.5} step={0.01} format={percent} /> : null}
+    </>
+  );
+}
 
 /** Each pad that is plugged in, and which player it plays as. */
 function Controllers() {
@@ -323,6 +364,28 @@ export function controller(_state: NativeState): BladeDef {
               max={0.5}
               step={0.01}
               format={percent}
+            />
+          </>
+        )
+      },
+      {
+        id: "anti-deadzones",
+        label: t("controller.antiDeadzone.label"),
+        glyph: "target",
+        heading: t("controller.antiDeadzone.label"),
+        detail: (
+          <>
+            <p>{t("controller.antiDeadzone.body")}</p>
+            <Aside>{t("controller.antiDeadzone.hint")}</Aside>
+            <p className="pref-group">{t("controller.antiDeadzone.left")}</p>
+            <AntiDeadzone
+              name="left_stick_anti_deadzone_percentage"
+              title={t("controller.antiDeadzone.leftTitle")}
+            />
+            <p className="pref-group">{t("controller.antiDeadzone.right")}</p>
+            <AntiDeadzone
+              name="right_stick_anti_deadzone_percentage"
+              title={t("controller.antiDeadzone.rightTitle")}
             />
           </>
         )

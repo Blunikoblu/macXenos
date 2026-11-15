@@ -290,6 +290,15 @@ export const en = {
   "soundOffer.credit.from": ", from {site}",
 
   // --- All Games ---------------------------------------------------------------
+  "controller.antiDeadzone.label": "Anti-dead zones",
+  "controller.antiDeadzone.body": "Many games ignore the first part of a stick’s travel themselves, which feels like a dead middle on a stick that does not drift. An anti-dead zone reports the smallest movement as already past that, so the game answers at once.",
+  "controller.antiDeadzone.hint": "Most games ignore about 24% on the left stick and 27% on the right. If the camera or your character moves on its own, the value is above the game’s own dead zone: lower it.",
+  "controller.antiDeadzone.left": "Left stick",
+  "controller.antiDeadzone.right": "Right stick",
+  "controller.antiDeadzone.leftTitle": "Left stick anti-dead zone",
+  "controller.antiDeadzone.rightTitle": "Right stick anti-dead zone",
+  "controller.antiDeadzone.off": "Off",
+  "controller.antiDeadzone.custom": "Custom",
   "allGames.title": "All Games",
   "allGames.tab": "game library",
   "allGames.tab.player": "{name}’s game library",
