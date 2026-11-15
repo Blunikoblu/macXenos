@@ -1424,6 +1424,29 @@ inline float4 xe_resolve_color_finish(float4 value,
   }
   return value.bgra;
 }
+// Averaging the samples of an 8_8_8_8 target, as the console does it
+// (docs/dev/xbox_hardware_tests.md, gpu_rounding: 112 of 112 cases, and no
+// other width fits): each byte is widened to 10 bits by repeating its top
+// bits, the sum is divided with truncation, and the top 8 bits are kept. A
+// half-covered white edge is 0x7F, not 0x80. Other formats average as
+// before. XE_METAL_RESOLVE_AVERAGE_FLOAT=1 restores the float average.
+#ifndef XE_RESOLVE_AVERAGE_FLOAT
+#define XE_RESOLVE_AVERAGE_FLOAT 0
+#endif
+inline float4 xe_resolve_sample_term(float4 color, uint color_format) {
+  if (color_format != 0u || XE_RESOLVE_AVERAGE_FLOAT != 0) {
+    return color;
+  }
+  float4 bytes = round(saturate(color) * 255.0);
+  return bytes * 4.0 + floor(bytes * (1.0 / 64.0));
+}
+inline float4 xe_resolve_sample_mean(float4 sum, float count,
+                                     uint color_format) {
+  if (color_format != 0u || XE_RESOLVE_AVERAGE_FLOAT != 0) {
+    return sum / count;
+  }
+  return floor(floor(sum / count) * 0.25) / 255.0;
+}
 inline float4 xe_resolve_color_value(device const uint* canonical,
                                      constant CanonicalResolveParams& p,
                                      uint2 source) {
@@ -1435,21 +1458,32 @@ inline float4 xe_resolve_color_value(device const uint* canonical,
       value = xe_resolve_read_color(canonical, p, source, p.sample_select);
       break;
     case 4u:
-      value = (xe_resolve_read_color(canonical, p, source, 0u) +
-               xe_resolve_read_color(canonical, p, source, 1u)) *
-              0.5;
+      value = xe_resolve_sample_mean(
+          xe_resolve_sample_term(
+              xe_resolve_read_color(canonical, p, source, 0u), p.color_format) +
+          xe_resolve_sample_term(
+              xe_resolve_read_color(canonical, p, source, 1u), p.color_format),
+          2.0, p.color_format);
       break;
     case 5u:
-      value = (xe_resolve_read_color(canonical, p, source, 2u) +
-               xe_resolve_read_color(canonical, p, source, 3u)) *
-              0.5;
+      value = xe_resolve_sample_mean(
+          xe_resolve_sample_term(
+              xe_resolve_read_color(canonical, p, source, 2u), p.color_format) +
+          xe_resolve_sample_term(
+              xe_resolve_read_color(canonical, p, source, 3u), p.color_format),
+          2.0, p.color_format);
       break;
     case 6u:
-      value = (xe_resolve_read_color(canonical, p, source, 0u) +
-               xe_resolve_read_color(canonical, p, source, 1u) +
-               xe_resolve_read_color(canonical, p, source, 2u) +
-               xe_resolve_read_color(canonical, p, source, 3u)) *
-              0.25;
+      value = xe_resolve_sample_mean(
+          xe_resolve_sample_term(
+              xe_resolve_read_color(canonical, p, source, 0u), p.color_format) +
+          xe_resolve_sample_term(
+              xe_resolve_read_color(canonical, p, source, 1u), p.color_format) +
+          xe_resolve_sample_term(
+              xe_resolve_read_color(canonical, p, source, 2u), p.color_format) +
+          xe_resolve_sample_term(
+              xe_resolve_read_color(canonical, p, source, 3u), p.color_format),
+          4.0, p.color_format);
       break;
     default:
       value = xe_resolve_read_color(canonical, p, source, 0u);
@@ -2044,23 +2078,26 @@ inline uint xe_direct_word_ms(texture2d_ms<float, access::read> t,
         value = xe_direct_read_color_##SUFFIX(t, p, rt_format, source,         \
                                               p.sample_select);                \
         break;                                                                 \
-      case 4u:                                                                 \
-        value = (xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 0u) +  \
-                 xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 1u)) * \
-                0.5;                                                           \
-        break;                                                                 \
-      case 5u:                                                                 \
-        value = (xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 2u) +  \
-                 xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 3u)) * \
-                0.5;                                                           \
-        break;                                                                 \
-      case 6u:                                                                 \
-        value = (xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 0u) +  \
-                 xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 1u) +  \
-                 xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 2u) +  \
-                 xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 3u)) * \
-                0.25;                                                          \
-        break;                                                                 \
+      case 4u: \
+        value = xe_resolve_sample_mean( \
+            xe_resolve_sample_term(xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 0u), p.color_format) + \
+            xe_resolve_sample_term(xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 1u), p.color_format), \
+            2.0, p.color_format); \
+        break; \
+      case 5u: \
+        value = xe_resolve_sample_mean( \
+            xe_resolve_sample_term(xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 2u), p.color_format) + \
+            xe_resolve_sample_term(xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 3u), p.color_format), \
+            2.0, p.color_format); \
+        break; \
+      case 6u: \
+        value = xe_resolve_sample_mean( \
+            xe_resolve_sample_term(xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 0u), p.color_format) + \
+            xe_resolve_sample_term(xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 1u), p.color_format) + \
+            xe_resolve_sample_term(xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 2u), p.color_format) + \
+            xe_resolve_sample_term(xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 3u), p.color_format), \
+            4.0, p.color_format); \
+        break; \
       default:                                                                 \
         value = xe_direct_read_color_##SUFFIX(t, p, rt_format, source, 0u);    \
         break;                                                                 \
