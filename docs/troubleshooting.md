@@ -47,9 +47,10 @@ game starts; the pane says so when that's the case.
      videos stay a flat green. *Auto* turns it on for the games known to need
      it. If something is missing or stuck on one colour, try *On*. It costs
      some speed, so go back to *Auto* if it doesn't help.
-   - **Wait for the GPU before signalling the game** removes brief
-     whole-screen colour flashes, as seen in Rise of the Tomb Raider. It costs
-     frame rate on M1 and M2 Macs, so leave it off unless a game flashes.
+   - **Wait for the GPU before signalling the game** can remove brief
+     whole-screen colour flashes. It costs frame rate on M1 and M2 Macs, so
+     leave it off unless a game flashes. (Rise of the Tomb Raider's flashes
+     had a different cause and are fixed without this switch.)
    - **The six switches above those** are speed shortcuts in the Metal
      renderer, all on by default. If a glitch appeared after an update, turn
      them off one at a time and restart the game after each. If one makes the
