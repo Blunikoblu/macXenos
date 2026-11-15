@@ -107,7 +107,7 @@ smoother.
 | FIFA 16 | Kick Off match, CPU vs CPU | 60 | 60 | 60 | – |  |
 | FIFA Street 3 | Play Now match | 60 | 60 | 60 | – | Can stall on the EA SPORTS BIG logo at start-up |
 | Fight Night Champion | Fight Now, Tyson vs Ali, CPU vs CPU | – | 30 | 30 | – | Occasionally the ring ropes show wrong colours for a whole bout |
-| Fight Night Round 4 | Fight Now, Ali vs Tyson, round 1 | 60 | 60 | 60 | – | Boxers' skin can show a foil-like sparkle, and rarely stretched geometry, for a whole session |
+| Fight Night Round 4 | Fight Now, Ali vs Tyson, round 1 | 60 | 60 | 60 | – | Boxers' skin can show a foil-like sparkle for a whole session |
 | Final Fantasy XIII | The Hanging Edge, after the first battle | 30 | 30 | 30 | – | After a Game Over and Retry in the first battle, Lightning's skin and the walkway can render wrongly |
 | Fist of the North Star: Ken's Rage | Legend Mode, first chapter fight | – | 30 | 30 | – |  |
 | Forza Horizon | Opening drive | 30 | 30 | 30 | – |  |
