@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "xenia/emulator.h"
+#include "xenia/disc_set_names.h"
 
 #include "config.h"
 #include "third_party/fmt/include/fmt/format.h"
@@ -1294,25 +1295,23 @@ bool Emulator::RestoreFromFile(const std::filesystem::path& path) {
 
 namespace {
 
-// Multi-disc dumps are named "<title> (Disc N)<suffix>.iso" side by side
-// (GTA V "(Disc 1) (Install)" beside "(Disc 2)"): the image in the launched
-// disc's folder with the same "<title> " prefix and "(Disc <disc_number>)".
+// Multi-disc dumps are named "<title> <tags> (Disc N) <tags>.iso" side by
+// side (GTA V "(Disc 1) (Install)" beside "(Disc 2)"): the image in the
+// launched disc's folder that is disc `disc_number` of the same title
+// (disc_set_names.h).
 std::filesystem::path FindSiblingDisc(const std::filesystem::path& launched,
                                       uint32_t disc_number) {
   const std::string name = xe::path_to_utf8(launched.filename());
-  const size_t disc_pos = name.find("(Disc ");
-  if (!disc_number || disc_pos == std::string::npos) {
+  if (!disc_number || !DiscNumberInName(name)) {
     return {};
   }
-  const std::string prefix = name.substr(0, disc_pos);
-  const std::string wanted = fmt::format("(Disc {})", disc_number);
   std::error_code ec;
   for (const auto& entry :
        std::filesystem::directory_iterator(launched.parent_path(), ec)) {
     const std::string candidate = xe::path_to_utf8(entry.path().filename());
-    if (candidate != name && candidate.size() > disc_pos &&
-        candidate.compare(0, disc_pos, prefix) == 0 &&
-        candidate.compare(disc_pos, wanted.size(), wanted) == 0) {
+    if (entry.path().extension() == launched.extension() &&
+        DiscNumberInName(candidate) == disc_number &&
+        IsOtherDiscOfSet(name, candidate)) {
       return entry.path();
     }
   }
@@ -1328,17 +1327,15 @@ std::vector<std::filesystem::path> Emulator::DiscSetPaths() const {
   }
   paths.push_back(launch_path_);
   const std::string name = xe::path_to_utf8(launch_path_.filename());
-  const size_t disc_pos = name.find("(Disc ");
-  if (disc_pos == std::string::npos) {
+  if (!DiscNumberInName(name)) {
     return paths;
   }
-  const std::string prefix = name.substr(0, disc_pos + 6);
   std::error_code ec;
   for (const auto& entry :
        std::filesystem::directory_iterator(launch_path_.parent_path(), ec)) {
     const std::string candidate = xe::path_to_utf8(entry.path().filename());
-    if (candidate != name && candidate.compare(0, prefix.size(), prefix) == 0 &&
-        entry.path().extension() == launch_path_.extension()) {
+    if (entry.path().extension() == launch_path_.extension() &&
+        IsOtherDiscOfSet(name, candidate)) {
       paths.push_back(entry.path());
     }
   }
