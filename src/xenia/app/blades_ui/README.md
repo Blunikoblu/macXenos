@@ -24,9 +24,12 @@ hash picks the blade and, optionally, the row: `#controller/hotkeys`.
 Home's All games opens a sub-blade (`src/ui/all-games.tsx`) that slides out
 over the dashboard, as the 360's game library did: every game in the user's
 game folders plus every game played here, with icons, achievements and
-gamerscore from the signed-in profile. X sorts it alphabetically or by most
-recently played (remembered in the page's local storage); `#all-games` opens
-it directly. Home's Game folders pane lists the folders and offers Edit
+gamerscore from the signed-in profile. X steps through four orders: most
+recently played, alphabetical, then each backwards (least recently played,
+reverse alphabetical). Y switches between the list and a grid of cards (the
+icon, the name under it, then achievements and gamerscore), where ← → ↑ ↓
+move across the cards. Both choices are remembered in the page's local
+storage; `#all-games` opens it directly. Home's Game folders pane lists the folders and offers Edit
 folders, a second sub-blade from the right (`src/ui/folder-editor.tsx`,
 `#game-folders`) that adds them and removes them on a second A, and Refresh
 folders. Both sub-blades share `src/ui/sub-blade.tsx`.
@@ -52,7 +55,7 @@ is what the app ships):
 |---|---|
 | `npm run build` | Type-checks and builds `dist/`. |
 | `npm run check` | Fails if `src/mock-cvars.json` no longer matches the emulator's `DEFINE_*` settings (fix: `npm run gen:cvars`), if the page doesn't type-check, if the dashboard's text fails its checks (see Languages), or if `dist/` isn't what the sources build to (fix: `npm run build`). |
-| `npm test` | Unit tests (`tests/*.test.mjs`), then smoke tests (`tests/smoke.mjs`): every blade opens, B and Y on the blades, the stacked legend, All Games (open, move, sort, back), Game Folders (add, two-press remove), the Game folders pane and the Dashboard sounds pane. |
+| `npm test` | Unit tests (`tests/*.test.mjs`), then smoke tests (`tests/smoke.mjs`): every blade opens, B and Y on the blades, the stacked legend, All Games (open, move, the four sort orders, the card view, back), Game Folders (add, two-press remove), the Game folders pane and the Dashboard sounds pane. |
 | `npm run screens -- record <dir>` then `compare <dir>` | Screenshots of a fixed set of states, byte for byte, for changes meant to look the same (a stylesheet refactor). Differing ones are written beside the originals. |
 
 The tests run the page on the mock in a headless Chromium (Chrome,

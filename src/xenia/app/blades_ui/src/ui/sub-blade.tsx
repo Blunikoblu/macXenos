@@ -18,8 +18,9 @@ import { playSound } from "./sound";
  * library and its system lists did. It comes from the left (All Games) or
  * from the right (Game Folders), dims the dashboard behind it, carries its
  * own tab with the signed-in player on it and a clock in its header, and
- * owns the keys while it is open: ↑ ↓ move, A chooses, B goes back, and Y
- * (day and night on the blades) does nothing here.
+ * owns the keys while it is open: ↑ ↓ move, A chooses, B goes back, and X
+ * and Y are the list's own when it has a use for them (Y never changes day
+ * and night here, as it does on the blades).
  */
 
 // --- Which one is open ------------------------------------------------------------
@@ -104,6 +105,9 @@ type SubBladeProps = {
   onActivate: (index: number) => void;
   /** X, when the list has a use for it. */
   onX?: () => void;
+  /** Y, when the list has a use for it (day and night stay with the
+      blades either way). */
+  onY?: () => void;
   /** Called whenever the highlighted row changes. */
   onFocusChange?: (index: number) => void;
   /** Starting over (a new sort order, another level of the list) at
@@ -128,6 +132,7 @@ export function SubBlade({
   count,
   onActivate,
   onX,
+  onY,
   onFocusChange,
   resetKey,
   resetFocus = 0,
@@ -236,8 +241,12 @@ export function SubBlade({
       else if (key === "PageDown") move(clamped + 6 * step);
       else if (key === "Home") move(0);
       else if (key === "End") move(count - 1);
-      else if (key === "ArrowLeft" || key === "ArrowRight" || key === "y" || key === "Y") {
-        // Nothing beside this list; day and night belong to the blades.
+      else if (key === "y" || key === "Y") {
+        // Day and night belong to the blades; here Y is the list's own, if
+        // it has a use for it.
+        if (!event.repeat) onY?.();
+      } else if (key === "ArrowLeft" || key === "ArrowRight") {
+        // Nothing beside this list.
       } else if ((key === "Enter" || key === "a" || key === "A" || key === " ") && !event.repeat) {
         if (count) {
           playSound("select");
