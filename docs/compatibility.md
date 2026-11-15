@@ -1,6 +1,6 @@
 # Game compatibility
 
-These are the games macXenos is tested with regularly: 210 of them. Each one
+These are the games macXenos is tested with regularly: 224 of them. Each one
 is started automatically, played to the point shown with a scripted
 controller, and measured for a minute. Results below are from the full runs of
 every game then on the list on November 7, 2026 on an M4 Pro Mac mini, and
@@ -9,7 +9,8 @@ Metal renderer. The 77 games added since were each tested between November 9
 and 13 on one or both of those Macs. The M1 Max column is from an M1 Max
 MacBook Pro with 32 GB, in runs between November 5 and 14, also at 1x. The M5
 Max column is from an M5 Max Mac Studio, which has only been measured in a few
-games so far. A dash means that Mac has no measurement for the game yet.
+games so far; the 14 games added on November 15 have been measured only on
+that Mac. A dash means that Mac has no measurement for the game yet.
 
 **"Test reaches" is only how far the automated test goes, not how far the
 game can be played.** Each test plays the opening of the game with a scripted
@@ -33,9 +34,12 @@ smoother.
 | Game | Test reaches | M4 mini | M4 Pro | M1 Max | M5 Max | Notes |
 | --- | --- | ---: | ---: | ---: | ---: | --- |
 | 007 Legends | Opening level | 60 | 60 | 60 | – |  |
+| 007: Blood Stone | Athens harbour, in the speedboat | – | – | – | 30 |  |
 | 007: Quantum of Solace | First level | 30 | 30 | 30 | – |  |
 | 50 Cent: Blood on the Sand | Mission 1, the opening street | 90 | 163 | 109 | – | Doesn't cap its own frame rate (see below) |
+| Ace Combat 6: Fires of Liberation | Mission 1, the take-off sequence | – | – | – | 30 |  |
 | Ace Combat: Assault Horizon | Mission 1, over Miami | 30 | 30 | 30 | – |  |
+| Afro Samurai | Village tutorial fight | – | – | – | 30 |  |
 | Alan Wake | Opening nightmare on the mountain road | 30 | 30 | 30 | – |  |
 | Assassin's Creed | The Animus tutorial crowd | 30 | 30 | 30 | – |  |
 | Assassin's Creed II | Story mode opening | 30 | 30 | 30 | – |  |
@@ -55,11 +59,17 @@ smoother.
 | Burnout Paradise | Driving in Paradise City | 60 | 59 | 60 | – |  |
 | Burnout Revenge | First World Tour event | 60 | 60 | 58 | – |  |
 | Call of Duty 2 | First mission | 60 | 60 | 60 | – |  |
+| Call of Duty 3 | Saint-Lô, the training yard | – | – | – | 60 |  |
 | Call of Duty 4: Modern Warfare | First mission, the hangar | 60 | 60 | 60 | – |  |
+| Call of Duty: Black Ops | Operation 40, the bar in Havana | – | – | – | 60 |  |
 | Call of Duty: Black Ops II | First mission, Pyrrhic Victory | 60 | 60 | 60 | – | The main menu background sometimes renders almost white |
 | Call of Duty: Modern Warfare 2 | First mission, the shooting range | 60 | 60 | 60 | – |  |
 | Call of Duty: Modern Warfare 3 | First mission, Black Tuesday | 60 | 60 | 60 | – |  |
 | Call of Juarez: Bound in Blood | Chapter 1, the trenches | 60 | 60 | 60 | – |  |
+| Captain America: Super Soldier | The trench at first control | – | – | – | 60 | Occasionally starts to a black screen (one start in four in testing); starting the game again gets past it |
+| Chromehounds | First training sortie | – | – | – | 60 |  |
+| The Chronicles of Riddick: Assault on Dark Athena | Butcher Bay, the cell block | – | – | – | 30 |  |
+| Clive Barker's Jericho | Opening scene in the transport | – | – | – | 60 |  |
 | Crysis 2 | First mission | 31 | 31 | 31 | – |  |
 | Crysis 3 | First mission, inside the Liberty Dome | 31 | 31 | 31 | – |  |
 | Dark Souls | Undead Asylum | 30 | 30 | 30 | – |  |
@@ -128,10 +138,13 @@ smoother.
 | Jurassic: The Hunted | First level, the jungle path | 30 | 30 | 30 | – | In the opening walk, a vertical seam in the lighting runs down the right of the picture |
 | Just Cause 2 | Open world | 27 | 27 | 30 | – |  |
 | Kameo: Elements of Power | Thorn's Castle | 30 | 30 | 30 | – |  |
+| Kane & Lynch 2: Dog Days | Shanghai opening | – | – | – | 60 |  |
+| Kane & Lynch: Dead Men | The breakout, beside the van | – | – | – | 30 |  |
+| The King of Fighters XII | Arcade fight | – | – | – | 60 |  |
 | L.A. Noire | Upon Reflection, the patrol car | – | 30 | 30 | – |  |
 | LEGO Batman: The Videogame | Episode 1-1, Gotham street | 60 | 60 | 60 | – |  |
-| LEGO Indiana Jones: The Original Adventures | The Lost Temple, first control | – | 60 | 60 | – |  |
 | LEGO Indiana Jones 2: The Adventure Continues | The college hub | – | – | 60 | – |  |
+| LEGO Indiana Jones: The Original Adventures | The Lost Temple, first control | – | 60 | 60 | – |  |
 | LEGO Star Wars II | Mos Eisley Cantina | 60 | 60 | 60 | – |  |
 | Lost Planet: Colonies | Mission 1, the hangar | 47 | 30 | 50 | – | A late beta of the game. Runs above 30 on the M4 mini and M1 Max, not yet explained. Rarely crashes in play |
 | Madden NFL 10 | The coin toss, then the first play call or the kickoff | 30 | – | – | – | The test ends on the play call (30) or the kickoff (60), depending on the coin toss |
@@ -159,6 +172,7 @@ smoother.
 | MotoGP 08 | Quick Race, Losail at night, on the grid | – | 30 | 30 | – |  |
 | MX vs. ATV Reflex | Career, the first race start | 30 | 30 | – | – |  |
 | MX vs. ATV Supercross | Single race, Anaheim | – | 30 | – | – |  |
+| NASCAR 09 | On the grid | – | – | – | 30 |  |
 | NBA 2K11 | The Jordan intro game, Lakers at Bulls | 60 | 60 | 17 | – |  |
 | NBA 2K14 | Quick Game, CPU vs CPU | 60 | 60 | 60 | – |  |
 | NBA 2K18 | CPU vs CPU game | 60 | 60 | 60 | – |  |
@@ -192,7 +206,7 @@ smoother.
 | Ridge Racer 6 | Single race | 60 | 60 | 60 | – |  |
 | Ridge Racer Unbounded | Domination race | 30 | 30 | 30 | – |  |
 | Rio | Story mode, the first minigame | 60 | 60 | – | – |  |
-| Rise of the Tomb Raider | Ascension, the mountain | 30 | 30 | 30 | 30 | Fixed after these runs: whole-screen flashes in play (white, or false colours), most frequent on the fastest Macs. Not yet re-measured on the M4 and M1 Macs with the fix. Only the opening mountain has been checked |
+| Rise of the Tomb Raider | Ascension, the mountain | 30 | 30 | 30 | 30 | Whole-screen white flashes in play are fixed after these runs. On the M5 Max a single false-colour frame still shows about once a minute; the M1 Max shows none. Only the opening mountain has been checked |
 | Rock Band | Main menu | 60 | – | – | – | Every mode asks for a microphone when played with a controller, so the test stops at the menu |
 | Rockstar Games Presents Table Tennis | Training, the serve drill | 60 | 60 | – | – |  |
 | Rogue Warrior | First level, the night forest | 30 | 30 | – | – |  |
@@ -216,6 +230,7 @@ smoother.
 | SSX | World Tour, the first drop | 30 | 30 | – | – |  |
 | Star Trek | First corridor as Kirk | 30 | 30 | – | – |  |
 | Star Trek: Legacy | Skirmish battle | 60 | 60 | – | – |  |
+| Stranglehold | Hong Kong marketplace | – | – | – | 32 | Runs a little above its 30 limit, not yet explained |
 | Surf's Up | Championship, the first surf run | 30 | 30 | – | – |  |
 | Tales of Vesperia | Zaphias, the Lower Quarter | 30 | 30 | 30 | – |  |
 | Tekken Tag Tournament 2 | Practice mode | 60 | 60 | 60 | – | VS screens show one name over all four portraits. Can stop during a load (rare) |
