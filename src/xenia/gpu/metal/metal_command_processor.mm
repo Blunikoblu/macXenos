@@ -160,18 +160,17 @@ DEFINE_uint32(
 DEFINE_bool(
     metal_serialize_submissions, false,
     "Metal: finish each GPU submission before the next one starts (one in "
-    "flight). Workaround for whole-frame colour flashes in Rise of the Tomb "
-    "Raider whose cause is still open; costs frame rate wherever the GPU and "
-    "CPU would otherwise overlap (M1 Max Tomb Raider 30 -> 21 fps).",
+    "flight). Diagnostic; costs frame rate wherever the GPU and CPU would "
+    "otherwise overlap (M1 Max Rise of the Tomb Raider 30 -> 21 fps).",
     "GPU");
 DEFINE_bool(
     metal_completion_wait_exports, false,
     "Metal: before the guest sees a completion signal (interrupt or "
     "end-of-pipe event), wait for the GPU when memory exports are still "
-    "pending in the open submission. Removes Rise of the Tomb Raider's "
-    "whole-frame colour flashes (cause still open) at a lower cost than "
-    "metal_serialize_submissions: M4 Macs keep 30 fps, an M1 Max drops from "
-    "30 to about 22.",
+    "pending in the open submission. Made Rise of the Tomb Raider's "
+    "whole-frame flashes rarer on M4 Macs but not on an M5 Max or M2 Max; "
+    "that title now uses metal_eager_publish_title instead. M4 Macs keep 30 "
+    "fps there, an M1 Max drops from 30 to about 22.",
     "GPU");
 
 DEFINE_bool(
@@ -245,6 +244,13 @@ DEFINE_string(
     "Max). auto: only for titles whose built-in config sets "
     "metal_completion_wait_title. on: every title. off: none. "
     "XE_METAL_EXPOSURE_WAIT=0/1 overrides.",
+    "GPU");
+DEFINE_transient_bool(
+    metal_eager_publish_title, false,
+    "Per-title hint, set by the built-in config of titles that need it (Rise "
+    "of the Tomb Raider): copy GPU-written memory back to guest RAM at swaps "
+    "and fence packets instead of on first access, the same state as "
+    "XE_METAL_LAZY_PUBLISH=0. Applied when the title starts.",
     "GPU");
 DEFINE_transient_bool(
     metal_completion_wait_title, false,
@@ -17945,11 +17951,60 @@ bool MetalCommandProcessor::IssueCopy() {
   return true;
 }
 
+// metal_eager_publish_title: demand-driven publication is on or off for a
+// whole title, and off is exactly the XE_METAL_LAZY_PUBLISH=0 state (no read
+// callback, so nothing arms and swaps / fence packets publish eagerly). Rise
+// of the Tomb Raider needs it off: its XenonFlush thread writes pages that a
+// memory export in the open or just-committed submission still owns about
+// once every two seconds of gameplay (MetalLazyStale, 153 in a 260 s run on
+// an M5 Max), and the frame flashes white, draws its snow particles as huge
+// rings, or goes false-colour at about that rate. Which copy is wrong is not
+// established: waiting under the lock (XE_METAL_LAZY_LOCKED_WAIT=1) left 42
+// stale writes, all owned by the open submission, and as many flashes;
+// completion waits and serialized submissions change nothing. Eager
+// publication: 0 flash frames in 725 one-second shots (2026-11-14).
+// The mode only changes while nothing is armed, so a record is never left
+// owning pages that no callback serves.
+void MetalCommandProcessor::UpdateLazyPublicationForTitle() {
+  if (!memory_ || trace_playback_context()) {
+    return;
+  }
+  const bool want = LazyPublishEnabled() && !cvars::metal_eager_publish_title;
+  if (want == (lazy_read_callback_handle_ != nullptr)) {
+    return;
+  }
+  if (want) {
+    lazy_read_callback_handle_ = memory_->RegisterPhysicalMemoryReadCallback(
+        &MetalCommandProcessor::LazyReadCallbackThunk, this);
+    XELOGI("MetalCommandProcessor: lazy RAM publication ON (read watches)");
+    return;
+  }
+  bool armed = false;
+  for (const PendingWriteback& wb : pending_writebacks_) {
+    armed = armed || wb.lazy_armed;
+  }
+  for (const PendingMemexport& me : pending_memexports_) {
+    armed = armed || me.lazy_armed;
+  }
+  if (armed) {
+    XELOGW("MetalCommandProcessor: metal_eager_publish_title ignored, lazy "
+           "records are still armed");
+    return;
+  }
+  memory_->UnregisterPhysicalMemoryReadCallback(lazy_read_callback_handle_);
+  lazy_read_callback_handle_ = nullptr;
+  XELOGI("MetalCommandProcessor: lazy RAM publication OFF for this title "
+         "(metal_eager_publish_title)");
+}
+
 void MetalCommandProcessor::InitializeShaderStorage(
     const std::filesystem::path& cache_root, uint32_t title_id, bool blocking,
     std::function<void()> completion_callback) {
   CommandProcessor::InitializeShaderStorage(cache_root, title_id, blocking,
                                             nullptr);
+  // Title/session boundary, after the title's config is loaded: apply the
+  // per-title publication mode.
+  UpdateLazyPublicationForTitle();
   // Title/session boundary: start a fresh unrouted-export reporting session.
   // Touches only the reporter's own counters -- no cache state, no guest state.
   memexport_gap_reporter_.Reset();

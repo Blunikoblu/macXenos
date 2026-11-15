@@ -1583,6 +1583,8 @@ class MetalCommandProcessor : public CommandProcessor {
   // Stage 2 demand-driven publication (XE_METAL_LAZY_PUBLISH, default on, exact-0 rollback,
   // default OFF until the counted gate). See metal_lazy_publication.h.
   static bool LazyPublishEnabled();
+  // Applies metal_eager_publish_title at a title boundary.
+  void UpdateLazyPublicationForTitle();
   metal::MetalLazyPublication lazy_publication_;
   void* lazy_read_callback_handle_ = nullptr;
   std::atomic<bool> lazy_rearm_needed_{false};

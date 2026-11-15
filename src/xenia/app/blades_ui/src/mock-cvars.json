@@ -1025,15 +1025,6 @@
 "description": "With scanline_counter_from_time off, never report a visible display line: the old counter lands on one about every 23rd vblank, and a game whose frame limiter waits on the counter then stalls for two vblanks (Mafia II: a 33 ms frame 2.6 times a second). For games run uncapped that way; a game that waits for a visible line would hang with it.",
 "changed": false
 },
-"scanline_counter_from_time": {
-"name": "scanline_counter_from_time",
-"category": "GPU",
-"type": "bool",
-"value": true,
-"defaultValue": true,
-"description": "Report the display scanline counter (D1MODE_V_COUNTER) from the time since the last vblank, as the hardware does. Off restores the old counter, which only advances once per frame-pacing step: some games' own frame limiters then never wait (Mafia II runs uncapped instead of at 30), and video players that poll it for vblank crawl (WALL-E's videos at 2.6 FPS).",
-"changed": false
-},
 "gpu_allow_invalid_fetch_constants": {
 "name": "gpu_allow_invalid_fetch_constants",
 "category": "GPU",
@@ -1571,7 +1562,7 @@
 "type": "bool",
 "value": false,
 "defaultValue": false,
-"description": "Metal: finish each GPU submission before the next one starts (one in flight). Workaround for whole-frame colour flashes in Rise of the Tomb Raider whose cause is still open; costs frame rate wherever the GPU and CPU would otherwise overlap (M1 Max Tomb Raider 30 -> 21 fps).",
+"description": "Metal: finish each GPU submission before the next one starts (one in flight). Diagnostic; costs frame rate wherever the GPU and CPU would otherwise overlap (M1 Max Rise of the Tomb Raider 30 -> 21 fps).",
 "changed": false
 },
 "metal_completion_wait_exports": {
@@ -1580,7 +1571,7 @@
 "type": "bool",
 "value": false,
 "defaultValue": false,
-"description": "Metal: before the guest sees a completion signal (interrupt or end-of-pipe event), wait for the GPU when memory exports are still pending in the open submission. Removes Rise of the Tomb Raider's whole-frame colour flashes (cause still open) at a lower cost than metal_serialize_submissions: M4 Macs keep 30 fps, an M1 Max drops from 30 to about 22.",
+"description": "Metal: before the guest sees a completion signal (interrupt or end-of-pipe event), wait for the GPU when memory exports are still pending in the open submission. Made Rise of the Tomb Raider's whole-frame flashes rarer on M4 Macs but not on an M5 Max or M2 Max; that title now uses metal_eager_publish_title instead. M4 Macs keep 30 fps there, an M1 Max drops from 30 to about 22.",
 "changed": false
 },
 "metal_memexport_pixel": {
