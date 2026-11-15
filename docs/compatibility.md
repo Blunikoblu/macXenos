@@ -1,6 +1,6 @@
 # Game compatibility
 
-These are the games macXenos is tested with regularly: 224 of them. Each one
+These are the games macXenos is tested with regularly: 228 of them. Each one
 is started automatically, played to the point shown with a scripted
 controller, and measured for a minute. Results below are from the full runs of
 every game then on the list on November 7, 2026 on an M4 Pro Mac mini, and
@@ -58,17 +58,20 @@ smoother.
 | Bully: Scholarship Edition | Bullworth campus entrance | 60 | 60 | 60 | – |  |
 | Burnout Paradise | Driving in Paradise City | 60 | 59 | 60 | – |  |
 | Burnout Revenge | First World Tour event | 60 | 60 | 58 | – |  |
+| Cabela's Big Game Hunter 2010 | First hunt, the forest trail | – | – | – | 30 |  |
 | Call of Duty 2 | First mission | 60 | 60 | 60 | – |  |
 | Call of Duty 3 | Saint-Lô, the training yard | – | – | – | 60 |  |
 | Call of Duty 4: Modern Warfare | First mission, the hangar | 60 | 60 | 60 | – |  |
 | Call of Duty: Black Ops | Operation 40, the bar in Havana | – | – | – | 60 |  |
 | Call of Duty: Black Ops II | First mission, Pyrrhic Victory | 60 | 60 | 60 | – | The main menu background sometimes renders almost white |
+| Call of Duty: Ghosts | Local play, Team Deathmatch on Prison Break | – | – | – | 60 | Needs a profile that has played the game once (its brightness and margin screens done) |
 | Call of Duty: Modern Warfare 2 | First mission, the shooting range | 60 | 60 | 60 | – |  |
 | Call of Duty: Modern Warfare 3 | First mission, Black Tuesday | 60 | 60 | 60 | – |  |
 | Call of Juarez: Bound in Blood | Chapter 1, the trenches | 60 | 60 | 60 | – |  |
 | Captain America: Super Soldier | The trench at first control | – | – | – | 60 | Occasionally starts to a black screen (one start in four in testing); starting the game again gets past it |
 | Chromehounds | First training sortie | – | – | – | 60 |  |
 | The Chronicles of Riddick: Assault on Dark Athena | Butcher Bay, the cell block | – | – | – | 30 |  |
+| Clash of the Titans: The Videogame | First control on the beach | – | – | – | 30 |  |
 | Clive Barker's Jericho | Opening scene in the transport | – | – | – | 60 |  |
 | Crysis 2 | First mission | 31 | 31 | 31 | – |  |
 | Crysis 3 | First mission, inside the Liberty Dome | 31 | 31 | 31 | – |  |
@@ -134,6 +137,7 @@ smoother.
 | The Incredible Hulk | First story scene | 30 | 30 | 30 | – | The Hulk isn't visible and doesn't respond in this scene; may be by design |
 | Infinite Undiscovery | Opening scene in the dungeon | – | 30 | 30 | – |  |
 | Iron Man | First mission, Escape | 60 | 60 | 60 | – |  |
+| Jumper: Griffin's Story | The courtyard fight tutorial | – | – | – | 60 |  |
 | Jurassic Park: The Game | Episode 1 opening | 60 | 60 | 60 | – |  |
 | Jurassic: The Hunted | First level, the jungle path | 30 | 30 | 30 | – | In the opening walk, a vertical seam in the lighting runs down the right of the picture |
 | Just Cause 2 | Open world | 27 | 27 | 30 | – |  |
@@ -206,7 +210,7 @@ smoother.
 | Ridge Racer 6 | Single race | 60 | 60 | 60 | – |  |
 | Ridge Racer Unbounded | Domination race | 30 | 30 | 30 | – |  |
 | Rio | Story mode, the first minigame | 60 | 60 | – | – |  |
-| Rise of the Tomb Raider | Ascension, the mountain | 30 | 30 | 30 | 30 | Whole-screen white flashes in play are fixed after these runs. On the M5 Max a single false-colour frame still shows about once a minute; the M1 Max shows none. Only the opening mountain has been checked |
+| Rise of the Tomb Raider | Ascension, the mountain | 30 | 30 | 30 | 30 | Whole-screen white flashes in play are fixed after these runs. Single false-colour frames still show: about 2 a minute on an M4 Pro, about once a minute on the M5 Max, none seen on the M1 Max. Only the opening mountain has been checked |
 | Rock Band | Main menu | 60 | – | – | – | Every mode asks for a microphone when played with a controller, so the test stops at the menu |
 | Rockstar Games Presents Table Tennis | Training, the serve drill | 60 | 60 | – | – |  |
 | Rogue Warrior | First level, the night forest | 30 | 30 | – | – |  |
