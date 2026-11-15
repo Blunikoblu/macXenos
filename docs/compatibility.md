@@ -1,11 +1,11 @@
 # Game compatibility
 
-These are the games macXenos is tested with regularly: 203 of them. Each one
+These are the games macXenos is tested with regularly: 210 of them. Each one
 is started automatically, played to the point shown with a scripted
 controller, and measured for a minute. Results below are from the full runs of
 every game then on the list on November 7, 2026 on an M4 Pro Mac mini, and
 November 8 on a base M4 Mac mini, at the original resolution (1x), using the
-Metal renderer. The 70 games added since were each tested between November 9
+Metal renderer. The 77 games added since were each tested between November 9
 and 13 on one or both of those Macs; a dash means that Mac has no measurement
 for the game yet.
 
@@ -107,6 +107,7 @@ smoother.
 | The Godfather II | Havana rooftop party | 30 | 30 |  |
 | GoldenEye 007: Reloaded | First mission | 60 | 60 |  |
 | Grand Theft Auto IV | Opening drive | 60 | 60 | Now holds the console's 60 refresh rate (54-55 in October) |
+| Guitar Hero II | Practice, a full song | – | – | Not yet measured on these two Macs (60 on an M1 Max) |
 | Half-Life 2 (The Orange Box) | Main menu over its live map | 30 | 30 | Starting the first chapter can stop at the loading screen |
 | Halo 3 | Campaign, Arrival | 30 | 30 |  |
 | Halo 3: ODST | Campaign, Prepare to Drop | 29 | 29 |  |
@@ -126,8 +127,13 @@ smoother.
 | L.A. Noire | Upon Reflection, the patrol car | – | 30 |  |
 | LEGO Batman: The Videogame | Episode 1-1, Gotham street | 60 | 60 |  |
 | LEGO Indiana Jones: The Original Adventures | The Lost Temple, first control | – | 60 |  |
+| LEGO Indiana Jones 2: The Adventure Continues | The college hub | – | – | Not yet measured on these two Macs (60 on an M1 Max) |
 | LEGO Star Wars II | Mos Eisley Cantina | 60 | 60 |  |
 | Lost Planet: Colonies | Mission 1, the hangar | 47 | 30 | A late beta of the game. Runs above 30 on the M4 mini, not yet explained. Rarely crashes in play |
+| Madden NFL 10 | The coin toss, then the first play call or the kickoff | 30 | – | The test ends on the play call (30) or the kickoff (60), depending on the coin toss. Large dark shapes cut across the pre-game shots and the sky is blocky noise |
+| Madden NFL 13 | Play Now, CPU vs CPU | – | – | Not yet measured on these two Macs (60 on an M1 Max). Large flat shapes can cover much of the screen during plays |
+| Madden NFL 15 | Play Now, CPU vs CPU | 60 | – |  |
+| Madden NFL 17 | Play Now, CPU vs CPU | – | – | Not yet measured on these two Macs (60 on an M1 Max). Large flat shapes cover much of the screen during plays |
 | Madden NFL 25 | Play Now, CPU vs CPU | – | 32 | Play runs at 30, with some presentation shots at 60. The 3D picture can be badly corrupted (coloured noise, spiky shapes across the screen) for a whole session; other sessions show only the odd spike |
 | Mafia II | Story opening | 119 | 148 | Doesn't cap its own frame rate (see below). Rarely crashes in play |
 | Major League Baseball 2K13 | Demo game, CPU vs CPU | – | 59 | Dips to about 30 in some camera shots |
@@ -183,6 +189,7 @@ smoother.
 | Ridge Racer Unbounded | Domination race | 30 | 30 |  |
 | Rio | Story mode, the first minigame | 60 | 60 |  |
 | Rise of the Tomb Raider | Ascension, the mountain | 30 | 30 | Whole-screen colour flashes in play (frequent on M4 Macs, rare on M1 Max). Graphics > Troubleshooting > "Wait for the GPU before signalling the game" removes them |
+| Rock Band | Main menu | 60 | – | Every mode asks for a microphone when played with a controller, so the test stops at the menu |
 | Rockstar Games Presents Table Tennis | Training, the serve drill | 60 | 60 |  |
 | Rogue Warrior | First level, the night forest | 30 | 30 |  |
 | Saints Row | Campaign opening, outside the church | 29 | 29 |  |
@@ -227,7 +234,7 @@ smoother.
 | Warhammer 40,000: Space Marine | First fight with the orks | – | 30 |  |
 | WET | First level, the tea house | 30 | 30 |  |
 | Wolfenstein | Train station, first control | – | 30 |  |
-| Worms Collection | Worms, main menu | 60 | 60 | The collection's games start as trials ("Unlock Full Game") |
+| Worms Collection | Worms, main menu | 60 | 60 |  |
 | WWE SmackDown vs. Raw 2007 | Exhibition match, CPU vs CPU | 60 | 60 |  |
 | WWE SmackDown vs. Raw 2011 | One on One match, CPU vs CPU | 60 | 60 |  |
 | X-Men: Destiny | First control in the wrecked street | 30 | 30 |  |
