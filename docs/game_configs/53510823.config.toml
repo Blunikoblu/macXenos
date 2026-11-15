@@ -7,11 +7,14 @@
 # (green / magenta casts, 2026-10-17). Depth clamping keeps the quad and
 # changes nothing else that was measured in this title.
 #
-# Whole-frame flashes in gameplay (white-outs, snow particles as huge rings,
-# false-colour frames) were a race in the Metal backend's lazy publication,
-# fixed for every title by 5d78b0a14 (the straddler re-assert no longer
-# re-validates pages the title rewrote). The per-title eager publication that
-# hid it (metal_eager_publish_title) cost the M1 Max half its frame rate, so
-# this config no longer sets it (2026-11-15).
+# Whole-frame flashes in gameplay: two races in the Metal backend's lazy
+# publication. 5d78b0a14 (the straddler re-assert keeps lazily published
+# pages RAM-authoritative) removed the rings, white-outs and white veils, but
+# single false-colour frames remain with lazy publication: about 20 per 480 s
+# on an M4 Pro, about one a minute on an M5 Max (2026-11-15). Copying
+# GPU-written memory back at swaps and fence packets instead
+# (metal_eager_publish_title) removes every flash. It costs nothing on M4 and
+# later Macs (30 fps held), but holds an M1 Max at about 15 fps in play.
 [GPU]
 force_depth_clamp = true
+metal_eager_publish_title = true
