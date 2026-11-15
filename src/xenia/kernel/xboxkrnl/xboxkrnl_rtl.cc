@@ -7,7 +7,9 @@
  ******************************************************************************
  */
 
+#include <algorithm>
 #include <chrono>
+#include <iterator>
 #include <cwctype>
 
 #include "xenia/kernel/xboxkrnl/xboxkrnl_rtl.h"
@@ -36,15 +38,13 @@ dword_result_t RtlCompareMemory_entry(lpvoid_t source1, lpvoid_t source2,
   uint8_t* p1 = source1;
   uint8_t* p2 = source2;
 
-  // Note that the return value is the number of bytes that match, so it's best
-  // we just do this ourselves vs. using memcmp.
-  // On Windows we could use the builtin function.
-
+  // The number of bytes that match before the first difference, as the
+  // console returns it (xboxkrnl__gen_rtl_strings: blocks differing at byte
+  // 16 give 16, at byte 0 give 0). This used to count every matching byte,
+  // those after a difference too.
   uint32_t c = 0;
-  for (uint32_t n = 0; n < length; n++, p1++, p2++) {
-    if (*p1 == *p2) {
-      c++;
-    }
+  while (c < length && p1[c] == p2[c]) {
+    c++;
   }
 
   return c;
@@ -230,9 +230,20 @@ void RtlInitAnsiString_entry(pointer_t<X_ANSI_STRING> destination,
 }
 DECLARE_XBOXKRNL_EXPORT1(RtlInitAnsiString, kNone, kImplemented);
 // https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/nf-wdm-rtlupcaseunicodechar
+// The console's own table, read off it character by character: the host's
+// towupper in the C locale only knows ASCII, and a Unicode library's upper
+// case differs from the console's in places (0x131 stays 0x131 there).
+static const uint16_t kUpcaseTable[][2] = {
+#include "xenia/kernel/xboxkrnl/xboxkrnl_upcase_table.inc"
+};
+
 dword_result_t RtlUpcaseUnicodeChar_entry(dword_t SourceCharacter) {
-  return static_cast<uint32_t>(std::towupper(
-      static_cast<wint_t>(static_cast<uint32_t>(SourceCharacter))));
+  const uint16_t character = uint16_t(uint32_t(SourceCharacter));
+  const auto* end = std::end(kUpcaseTable);
+  const auto* entry = std::lower_bound(
+      std::begin(kUpcaseTable), end, character,
+      [](const uint16_t pair[2], uint16_t value) { return pair[0] < value; });
+  return entry != end && (*entry)[0] == character ? (*entry)[1] : character;
 }
 DECLARE_XBOXKRNL_EXPORT1(RtlUpcaseUnicodeChar, kNone, kImplemented);
 
@@ -587,6 +598,21 @@ dword_result_t RtlInitializeCriticalSectionAndSpinCount_entry(
 DECLARE_XBOXKRNL_EXPORT2(RtlInitializeCriticalSectionAndSpinCount, kNone,
                          kImplemented, kHighFrequency);
 
+// The lock count is a big-endian word in guest memory, as on the console
+// (xboxkrnl__gen_rtl_critical_sections: 2 reads 00000002, where a host-order
+// counter read 02000000). -1 and 0 are the same in either order, so only
+// recursion and contention showed the difference. Returns the new count.
+static int32_t CriticalSectionAddLockCount(int32_t* lock_count, int32_t delta) {
+  while (true) {
+    const int32_t raw = *reinterpret_cast<volatile int32_t*>(lock_count);
+    const int32_t value = int32_t(xe::byte_swap(uint32_t(raw))) + delta;
+    if (xe::atomic_cas(raw, int32_t(xe::byte_swap(uint32_t(value))),
+                       lock_count)) {
+      return value;
+    }
+  }
+}
+
 static void CriticalSectionPrefetchW(const void* vp) {
 #if XE_ARCH_AMD64 == 1
   if (amd64::GetFeatureFlags() & amd64::kX64EmitPrefetchW) {
@@ -606,7 +632,7 @@ void RtlEnterCriticalSection_entry(pointer_t<X_RTL_CRITICAL_SECTION> cs) {
 
   if (cs->owning_thread == cur_thread) {
     // We already own the lock.
-    xe::atomic_inc(&cs->lock_count);
+    CriticalSectionAddLockCount(&cs->lock_count, 1);
     cs->recursion_count++;
     return;
   }
@@ -621,7 +647,7 @@ void RtlEnterCriticalSection_entry(pointer_t<X_RTL_CRITICAL_SECTION> cs) {
     }
   }
 
-  if (xe::atomic_inc(&cs->lock_count) != 0) {
+  if (CriticalSectionAddLockCount(&cs->lock_count, 1) != 0) {
     // Create a full waiter.
     xeKeWaitForSingleObject(reinterpret_cast<void*>(cs.host_address()), 8, 0, 0,
                             nullptr);
@@ -650,7 +676,7 @@ dword_result_t RtlTryEnterCriticalSection_entry(
     return 1;
   } else if (cs->owning_thread == thread) {
     // Already own the lock.
-    xe::atomic_inc(&cs->lock_count);
+    CriticalSectionAddLockCount(&cs->lock_count, 1);
     ++cs->recursion_count;
     return 1;
   }
@@ -673,13 +699,13 @@ void RtlLeaveCriticalSection_entry(pointer_t<X_RTL_CRITICAL_SECTION> cs) {
   if (--cs->recursion_count != 0) {
     assert_true(cs->recursion_count >= 0);
 
-    xe::atomic_dec(&cs->lock_count);
+    CriticalSectionAddLockCount(&cs->lock_count, -1);
     return;
   }
 
   // Not owned - unlock!
   cs->owning_thread = 0;
-  if (xe::atomic_dec(&cs->lock_count) != -1) {
+  if (CriticalSectionAddLockCount(&cs->lock_count, -1) != -1) {
     // There were waiters - wake one of them.
     xeKeSetEvent(reinterpret_cast<X_KEVENT*>(cs.host_address()), 1, 0);
   }

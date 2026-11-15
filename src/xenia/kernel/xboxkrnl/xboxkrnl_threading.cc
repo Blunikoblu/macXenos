@@ -1615,7 +1615,14 @@ dword_result_t NtReleaseMutant_entry(dword_t mutant_handle,
   if (mutant) {
     // A release by a thread that does not own the mutant fails
     // (STATUS_MUTANT_NOT_OWNED). Titles test for ownership this way.
-    result = mutant->ReleaseMutant(priority_increment, abandon, wait);
+    int32_t previous_state = 0;
+    result = mutant->ReleaseMutant(priority_increment, abandon, wait,
+                                   &previous_state);
+    // The count before the release: 0 for the last release, -1 and below
+    // while still held recursively (xboxkrnl__gen_nt_mutants).
+    if (XSUCCEEDED(result) && previous_count) {
+      *previous_count = uint32_t(previous_state);
+    }
   } else {
     result = X_STATUS_INVALID_HANDLE;
   }
@@ -2836,7 +2843,9 @@ pointer_result_t InterlockedFlushSList_entry(
     first = old_hdr.next.next;
     new_hdr.next.next = 0;
     new_hdr.depth = 0;
-    new_hdr.sequence = 0;
+    // A flush empties the list and keeps its sequence number
+    // (xboxkrnl__gen_slist).
+    new_hdr.sequence = old_hdr.sequence;
   } while (
       !xe::atomic_cas(*(uint64_t*)(&old_hdr), *(uint64_t*)(&new_hdr),
                       reinterpret_cast<uint64_t*>(plist_ptr.host_address())));
