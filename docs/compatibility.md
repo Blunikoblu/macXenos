@@ -262,6 +262,47 @@ smoother.
 | WWE SmackDown vs. Raw 2011 | One on One match, CPU vs CPU | 60 | 60 | 60 | – |  |
 | X-Men: Destiny | First control in the wrecked street | 30 | 30 | – | – |  |
 
+## Xbox Live Arcade
+
+33 Xbox Live Arcade games are tested too, in the same way, in runs between
+November 2 and 15.
+
+| Game | Test reaches | M4 mini | M4 Pro | M1 Max | M5 Max | Notes |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| Awesomenauts | First-run tutorial, Lonestar at his base | 60 | 60 | 60 | – |  |
+| Blade Kitten | First control, after the opening cutscene | – | 30 | – | – | Half the screen can flash white in the opening cutscene |
+| Brothers: A Tale of Two Sons | The village lane at dusk | 30 | 30 | 30 | – |  |
+| Call of Duty Classic | Camp Toccoa, the training ground | – | 60 | – | – |  |
+| Call of Juarez: Gunslinger | Episode 1, the road by the ruined barn | 30 | 30 | – | – |  |
+| Castle Crashers | The castle bar, after the opening cutscene | 55 | 56 | 59 | – | Runs a little under its 60 limit, not yet explained |
+| DeathSpank: Thongs of Virtue | The prison camp kitchen | 30 | 30 | – | – |  |
+| Earthworm Jim HD | New Junk City, the start of the level | 56 | 60 | 60 | – |  |
+| Ecco the Dolphin | Home Bay, the first level | 60 | 60 | 60 | – |  |
+| Flashback | The Titan jungle, by the waterfall | – | 30 | – | – |  |
+| From Dust | The first scene, the tribe on the night shore | 31 | 31 | – | – |  |
+| Halo: Spartan Assault | Mission A-1, the outpost on an icy moon | – | 60 | 60 | – | Tested as the trial |
+| Hydrophobia | Kate's apartment, first control | 30 | 30 | – | – |  |
+| I Am Alive | First control on the ruined highway | – | 30 | 30 | – |  |
+| Ion Assault | Echelon Territory, stage 1 | – | 60 | – | – |  |
+| The King of Fighters '98 Ultimate Match | Arcade Play, the first fight | – | 60 | – | – |  |
+| Marvel Puzzle Quest: Dark Reign | The first match board | – | 30 | – | – |  |
+| Matt Hazard: Blood Bath and Beyond | The Hate Boat, the pool deck | – | 60 | – | – |  |
+| Mortal Kombat Arcade Kollection | Mortal Kombat, the attract loop | – | 54 | – | – | Runs at 54, the original arcade board's rate |
+| NBA Jam: On Fire Edition | Jam Now, a game in the Heat arena | 60 | 60 | – | – |  |
+| Orcs Must Die! | The Hallway, the first level | – | 30 | 30 | – |  |
+| R-Type Dimensions | R-Type stage 1, in 3D | – | 60 | – | – |  |
+| Rez HD | Pause menu over Area 1 | 60 | 60 | – | – |  |
+| RoboBlitz | Karl's workshop, first control | – | 30 | – | – |  |
+| SEGA Bass Fishing | Arcade Mode, the Lodge | – | 60 | – | – |  |
+| Serious Sam 3: BFE | Broken Wings demo, the Cairo park | – | 14 | – | – | Tested as the trial. The buildings behind the park can render solid black, and the level runs at about 14 |
+| Sonic & Knuckles | Mushroom Hill Zone, act 1 | – | 60 | – | – |  |
+| SoulCalibur II HD Online | Arcade fight, Mitsurugi vs Cassandra | – | 60 | 52 | – | The fight runs below its 60 limit on the M1 Max (52-59 in testing) |
+| Super Street Fighter II Turbo HD Remix | Training mode, Ryu vs Ken | 60 | 60 | 60 | – |  |
+| Teenage Mutant Ninja Turtles 1989 Arcade | Pause menu over Scene 1 | 60 | 60 | 60 | – |  |
+| Trials Evolution | First career event, on the start ramp | 60 | 60 | – | – |  |
+| Trials Fusion | Training Program 1, at the start line | 60 | 60 | 60 | – | A flat brown patch covers part of the track, and white specks show along some edges |
+| Virtua Fighter 2 | Pause menu over the first Arcade fight | 60 | 60 | 60 | – |  |
+
 Every game was still running at the end of its test on every Mac it ran on,
 and none hit a GPU error. Notes list the problems still open in these games;
 problems fixed before these runs are not listed.
