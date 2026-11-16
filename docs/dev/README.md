@@ -26,7 +26,7 @@ and commit, recorded at checkpoints so gains and regressions show up.
 Ambitious features recorded for one day, with what is already known:
 [moonshots.md](moonshots.md) (custom soundtracks, original Xbox games through
 XeFu, frame generation through MetalFX, exact EDRAM output merging, dialogue
-enhance).
+enhance, local networking through System Link).
 
 ## Release notes
 
