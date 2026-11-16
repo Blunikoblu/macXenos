@@ -24,7 +24,7 @@ and commit, recorded at checkpoints so gains and regressions show up.
 ## Moonshots
 
 Ambitious features recorded for one day, with what is already known:
-[moonshots.md](moonshots.md) (custom soundtracks, original Xbox games through
+[moonshots.md](moonshots.md), kept in the private repository only (custom soundtracks, original Xbox games through
 XeFu, frame generation through MetalFX, exact EDRAM output merging, dialogue
 enhance, local networking through System Link, multiple dashboard
 styles).
