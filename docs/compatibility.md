@@ -28,8 +28,7 @@ rate it was designed for. So 30 or 60 in the table means the game is running at
 full speed, and a reading a frame or two either side of those numbers is the
 same thing. A faster Mac does not raise the limit; it only helps a game that
 falls below it. The M1 Max, an older chip, falls below the limit in a few
-demanding games that the M4 Macs run at full speed, such as NBA 2K11 and Blitz:
-The League II. Many games also tie their timing to the frame rate, so running
+demanding games that the M4 Macs run at full speed, such as NBA 2K11. Many games also tie their timing to the frame rate, so running
 them faster than intended would speed up the game itself rather than make it
 smoother.
 
@@ -157,7 +156,7 @@ smoother.
 | Madden NFL 13 | Play Now, CPU vs CPU | 48 | 60 | 60 | – |  |
 | Madden NFL 15 | Play Now, CPU vs CPU | – | – | 60 | – |  |
 | Madden NFL 17 | Play Now, CPU vs CPU | 60 | 60 | 60 | – |  |
-| Madden NFL 25 | Play Now, CPU vs CPU | 60 | 60 | 60 | – | Play runs at 30, with some presentation shots at 60 |
+| Madden NFL 25 | Play Now, CPU vs CPU | 60 | 60 | 60 | – |  |
 | Mafia II | Story opening | 120 | 164 | 118 | 180 | Doesn't cap its own frame rate (see below). Rarely crashes in play |
 | Major League Baseball 2K13 | Demo game, CPU vs CPU | – | – | 56 | 59 | Dips to about 30 in some camera shots |
 | Major League Baseball 2K7 | Demo game, CPU vs CPU | – | 60 | – | 60 | Dips to 30 in the busiest camera shots |
@@ -306,8 +305,8 @@ runs. Two that no Mac measured in this round keep figures from earlier builds
 | Trials Fusion | Training Program 1, at the start line | 60 | 60 | 60 | 60 | A flat brown patch covers part of the track, and white specks show along some edges |
 | Virtua Fighter 2 | Pause menu over the first Arcade fight | – | – | 60 | 60 |  |
 
-Every game was still running at the end of its test on every Mac it ran on,
-and none hit a GPU error. Notes list the problems still open in these games;
+Every figure in the tables comes from a test where the game was still running
+at the end and hit no GPU error. Notes list the problems still open in these games;
 problems fixed before these runs are not listed.
 
 Mafia II, Saints Row IV and 50 Cent: Blood on the Sand don't limit their own
