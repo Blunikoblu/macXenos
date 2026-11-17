@@ -1,0 +1,63 @@
+name: Build macOS (Apple Silicon)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build macXenos.app (arm64)
+    # macOS 15 runner: the bundled libraries then target macOS 15, the app's
+    # minimum, so the build runs on any Apple Silicon Mac with macOS 15+.
+    runs-on: macos-15
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Install build tools
+        run: |
+          brew update
+          brew install cmake ninja molten-vk vulkan-loader || true
+          cmake --version
+          ninja --version
+
+      - name: Install Metal toolchain
+        run: |
+          for attempt in 1 2 3 4 5; do
+            if xcrun -sdk macosx metal --version; then exit 0; fi
+            sudo xcodebuild -downloadComponent MetalToolchain || true
+            sleep $((attempt * 20))
+          done
+          xcrun -sdk macosx metal --version
+
+      - name: Configure
+        run: cmake --preset default -DXENIA_GPU_METAL=ON
+
+      - name: Generate version header
+        run: python3 tools/build/generate_version_header.py --source-root . --output build/version.h
+
+      - name: Build
+        run: cmake --build build --config Release --target macXenos
+
+      - name: Build Vulkan loader (macOS 15 target)
+        run: tools/build/build_vulkan_loader_mac.sh --min-macos 15.0
+
+      - name: Package app (ad-hoc signed, no auto-updater)
+        run: tools/build/package_mac.sh --adhoc --no-sparkle
+
+      - name: Check binary is arm64
+        run: |
+          file build/dist/macXenos.app/Contents/MacOS/macXenos | tee /dev/stderr | grep -q arm64
+          ls -la build/dist
+
+      - name: Upload app
+        uses: actions/upload-artifact@v4
+        with:
+          name: macXenos-macos-arm64
+          path: build/dist/*.dmg
+          if-no-files-found: error
