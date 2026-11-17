@@ -101,15 +101,15 @@ std::filesystem::path GetUserFolder() {
 
 #if XE_PLATFORM_MAC
 std::filesystem::path GetMacStorageFolder() {
-  return GetHomeFolder() / "Library" / "Application Support" / "macXenos";
+  return GetHomeFolder() / "Library" / "Application Support" / "GoXBbox";
 }
 
 std::filesystem::path GetMacSavesFolder() {
-  return GetHomeFolder() / "Documents" / "macXenos" / "Saves";
+  return GetHomeFolder() / "Documents" / "GoXBbox" / "Saves";
 }
 
 std::filesystem::path GetMacScreenshotsFolder() {
-  return GetHomeFolder() / "Pictures" / "macXenos";
+  return GetHomeFolder() / "Pictures" / "GoXBbox";
 }
 #endif  // XE_PLATFORM_MAC
 

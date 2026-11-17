@@ -73,7 +73,7 @@ function Warning() {
   );
 }
 
-/** Every changed setting back to how macXenos ships, after a second press. */
+/** Every changed setting back to how GoXBbox ships, after a second press. */
 function ResetAll() {
   const { cvars } = useNative();
   const [armed, setArmed] = useState(false);
@@ -250,7 +250,7 @@ export function advanced(state: NativeState): BladeDef {
       detail: (
         <>
           <p>
-            Puts every setting back to how macXenos ships, across all the blades. Your signed-in
+            Puts every setting back to how GoXBbox ships, across all the blades. Your signed-in
             profiles, your save and cache folders, your console settings and button mappings are
             kept.
           </p>

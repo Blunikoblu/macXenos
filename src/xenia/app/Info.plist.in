@@ -5,11 +5,11 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>macXenos</string>
+	<string>GoXBbox</string>
 	<key>CFBundleDisplayName</key>
-	<string>macXenos</string>
+	<string>GoXBbox</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.greggant.macxenos</string>
+	<string>com.blunikoblu.goxbbox</string>
 	<key>CFBundleExecutable</key>
 	<string>macXenos</string>
 	<key>CFBundleIconFile</key>
@@ -29,7 +29,7 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>macXenos — unofficial macOS port. Xenia Canary contributors. BSD license.</string>
+	<string>GoXBbox — based on macXenos (unofficial macOS port of Xenia Canary). Xenia Canary contributors. BSD license.</string>
 	<!-- A game played with a controller: lets the GameController framework
 	     treat it as one, including handing the Home button to the app when
 	     it claims it (controller_home_button_mac.mm). -->

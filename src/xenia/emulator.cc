@@ -119,7 +119,7 @@ DEFINE_bool(allow_game_relative_writes, false,
 DECLARE_bool(allow_plugins);
 
 DEFINE_int32(priority_class, 0,
-             "Forces macXenos to use different process priority than default "
+             "Forces GoXBbox to use different process priority than default "
              "one. It might affect performance and cause unexpected bugs. "
              "Possible values: 0 - Normal, 1 - Above normal, 2 - High",
              "General");
@@ -1931,7 +1931,7 @@ bool Emulator::ExceptionCallback(Exception* ex) {
 
   std::string crash_dlg = fmt::format(
       "The guest has crashed.\n\n"
-      "macXenos has now paused itself.\n\n"
+      "GoXBbox has now paused itself.\n\n"
       "{}",
       crash_msg);
   // Display a dialog telling the user the guest has crashed.
@@ -1997,7 +1997,7 @@ void Emulator::HaltCrashedGuestThread(uint32_t pc, std::string_view fault) {
 
   std::string crash_dlg = fmt::format(
       "The guest has crashed.\n\n"
-      "macXenos has now paused itself.\n\n"
+      "GoXBbox has now paused itself.\n\n"
       "{}",
       crash_msg);
   if (display_window_ && imgui_drawer_) {

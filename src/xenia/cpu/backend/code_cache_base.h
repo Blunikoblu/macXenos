@@ -551,7 +551,7 @@ class CodeCacheBase : public CodeCache {
     if (high_mark > kGeneratedCodeSize) {
       xe::FatalError(fmt::format(
           "JIT code cache is full ({} MiB). Please report this game to "
-          "macXenos developers.",
+          "GoXBbox developers.",
           (kGeneratedCodeSize + 1) >> 20));
     }
   }

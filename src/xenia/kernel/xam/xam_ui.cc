@@ -924,7 +924,7 @@ dword_result_t XamShowMarketplaceUIEx_entry(dword_t user_index, dword_t ui_type,
   }
 
   desc +=
-      "\nNote that since macXenos cannot access Xbox Marketplace, any DLC must "
+      "\nNote that since GoXBbox cannot access Xbox Marketplace, any DLC must "
       "be installed manually using File -> Install Content.";
 
   switch (ui_type) {
@@ -936,7 +936,7 @@ dword_result_t XamShowMarketplaceUIEx_entry(dword_t user_index, dword_t ui_type,
       if (is_xbla_unlock_offer) {
         desc +=
             "\n\nTo start trial games in full mode, set license_mask to 1 in "
-            "macXenos config file.\n\nDo you wish to change license_mask to 1 "
+            "GoXBbox config file.\n\nDo you wish to change license_mask to 1 "
             "for *this session*?";
         buttons.push_back("Yes");
         buttons.push_back("No");
@@ -1026,7 +1026,7 @@ dword_result_t XamShowMarketplaceDownloadItemsUI_entry(
   }
 
   desc +=
-      "\n\nNote that since macXenos cannot access Xbox Marketplace, any DLC "
+      "\n\nNote that since GoXBbox cannot access Xbox Marketplace, any DLC "
       "must "
       "be installed manually using File -> Install Content.";
 

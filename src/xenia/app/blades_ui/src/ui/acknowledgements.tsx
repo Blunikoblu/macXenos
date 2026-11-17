@@ -3,7 +3,7 @@ import { openSubBlade, SubBlade, useSubBladeOpen } from "./sub-blade";
 import { t } from "../i18n";
 
 /**
- * Acknowledgements: the third-party software macXenos includes and the
+ * Acknowledgements: the third-party software GoXBbox includes and the
  * notices its licenses ask for, on a brushed-metal sub-blade from the right.
  * The list is acknowledgements.json beside the page, which the build collects
  * from docs/acknowledgements/manifest.json (tools/build/collect_licenses.py).

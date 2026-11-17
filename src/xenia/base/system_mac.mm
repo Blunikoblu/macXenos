@@ -41,16 +41,16 @@ void ShowSimpleMessageBox(SimpleMessageBoxType type, std::string_view message) {
     NSAlertStyle style;
     switch (type) {
       case SimpleMessageBoxType::Help:
-        title = @"macXenos Help";
+        title = @"GoXBbox Help";
         style = NSAlertStyleInformational;
         break;
       case SimpleMessageBoxType::Warning:
-        title = @"macXenos Warning";
+        title = @"GoXBbox Warning";
         style = NSAlertStyleWarning;
         break;
       case SimpleMessageBoxType::Error:
       default:
-        title = @"macXenos Error";
+        title = @"GoXBbox Error";
         style = NSAlertStyleCritical;
         break;
     }

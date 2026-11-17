@@ -71,7 +71,7 @@ done
 UNIVERSAL=0
 [[ -n "${X86_BIN}" ]] && UNIVERSAL=1
 
-APP_NAME="macXenos"
+APP_NAME="GoXBbox"
 BUNDLE_EXEC="macXenos"
 BIN_DIR="${REPO_ROOT}/build/bin/macOS/${CONFIG}"
 BIN_PATH="${BIN_DIR}/${BUNDLE_EXEC}"

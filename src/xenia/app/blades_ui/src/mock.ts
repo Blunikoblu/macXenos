@@ -283,7 +283,7 @@ export const mockAcknowledgements = [
     name: "Xenia",
     license: "BSD-3-Clause",
     url: "https://github.com/xenia-canary/xenia-canary",
-    note: "macXenos is a macOS port of Xenia Canary.",
+    note: "GoXBbox is a macOS port of Xenia Canary.",
     text: "Copyright (c) 2015, Ben Vanik.\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n\n* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer."
   },
   {

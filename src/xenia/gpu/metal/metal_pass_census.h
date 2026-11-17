@@ -122,7 +122,7 @@ inline const char* MetalPassEndReasonName(MetalPassEndReason reason) {
 //    own attachments ("own") or to another target ("other").
 //
 // Counters are kept for the current reporting window (reset by Format) and
-// for the process lifetime (never reset): macXenos is killed, not shut
+// for the process lifetime (never reset): GoXBbox is killed, not shut
 // down, so the periodic line is the durable record; the headless trace dump
 // reads the lifetime line from EmitLifecycleReports.
 class MetalPassCensus {

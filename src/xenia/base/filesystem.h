@@ -41,14 +41,14 @@ std::filesystem::path GetExecutableFolder();
 std::filesystem::path GetUserFolder();
 
 #if XE_PLATFORM_MAC
-// ~/Library/Application Support/macXenos: the default storage root (config,
+// ~/Library/Application Support/GoXBbox: the default storage root (config,
 // profiles, downloads and updates, game installs, caches and logs).
 std::filesystem::path GetMacStorageFolder();
 
-// ~/Documents/macXenos/Saves: the default folder for saved games.
+// ~/Documents/GoXBbox/Saves: the default folder for saved games.
 std::filesystem::path GetMacSavesFolder();
 
-// ~/Pictures/macXenos: the default folder for screenshots.
+// ~/Pictures/GoXBbox: the default folder for screenshots.
 std::filesystem::path GetMacScreenshotsFolder();
 #endif  // XE_PLATFORM_MAC
 

@@ -85,7 +85,7 @@ export function MobileMenu({
       <div className="flex items-center justify-between gap-3 px-4 py-2">
         <a href="#home" className="deck-brand inline-flex items-center gap-2.5" onClick={() => close(false)}>
           <img src="/macxenos-icon-dark.webp" alt="" width={30} height={30} className="deck-brand-icon" />
-          <span className="text-[1.15rem] font-semibold">macXenos</span>
+          <span className="text-[1.15rem] font-semibold">GoXBbox</span>
         </a>
 
         <button

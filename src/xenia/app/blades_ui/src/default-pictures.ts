@@ -1,5 +1,5 @@
 /**
- * macXenos's own gamer pictures, shipped with the app (public/gamer-pictures,
+ * GoXBbox's own gamer pictures, shipped with the app (public/gamer-pictures,
  * 64x64 PNGs): the pictures every profile can choose from. The Xbox 360's
  * own, downloaded on request (Profiles > Gamer pictures), add to them.
  * Keep in step with the folder (npm run check).

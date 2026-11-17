@@ -17,7 +17,7 @@
 #include "xenia/base/logging.h"
 
 DEFINE_string(check_for_updates, "launch",
-              "When to look on macxenos.com for a newer macXenos (Sparkle): "
+              "When to look on macxenos.com for a newer GoXBbox (Sparkle): "
               "launch (each time the app starts), weekly, monthly or never. "
               "It offers the update and installs nothing without asking. "
               "Checking by hand from the app menu works whatever this is.",

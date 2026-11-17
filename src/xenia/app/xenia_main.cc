@@ -168,11 +168,11 @@ DEFINE_transient_string(launch_data, "",
                         "General");
 #ifndef XE_PLATFORM_WIN32
 DEFINE_transient_bool(portable, false,
-                      "Specifies if macXenos should run in portable mode.",
+                      "Specifies if GoXBbox should run in portable mode.",
                       "General");
 #else
 DEFINE_transient_bool(portable, true,
-                      "Specifies if macXenos should run in portable mode.",
+                      "Specifies if GoXBbox should run in portable mode.",
                       "General");
 #endif
 
@@ -209,8 +209,8 @@ void ReportMigrationFailures(const char* what, const MigrationReport& report,
   }
   xe::ShowSimpleMessageBox(
       xe::SimpleMessageBoxType::Warning,
-      fmt::format("macXenos could not finish moving your {}. Nothing was "
-                  "deleted: what was not moved is still in {}, and macXenos "
+      fmt::format("GoXBbox could not finish moving your {}. Nothing was "
+                  "deleted: what was not moved is still in {}, and GoXBbox "
                   "will try again the next time it starts.\n{}",
                   what, source.string(), details));
 }
@@ -669,7 +669,7 @@ bool EmulatorApp::OnInitialize() {
   emulator_ =
       std::make_unique<Emulator>("", storage_root, content_root, cache_root);
 #if XE_PLATFORM_MAC
-  // Saves default to ~/Documents/macXenos/Saves, unless the content folder
+  // Saves default to ~/Documents/GoXBbox/Saves, unless the content folder
   // was chosen too (then they stay with it, as before).
   if (mac_default_folders && cvars::content_root.empty()) {
     const std::filesystem::path save_root = xe::filesystem::GetMacSavesFolder();
@@ -691,7 +691,7 @@ bool EmulatorApp::OnInitialize() {
     return false;
   }
 #if XE_PLATFORM_MAC
-  // Screenshots go to ~/Pictures/macXenos, not inside the app bundle.
+  // Screenshots go to ~/Pictures/GoXBbox, not inside the app bundle.
   if (mac_default_folders) {
     emulator_window_->set_default_screenshot_folder(
         xe::filesystem::GetMacScreenshotsFolder());

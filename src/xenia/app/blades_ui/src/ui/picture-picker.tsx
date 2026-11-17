@@ -10,7 +10,7 @@ import { t } from "../i18n";
 
 /**
  * Choosing a profile's gamer picture, on a sub-blade from the right, in two
- * levels as the console's picker was: first the collections (macXenos's
+ * levels as the console's picker was: first the collections (GoXBbox's
  * own pictures, then each game's from the downloaded Xbox 360 collection,
  * or a row to download it), then a grid of the chosen collection's
  * pictures. A sets the picture (the app makes its small size), B goes back

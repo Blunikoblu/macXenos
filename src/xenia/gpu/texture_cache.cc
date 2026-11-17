@@ -1025,7 +1025,7 @@ void TextureCache::BindingInfoFromFetchConstant(
       XELOGW(
           "Texture fetch constant ({:08X} {:08X} {:08X} {:08X} {:08X} {:08X}) "
           "has \"invalid\" type! This is incorrect behavior, but you can try "
-          "bypassing this by launching macXenos with "
+          "bypassing this by launching GoXBbox with "
           "--gpu_allow_invalid_fetch_constants=true.",
           fetch.dword_0, fetch.dword_1, fetch.dword_2, fetch.dword_3,
           fetch.dword_4, fetch.dword_5);
@@ -1053,7 +1053,7 @@ void TextureCache::BindingInfoFromFetchConstant(
     // TODO(Triang3l): Support long 1D textures.
     if (width_minus_1 >= xenos::kTexture2DCubeMaxWidthHeight) {
       XELOGE(
-          "1D texture is too wide ({}) - ignoring! Report the game to macXenos "
+          "1D texture is too wide ({}) - ignoring! Report the game to GoXBbox "
           "developers",
           width_minus_1 + 1);
       is_invalid_1d = true;
@@ -1063,7 +1063,7 @@ void TextureCache::BindingInfoFromFetchConstant(
       XELOGE(
           "1D texture has tiling enabled in the fetch constant, but this "
           "appears to be completely wrong - ignoring! Report the game to "
-          "macXenos developers");
+          "GoXBbox developers");
       is_invalid_1d = true;
     }
     assert_false(fetch.packed_mips);
@@ -1071,7 +1071,7 @@ void TextureCache::BindingInfoFromFetchConstant(
       XELOGE(
           "1D texture has packed mips enabled in the fetch constant, but this "
           "appears to be completely wrong - ignoring! Report the game to "
-          "macXenos developers");
+          "GoXBbox developers");
       is_invalid_1d = true;
     }
     if (is_invalid_1d) {

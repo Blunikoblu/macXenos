@@ -94,8 +94,8 @@ static void ApplyArchitectureDefaults() {
   }
 }
 
-std::string config_name = "macXenos.config.toml";
-// The name the config had before macXenos renamed it, adopted on first launch.
+std::string config_name = "GoXBbox.config.toml";
+// The name the config had before GoXBbox renamed it, adopted on first launch.
 constexpr std::string_view kLegacyConfigName = "xenia-canary.config.toml";
 std::filesystem::path config_folder;
 std::filesystem::path config_path;

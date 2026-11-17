@@ -35,7 +35,7 @@
 
 DEFINE_bool(
     vulkan_log_debug_messages, true,
-    "Write Vulkan VK_EXT_debug_utils messages to the macXenos log, as opposed "
+    "Write Vulkan VK_EXT_debug_utils messages to the GoXBbox log, as opposed "
     "to the OS debug output.",
     "Vulkan");
 

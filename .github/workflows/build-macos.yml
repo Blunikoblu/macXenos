@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build macXenos.app (arm64)
+    name: Build GoXBbox.app (arm64)
     # macOS 15 runner: the bundled libraries then target macOS 15, the app's
     # minimum, so the build runs on any Apple Silicon Mac with macOS 15+.
     runs-on: macos-15
@@ -52,12 +52,12 @@ jobs:
 
       - name: Check binary is arm64
         run: |
-          file build/dist/macXenos.app/Contents/MacOS/macXenos | tee /dev/stderr | grep -q arm64
+          file build/dist/GoXBbox.app/Contents/MacOS/macXenos | tee /dev/stderr | grep -q arm64
           ls -la build/dist
 
       - name: Upload app
         uses: actions/upload-artifact@v4
         with:
-          name: macXenos-macos-arm64
+          name: GoXBbox-macos-arm64
           path: build/dist/*.dmg
           if-no-files-found: error

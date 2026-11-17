@@ -249,7 +249,7 @@ NSString* MimeTypeFor(NSString* extension) {
   }
 }
 // The page lives on its own xenia-blades:// scheme; a link out of it (the
-// website on About macXenos) opens in the Mac's browser rather than
+// website on About GoXBbox) opens in the Mac's browser rather than
 // replacing the dashboard.
 - (void)webView:(WKWebView*)webView
     decidePolicyForNavigationAction:(WKNavigationAction*)action

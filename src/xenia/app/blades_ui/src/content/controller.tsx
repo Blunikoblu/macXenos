@@ -481,7 +481,7 @@ export function controller(_state: NativeState): BladeDef {
               only to rule the other out while troubleshooting.
             </p>
             <Options name="hid" title="Input system" options={INPUT_SYSTEMS} />
-            <Aside>Takes effect the next time macXenos starts.</Aside>
+            <Aside>Takes effect the next time GoXBbox starts.</Aside>
           </>
         )
       }

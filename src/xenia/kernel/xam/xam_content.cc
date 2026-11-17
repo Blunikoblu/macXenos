@@ -864,7 +864,7 @@ dword_result_t xeXamContentLaunchImage(dword_t user_index,
     display_window->app_context().CallInUIThreadSynchronous([imgui_drawer]() {
       xe::ui::ImGuiDialog::ShowMessageBox(
           imgui_drawer, "Launching new title!",
-          "Launching new title. \nPlease close macXenos and launch it again. "
+          "Launching new title. \nPlease close GoXBbox and launch it again. "
           "Game should load automatically.");
     });
   }

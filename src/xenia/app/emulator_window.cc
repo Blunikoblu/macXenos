@@ -127,7 +127,7 @@ DEFINE_string(preferences_button, "guide",
               "none.",
               "UI");
 DEFINE_string(
-    postprocess_antialiasing, "",
+    postprocess_antialiasing, "fxaa",
     "Post-processing anti-aliasing effect to apply to the image output of the "
     "game, at the internal resolution, before it is scaled to the window.\n"
     "Use: [none, fxaa, fxaa_extreme]\n"
@@ -141,7 +141,7 @@ DEFINE_string(
     "(39).",
     "Display");
 DEFINE_string(
-    postprocess_scaling_and_sharpening, "",
+    postprocess_scaling_and_sharpening, "metalfx",
     "Post-processing effect to use for resampling and/or sharpening of the "
     "final display output.\n"
     "Use: [bilinear, cas, fsr, metalfx]\n"
@@ -181,7 +181,7 @@ DEFINE_uint32(
     "but may be reduced on resolutions like 4K or 8K in case the performance "
     "impact of multiple FSR upsampling passes is too high, or if softer edges "
     "are desired.\n"
-    "The default value is the maximum internally supported by macXenos.",
+    "The default value is the maximum internally supported by GoXBbox.",
     "Display");
 DEFINE_double(
     postprocess_ffx_fsr_sharpness_reduction,
@@ -209,7 +209,7 @@ DEFINE_int32(recent_titles_entry_amount, 10,
              "General");
 DEFINE_path(screenshot_path, "",
             "Folder for screenshots (F12 and screenshot_interval). Empty: "
-            "~/Pictures/macXenos, or a screenshots folder beside the "
+            "~/Pictures/GoXBbox, or a screenshots folder beside the "
             "executable in portable mode or with storage_root set.",
             "General");
 DEFINE_int32(screenshot_interval, 0,
@@ -229,7 +229,7 @@ DEFINE_int32(log_fps_interval, 0,
              "General");
 DEFINE_bool(disable_doubleclick_fullscreen, false,
             "Allows the user to disable the behavior where a fast double-click "
-            "causes macXenos to enter fullscreen mode.",
+            "causes GoXBbox to enter fullscreen mode.",
             "General");
 
 namespace xe {
@@ -246,9 +246,9 @@ using namespace xe::gpu;
 constexpr std::string_view kRecentlyPlayedTitlesFilename = "recent.toml";
 // The most titles recent.toml keeps: the dashboard's All Games list.
 constexpr size_t kMaxPlayedTitles = 1000;
-constexpr std::string_view kBaseTitle = "macXenos";
+constexpr std::string_view kBaseTitle = "GoXBbox";
 constexpr std::string_view kPublicRepositoryUrl =
-    "https://github.com/bourbonicfisky/macXenos";
+    "https://github.com/Blunikoblu/macXenos";
 
 EmulatorWindow::EmulatorWindow(Emulator* emulator,
                                ui::WindowedAppContext& app_context,
@@ -261,7 +261,7 @@ EmulatorWindow::EmulatorWindow(Emulator* emulator,
           std::make_unique<ui::ImGuiDrawer>(window_.get(), kZOrderImGui)),
       display_config_game_config_load_callback_(
           new DisplayConfigGameConfigLoadCallback(*emulator, *this)) {
-  // A release names itself by version and build ("macXenos 1.0 (build
+  // A release names itself by version and build ("GoXBbox 1.0 (build
   // 202611121749)"); a development build adds the branch and commit it was
   // built from.
   base_title_ = std::string(kBaseTitle) + " " + Version();
@@ -759,7 +759,7 @@ bool EmulatorWindow::Initialize() {
             ui::ImGuiDialog::ShowMessageBox(
                 imgui_drawer_.get(), "Title was restarted",
                 "The title keeps asking to be relaunched. Please restart "
-                "macXenos.");
+                "GoXBbox.");
           });
           return;
         }
@@ -795,7 +795,7 @@ bool EmulatorWindow::Initialize() {
           ui::ImGuiDialog::ShowMessageBox(
               imgui_drawer_.get(), "Title was restarted",
               fmt::format("The title asked to launch '{}' but the new process "
-                          "could not be started. Please restart macXenos.",
+                          "could not be started. Please restart GoXBbox.",
                           host_path)
                   .c_str());
         });
@@ -967,10 +967,10 @@ bool EmulatorWindow::Initialize() {
   auto help_menu = MenuItem::Create(MenuItem::Type::kPopup, "&Help");
   {
     help_menu->AddChild(
-        MenuItem::Create(MenuItem::Type::kString, "macXenos &Website...", "F1",
+        MenuItem::Create(MenuItem::Type::kString, "macXenos &Website (original project)...", "F1",
                          std::bind(&EmulatorWindow::ShowWebsite, this)));
     help_menu->AddChild(MenuItem::Create(
-        MenuItem::Type::kString, "macXenos on &GitHub...",
+        MenuItem::Type::kString, "GoXBbox on &GitHub...",
         []() { LaunchWebBrowser(kPublicRepositoryUrl); }));
     help_menu->AddChild(MenuItem::Create(
         MenuItem::Type::kString, "&Report a Bug...", []() {
@@ -1915,8 +1915,8 @@ void EmulatorWindow::CpuTimeScalarSetDouble() {
 void EmulatorWindow::CpuBreakIntoDebugger() {
   if (!cvars::debug) {
     xe::ui::ImGuiDialog::ShowMessageBox(
-        imgui_drawer_.get(), "macXenos Debugger",
-        "macXenos must be launched with the --debug flag in order to enable "
+        imgui_drawer_.get(), "GoXBbox Debugger",
+        "GoXBbox must be launched with the --debug flag in order to enable "
         "debugging.");
     return;
   }
@@ -2895,7 +2895,7 @@ xe::X_STATUS EmulatorWindow::RunTitle(
         xe::SimpleMessageBoxType::Error,
         fmt::format(
             "Unsupported format!\n"
-            "macXenos does not support running software in an archived "
+            "GoXBbox does not support running software in an archived "
             "format."));
 
     return X_STATUS_UNSUCCESSFUL;

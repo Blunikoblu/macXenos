@@ -16,9 +16,9 @@ import { dashboardShortcuts } from "./home";
 import { AVAILABLE, LOCALES, PSEUDO, t, useLanguage } from "../i18n";
 import { getPreferences, usePreferences } from "../ui/preferences";
 
-/** The official website, on About macXenos. */
+/** The official website, on About GoXBbox. */
 const WEBSITE = "https://macxenos.com";
-const REPOSITORY = "https://github.com/bourbonicfisky/macXenos";
+const REPOSITORY = "https://github.com/Blunikoblu/macXenos";
 
 /** Where the sounds come from, and the way to get them if they aren't here. */
 function SoundSource() {

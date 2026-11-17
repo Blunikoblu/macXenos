@@ -16,10 +16,10 @@ export function AppIcon() {
         className="icon-art relative h-auto w-[92%]"
         src={
           theme === "dark"
-            ? "/macxenos-icon-dark.webp"
-            : "/macxenos-icon-light.webp"
+            ? "/goxbbox-icon-dark.webp"
+            : "/goxbbox-icon-light.webp"
         }
-        alt="The macXenos app icon: a red ring of light with a green power symbol still glowing at its centre."
+        alt="The GoXBbox app icon: a smiling white controller dashing across a green background."
         width={768}
         height={768}
         fetchPriority="high"

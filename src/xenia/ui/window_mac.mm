@@ -48,10 +48,10 @@ static void ShowMacAboutPanel() {
                                              attributes:text_attrs]];
   };
 
-  add_line(@"macXenos — an unofficial macOS build of Xenia Canary. Ported by dmg:\n",
+  add_line(@"GoXBbox — based on macXenos, the unofficial macOS port of Xenia Canary by dmg:\n",
            @"https://www.patreon.com/dmug");
-  add_line(@"Official website:\n", @"https://macxenos.com");
-  add_line(@"Source code and bug reports:\n",
+  add_line(@"macXenos website:\n", @"https://macxenos.com");
+  add_line(@"macXenos source code:\n",
            @"https://github.com/bourbonicfisky/macXenos");
   add_line(@"Original project:\n",
            @"https://github.com/xenia-canary/xenia-canary");
@@ -60,7 +60,7 @@ static void ShowMacAboutPanel() {
            @"https://xenia-manager.github.io/compatibility");
 
   [NSApp orderFrontStandardAboutPanel:@{
-    NSAboutPanelOptionApplicationName : @"macXenos",
+    NSAboutPanelOptionApplicationName : @"GoXBbox",
     NSAboutPanelOptionCredits : credits,
   }];
   [NSApp activateIgnoringOtherApps:YES];
@@ -330,8 +330,8 @@ NSMenuItem* CreateApplicationMenuItem(XeniaWindowDelegate* delegate) {
   NSMenu* app_menu = [[NSMenu alloc] initWithTitle:@""];
   app_menu.autoenablesItems = NO;
 
-  // Prefer the bundle's CFBundleName (e.g. "macXenos") so the app menu reads
-  // "About macXenos / Quit macXenos" for the packaged .app. For the bare dev
+  // Prefer the bundle's CFBundleName (e.g. "GoXBbox") so the app menu reads
+  // "About GoXBbox / Quit GoXBbox" for the packaged .app. For the bare dev
   // binary (no bundle) this is empty, so fall back to the process name.
   NSString* app_name =
       [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];

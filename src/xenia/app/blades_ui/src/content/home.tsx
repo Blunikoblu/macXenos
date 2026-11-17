@@ -232,7 +232,7 @@ export function home(state: NativeState): BladeDef {
   return {
     id: "home",
     label: t("home.tab"),
-    title: "macXenos",
+    title: "GoXBbox",
     tone: "green",
     feature: (
       <div className="grid justify-items-center gap-[0.4em]">
