@@ -9,9 +9,10 @@ on:
 jobs:
   build:
     name: Build GoXBbox.app (arm64)
-    # macOS 15 runner: the bundled libraries then target macOS 15, the app's
-    # minimum, so the build runs on any Apple Silicon Mac with macOS 15+.
-    runs-on: macos-15
+    # macOS 26 runner (the macOS 15 arm64 pool was out of capacity). The app
+    # still targets macOS 15: the Vulkan loader is built for 15 and MoltenVK
+    # comes from the official Khronos release instead of Homebrew's bottle.
+    runs-on: macos-26
     timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
@@ -25,6 +26,19 @@ jobs:
           brew install cmake ninja molten-vk vulkan-loader || true
           cmake --version
           ninja --version
+
+      - name: Use official MoltenVK (supports older macOS than the bottle)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/mvk" && cd "$RUNNER_TEMP/mvk"
+          gh release download --repo KhronosGroup/MoltenVK --pattern 'MoltenVK-macos.tar'
+          tar -xf MoltenVK-macos.tar
+          src=$(find . -path '*dynamic*' -name libMoltenVK.dylib | head -1)
+          echo "Using $src"; vtool -show-build "$src" | head -8
+          dst=$(readlink -f /opt/homebrew/lib/libMoltenVK.dylib)
+          cp -f "$src" "$dst"
+          vtool -show-build "$dst" | grep -E 'minos|version' | head -3
 
       - name: Install Metal toolchain
         run: |
